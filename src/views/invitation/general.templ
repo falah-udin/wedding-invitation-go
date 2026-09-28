@@ -1,0 +1,316 @@
+package invitation
+
+import "wedding-invitation-go/internal/models"
+
+// GeneralContent — Step 1: Data umum + bank accounts
+templ GeneralContent(
+	project *models.Project,
+	data map[string]interface{},
+	bankList []map[string]string,
+	errorMsg string,
+	clientID uint,
+) {
+	<div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3">
+		<div>
+			<h2 class="fw-bold mb-1" style="color: #8b5cf6; font-size: 1.5rem;">
+				<i class="bi bi-pencil-square me-2"></i>Step 2: Data Umum
+			</h2>
+			<p class="text-secondary m-0" style="font-size: 0.9rem;">
+				Isi data utama yang akan muncul di semua template
+			</p>
+		</div>
+		<a href="/invitation/create/select-client" class="btn" style="background:#2a2a2a; border:none; border-radius:12px; padding:8px 20px; color:white; text-decoration:none;">
+			<i class="bi bi-x-circle me-2"></i>Batal
+		</a>
+	</div>
+
+	<!-- PROGRESS BAR -->
+	<div class="mb-4">
+		<div class="d-flex justify-content-between mb-2 flex-wrap gap-2">
+			<span style="color: #10b981; font-weight: 600; font-size: 0.85rem;">
+				<i class="bi bi-check-circle-fill me-1"></i> Step 1: Pilih Client
+			</span>
+			<span style="color: #8b5cf6; font-weight: 600; font-size: 0.85rem;">
+				<i class="bi bi-circle-fill me-1" style="font-size: 0.5rem;"></i> Step 2: Data Umum
+			</span>
+			<span style="color: #9ca3af; font-size: 0.85rem;">
+				<i class="bi bi-arrow-right me-1"></i> Step 3: Pilih Template
+			</span>
+			<span style="color: #9ca3af; font-size: 0.85rem;">
+				<i class="bi bi-arrow-right me-1"></i> Step 4: Preview
+			</span>
+		</div>
+		<div class="progress" style="height: 6px; background: #2a2a2a; border-radius: 10px;">
+			<div class="progress-bar" role="progressbar" style="width: 50%; background: #8b5cf6; border-radius: 10px;"></div>
+		</div>
+	</div>
+
+	if errorMsg != "" {
+		<div class="alert mb-3" style="background: rgba(239,68,68,0.1); border-left: 4px solid #ef4444; color: #ef4444; border-radius: 12px; padding: 12px 16px;">
+			<i class="bi bi-exclamation-triangle me-2"></i>{ errorMsg }
+		</div>
+	}
+
+	<form method="POST" action="/invitation/create/general" enctype="multipart/form-data" id="generalForm">
+		<!-- CARD 1: DATA MEMPELAI -->
+		<div class="form-card" style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;">
+			<div class="d-flex align-items-center gap-3 mb-4 pb-3" style="border-bottom:1px solid #2a2a2a;">
+				<div style="width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;">
+					<i class="bi bi-people-fill"></i>
+				</div>
+				<div>
+					<h5 class="mb-0" style="color:#ffffff; font-weight:700; font-size:1.05rem;">Data Mempelai</h5>
+					<p class="m-0" style="color:#9ca3af; font-size:0.8rem;">Nama lengkap kedua mempelai</p>
+				</div>
+			</div>
+
+			<div class="row g-3">
+				<div class="col-12 col-md-6">
+					<label class="form-label" style="color:#d1d5db; font-weight:500;">
+						<i class="bi bi-gender-male me-1" style="color:#3b82f6;"></i>
+						Nama Mempelai Pria <span class="text-danger">*</span>
+					</label>
+					<input type="text" name="groom_name" value={ getStr(data, "groom_name", "") } class="form-control-dark" placeholder="Contoh: Budi Santoso" required/>
+				</div>
+				<div class="col-12 col-md-6">
+					<label class="form-label" style="color:#d1d5db; font-weight:500;">
+						<i class="bi bi-gender-female me-1" style="color:#ec4899;"></i>
+						Nama Mempelai Wanita <span class="text-danger">*</span>
+					</label>
+					<input type="text" name="bride_name" value={ getStr(data, "bride_name", "") } class="form-control-dark" placeholder="Contoh: Siti Aisyah" required/>
+				</div>
+			</div>
+		</div>
+
+		<!-- CARD 2: AKAD NIKAH -->
+		<div class="form-card" style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;">
+			<div class="d-flex align-items-center gap-3 mb-4 pb-3" style="border-bottom:1px solid #2a2a2a;">
+				<div style="width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;">
+					<i class="bi bi-ring"></i>
+				</div>
+				<div>
+					<h5 class="mb-0" style="color:#ffffff; font-weight:700; font-size:1.05rem;">Akad Nikah</h5>
+					<p class="m-0" style="color:#9ca3af; font-size:0.8rem;">Waktu dan tempat akad nikah</p>
+				</div>
+			</div>
+
+			<div class="row g-3">
+				<div class="col-12 col-md-4">
+					<label class="form-label" style="color:#d1d5db; font-weight:500;">
+						<i class="bi bi-calendar-event me-1" style="color:#8b5cf6;"></i>
+						Tanggal Akad <span class="text-danger">*</span>
+					</label>
+					<input type="date" name="akad_date" value={ getStr(data, "akad_date_raw", "") } class="form-control-dark" required/>
+				</div>
+				<div class="col-12 col-md-4">
+					<label class="form-label" style="color:#d1d5db; font-weight:500;">
+						<i class="bi bi-clock me-1" style="color:#8b5cf6;"></i>
+						Waktu Akad <span class="text-danger">*</span>
+					</label>
+					<input type="time" name="akad_time" value={ getStr(data, "akad_time", "08:00") } class="form-control-dark" required/>
+				</div>
+				<div class="col-12 col-md-4">
+					<label class="form-label" style="color:#d1d5db; font-weight:500;">
+						<i class="bi bi-geo-alt me-1" style="color:#8b5cf6;"></i>
+						Tempat Akad <span class="text-danger">*</span>
+					</label>
+					<input type="text" name="akad_venue" value={ getStr(data, "akad_venue", "") } class="form-control-dark" placeholder="Masjid Agung, Jakarta" required/>
+				</div>
+			</div>
+		</div>
+
+		<!-- CARD 3: RESEPSI -->
+		<div class="form-card" style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;">
+			<div class="d-flex align-items-center gap-3 mb-4 pb-3" style="border-bottom:1px solid #2a2a2a;">
+				<div style="width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;">
+					<i class="bi bi-balloon"></i>
+				</div>
+				<div>
+					<h5 class="mb-0" style="color:#ffffff; font-weight:700; font-size:1.05rem;">Resepsi</h5>
+					<p class="m-0" style="color:#9ca3af; font-size:0.8rem;">Waktu, tempat, dan istilah acara resepsi</p>
+				</div>
+			</div>
+
+			<div class="row g-3 mb-4">
+				<div class="col-12 col-md-4">
+					<label class="form-label" style="color:#d1d5db; font-weight:500;">
+						<i class="bi bi-calendar-event me-1" style="color:#8b5cf6;"></i>
+						Tanggal Resepsi <span class="text-danger">*</span>
+					</label>
+					<input type="date" name="resepsi_date" value={ getStr(data, "resepsi_date_raw", "") } class="form-control-dark" required/>
+				</div>
+				<div class="col-12 col-md-4">
+					<label class="form-label" style="color:#d1d5db; font-weight:500;">
+						<i class="bi bi-clock me-1" style="color:#8b5cf6;"></i>
+						Waktu Resepsi <span class="text-danger">*</span>
+					</label>
+					<input type="time" name="resepsi_time" value={ getStr(data, "resepsi_time", "10:00") } class="form-control-dark" required/>
+				</div>
+				<div class="col-12 col-md-4">
+					<label class="form-label" style="color:#d1d5db; font-weight:500;">
+						<i class="bi bi-geo-alt me-1" style="color:#8b5cf6;"></i>
+						Tempat Resepsi <span class="text-danger">*</span>
+					</label>
+					<input type="text" name="resepsi_venue" value={ getStr(data, "resepsi_venue", "") } class="form-control-dark" placeholder="Gedung Serbaguna, Jakarta" required/>
+				</div>
+			</div>
+
+			<!-- Label Resepsi -->
+			<label class="form-label mb-2" style="color:#d1d5db; font-weight:500;">
+				<i class="bi bi-tag me-1" style="color:#8b5cf6;"></i>
+				Istilah untuk Acara Resepsi <span class="text-danger">*</span>
+			</label>
+
+			@resepsiLabelOptions(getStr(data, "resepsi_label", "resepsi"))
+
+			<!-- Custom Label Input -->
+			<div id="custom_resepsi_label_wrapper" class="mt-3" style="display:none;">
+				<label class="form-label" style="color:#d1d5db; font-size:0.85rem;">
+					Tulis Istilah Custom Anda
+				</label>
+				<input type="text" name="resepsi_label_custom" value={ getStr(data, "resepsi_label_custom", "") } class="form-control-dark" placeholder="Contoh: Pesta Pernikahan, Syukuran, dll." style="max-width:400px;"/>
+				<small style="color:#6b7280; font-size:0.75rem; display:block; margin-top:4px;">Istilah ini akan tampil di undangan</small>
+			</div>
+		</div>
+
+		<!-- CARD 4: PENGATURAN TAMPILAN -->
+		<div class="form-card" style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;">
+			<div class="d-flex align-items-center gap-3 mb-4 pb-3" style="border-bottom:1px solid #2a2a2a;">
+				<div style="width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;">
+					<i class="bi bi-eye"></i>
+				</div>
+				<div>
+					<h5 class="mb-0" style="color:#ffffff; font-weight:700; font-size:1.05rem;">Pengaturan Tampilan Cover</h5>
+					<p class="m-0" style="color:#9ca3af; font-size:0.8rem;">Pilih informasi apa saja yang tampil di cover undangan</p>
+				</div>
+			</div>
+
+			<label class="form-label mb-2" style="color:#d1d5db; font-weight:500;">
+				<i class="bi bi-calendar-check me-1" style="color:#8b5cf6;"></i>
+				Tanggal yang Ditampilkan di Cover <span class="text-danger">*</span>
+			</label>
+			@showDatesOptions(getStr(data, "show_dates", "both"))
+
+			<label class="form-label mb-2 mt-4" style="color:#d1d5db; font-weight:500;">
+				<i class="bi bi-geo-alt me-1" style="color:#8b5cf6;"></i>
+				Lokasi yang Ditampilkan di Cover <span class="text-danger">*</span>
+			</label>
+			@showVenueOptions(getStr(data, "show_venue", "both"))
+		</div>
+
+		<!-- CARD 5: BANK ACCOUNTS -->
+		<div class="form-card" style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;">
+			<div class="d-flex align-items-center gap-3 mb-4 pb-3" style="border-bottom:1px solid #2a2a2a;">
+				<div style="width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;">
+					<i class="bi bi-wallet2"></i>
+				</div>
+				<div>
+					<h5 class="mb-0" style="color:#ffffff; font-weight:700; font-size:1.05rem;">Rekening / Amplop Digital</h5>
+					<p class="m-0" style="color:#9ca3af; font-size:0.8rem;">Fitur opsional untuk hadiah digital</p>
+				</div>
+			</div>
+
+			<div class="mb-3" style="background: rgba(59,130,246,0.08); border-left: 3px solid #3b82f6; color: #93c5fd; border-radius: 10px; padding: 10px 14px; font-size: 0.8rem;">
+				<i class="bi bi-info-circle me-1"></i>
+				Jika diaktifkan, tamu dapat melihat info rekening untuk mengirim hadiah digital.
+			</div>
+
+			<label class="form-label mb-2" style="color:#d1d5db; font-weight:500;">
+				Tampilkan Rekening di Undangan?
+			</label>
+
+			@showBankAccountsOptions(getStr(data, "show_bank_accounts", "no"))
+
+			<!-- Container Rekening -->
+			<div id="bank_accounts_container" style="display:none; margin-top:20px;">
+				<div id="bank_accounts_list"></div>
+
+				<button type="button" onclick="addBankAccount()" class="btn" style="width:100%; background:transparent; border:1.5px dashed #8b5cf6; color:#8b5cf6; padding:14px; border-radius:12px; margin-top:10px;">
+					<i class="bi bi-plus-circle me-2"></i>Tambah Rekening / E-Wallet
+				</button>
+				<small style="color:#6b7280; font-size:0.75rem; display:block; text-align:center; margin-top:8px;">
+					<i class="bi bi-lightbulb me-1"></i> Bisa tambah lebih dari 1 rekening (max 5)
+				</small>
+			</div>
+		</div>
+
+		<!-- SUBMIT BUTTONS -->
+		<div class="d-flex gap-3 flex-wrap">
+			<a href="/invitation/create/select-client" class="btn" style="background:#2a2a2a; border:none; border-radius:12px; padding:14px 32px; color:white; text-decoration:none; font-weight:600;">
+				<i class="bi bi-arrow-left me-2"></i>Kembali
+			</a>
+			<button type="submit" class="btn" style="flex:1; min-width:240px; background:#8b5cf6; border:none; border-radius:12px; padding:14px 32px; color:white; font-weight:600;">
+				<i class="bi bi-save me-2"></i>Simpan & Lanjut ke Pemilihan Template
+			</button>
+		</div>
+	</form>
+
+	<!-- Data untuk JavaScript -->
+	<input type="hidden" id="bankListData" value={ bankListJSON(bankList) }/>
+	<input type="hidden" id="existingAccountsData" value={ bankAccountsJSON(data) }/>
+
+	<!-- Init Script -->
+	@generalScript()
+}
+
+// ============================================
+// Sub-komponen: Resepsi Label Options
+// ============================================
+templ resepsiLabelOptions(current string) {
+	<div class="radio-option-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px;">
+		@radioCard("resepsi_label", "resepsi", "Resepsi", "Istilah umum", "bi-balloon", current)
+		@radioCard("resepsi_label", "walimatul_ursy", "Walimatul Ursy", "Istilah Islami", "bi-moon-stars", current)
+		@radioCard("resepsi_label", "walimah", "Walimah", "Singkat", "bi-moon", current)
+		@radioCard("resepsi_label", "custom", "Custom", "Tulis sendiri", "bi-pencil", current)
+	</div>
+}
+
+// ============================================
+// Sub-komponen: Show Dates Options
+// ============================================
+templ showDatesOptions(current string) {
+	<div class="radio-option-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px;">
+		@radioCard("show_dates", "both", "Keduanya", "Akad & Resepsi", "bi-calendar2-range", current)
+		@radioCard("show_dates", "akad", "Akad Saja", "Hanya tanggal akad", "bi-calendar3", current)
+		@radioCard("show_dates", "resepsi", "Resepsi Saja", "Hanya tanggal resepsi", "bi-calendar-event", current)
+		@radioCard("show_dates", "none", "Tidak Ada", "Sembunyikan semua", "bi-eye-slash", current)
+	</div>
+}
+
+// ============================================
+// Sub-komponen: Show Venue Options
+// ============================================
+templ showVenueOptions(current string) {
+	<div class="radio-option-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px;">
+		@radioCard("show_venue", "both", "Keduanya", "Akad & Resepsi", "bi-geo-alt", current)
+		@radioCard("show_venue", "akad", "Tempat Akad", "Hanya lokasi akad", "bi-building", current)
+		@radioCard("show_venue", "resepsi", "Tempat Resepsi", "Hanya lokasi resepsi", "bi-building", current)
+		@radioCard("show_venue", "none", "Tidak Ada", "Sembunyikan semua", "bi-eye-slash", current)
+	</div>
+}
+
+// ============================================
+// Sub-komponen: Show Bank Accounts Options
+// ============================================
+templ showBankAccountsOptions(current string) {
+	<div class="radio-option-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
+		@radioCard("show_bank_accounts", "yes", "Ya, Tampilkan", "Tamu bisa lihat rekening", "bi-check-circle", current)
+		@radioCard("show_bank_accounts", "no", "Tidak, Sembunyikan", "Tidak ditampilkan", "bi-x-circle", current)
+	</div>
+}
+
+// ============================================
+// Sub-komponen: Radio Card (reusable)
+// ============================================
+templ radioCard(name string, value string, title string, desc string, icon string, current string) {
+	<label style="display:flex; align-items:flex-start; gap:10px; padding:14px 16px; background:#0f0f0f; border:1.5px solid #2a2a2a; border-radius:12px; cursor:pointer; transition:all 0.2s; height:100%; margin:0;">
+		<input type="radio" name={ name } value={ value } checked?={ current == value } style="margin-top:4px; accent-color:#8b5cf6;" onchange="handleRadioChange(this)"/>
+		<div style="flex:1;">
+			<div style="display:flex; align-items:center; gap:8px; margin-bottom:2px;">
+				<i class={ "bi", icon } style="color:#8b5cf6;"></i>
+				<span style="color:#ffffff; font-weight:600; font-size:0.85rem;">{ title }</span>
+			</div>
+			<span style="color:#9ca3af; font-size:0.72rem; line-height:1.4; display:block;">{ desc }</span>
+		</div>
+	</label>
+}

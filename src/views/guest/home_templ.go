@@ -320,7 +320,7 @@ func HomePage(setting models.Config, templates []models.Template, isLoggedIn boo
 					return templ_7745c5c3_Err
 				}
 				if isLoggedIn {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "<a href=\"/invitation/create\" class=\"btn btn-sm btn-primary-custom flex-fill\" style=\"padding: 6px 12px; font-size: 0.75rem;\"><i class=\"bi bi-plus-circle me-1\"></i> Gunakan</a>")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "<a href=\"/invitation/create/select-client\" class=\"btn btn-sm btn-primary-custom flex-fill\" style=\"padding: 6px 12px; font-size: 0.75rem;\"><i class=\"bi bi-plus-circle me-1\"></i> Gunakan</a>")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}

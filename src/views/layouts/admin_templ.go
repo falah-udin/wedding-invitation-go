@@ -148,7 +148,7 @@ func AdminLayout(user models.User, setting models.Config, activePage string, con
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = adminSidebarItem("/invitation/create", "bi-plus-circle", "Buat Undangan", "invitation.create", activePage).Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = adminSidebarItem("/invitation/create/select-client", "bi-plus-circle", "Buat Undangan", "invitation.create", activePage).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

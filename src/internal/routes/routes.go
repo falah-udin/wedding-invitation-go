@@ -5,6 +5,7 @@ import (
 
 	"wedding-invitation-go/internal/handlers"
 	adminHandlers "wedding-invitation-go/internal/handlers/admin"
+	invitationHandlers "wedding-invitation-go/internal/handlers/invitation"
 	"wedding-invitation-go/internal/middleware"
 )
 
@@ -61,5 +62,17 @@ func Register(r *gin.Engine) {
 		admin.POST("/settings", adminHandlers.SettingUpdate)
 		admin.POST("/settings/delete-favicon", adminHandlers.SettingDeleteFavicon)
 		admin.POST("/settings/delete-qris", adminHandlers.SettingDeleteQris)
+	}
+
+	// INVITATION WIZARD (auth required — admin, staff, client semua boleh)
+	wizard := r.Group("/invitation/create")
+	wizard.Use(middleware.RequireAuth())
+	{
+		wizard.GET("/select-client", invitationHandlers.SelectClient)
+		wizard.POST("/select-client", invitationHandlers.StoreClient)
+		wizard.GET("/general", invitationHandlers.General)
+		wizard.POST("/general", invitationHandlers.GeneralSave)
+		wizard.GET("/template", invitationHandlers.TemplateList)
+		wizard.POST("/template", invitationHandlers.TemplateSave)
 	}
 }

@@ -18,6 +18,10 @@ func Seed() error {
 		return err
 	}
 
+	if err := seedTemplates(); err != nil {
+		return err
+	}
+
 	log.Println("✅ Seeder selesai")
 	return nil
 }
@@ -38,7 +42,6 @@ func seedUsers() error {
 		var existing models.User
 		result := DB.Where("email = ?", u.Email).First(&existing)
 		if result.Error == nil {
-			log.Printf("⏭️  User %s sudah ada, skip", u.Email)
 			continue
 		}
 
@@ -58,9 +61,9 @@ func seedUsers() error {
 		if err := DB.Create(&user).Error; err != nil {
 			return err
 		}
-		log.Printf("✅ User dibuat: %s (%s)", u.Email, u.Role)
 	}
 
+	log.Println("✅ Users di-seed")
 	return nil
 }
 
@@ -109,6 +112,6 @@ func seedSiteSettings() error {
 		}
 	}
 
-	log.Printf("✅ Site settings di-seed (%d items)", len(defaults))
+	log.Println("✅ Site settings di-seed")
 	return nil
 }

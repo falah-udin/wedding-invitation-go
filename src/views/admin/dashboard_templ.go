@@ -57,7 +57,7 @@ func DashboardContent(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</strong>!</p></div><a href=\"/invitation/create\" class=\"btn-primary-custom\"><i class=\"bi bi-plus-circle me-2\"></i>Buat Undangan</a></div><!-- STATS CARDS - UTAMA --><div class=\"row g-3 mb-4\"><div class=\"col-6 col-md-3\"><div class=\"p-3 text-center\" style=\"background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a; border-top:4px solid #8b5cf6;\"><i class=\"bi bi-envelope-paper fs-2 mb-2\" style=\"color:#8b5cf6;\"></i><h6 class=\"mb-1\" style=\"color:#9ca3af; font-size:0.75rem;\">Total Project</h6><h2 class=\"fw-bold mb-0\" style=\"color:white; font-size:2rem;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</strong>!</p></div><a href=\"/invitation/create/select-client\" class=\"btn-primary-custom\"><i class=\"bi bi-plus-circle me-2\"></i>Buat Undangan</a></div><!-- STATS CARDS - UTAMA --><div class=\"row g-3 mb-4\"><div class=\"col-6 col-md-3\"><div class=\"p-3 text-center\" style=\"background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a; border-top:4px solid #8b5cf6;\"><i class=\"bi bi-envelope-paper fs-2 mb-2\" style=\"color:#8b5cf6;\"></i><h6 class=\"mb-1\" style=\"color:#9ca3af; font-size:0.75rem;\">Total Project</h6><h2 class=\"fw-bold mb-0\" style=\"color:white; font-size:2rem;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

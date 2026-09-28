@@ -1,0 +1,93 @@
+package invitation
+
+import "wedding-invitation-go/internal/models"
+
+// SelectClientContent — Step 0: Pilih client
+templ SelectClientContent(clients []models.User, errorMsg string) {
+	<!-- HEADER -->
+	<div class="d-flex justify-content-between align-items-center mb-4">
+		<div>
+			<h2 class="fw-bold" style="color: #8b5cf6;">
+				<i class="bi bi-person-plus me-2"></i>Buat Undangan untuk Client
+			</h2>
+			<p class="text-secondary m-0">Pilih client yang akan dibuatkan undangan</p>
+		</div>
+		<a href="/admin/projects" class="btn" style="background:#2a2a2a; border:none; border-radius:12px; padding:8px 20px; color:white; text-decoration:none;">
+			<i class="bi bi-arrow-left me-2"></i>Kembali
+		</a>
+	</div>
+
+	<!-- PROGRESS BAR -->
+	<div class="mb-4">
+		<div class="d-flex justify-content-between mb-2 flex-wrap gap-2">
+			<span style="color: #8b5cf6; font-weight: 600; font-size: 0.85rem;">
+				<i class="bi bi-circle-fill me-1" style="font-size: 0.5rem;"></i> Step 1: Pilih Client
+			</span>
+			<span style="color: #9ca3af; font-size: 0.85rem;">
+				<i class="bi bi-arrow-right me-1"></i> Step 2: Data Umum
+			</span>
+			<span style="color: #9ca3af; font-size: 0.85rem;">
+				<i class="bi bi-arrow-right me-1"></i> Step 3: Pilih Template
+			</span>
+			<span style="color: #9ca3af; font-size: 0.85rem;">
+				<i class="bi bi-arrow-right me-1"></i> Step 4: Preview
+			</span>
+		</div>
+		<div class="progress" style="height: 6px; background: #2a2a2a; border-radius: 10px;">
+			<div class="progress-bar" role="progressbar" style="width: 25%; background: #8b5cf6; border-radius: 10px;"></div>
+		</div>
+	</div>
+
+	if errorMsg != "" {
+		<div class="alert mb-3" style="background: rgba(239,68,68,0.1); border-left: 4px solid #ef4444; color: #ef4444; border-radius: 12px; padding: 12px 16px;">
+			<i class="bi bi-exclamation-triangle me-2"></i>{ errorMsg }
+		</div>
+	}
+
+	<!-- FORM -->
+	<div class="p-4" style="background: #1e1e1e; border-radius: 20px; border: 1px solid #2a2a2a;">
+		<form method="POST" action="/invitation/create/select-client">
+			<div class="row g-4">
+				<div class="col-12">
+					<label class="form-label" style="color: #9ca3af; font-weight:500;">
+						<i class="bi bi-person me-1"></i> Pilih Client <span class="text-danger">*</span>
+					</label>
+					<select name="client_id" class="form-control-dark" required>
+						<option value="">-- Pilih Client --</option>
+						if len(clients) > 0 {
+							for _, client := range clients {
+								<option value={ formatUint(client.ID) }>{ client.Name } ({ client.Email })</option>
+							}
+						}
+					</select>
+					if len(clients) == 0 {
+						<small style="color: #f59e0b; display:block; margin-top: 6px;">
+							<i class="bi bi-exclamation-triangle me-1"></i>
+							Belum ada client terdaftar. <a href="/admin/users/create" style="color: #8b5cf6;">Buat client dulu</a>
+						</small>
+					}
+				</div>
+
+				<div class="col-12 d-flex gap-3 flex-wrap">
+					<button type="submit" class="btn" style="background:#8b5cf6; border:none; border-radius:12px; padding:12px 32px; color:white; font-weight:600;">
+						<i class="bi bi-arrow-right me-2"></i>Lanjut ke Data Undangan
+					</button>
+					<a href="/admin/projects" class="btn" style="background:#2a2a2a; border:none; border-radius:12px; padding:12px 32px; color:white; text-decoration:none;">
+						<i class="bi bi-x-circle me-2"></i>Batal
+					</a>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<!-- INFO -->
+	<div class="mt-4 p-4" style="background: #1e1e1e; border-radius: 20px; border: 1px solid #2a2a2a;">
+		<h5 style="color: #8b5cf6;"><i class="bi bi-info-circle me-2"></i>Informasi</h5>
+		<ul style="color: #9ca3af; list-style:none; padding-left:0; margin-bottom:0;">
+			<li class="mb-2"><i class="bi bi-check-circle me-2" style="color: #10b981;"></i>Pilih client yang akan dibuatkan undangan</li>
+			<li class="mb-2"><i class="bi bi-check-circle me-2" style="color: #10b981;"></i>Client akan melihat undangan di dashboard mereka</li>
+			<li class="mb-2"><i class="bi bi-check-circle me-2" style="color: #10b981;"></i>Admin bisa mengisi semua data undangan untuk client</li>
+		</ul>
+	</div>
+}
+

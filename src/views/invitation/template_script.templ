@@ -1,0 +1,102 @@
+package invitation
+
+// templateScript — JavaScript untuk form template
+templ templateScript() {
+	<script>
+	// ============================================
+	// REPEATER — Add item
+	// ============================================
+	window.addRepeaterItem = function(fieldName) {
+		const container = document.getElementById('repeater-' + fieldName);
+		if (!container) return;
+
+		const items = container.querySelectorAll('.repeater-item');
+		const newIndex = items.length;
+
+		if (newIndex >= 10) {
+			alert('Maksimal 10 cerita');
+			return;
+		}
+
+		const div = document.createElement('div');
+		div.className = 'repeater-item';
+		div.dataset.index = newIndex;
+		div.style.cssText = 'background:#0f0f0f; border:1px solid #2a2a2a; border-radius:12px; padding:16px; margin-bottom:12px; position:relative;';
+		div.innerHTML = `
+			<div class="row g-3">
+				<div class="col-12 col-md-4">
+					<label style="color:#9ca3af; font-size:0.75rem; margin-bottom:6px; display:block;">Judul</label>
+					<input type="text" name="specific.${fieldName}[${newIndex}][title]" class="form-control-dark" placeholder="Contoh: Pertemuan Pertama" style="font-size:0.85rem;">
+				</div>
+				<div class="col-12 col-md-8">
+					<label style="color:#9ca3af; font-size:0.75rem; margin-bottom:6px; display:block;">Deskripsi</label>
+					<textarea name="specific.${fieldName}[${newIndex}][desc]" class="form-control-dark" rows="2" placeholder="Ceritakan momen indah ini..." style="font-size:0.85rem; resize:vertical;"></textarea>
+				</div>
+			</div>
+			<button type="button" onclick="removeRepeaterItem(this)" style="position:absolute; top:10px; right:10px; background:rgba(239,68,68,0.15); color:#ef4444; border:1px solid rgba(239,68,68,0.3); border-radius:8px; width:26px; height:26px; font-size:12px; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+				<i class="bi bi-x"></i>
+			</button>
+		`;
+
+		container.appendChild(div);
+		div.scrollIntoView({ behavior: 'smooth', block: 'center' });
+	};
+
+	// ============================================
+	// REPEATER — Remove item
+	// ============================================
+	window.removeRepeaterItem = function(btn) {
+		const item = btn.closest('.repeater-item');
+		const container = item.parentElement;
+		const items = container.querySelectorAll('.repeater-item');
+
+		if (items.length <= 1) {
+			alert('Minimal 1 cerita');
+			return;
+		}
+
+		if (!confirm('Hapus cerita ini?')) return;
+
+		item.remove();
+		reindexRepeater(container);
+	};
+
+	// ============================================
+	// REPEATER — Reindex
+	// ============================================
+	function reindexRepeater(container) {
+		const items = container.querySelectorAll('.repeater-item');
+		const fieldName = container.id.replace('repeater-', '');
+
+		items.forEach(function(item, index) {
+			item.dataset.index = index;
+			item.querySelectorAll('input, textarea').forEach(function(input) {
+				const name = input.getAttribute('name');
+				if (name) {
+					input.setAttribute('name', name.replace(/\[\d+\]/, '[' + index + ']'));
+				}
+			});
+		});
+	}
+
+	// ============================================
+	// GALLERY — Delete item (mark for deletion)
+	// ============================================
+	window.deleteGalleryItem = function(fieldName, fileUrl) {
+		if (!confirm('Hapus foto ini?')) return;
+
+		// Tambahkan hidden input untuk tandai file yang dihapus
+		const form = document.getElementById('templateForm');
+		if (!form) return;
+
+		const input = document.createElement('input');
+		input.type = 'hidden';
+		input.name = 'specific.' + fieldName + '_delete[]';
+		input.value = fileUrl;
+		form.appendChild(input);
+
+		// Sembunyikan preview
+		event.target.closest('div').style.display = 'none';
+	};
+	</script>
+}

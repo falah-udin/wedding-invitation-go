@@ -44,7 +44,7 @@ func IndexContent(
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3\"><div><h2 class=\"fw-bold\" style=\"color: #8b5cf6;\"><i class=\"bi bi-envelope-paper me-2\"></i>Proyek Undangan</h2><p class=\"text-secondary m-0\">Kelola semua proyek undangan dari client</p></div><a href=\"/invitation/create\" class=\"btn-primary-custom\"><i class=\"bi bi-plus-circle me-2\"></i>Buat Undangan</a></div><!-- STATS --><div class=\"row g-3 mb-4\"><div class=\"col-6 col-md-2\"><div class=\"p-3 text-center\" style=\"background:#1e1e1e; border-radius:12px; border:1px solid #2a2a2a;\"><h5 class=\"mb-1\" style=\"color: #8b5cf6;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3\"><div><h2 class=\"fw-bold\" style=\"color: #8b5cf6;\"><i class=\"bi bi-envelope-paper me-2\"></i>Proyek Undangan</h2><p class=\"text-secondary m-0\">Kelola semua proyek undangan dari client</p></div><a href=\"/invitation/create/select-client\" class=\"btn-primary-custom\"><i class=\"bi bi-plus-circle me-2\"></i>Buat Undangan</a></div><!-- STATS --><div class=\"row g-3 mb-4\"><div class=\"col-6 col-md-2\"><div class=\"p-3 text-center\" style=\"background:#1e1e1e; border-radius:12px; border:1px solid #2a2a2a;\"><h5 class=\"mb-1\" style=\"color: #8b5cf6;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -1,0 +1,250 @@
+package invitation
+
+// generalScript — JavaScript untuk form general
+templ generalScript() {
+	<script>
+	// ============================================
+	// RESEPSI LABEL — toggle custom input
+	// ============================================
+	document.addEventListener('DOMContentLoaded', function() {
+		const customWrapper = document.getElementById('custom_resepsi_label_wrapper');
+		const radios = document.querySelectorAll('input[name="resepsi_label"]');
+
+		function updateCustomWrapper() {
+			const selected = document.querySelector('input[name="resepsi_label"]:checked');
+			if (selected && selected.value === 'custom') {
+				customWrapper.style.display = 'block';
+			} else {
+				customWrapper.style.display = 'none';
+			}
+		}
+
+		radios.forEach(r => r.addEventListener('change', updateCustomWrapper));
+		updateCustomWrapper();
+	});
+
+	// ============================================
+	// SHOW BANK ACCOUNTS TOGGLE
+	// ============================================
+	document.addEventListener('DOMContentLoaded', function() {
+		const container = document.getElementById('bank_accounts_container');
+		const radios = document.querySelectorAll('input[name="show_bank_accounts"]');
+
+		function updateBankContainer() {
+			const selected = document.querySelector('input[name="show_bank_accounts"]:checked');
+			if (selected && selected.value === 'yes') {
+				container.style.display = 'block';
+			} else {
+				container.style.display = 'none';
+			}
+		}
+
+		radios.forEach(r => r.addEventListener('change', updateBankContainer));
+		updateBankContainer();
+	});
+
+	// ============================================
+	// HANDLE RADIO CHANGE (visual feedback)
+	// ============================================
+	window.handleRadioChange = function(radio) {
+		const name = radio.name;
+		document.querySelectorAll('input[name="' + name + '"]').forEach(r => {
+			const label = r.closest('label');
+			if (r.checked) {
+				label.style.borderColor = '#8b5cf6';
+				label.style.background = 'rgba(139,92,246,0.08)';
+			} else {
+				label.style.borderColor = '#2a2a2a';
+				label.style.background = '#0f0f0f';
+			}
+		});
+	};
+
+	// ============================================
+	// BANK ACCOUNTS REPEATER
+	// ============================================
+	window.bankAccountCounter = 0;
+
+	// Ambil data dari hidden input
+	window.getBankList = function() {
+		try {
+			return JSON.parse(document.getElementById('bankListData').value || '[]');
+		} catch (e) {
+			return [];
+		}
+	};
+
+	window.getExistingAccounts = function() {
+		try {
+			return JSON.parse(document.getElementById('existingAccountsData').value || '[]');
+		} catch (e) {
+			return [];
+		}
+	};
+
+	// Add bank account card
+	window.addBankAccount = function(data) {
+		const container = document.getElementById('bank_accounts_list');
+		const count = container.querySelectorAll('.bank-card').length;
+
+		if (count >= 5) {
+			alert('Maksimal 5 rekening');
+			return;
+		}
+
+		window.bankAccountCounter++;
+		const idx = count;
+		const uid = 'bank_' + Date.now() + '_' + window.bankAccountCounter;
+
+		const account = data || {
+			id: uid,
+			type: 'bank',
+			bank_code: 'bca',
+			bank_name: '',
+			account_number: '',
+			account_name: '',
+			icon_type: 'library',
+			icon_path: null
+		};
+
+		const bankList = window.getBankList();
+		const bankOptions = bankList.map(b => {
+			const selected = account.bank_code === b.code ? 'selected' : '';
+			return '<option value="' + b.code + '" data-type="' + b.type + '" ' + selected + '>' + b.name + '</option>';
+		}).join('');
+
+		const card = document.createElement('div');
+		card.className = 'bank-card';
+		card.dataset.index = idx;
+		card.dataset.uid = account.id || uid;
+		card.style.cssText = 'background:#0f0f0f; border:1px solid #2a2a2a; border-radius:14px; padding:18px; margin-bottom:14px;';
+
+		card.innerHTML = `
+			<input type="hidden" name="bank_accounts[${idx}][id]" value="${account.id || uid}">
+			<input type="hidden" name="bank_accounts[${idx}][existing_icon_path]" value="${account.icon_path || ''}">
+			<input type="hidden" name="bank_accounts[${idx}][icon_type]" value="${account.icon_type || 'library'}" class="icon-type-input">
+
+			<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid #2a2a2a;">
+				<div style="color:#8b5cf6; font-size:0.85rem; font-weight:600;">
+					<i class="bi bi-credit-card-2-front"></i>
+					Rekening #<span class="bank-number-label">${idx + 1}</span>
+				</div>
+				<button type="button" onclick="removeBankAccount(this)" style="background:rgba(239,68,68,0.15); color:#ef4444; border:1px solid rgba(239,68,68,0.3); border-radius:8px; padding:5px 12px; font-size:0.72rem; cursor:pointer;">
+					<i class="bi bi-trash"></i> Hapus
+				</button>
+			</div>
+
+			<div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:12px;">
+				<div>
+					<label style="color:#9ca3af; font-size:0.75rem; display:block; margin-bottom:4px;">Tipe</label>
+					<select name="bank_accounts[${idx}][type]" class="form-control-dark bank-type-select" onchange="filterBankOptions(this)" style="font-size:0.85rem;">
+						<option value="bank" ${account.type === 'bank' ? 'selected' : ''}>🏦 Bank</option>
+						<option value="ewallet" ${account.type === 'ewallet' ? 'selected' : ''}>📱 E-Wallet</option>
+						<option value="qris" ${account.type === 'qris' ? 'selected' : ''}>📷 QRIS</option>
+						<option value="other" ${account.type === 'other' ? 'selected' : ''}>📦 Lainnya</option>
+					</select>
+				</div>
+				<div>
+					<label style="color:#9ca3af; font-size:0.75rem; display:block; margin-bottom:4px;">Bank / E-Wallet</label>
+					<select name="bank_accounts[${idx}][bank_code]" class="form-control-dark bank-code-select" onchange="onBankChange(this)" style="font-size:0.85rem;">
+						${bankOptions}
+					</select>
+				</div>
+				<div class="bank-custom-name-wrapper" style="${account.bank_code === 'other' ? 'display:block' : 'display:none'};">
+					<label style="color:#9ca3af; font-size:0.75rem; display:block; margin-bottom:4px;">Nama Custom</label>
+					<input type="text" name="bank_accounts[${idx}][bank_name]" value="${account.bank_name || ''}" class="form-control-dark" placeholder="Nama bank" style="font-size:0.85rem;">
+				</div>
+			</div>
+
+			<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+				<div>
+					<label style="color:#9ca3af; font-size:0.75rem; display:block; margin-bottom:4px;">Nomor Rekening / HP <span style="color:#ef4444;">*</span></label>
+					<input type="text" name="bank_accounts[${idx}][account_number]" value="${account.account_number || ''}" class="form-control-dark" placeholder="1234567890" style="font-size:0.85rem;">
+				</div>
+				<div>
+					<label style="color:#9ca3af; font-size:0.75rem; display:block; margin-bottom:4px;">Nama Pemilik <span style="color:#ef4444;">*</span></label>
+					<input type="text" name="bank_accounts[${idx}][account_name]" value="${account.account_name || ''}" class="form-control-dark" placeholder="Sesuai buku tabungan" style="font-size:0.85rem;">
+				</div>
+			</div>
+		`;
+
+		container.appendChild(card);
+
+		// Init select
+		const typeSelect = card.querySelector('.bank-type-select');
+		if (typeSelect) filterBankOptions(typeSelect);
+	};
+
+	// Remove bank account
+	window.removeBankAccount = function(btn) {
+		if (confirm('Hapus rekening ini?')) {
+			btn.closest('.bank-card').remove();
+			window.reindexBankAccounts();
+		}
+	};
+
+	// Reindex bank accounts
+	window.reindexBankAccounts = function() {
+		const cards = document.querySelectorAll('#bank_accounts_list .bank-card');
+		cards.forEach(function(card, newIdx) {
+			card.dataset.index = newIdx;
+			const label = card.querySelector('.bank-number-label');
+			if (label) label.textContent = newIdx + 1;
+
+			card.querySelectorAll('input, select').forEach(function(input) {
+				const name = input.getAttribute('name');
+				if (name) {
+					input.setAttribute('name', name.replace(/bank_accounts\[\d+\]/, 'bank_accounts[' + newIdx + ']'));
+				}
+			});
+		});
+	};
+
+	// Filter bank options berdasarkan tipe
+	window.filterBankOptions = function(select) {
+		const card = select.closest('.bank-card');
+		const type = select.value;
+		const bankSelect = card.querySelector('.bank-code-select');
+		const currentVal = bankSelect.value;
+
+		const bankList = window.getBankList();
+		let options = '';
+		bankList.forEach(function(b) {
+			if (type === 'bank' && b.type !== 'bank') return;
+			if (type === 'ewallet' && b.type !== 'ewallet') return;
+			if (type === 'qris' && b.type !== 'qris') return;
+			if (type === 'other') return;
+			const selected = currentVal === b.code ? 'selected' : '';
+			options += '<option value="' + b.code + '" ' + selected + '>' + b.name + '</option>';
+		});
+		options += '<option value="other"' + (currentVal === 'other' ? ' selected' : '') + '>Lainnya</option>';
+
+		bankSelect.innerHTML = options;
+		window.onBankChange(bankSelect);
+	};
+
+	// Handle bank change (show/hide custom name)
+	window.onBankChange = function(select) {
+		const card = select.closest('.bank-card');
+		const customWrapper = card.querySelector('.bank-custom-name-wrapper');
+		if (customWrapper) {
+			customWrapper.style.display = select.value === 'other' ? 'block' : 'none';
+		}
+	};
+
+	// ============================================
+	// INIT ON PAGE LOAD
+	// ============================================
+	document.addEventListener('DOMContentLoaded', function() {
+		const existing = window.getExistingAccounts();
+		const container = document.getElementById('bank_accounts_list');
+		if (!container) return;
+
+		if (existing && existing.length > 0) {
+			existing.forEach(function(acc) {
+				window.addBankAccount(acc);
+			});
+		}
+	});
+	</script>
+}
