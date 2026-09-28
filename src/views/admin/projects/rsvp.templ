@@ -1,0 +1,169 @@
+package projects
+
+import (
+	templpkg "github.com/a-h/templ"
+	"wedding-invitation-go/internal/models"
+)
+
+// RsvpContent — Halaman RSVP Admin
+templ RsvpContent(
+	project models.Project,
+	rsvps []models.Rsvp,
+	errorMsg string,
+	successMsg string,
+) {
+	<div class="container-fluid">
+		<!-- HEADER -->
+		<div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3">
+			<div>
+				<h2 class="fw-bold mb-1" style="color: #ec489a;">
+					<i class="bi bi-people me-2"></i>Manajemen Reservasi
+				</h2>
+				<p class="text-secondary m-0" style="font-size: 0.9rem;">
+					<a href="/admin/projects" style="color: #8b5cf6; text-decoration: none;">
+						<i class="bi bi-arrow-left me-1"></i>Kembali
+					</a>
+					&nbsp;•&nbsp;
+					<strong style="color: white;">{ project.Title }</strong>
+					<span class="badge ms-2" style="background: #10b981;">{ formatIntRSVP(int(project.TotalRsvp)) } RSVP</span>
+				</p>
+			</div>
+			<div>
+				<a href={ templpkg.URL("/invitation/" + project.Slug) } target="_blank" class="btn" style="background: #8b5cf6; color: white; border: none; padding: 10px 24px; border-radius: 12px; font-weight: 600; text-decoration: none;">
+					<i class="bi bi-box-arrow-up-right me-2"></i>Lihat Undangan
+				</a>
+			</div>
+		</div>
+
+		if errorMsg != "" {
+			<div class="alert mb-3" style="background: rgba(239,68,68,0.1); border-left: 4px solid #ef4444; color: #ef4444; border-radius: 12px; padding: 12px 16px;">
+				<i class="bi bi-exclamation-triangle me-2"></i>{ errorMsg }
+			</div>
+		}
+		if successMsg != "" {
+			<div class="alert mb-3" style="background: rgba(16,185,129,0.1); border-left: 4px solid #10b981; color: #10b981; border-radius: 12px; padding: 12px 16px;">
+				<i class="bi bi-check-circle me-2"></i>{ successMsg }
+			</div>
+		}
+
+		<!-- STATS -->
+		<div class="row g-3 mb-4">
+			<div class="col-6 col-md-3">
+				<div class="p-3 text-center" style="background: #1e1e1e; border-radius: 16px; border: 1px solid #2a2a2a;">
+					<h5 class="mb-1" style="color: #3b82f6;">{ formatIntRSVP(len(rsvps)) }</h5>
+					<small style="color: #9ca3af; font-size: 0.75rem;">Total</small>
+				</div>
+			</div>
+			<div class="col-6 col-md-3">
+				<div class="p-3 text-center" style="background: #1e1e1e; border-radius: 16px; border: 1px solid #2a2a2a;">
+					<h5 class="mb-1" style="color: #34d399;">{ formatIntRSVP(countRsvpByAttendance(rsvps, "hadir")) }</h5>
+					<small style="color: #9ca3af; font-size: 0.75rem;">Hadir</small>
+				</div>
+			</div>
+			<div class="col-6 col-md-3">
+				<div class="p-3 text-center" style="background: #1e1e1e; border-radius: 16px; border: 1px solid #2a2a2a;">
+					<h5 class="mb-1" style="color: #f87171;">{ formatIntRSVP(countRsvpByAttendance(rsvps, "tidak_hadir")) }</h5>
+					<small style="color: #9ca3af; font-size: 0.75rem;">Tidak Hadir</small>
+				</div>
+			</div>
+			<div class="col-6 col-md-3">
+				<div class="p-3 text-center" style="background: #1e1e1e; border-radius: 16px; border: 1px solid #2a2a2a;">
+					<h5 class="mb-1" style="color: #fbbf24;">{ formatIntRSVP(countRsvpByAttendance(rsvps, "ragu")) }</h5>
+					<small style="color: #9ca3af; font-size: 0.75rem;">Ragu-ragu</small>
+				</div>
+			</div>
+		</div>
+
+		<!-- TABLE -->
+		<div style="background: #1e1e1e; border-radius: 16px; border: 1px solid #2a2a2a; overflow-x: auto;">
+			<table class="table mb-0" style="min-width: 700px;" id="rsvpTable">
+				<thead>
+					<tr>
+						<th class="ps-3 py-3" style="color: #ec489a; width: 40px;">
+							<input type="checkbox" id="selectAll" onchange="toggleAll()" style="width: 18px; height: 18px; accent-color: #ec489a; cursor: pointer;"/>
+						</th>
+						<th class="py-3" style="color: #ec489a;">#</th>
+						<th class="py-3" style="color: #ec489a;">Nama</th>
+						<th class="py-3" style="color: #ec489a;">Kehadiran</th>
+						<th class="py-3" style="color: #ec489a;">Jumlah</th>
+						<th class="py-3" style="color: #ec489a;">Ucapan</th>
+						<th class="py-3" style="color: #ec489a;">Tanggal</th>
+						<th class="text-center py-3" style="color: #ec489a;">Aksi</th>
+					</tr>
+				</thead>
+				<tbody>
+					if len(rsvps) > 0 {
+						for idx, rsvp := range rsvps {
+							<tr data-rsvp-id={ formatUintRSVP(rsvp.ID) } style="border-bottom: 1px solid #2a2a2a;">
+								<td class="ps-3 py-3 text-center">
+									<input type="checkbox" class="row-checkbox" data-id={ formatUintRSVP(rsvp.ID) } onchange="updateDeleteBtn()" style="width: 18px; height: 18px; accent-color: #ec489a; cursor: pointer;"/>
+								</td>
+								<td class="py-3" style="color: #6b7280;">{ formatIntRSVP(idx + 1) }</td>
+								<td class="py-3" style="color: white; font-weight: 600;">{ rsvp.GuestName }</td>
+								<td class="py-3">
+									if rsvp.Attendance == "hadir" {
+										<span class="badge" style="background: #10b981; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem;">✅ Hadir</span>
+									} else if rsvp.Attendance == "tidak_hadir" {
+										<span class="badge" style="background: #ef4444; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem;">❌ Tidak Hadir</span>
+									} else {
+										<span class="badge" style="background: #f59e0b; color: #1a1a1a; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem;">❓ Ragu-ragu</span>
+									}
+								</td>
+								<td class="py-3">
+									<span class="badge" style="background: #2a2a2a; color: white; padding: 4px 10px; border-radius: 8px; font-size: 0.7rem;">
+										<i class="bi bi-person me-1"></i>{ formatIntRSVP(rsvp.TotalGuests) } org
+									</span>
+								</td>
+								<td class="py-3" style="color: #9ca3af; font-size: 0.8rem;">
+									if rsvp.Message != nil && *rsvp.Message != "" {
+										<span style="font-style: italic;">"{ truncateRSVP(*rsvp.Message, 40) }"</span>
+									} else {
+										<span style="color: #6b7280;">-</span>
+									}
+								</td>
+								<td class="py-3" style="color: #6b7280; font-size: 0.75rem;">
+									{ rsvp.CreatedAt.Format("02/01/2006 15:04") }
+								</td>
+								<td class="text-center py-3">
+									<button type="button" onclick={ templpkg.JSFuncCall("confirmDeleteRsvp", formatUintRSVP(rsvp.ID), rsvp.GuestName) } class="btn btn-sm" style="background: #ef4444; color: white; border-radius: 8px; padding: 4px 12px; border: none; cursor: pointer;" title="Hapus">
+										<i class="bi bi-trash"></i>
+									</button>
+								</td>
+							</tr>
+						}
+					} else {
+						<tr>
+							<td colspan="8" class="text-center py-5" style="color: #6b7280;">
+								<i class="bi bi-inbox" style="font-size: 3rem; display: block; margin-bottom: 12px; opacity: 0.3;"></i>
+								Belum ada reservasi
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+
+		<!-- FOOTER ACTIONS -->
+		<div class="mt-3 d-flex flex-wrap justify-content-between align-items-center gap-3">
+			<div style="color: #9ca3af; font-size: 0.85rem;">
+				<i class="bi bi-info-circle me-1"></i>
+				Menampilkan { formatIntRSVP(len(rsvps)) } reservasi
+				<span id="selectedCount" style="display: none; color: #ec489a; font-weight: 600; margin-left: 10px;">
+					<i class="bi bi-check-circle-fill"></i>
+					<span id="selectedNumber">0</span> dipilih
+				</span>
+			</div>
+			<div class="d-flex gap-2">
+				<button type="button" id="deleteSelectedBtn" onclick="confirmDeleteSelected()" style="display: none; background: #ef4444; color: white; border: none; padding: 8px 20px; border-radius: 10px; font-weight: 600; cursor: pointer;">
+					<i class="bi bi-trash3 me-2"></i>Hapus (<span id="deleteCount">0</span>)
+				</button>
+				<a href={ templpkg.URL("/admin/projects/" + formatUintRSVP(project.ID) + "/rsvp/export") } class="btn" style="background: #2a2a2a; color: white; border: none; padding: 8px 20px; border-radius: 10px; text-decoration: none;">
+					<i class="bi bi-download me-2"></i>Export CSV
+				</a>
+			</div>
+		</div>
+
+		</div>
+
+		@rsvpScript(project.ID)
+	}

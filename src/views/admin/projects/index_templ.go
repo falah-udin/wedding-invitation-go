@@ -8,9 +8,12 @@ package projects
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "wedding-invitation-go/internal/models"
+import (
+	templpkg "github.com/a-h/templ"
+	"wedding-invitation-go/internal/models"
+)
 
-// IndexContent — list project dengan filter
+// IndexContent — list project dengan filter + modal aksi
 func IndexContent(
 	projects []models.Project,
 	templates []models.Template,
@@ -51,7 +54,7 @@ func IndexContent(
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(int(totalProjects)))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 35, Col: 76}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 38, Col: 76}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -64,7 +67,7 @@ func IndexContent(
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(int(totalDraft)))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 41, Col: 73}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 44, Col: 73}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
@@ -77,7 +80,7 @@ func IndexContent(
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(int(totalPublished)))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 47, Col: 77}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 50, Col: 77}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
@@ -90,7 +93,7 @@ func IndexContent(
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(int(totalArchived)))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 53, Col: 76}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 56, Col: 76}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {
@@ -103,7 +106,7 @@ func IndexContent(
 		var templ_7745c5c3_Var6 string
 		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(int(totalViews)))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 59, Col: 73}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 62, Col: 73}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 		if templ_7745c5c3_Err != nil {
@@ -116,7 +119,7 @@ func IndexContent(
 		var templ_7745c5c3_Var7 string
 		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(int(totalRsvp)))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 65, Col: 72}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 68, Col: 72}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 		if templ_7745c5c3_Err != nil {
@@ -129,7 +132,7 @@ func IndexContent(
 		var templ_7745c5c3_Var8 string
 		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.ResolveAttributeValue(search)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 76, Col: 51}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 79, Col: 51}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var8)
 		if templ_7745c5c3_Err != nil {
@@ -177,7 +180,7 @@ func IndexContent(
 			var templ_7745c5c3_Var9 string
 			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatUint(t.ID))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 92, Col: 38}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 95, Col: 38}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var9)
 			if templ_7745c5c3_Err != nil {
@@ -200,7 +203,7 @@ func IndexContent(
 			var templ_7745c5c3_Var10 string
 			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(t.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 92, Col: 98}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 95, Col: 98}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 			if templ_7745c5c3_Err != nil {
@@ -211,7 +214,7 @@ func IndexContent(
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "</select></div><div class=\"col-6 col-md-2\"><button type=\"submit\" class=\"btn\" style=\"width:100%; background:#8b5cf6; border:none; border-radius:10px; padding:8px; color:white; font-weight:600;\"><i class=\"bi bi-search me-1\"></i> Filter</button></div><div class=\"col-6 col-md-2\"><a href=\"/admin/projects\" class=\"btn\" style=\"width:100%; background:#2a2a2a; border:none; border-radius:10px; padding:8px; color:white; font-weight:600; text-decoration:none; display:inline-block; text-align:center;\"><i class=\"bi bi-arrow-repeat me-1\"></i> Reset</a></div></form></div><!-- TABLE --><div style=\"background: #1e1e1e; border-radius: 20px; border: 1px solid #2a2a2a; overflow: hidden;\"><div class=\"table-responsive\"><table class=\"table table-hover mb-0\" style=\"min-width: 900px;\"><thead><tr><th class=\"ps-3 py-3\" style=\"color: #8b5cf6;\">ID</th><th class=\"py-3\" style=\"color: #8b5cf6;\">Judul</th><th class=\"py-3\" style=\"color: #8b5cf6;\">Client</th><th class=\"py-3\" style=\"color: #8b5cf6;\">Template</th><th class=\"py-3\" style=\"color: #8b5cf6;\">Status</th><th class=\"py-3\" style=\"color: #8b5cf6;\">Views</th><th class=\"py-3\" style=\"color: #8b5cf6;\">RSVP</th><th class=\"text-center pe-3 py-3\" style=\"color: #8b5cf6;\">Aksi</th></tr></thead> <tbody>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "</select></div><div class=\"col-6 col-md-2\"><button type=\"submit\" class=\"btn\" style=\"width:100%; background:#8b5cf6; border:none; border-radius:10px; padding:8px; color:white; font-weight:600;\"><i class=\"bi bi-search me-1\"></i> Filter</button></div><div class=\"col-6 col-md-2\"><a href=\"/admin/projects\" class=\"btn\" style=\"width:100%; background:#2a2a2a; border:none; border-radius:10px; padding:8px; color:white; font-weight:600; text-decoration:none; display:inline-block; text-align:center;\"><i class=\"bi bi-arrow-repeat me-1\"></i> Reset</a></div></form></div><!-- TABLE --><div style=\"background: #1e1e1e; border-radius: 20px; border: 1px solid #2a2a2a; overflow: hidden;\"><div class=\"table-responsive\"><table class=\"table table-hover mb-0\" style=\"min-width: 900px;\"><thead><tr><th class=\"ps-3 py-3\" style=\"color: #8b5cf6;\">ID</th><th class=\"py-3\" style=\"color: #8b5cf6;\">Judul</th><th class=\"py-3\" style=\"color: #8b5cf6;\">Client</th><th class=\"py-3\" style=\"color: #8b5cf6;\">Template</th><th class=\"py-3\" style=\"color: #8b5cf6;\">Status</th><th class=\"py-3\" style=\"color: #8b5cf6;\">Views</th><th class=\"py-3\" style=\"color: #8b5cf6;\">RSVP</th><th class=\"py-3\" style=\"color: #8b5cf6;\">Dibuat</th><th class=\"text-center pe-3 py-3\" style=\"color: #8b5cf6;\">Aksi</th></tr></thead> <tbody>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -224,7 +227,7 @@ func IndexContent(
 				var templ_7745c5c3_Var11 string
 				templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(formatUint(project.ID))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 129, Col: 79}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 133, Col: 79}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 				if templ_7745c5c3_Err != nil {
@@ -237,7 +240,7 @@ func IndexContent(
 				var templ_7745c5c3_Var12 string
 				templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(project.Title)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 131, Col: 67}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 135, Col: 67}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 				if templ_7745c5c3_Err != nil {
@@ -250,7 +253,7 @@ func IndexContent(
 				var templ_7745c5c3_Var13 string
 				templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(project.Slug)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 132, Col: 71}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 136, Col: 71}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 				if templ_7745c5c3_Err != nil {
@@ -268,7 +271,7 @@ func IndexContent(
 					var templ_7745c5c3_Var14 string
 					templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(project.User.Name)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 136, Col: 55}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 140, Col: 55}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 					if templ_7745c5c3_Err != nil {
@@ -281,7 +284,7 @@ func IndexContent(
 					var templ_7745c5c3_Var15 string
 					templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(project.User.Email)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 137, Col: 78}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 141, Col: 78}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 					if templ_7745c5c3_Err != nil {
@@ -304,7 +307,7 @@ func IndexContent(
 					var templ_7745c5c3_Var16 string
 					templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(project.Template.Name)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 142, Col: 99}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 146, Col: 99}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 					if templ_7745c5c3_Err != nil {
@@ -342,7 +345,7 @@ func IndexContent(
 				var templ_7745c5c3_Var17 string
 				templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(project.TotalViews))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 156, Col: 46}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 160, Col: 46}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 				if templ_7745c5c3_Err != nil {
@@ -355,73 +358,125 @@ func IndexContent(
 				var templ_7745c5c3_Var18 string
 				templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(project.TotalRsvp))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 160, Col: 45}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 164, Col: 45}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "</span></td><td class=\"text-center pe-3 py-3\"><div class=\"d-flex gap-1 justify-content-center\"><a href=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "</span></td><td class=\"py-3\" style=\"color:#6b7280; font-size:0.75rem;\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var19 templ.SafeURL
-				templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL("/admin/projects/" + formatUint(project.ID)))
+				var templ_7745c5c3_Var19 string
+				templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(formatDate(project.CreatedAt))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 164, Col: 74}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 167, Col: 40}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "\" class=\"btn btn-sm\" style=\"background:#8b5cf6; color:white; border-radius:6px;\" title=\"Detail\"><i class=\"bi bi-eye\"></i></a> ")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "</td><td class=\"text-center pe-3 py-3\"><div class=\"d-flex gap-1 justify-content-center align-items-center\"><!-- Tombol Salin Link (hanya kalau published) -->")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				if project.Status == "published" {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "<a href=\"")
+					templ_7745c5c3_Err = templ.RenderScriptItems(ctx, templ_7745c5c3_Buffer, templpkg.JSFuncCall("copyInvitationLink", "/invitation/"+project.Slug, project.Title))
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					var templ_7745c5c3_Var20 templ.SafeURL
-					templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL("/invitation/" + project.Slug))
-					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 168, Col: 61}
-					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "<button type=\"button\" onclick=\"")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "\" target=\"_blank\" class=\"btn btn-sm\" style=\"background:#10b981; color:white; border-radius:6px;\" title=\"Lihat Undangan\"><i class=\"bi bi-box-arrow-up-right\"></i></a>")
+					var templ_7745c5c3_Var20 templ.ComponentScript = templpkg.JSFuncCall("copyInvitationLink", "/invitation/"+project.Slug, project.Title)
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var20.Call)
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "\" class=\"btn btn-sm\" style=\"background:#10b981; color:white; border-radius:8px;\" title=\"Salin Link\"><i class=\"bi bi-clipboard\"></i></button>")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "<form action=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "<!-- Tombol Aksi (buka modal) -->")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var21 templ.SafeURL
-				templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL("/admin/projects/" + formatUint(project.ID) + "/delete"))
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/projects/index.templ`, Line: 172, Col: 91}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
+				templ_7745c5c3_Err = templ.RenderScriptItems(ctx, templ_7745c5c3_Buffer, templpkg.JSFuncCall("openActionModal",
+					formatUint(project.ID),
+					project.Title,
+					project.Slug,
+					project.Status,
+					formatInt(int(project.TotalRsvp)),
+				))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "\" method=\"POST\" class=\"d-inline\" onsubmit=\"return confirm('Yakin hapus project ini?')\"><button type=\"submit\" class=\"btn btn-sm\" style=\"background:#ef4444; color:white; border-radius:6px;\" title=\"Hapus\"><i class=\"bi bi-trash\"></i></button></form></div></td></tr>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "<button type=\"button\" onclick=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var21 templ.ComponentScript = templpkg.JSFuncCall("openActionModal",
+					formatUint(project.ID),
+					project.Title,
+					project.Slug,
+					project.Status,
+					formatInt(int(project.TotalRsvp)),
+				)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var21.Call)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "\" class=\"btn btn-sm\" style=\"background:#2a2a2a; color:white; border-radius:8px;\" title=\"Aksi\"><i class=\"bi bi-grid-3x3-gap-fill\"></i></button></div></td></tr>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
 		} else {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "<tr><td colspan=\"8\" class=\"text-center py-5\" style=\"color:#6b7280;\"><i class=\"bi bi-inbox fs-3 d-block mb-2\"></i> Belum ada project</td></tr>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "<tr><td colspan=\"9\" class=\"text-center py-5\" style=\"color:#6b7280;\"><i class=\"bi bi-inbox fs-3 d-block mb-2\"></i> Belum ada project</td></tr>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "</tbody></table></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, "</tbody></table></div></div><!-- MODAL AKSI --><div class=\"modal fade\" id=\"actionModal\" tabindex=\"-1\" aria-hidden=\"true\"><div class=\"modal-dialog modal-dialog-centered\"><div class=\"modal-content\" style=\"background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px;\"><div class=\"modal-header\" style=\"border-bottom:1px solid #2a2a2a; padding:20px 24px;\"><div><h5 class=\"modal-title\" style=\"color:#ffffff; font-weight:700; margin:0;\"><i class=\"bi bi-lightning-charge-fill me-2\" style=\"color:#8b5cf6;\"></i>Aksi</h5><small id=\"actionModalSubtitle\" style=\"color:#9ca3af; font-size:0.75rem;\">-</small></div><button type=\"button\" class=\"btn-close btn-close-white\" data-bs-dismiss=\"modal\"></button></div><div class=\"modal-body\" style=\"padding:16px 24px;\"><div class=\"d-grid gap-2\"><a id=\"actionRsvp\" href=\"#\" style=\"display:flex; align-items:center; gap:12px; padding:14px 16px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:12px; color:#d1d5db; text-decoration:none; transition:all 0.2s;\"><i class=\"bi bi-people\" style=\"color:#ec489a; font-size:1.2rem;\"></i><div style=\"flex:1;\"><div style=\"color:white; font-weight:600; font-size:0.9rem;\">Reservasi</div><div style=\"color:#6b7280; font-size:0.7rem;\">Kelola konfirmasi kehadiran</div></div><span id=\"rsvpBadge\" class=\"badge\" style=\"background:#ef4444; font-size:0.65rem; display:none;\">0</span> <i class=\"bi bi-chevron-right\" style=\"color:#4b5563;\"></i></a> <a id=\"actionShare\" href=\"#\" style=\"display:flex; align-items:center; gap:12px; padding:14px 16px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:12px; color:#d1d5db; text-decoration:none; transition:all 0.2s;\"><i class=\"bi bi-whatsapp\" style=\"color:#25D366; font-size:1.2rem;\"></i><div style=\"flex:1;\"><div style=\"color:white; font-weight:600; font-size:0.9rem;\">Share WhatsApp</div><div style=\"color:#6b7280; font-size:0.7rem;\">Bagikan undangan ke tamu</div></div><i class=\"bi bi-chevron-right\" style=\"color:#4b5563;\"></i></a> <a id=\"actionDetail\" href=\"#\" style=\"display:flex; align-items:center; gap:12px; padding:14px 16px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:12px; color:#d1d5db; text-decoration:none; transition:all 0.2s;\"><i class=\"bi bi-eye\" style=\"color:#8b5cf6; font-size:1.2rem;\"></i><div style=\"flex:1;\"><div style=\"color:white; font-weight:600; font-size:0.9rem;\">Detail</div><div style=\"color:#6b7280; font-size:0.7rem;\">Lihat data lengkap project</div></div><i class=\"bi bi-chevron-right\" style=\"color:#4b5563;\"></i></a> <a id=\"actionEdit\" href=\"#\" style=\"display:flex; align-items:center; gap:12px; padding:14px 16px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:12px; color:#d1d5db; text-decoration:none; transition:all 0.2s;\"><i class=\"bi bi-pencil\" style=\"color:#f59e0b; font-size:1.2rem;\"></i><div style=\"flex:1;\"><div style=\"color:white; font-weight:600; font-size:0.9rem;\">Edit</div><div style=\"color:#6b7280; font-size:0.7rem;\">Ubah data undangan</div></div><i class=\"bi bi-chevron-right\" style=\"color:#4b5563;\"></i></a> <a id=\"actionView\" href=\"#\" target=\"_blank\" style=\"display:flex; align-items:center; gap:12px; padding:14px 16px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:12px; color:#d1d5db; text-decoration:none; transition:all 0.2s;\"><i class=\"bi bi-box-arrow-up-right\" style=\"color:#8b5cf6; font-size:1.2rem;\"></i><div style=\"flex:1;\"><div style=\"color:white; font-weight:600; font-size:0.9rem;\">Lihat Undangan</div><div style=\"color:#6b7280; font-size:0.7rem;\">Buka undangan di tab baru</div></div><i class=\"bi bi-chevron-right\" style=\"color:#4b5563;\"></i></a><hr style=\"border-color:#2a2a2a; margin:8px 0;\"><form id=\"actionDeleteForm\" method=\"POST\" action=\"#\" style=\"margin:0;\"><button type=\"submit\" onclick=\"return confirm('Yakin hapus project ini? Data tidak bisa dikembalikan!')\" style=\"width:100%; display:flex; align-items:center; gap:12px; padding:14px 16px; background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.3); border-radius:12px; color:#ef4444; cursor:pointer; font-weight:600; font-size:0.9rem;\"><i class=\"bi bi-trash\" style=\"font-size:1.2rem;\"></i><div style=\"flex:1; text-align:left;\"><div style=\"font-weight:600;\">Hapus Project</div><div style=\"color:#9ca3af; font-size:0.7rem; font-weight:400;\">Tindakan ini tidak bisa dibatalkan</div></div></button></form></div></div></div></div></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = projectIndexScript().Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		return nil
+	})
+}
+
+// ============================================
+// SCRIPT
+// ============================================
+func projectIndexScript() templ.Component {
+	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
+			return templ_7745c5c3_CtxErr
+		}
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+		if !templ_7745c5c3_IsBuffer {
+			defer func() {
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil {
+					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}
+			}()
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var22 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var22 == nil {
+			templ_7745c5c3_Var22 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 46, "<script>\n\t\t// ============================================\n\t\t// COPY LINK\n\t\t// ============================================\n\t\twindow.copyInvitationLink = function(path, title) {\n\t\t\tvar fullUrl = window.location.origin + path;\n\t\t\tif (navigator.clipboard) {\n\t\t\t\tnavigator.clipboard.writeText(fullUrl).then(function() {\n\t\t\t\t\talert('✅ Link tersalin!\\n\\n' + title + '\\n' + fullUrl);\n\t\t\t\t}).catch(function() {\n\t\t\t\t\talert('Link: ' + fullUrl);\n\t\t\t\t});\n\t\t\t} else {\n\t\t\t\talert('Link: ' + fullUrl);\n\t\t\t}\n\t\t};\n\n\t\t// ============================================\n\t\t// OPEN ACTION MODAL\n\t\t// ============================================\n\t\twindow.openActionModal = function(id, title, slug, status, rsvpCount) {\n\t\t\t// Isi subtitle\n\t\t\tdocument.getElementById('actionModalSubtitle').textContent = title;\n\n\t\t\t// Isi link\n\t\t\tdocument.getElementById('actionRsvp').href = '/admin/projects/' + id + '/rsvp';\n\t\t\tdocument.getElementById('actionShare').href = '/share/invitation/' + id;\n\t\t\tdocument.getElementById('actionDetail').href = '/admin/projects/' + id;\n\t\t\tdocument.getElementById('actionEdit').href = '/invitation/create/general?project_id=' + id;\n\t\t\tdocument.getElementById('actionView').href = '/invitation/' + slug;\n\t\t\tdocument.getElementById('actionDeleteForm').action = '/admin/projects/' + id + '/delete';\n\n\t\t\t// Badge RSVP\n\t\t\tvar rsvpBadge = document.getElementById('rsvpBadge');\n\t\t\tvar count = parseInt(rsvpCount, 10);\n\t\t\tif (count > 0) {\n\t\t\t\trsvpBadge.textContent = count;\n\t\t\t\trsvpBadge.style.display = 'inline-block';\n\t\t\t} else {\n\t\t\t\trsvpBadge.style.display = 'none';\n\t\t\t}\n\n\t\t\t// Sembunyikan tombol \"Lihat Undangan\" kalau belum published\n\t\t\tvar actionView = document.getElementById('actionView');\n\t\t\tif (status !== 'published') {\n\t\t\t\tactionView.style.opacity = '0.4';\n\t\t\t\tactionView.style.pointerEvents = 'none';\n\t\t\t\tactionView.title = 'Undangan belum dipublikasikan';\n\t\t\t} else {\n\t\t\t\tactionView.style.opacity = '1';\n\t\t\t\tactionView.style.pointerEvents = 'auto';\n\t\t\t\tactionView.title = '';\n\t\t\t}\n\n\t\t\t// Show modal\n\t\t\tvar modalEl = document.getElementById('actionModal');\n\t\t\tvar modal = bootstrap.Modal.getOrCreateInstance(modalEl);\n\t\t\tmodal.show();\n\t\t};\n\t</script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

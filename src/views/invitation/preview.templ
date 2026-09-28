@@ -1,0 +1,281 @@
+package invitation
+
+import (
+	templpkg "github.com/a-h/templ"
+	"wedding-invitation-go/internal/models"
+)
+
+// PreviewContent — Step 4: Preview + Music + Publish
+templ PreviewContent(
+	project models.Project,
+	data map[string]interface{},
+	musics []models.Music,
+	errorMsg string,
+	successMsg string,
+) {
+	<div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3">
+		<div>
+			<h2 class="fw-bold mb-1" style="color: #8b5cf6; font-size: 1.5rem;">
+				<i class="bi bi-eye me-2"></i>Step 4: Preview &amp; Publish
+			</h2>
+			<p class="text-secondary m-0" style="font-size: 0.9rem;">
+				Periksa data undangan sebelum dipublikasikan
+			</p>
+		</div>
+	</div>
+
+	<!-- PROGRESS BAR -->
+	<div class="mb-4">
+		<div class="d-flex justify-content-between mb-2 flex-wrap gap-2">
+			<span style="color: #10b981; font-weight: 600; font-size: 0.85rem;">
+				<i class="bi bi-check-circle-fill me-1"></i> Step 1: Client
+			</span>
+			<span style="color: #10b981; font-weight: 600; font-size: 0.85rem;">
+				<i class="bi bi-check-circle-fill me-1"></i> Step 2: Data Umum
+			</span>
+			<span style="color: #10b981; font-weight: 600; font-size: 0.85rem;">
+				<i class="bi bi-check-circle-fill me-1"></i> Step 3: Template
+			</span>
+			<span style="color: #8b5cf6; font-weight: 600; font-size: 0.85rem;">
+				<i class="bi bi-circle-fill me-1" style="font-size: 0.5rem;"></i> Step 4: Preview
+			</span>
+		</div>
+		<div class="progress" style="height: 6px; background: #2a2a2a; border-radius: 10px;">
+			<div class="progress-bar" role="progressbar" style="width: 100%; background: #8b5cf6; border-radius: 10px;"></div>
+		</div>
+	</div>
+
+	if errorMsg != "" {
+		<div class="alert mb-3" style="background: rgba(239,68,68,0.1); border-left: 4px solid #ef4444; color: #ef4444; border-radius: 12px; padding: 12px 16px;">
+			<i class="bi bi-exclamation-triangle me-2"></i>{ errorMsg }
+		</div>
+	}
+	if successMsg != "" {
+		<div class="alert mb-3" style="background: rgba(16,185,129,0.1); border-left: 4px solid #10b981; color: #10b981; border-radius: 12px; padding: 12px 16px;">
+			<i class="bi bi-check-circle me-2"></i>{ successMsg }
+		</div>
+	}
+
+	<div class="row g-3">
+		<!-- LEFT: DATA PREVIEW -->
+		<div class="col-12 col-lg-8">
+			<!-- DATA MEMPELAI -->
+			<div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:16px; padding:20px; margin-bottom:16px;">
+				<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid #2a2a2a;">
+					<h6 style="color:#ffffff; font-weight:600; margin:0; display:flex; align-items:center; gap:8px;">
+						<i class="bi bi-people-fill" style="color:#8b5cf6;"></i> Data Mempelai
+					</h6>
+				</div>
+				<div class="row g-3">
+					<div class="col-6">
+						<div style="color:#9ca3af; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">Mempelai Pria</div>
+						<div style="color:#ffffff; font-weight:600;">{ getStringOrDash(data, "groom_name") }</div>
+					</div>
+					<div class="col-6">
+						<div style="color:#9ca3af; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">Mempelai Wanita</div>
+						<div style="color:#ffffff; font-weight:600;">{ getStringOrDash(data, "bride_name") }</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- DATA AKAD -->
+			<div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:16px; padding:20px; margin-bottom:16px;">
+				<div style="margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid #2a2a2a;">
+					<h6 style="color:#ffffff; font-weight:600; margin:0; display:flex; align-items:center; gap:8px;">
+						<i class="bi bi-ring" style="color:#8b5cf6;"></i> Akad Nikah
+					</h6>
+				</div>
+				<div class="row g-3">
+					<div class="col-12 col-md-6">
+						<div style="color:#9ca3af; font-size:0.75rem; text-transform:uppercase; margin-bottom:4px;">Tanggal</div>
+						<div style="color:#ffffff;">{ getStringOrDash(data, "akad_date") }</div>
+					</div>
+					<div class="col-12 col-md-6">
+						<div style="color:#9ca3af; font-size:0.75rem; text-transform:uppercase; margin-bottom:4px;">Waktu</div>
+						<div style="color:#ffffff;">{ getStringOrDash(data, "akad_time") } WIB</div>
+					</div>
+					<div class="col-12">
+						<div style="color:#9ca3af; font-size:0.75rem; text-transform:uppercase; margin-bottom:4px;">Tempat</div>
+						<div style="color:#ffffff;">{ getStringOrDash(data, "akad_venue") }</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- DATA RESEPSI -->
+			<div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:16px; padding:20px; margin-bottom:16px;">
+				<div style="margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid #2a2a2a;">
+					<h6 style="color:#ffffff; font-weight:600; margin:0; display:flex; align-items:center; gap:8px;">
+						<i class="bi bi-balloon" style="color:#8b5cf6;"></i> { getResepsiLabelDisplay(data) }
+					</h6>
+				</div>
+				<div class="row g-3">
+					<div class="col-12 col-md-6">
+						<div style="color:#9ca3af; font-size:0.75rem; text-transform:uppercase; margin-bottom:4px;">Tanggal</div>
+						<div style="color:#ffffff;">{ getStringOrDash(data, "resepsi_date") }</div>
+					</div>
+					<div class="col-12 col-md-6">
+						<div style="color:#9ca3af; font-size:0.75rem; text-transform:uppercase; margin-bottom:4px;">Waktu</div>
+						<div style="color:#ffffff;">{ getStringOrDash(data, "resepsi_time") } WIB</div>
+					</div>
+					<div class="col-12">
+						<div style="color:#9ca3af; font-size:0.75rem; text-transform:uppercase; margin-bottom:4px;">Tempat</div>
+						<div style="color:#ffffff;">{ getStringOrDash(data, "resepsi_venue") }</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- BANK ACCOUNTS -->
+			if isFieldFilled(data, "bank_accounts") {
+				<div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:16px; padding:20px; margin-bottom:16px;">
+					<div style="margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid #2a2a2a;">
+						<h6 style="color:#ffffff; font-weight:600; margin:0; display:flex; align-items:center; gap:8px;">
+							<i class="bi bi-wallet2" style="color:#8b5cf6;"></i> Rekening / Amplop Digital
+						</h6>
+					</div>
+					for _, acc := range getBankAccounts(data) {
+						<div style="padding:12px 16px; background:#0f0f0f; border-radius:10px; margin-bottom:8px; border:1px solid #2a2a2a;">
+							<div style="color:#8b5cf6; font-weight:600; font-size:0.9rem; margin-bottom:4px;">
+								{ acc["bank_name"] }
+							</div>
+							<div style="color:#ffffff; font-family:monospace; font-size:1rem;">{ acc["account_number"] }</div>
+							<div style="color:#9ca3af; font-size:0.8rem;">a.n. { acc["account_name"] }</div>
+						</div>
+					}
+				</div>
+			}
+
+			<!-- TAMPILAN COVER -->
+			<div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:16px; padding:20px;">
+				<div style="margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid #2a2a2a;">
+					<h6 style="color:#ffffff; font-weight:600; margin:0; display:flex; align-items:center; gap:8px;">
+						<i class="bi bi-eye" style="color:#8b5cf6;"></i> Pengaturan Tampilan Cover
+					</h6>
+				</div>
+				<div class="row g-3">
+					<div class="col-12 col-md-6">
+						<div style="color:#9ca3af; font-size:0.75rem; text-transform:uppercase; margin-bottom:4px;">Tanggal Ditampilkan</div>
+						<div style="color:#ffffff;">{ getShowLabel(data, "show_dates") }</div>
+					</div>
+					<div class="col-12 col-md-6">
+						<div style="color:#9ca3af; font-size:0.75rem; text-transform:uppercase; margin-bottom:4px;">Lokasi Ditampilkan</div>
+						<div style="color:#ffffff;">{ getShowLabel(data, "show_venue") }</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- RIGHT: SIDEBAR -->
+		<div class="col-12 col-lg-4">
+			<div style="position: sticky; top: 20px;">
+
+				<!-- STATUS CARD -->
+				<div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:16px; padding:20px; margin-bottom:16px;">
+					<h6 style="color:#ffffff; font-weight:600; margin:0 0 16px 0; display:flex; align-items:center; gap:8px;">
+						<i class="bi bi-info-circle-fill" style="color:#8b5cf6;"></i> Status
+					</h6>
+					<div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #2a2a2a;">
+						<span style="color:#9ca3af; font-size:0.8rem;">Status</span>
+						if project.Status == "published" {
+							<span class="badge" style="background:#10b981;">Published</span>
+						} else {
+							<span class="badge" style="background:#f59e0b; color:#1a1a1a;">Draft</span>
+						}
+					</div>
+					<div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #2a2a2a;">
+						<span style="color:#9ca3af; font-size:0.8rem;">Views</span>
+						<span style="color:white;">{ formatIntV2(project.TotalViews) }</span>
+					</div>
+					<div style="display:flex; justify-content:space-between; padding:8px 0;">
+						<span style="color:#9ca3af; font-size:0.8rem;">RSVP</span>
+						<span style="color:white;">{ formatIntV2(project.TotalRsvp) }</span>
+					</div>
+				</div>
+
+				<!-- LINK UNDANGAN -->
+				<div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:16px; padding:20px; margin-bottom:16px;">
+					<h6 style="color:#ffffff; font-weight:600; margin:0 0 12px 0; display:flex; align-items:center; gap:8px;">
+						<i class="bi bi-link-45deg" style="color:#8b5cf6;"></i> Link Undangan
+					</h6>
+					<div style="background:#0f0f0f; border:1px solid #2a2a2a; border-radius:10px; padding:10px; display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+						<div style="flex:1; color:#8b5cf6; font-size:0.72rem; word-break:break-all; font-family:monospace;">
+							/invitation/{ project.Slug }
+						</div>
+						<button type="button" onclick={ templpkg.JSFuncCall("copyLink", "/invitation/"+project.Slug) } style="background:rgba(139,92,246,0.1); color:#8b5cf6; border:1px solid rgba(139,92,246,0.3); border-radius:8px; padding:6px 12px; font-size:0.72rem; cursor:pointer;">
+							<i class="bi bi-clipboard"></i> Copy
+						</button>
+					</div>
+					<a href={ templpkg.URL("/invitation/" + project.Slug) } target="_blank" style="display:block; width:100%; background:#2a2a2a; color:white; border:none; padding:10px; border-radius:10px; font-size:0.8rem; text-align:center; text-decoration:none; font-weight:500;">
+						<i class="bi bi-box-arrow-up-right me-2"></i>Buka di Tab Baru
+					</a>
+				</div>
+
+				<!-- MUSIC SELECTION -->
+				<div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:16px; padding:20px; margin-bottom:16px;">
+					<h6 style="color:#ffffff; font-weight:600; margin:0 0 12px 0; display:flex; align-items:center; gap:8px;">
+						<i class="bi bi-music-note-beamed" style="color:#8b5cf6;"></i> Musik Latar
+					</h6>
+
+					if project.CustomMusic != nil && *project.CustomMusic != "" {
+						<div style="padding:10px; background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.3); border-radius:10px; margin-bottom:12px; display:flex; align-items:center; gap:8px; font-size:0.8rem; color:#10b981;">
+							<i class="bi bi-check-circle-fill"></i>
+							Musik sudah dipilih
+						</div>
+					}
+
+					<select id="musicSelect" class="form-control-dark" style="width:100%; margin-bottom:10px; font-size:0.85rem;">
+						<option value="">-- Pilih Musik --</option>
+						if len(musics) > 0 {
+							for _, m := range musics {
+								<option value={ m.FilePath } data-title={ m.Title } data-artist={ derefStr(m.Artist, "") }>
+									{ m.Title }
+									if m.Artist != nil {
+										- { *m.Artist }
+									}
+									if !m.IsShared {
+										🔒
+									}
+								</option>
+							}
+						}
+					</select>
+
+					<div style="display:flex; gap:6px;">
+						<button type="button" onclick="previewMusic()" style="flex:1; background:#2a2a2a; color:#d1d5db; border:1px solid #3a3a3a; border-radius:8px; padding:8px; font-size:0.75rem; cursor:pointer; font-weight:600;">
+							<i class="bi bi-play-fill me-1"></i> Preview
+						</button>
+						<button type="button" onclick="saveMusic()" style="flex:1; background:#8b5cf6; color:white; border:none; border-radius:8px; padding:8px; font-size:0.75rem; cursor:pointer; font-weight:600;">
+							<i class="bi bi-check-circle-fill me-1"></i> Gunakan
+						</button>
+					</div>
+
+					<div id="musicInfo" style="color:#9ca3af; font-size:0.7rem; margin-top:6px; display:none;">
+						<i class="bi bi-music-note me-1"></i> <span id="musicInfoText">-</span>
+					</div>
+				</div>
+
+				<!-- ACTIONS -->
+				<div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:16px; padding:20px;">
+					<h6 style="color:#ffffff; font-weight:600; margin:0 0 12px 0; display:flex; align-items:center; gap:8px;">
+						<i class="bi bi-lightning-charge-fill" style="color:#8b5cf6;"></i> Aksi
+					</h6>
+
+					<form method="POST" action="/invitation/create/publish" style="margin-bottom:8px;">
+						<button type="submit" style="width:100%; background:#10b981; color:white; border:none; border-radius:10px; padding:12px; font-weight:600; cursor:pointer; font-size:0.85rem;">
+							<i class="bi bi-check-circle-fill me-2"></i>Publish Undangan
+						</button>
+					</form>
+
+					<a href="/invitation/create/template" style="display:block; width:100%; background:#f59e0b; color:#1a1a1a; border:none; border-radius:10px; padding:10px; font-weight:600; text-align:center; text-decoration:none; font-size:0.8rem; margin-bottom:8px;">
+						<i class="bi bi-pencil-fill me-2"></i>Kembali Edit Template
+					</a>
+
+					<a href="/invitation/create/general" style="display:block; width:100%; background:#2a2a2a; color:white; border:none; border-radius:10px; padding:10px; font-weight:600; text-align:center; text-decoration:none; font-size:0.8rem;">
+						<i class="bi bi-arrow-left me-2"></i>Kembali ke Data Umum
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	@previewScript(project)
+}

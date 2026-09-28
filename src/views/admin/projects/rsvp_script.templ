@@ -1,0 +1,93 @@
+package projects
+
+// rsvpScript — JavaScript untuk halaman RSVP
+templ rsvpScript(projectID uint) {
+	<script>
+		var PROJECT_ID = {{ projectID }};
+
+		// ============================================
+		// TOGGLE ALL CHECKBOX
+		// ============================================
+		window.toggleAll = function() {
+			var all = document.getElementById('selectAll').checked;
+			document.querySelectorAll('.row-checkbox').forEach(function(cb) {
+				cb.checked = all;
+			});
+			updateDeleteBtn();
+		};
+
+		// ============================================
+		// UPDATE DELETE BUTTON STATE
+		// ============================================
+		window.updateDeleteBtn = function() {
+			var checked = document.querySelectorAll('.row-checkbox:checked');
+			var count = checked.length;
+			var btn = document.getElementById('deleteSelectedBtn');
+			var delCount = document.getElementById('deleteCount');
+			var selCount = document.getElementById('selectedCount');
+			var selNum = document.getElementById('selectedNumber');
+
+			if (count > 0) {
+				btn.style.display = 'inline-block';
+				delCount.textContent = count;
+				selCount.style.display = 'inline';
+				selNum.textContent = count;
+			} else {
+				btn.style.display = 'none';
+				selCount.style.display = 'none';
+			}
+		};
+
+		// ============================================
+		// CONFIRM DELETE SINGLE
+		// ============================================
+		window.confirmDeleteRsvp = function(id, name) {
+			if (!confirm('Hapus reservasi dari "' + name + '"?')) return;
+			performDelete([id]);
+		};
+
+		// ============================================
+		// CONFIRM DELETE SELECTED
+		// ============================================
+		window.confirmDeleteSelected = function() {
+			var checked = document.querySelectorAll('.row-checkbox:checked');
+			var ids = [];
+			checked.forEach(function(cb) {
+				ids.push(parseInt(cb.dataset.id));
+			});
+
+			if (ids.length === 0) return;
+
+			if (!confirm('Hapus ' + ids.length + ' reservasi? Data tidak bisa dikembalikan!')) return;
+			performDelete(ids);
+		};
+
+		// ============================================
+		// PERFORM DELETE (BULK)
+		// ============================================
+		function performDelete(ids) {
+			var payload = JSON.stringify({ ids: ids });
+
+			fetch('/admin/projects/rsvp/bulk-delete', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Accept': 'application/json'
+				},
+				body: payload
+			})
+			.then(function(r) { return r.json(); })
+			.then(function(data) {
+				if (data.success) {
+					alert('✅ ' + data.message);
+					window.location.reload();
+				} else {
+					alert('❌ ' + data.message);
+				}
+			})
+			.catch(function(err) {
+				alert('❌ Error: ' + err.message);
+			});
+		}
+	</script>
+}

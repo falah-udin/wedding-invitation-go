@@ -2,6 +2,21 @@
 /* ADMIN LAYOUT - WEDDING SAAS */
 /* ============================================ */
 
+/* Fix dropdown terpotong tabel */
+.table-responsive .dropdown-menu {
+    position: absolute !important;
+    z-index: 9999 !important;
+}
+
+.dropdown-menu {
+    z-index: 9999 !important;
+}
+
+.table-responsive {
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+}
+
 * {
     margin: 0;
     padding: 0;

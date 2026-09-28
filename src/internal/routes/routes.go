@@ -57,6 +57,12 @@ func Register(r *gin.Engine) {
 		admin.GET("/projects/:id", adminHandlers.ProjectShow)
 		admin.POST("/projects/:id/delete", adminHandlers.ProjectDelete)
 
+		// RSVP
+		admin.GET("/projects/:id/rsvp", adminHandlers.RsvpIndex)
+		admin.GET("/projects/:id/rsvp/export", adminHandlers.RsvpExport)
+		admin.DELETE("/projects/rsvp/:rsvpId", adminHandlers.RsvpDelete)
+		admin.POST("/projects/rsvp/bulk-delete", adminHandlers.RsvpBulkDelete)
+		
 		// Settings
 		admin.GET("/settings", adminHandlers.SettingIndex)
 		admin.POST("/settings", adminHandlers.SettingUpdate)
@@ -74,5 +80,22 @@ func Register(r *gin.Engine) {
 		wizard.POST("/general", invitationHandlers.GeneralSave)
 		wizard.GET("/template", invitationHandlers.TemplateList)
 		wizard.POST("/template", invitationHandlers.TemplateSave)
+		wizard.GET("/preview", invitationHandlers.Preview)
+		wizard.POST("/publish", invitationHandlers.Publish)
+		wizard.POST("/save-music", invitationHandlers.SaveMusic)
 	}
+
+	// ============================================
+	// SHARE INVITATION (auth required)
+	// ============================================
+	share := r.Group("/share")
+	share.Use(middleware.RequireAuth())
+	{
+		share.GET("/invitation/:id", handlers.ShareInvitation)
+		share.POST("/invitation/:id/guest", handlers.StoreGuest)
+		share.POST("/invitation/:id/guests/bulk-update", handlers.BulkUpdateGuests)
+		share.PUT("/guest/:guestId", handlers.UpdateGuest)
+		share.DELETE("/guest/:guestId", handlers.DestroyGuest)
+	}
+
 }

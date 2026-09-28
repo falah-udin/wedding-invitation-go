@@ -16,6 +16,8 @@ func Migrate() error {
 		&models.Project{},
 		&models.Music{},
 		&models.SiteSetting{},
+		&models.InvitationGuest{},
+		&models.Rsvp{},
 	)
 
 	if err != nil {

@@ -1,0 +1,113 @@
+package invitation
+
+import "wedding-invitation-go/internal/models"
+
+// previewScript — JavaScript untuk preview page
+templ previewScript(project models.Project) {
+	<script>
+	// ============================================
+	// COPY LINK
+	// ============================================
+	window.copyLink = function(path) {
+		const fullUrl = window.location.origin + path;
+		if (navigator.clipboard) {
+			navigator.clipboard.writeText(fullUrl).then(function() {
+				alert('✅ Link berhasil dicopy!\n\n' + fullUrl);
+			}).catch(function() {
+				alert('Link: ' + fullUrl);
+			});
+		} else {
+			alert('Link: ' + fullUrl);
+		}
+	};
+
+	// ============================================
+	// MUSIC PLAYER
+	// ============================================
+	var previewAudio = null;
+	var isPreviewPlaying = false;
+
+	window.previewMusic = function() {
+		var select = document.getElementById('musicSelect');
+		var filePath = select.value;
+		var selectedOption = select.options[select.selectedIndex];
+
+		if (!filePath) {
+			alert('Pilih musik terlebih dahulu');
+			return;
+		}
+
+		var audioUrl = '/storage/' + filePath;
+		var title = selectedOption.dataset.title || 'Musik';
+		var artist = selectedOption.dataset.artist || '';
+		var infoDiv = document.getElementById('musicInfo');
+		var infoText = document.getElementById('musicInfoText');
+
+		if (previewAudio && isPreviewPlaying) {
+			previewAudio.pause();
+			isPreviewPlaying = false;
+			return;
+		}
+
+		if (previewAudio) {
+			previewAudio.pause();
+			previewAudio = null;
+		}
+
+		previewAudio = new Audio(audioUrl);
+		previewAudio.volume = 0.5;
+
+		infoDiv.style.display = 'block';
+		infoText.textContent = title + (artist ? ' - ' + artist : '') + ' (memutar...)';
+
+		previewAudio.addEventListener('canplay', function() {
+			previewAudio.play();
+			isPreviewPlaying = true;
+		});
+
+		previewAudio.addEventListener('ended', function() {
+			isPreviewPlaying = false;
+			infoDiv.style.display = 'none';
+		});
+
+		previewAudio.addEventListener('error', function() {
+			alert('Gagal memutar musik');
+			infoDiv.style.display = 'none';
+		});
+	};
+
+	// ============================================
+	// SAVE MUSIC (AJAX)
+	// ============================================
+	window.saveMusic = function() {
+		var select = document.getElementById('musicSelect');
+		var filePath = select.value;
+
+		if (!filePath) {
+			alert('Pilih musik terlebih dahulu');
+			return;
+		}
+
+		var formData = new FormData();
+		formData.append('custom_music', filePath);
+
+		fetch('/invitation/create/save-music', {
+			method: 'POST',
+			body: formData
+		})
+		.then(function(r) { return r.json(); })
+		.then(function(data) {
+			if (data.success) {
+				alert('✅ ' + data.message);
+				// Reload untuk tampilkan status "musik sudah dipilih"
+				window.location.reload();
+			} else {
+				alert('❌ ' + data.message);
+			}
+		})
+		.catch(function(err) {
+			alert('❌ Error: ' + err.message);
+		});
+	};
+	</script>
+}

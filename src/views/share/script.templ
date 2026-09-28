@@ -1,0 +1,177 @@
+package share
+
+// shareScript — JavaScript untuk halaman share
+templ shareScript(projectID uint) {
+	<script>
+		var PROJECT_ID = {{ projectID }};
+		var LINK_PLACEHOLDER = '{' + '{LINK}' + '}';
+
+		window.copyBaseUrl = function() {
+			var input = document.getElementById('baseUrl');
+			input.select();
+			document.execCommand('copy');
+			alert('✅ Link disalin: ' + input.value);
+		};
+
+		window.onPhoneInput = function(inputEl) {
+			var row = inputEl.closest('tr');
+			var savedPhone = (row.dataset.savedPhone || '').trim();
+			var currentPhone = (inputEl.value || '').trim();
+			var isChanged = currentPhone !== savedPhone;
+			row.dataset.dirty = isChanged ? 'true' : 'false';
+			if (isChanged) {
+				inputEl.style.borderColor = '#f59e0b';
+			} else {
+				inputEl.style.borderColor = '#2a2a2a';
+			}
+		};
+
+		window.saveAllChanges = function() {
+			var dirtyRows = document.querySelectorAll('tr[data-dirty="true"]');
+			if (dirtyRows.length === 0) {
+				alert('Tidak ada perubahan untuk disimpan');
+				return;
+			}
+			var promises = [];
+			dirtyRows.forEach(function(row) {
+				var guestId = row.dataset.guestId;
+				var phoneInput = row.querySelector('.guest-phone');
+				var phone = phoneInput.value.trim();
+				var formData = new FormData();
+				formData.append('phone', phone);
+				var promise = fetch('/share/guest/' + guestId, {
+					method: 'PUT',
+					body: formData
+				}).then(function(r) { return r.json(); });
+				promises.push(promise);
+			});
+			Promise.all(promises).then(function(results) {
+				var ok = results.every(function(r) { return r.success; });
+				if (ok) {
+					alert('✅ ' + dirtyRows.length + ' nomor berhasil disimpan');
+					window.location.reload();
+				} else {
+					alert('❌ Ada yang gagal disimpan');
+				}
+			}).catch(function(err) {
+				alert('❌ Error: ' + err.message);
+			});
+		};
+
+		window.shareToGuest = function(guestId, name) {
+			var row = document.querySelector('tr[data-guest-id="' + guestId + '"]');
+			if (!row) return;
+			var phoneInput = row.querySelector('.guest-phone');
+			var phone = phoneInput.value.trim();
+			if (!phone) {
+				var newPhone = prompt('Nomor WhatsApp untuk ' + name + ':', '081234567890');
+				if (!newPhone) return;
+				phone = newPhone;
+				phoneInput.value = newPhone;
+				var formData = new FormData();
+				formData.append('phone', newPhone);
+				fetch('/share/guest/' + guestId, {
+					method: 'PUT',
+					body: formData
+				});
+			}
+			var cleanPhone = phone.replace(/[\s\+\-\(\)\.]/g, '');
+			if (cleanPhone.charAt(0) === '0') {
+				cleanPhone = '62' + cleanPhone.substring(1);
+			}
+			if (cleanPhone.indexOf('62') !== 0) {
+				cleanPhone = '62' + cleanPhone;
+			}
+			var template = document.getElementById('messageTemplate').value;
+			var nameForUrl = name.replace(/\s+/g, '_');
+			var baseUrl = document.getElementById('baseUrl').value;
+			var personalLink = baseUrl + '?to=' + encodeURIComponent(nameForUrl);
+			var finalMsg = template.split(LINK_PLACEHOLDER).join(personalLink);
+			if (template.indexOf(LINK_PLACEHOLDER) === -1) {
+				finalMsg += '\n\n' + personalLink;
+			}
+			var waUrl = 'https://wa.me/' + cleanPhone + '?text=' + encodeURIComponent(finalMsg);
+			window.open(waUrl, '_blank');
+			var formData2 = new FormData();
+			formData2.append('is_shared', '1');
+			fetch('/share/guest/' + guestId, {
+				method: 'PUT',
+				body: formData2
+			});
+		};
+
+		window.deleteGuest = function(guestId, name) {
+			if (!confirm('Hapus tamu "' + name + '"?')) return;
+			fetch('/share/guest/' + guestId, {
+				method: 'DELETE'
+			})
+			.then(function(r) { return r.json(); })
+			.then(function(data) {
+				if (data.success) {
+					var row = document.querySelector('tr[data-guest-id="' + guestId + '"]');
+					if (row) row.remove();
+					alert('✅ Tamu dihapus');
+				} else {
+					alert('❌ ' + data.message);
+				}
+			})
+			.catch(function(err) {
+				alert('❌ Error: ' + err.message);
+			});
+		};
+
+		window.openAddGuestModal = function() {
+			document.getElementById('newGuestName').value = '';
+			document.getElementById('newGuestPhone').value = '';
+			var modal = new bootstrap.Modal(document.getElementById('addGuestModal'));
+			modal.show();
+		};
+
+		window.submitAddGuest = function() {
+			var name = document.getElementById('newGuestName').value.trim();
+			var phone = document.getElementById('newGuestPhone').value.trim();
+			if (!name) {
+				alert('Nama wajib diisi');
+				return;
+			}
+			var formData = new FormData();
+			formData.append('name', name);
+			formData.append('phone', phone);
+			fetch('/share/invitation/' + PROJECT_ID + '/guest', {
+				method: 'POST',
+				body: formData
+			})
+			.then(function(r) { return r.json(); })
+			.then(function(data) {
+				if (data.success) {
+					alert('✅ ' + data.message);
+					window.location.reload();
+				} else {
+					alert('❌ ' + data.message);
+				}
+			})
+			.catch(function(err) {
+				alert('❌ Error: ' + err.message);
+			});
+		};
+
+		window.filterGuests = function() {
+			var keyword = document.getElementById('searchGuest').value.toLowerCase();
+			var rows = document.querySelectorAll('#guestTable tbody tr');
+			rows.forEach(function(row) {
+				var name = (row.dataset.name || '').toLowerCase();
+				if (name.indexOf(keyword) !== -1) {
+					row.style.display = '';
+				} else {
+					row.style.display = 'none';
+				}
+			});
+		};
+
+		window.resetMessage = function() {
+			if (confirm('Reset pesan ke template default?')) {
+				window.location.reload();
+			}
+		};
+	</script>
+}

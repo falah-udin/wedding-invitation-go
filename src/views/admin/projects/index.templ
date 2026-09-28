@@ -1,8 +1,11 @@
 package projects
 
-import "wedding-invitation-go/internal/models"
+import (
+	templpkg "github.com/a-h/templ"
+	"wedding-invitation-go/internal/models"
+)
 
-// IndexContent — list project dengan filter
+// IndexContent — list project dengan filter + modal aksi
 templ IndexContent(
 	projects []models.Project,
 	templates []models.Template,
@@ -119,6 +122,7 @@ templ IndexContent(
 						<th class="py-3" style="color: #8b5cf6;">Status</th>
 						<th class="py-3" style="color: #8b5cf6;">Views</th>
 						<th class="py-3" style="color: #8b5cf6;">RSVP</th>
+						<th class="py-3" style="color: #8b5cf6;">Dibuat</th>
 						<th class="text-center pe-3 py-3" style="color: #8b5cf6;">Aksi</th>
 					</tr>
 				</thead>
@@ -159,28 +163,35 @@ templ IndexContent(
 									<i class="bi bi-envelope-check me-1" style="color:#ec489a;"></i>
 									<span>{ formatInt(project.TotalRsvp) }</span>
 								</td>
+								<td class="py-3" style="color:#6b7280; font-size:0.75rem;">
+									{ formatDate(project.CreatedAt) }
+								</td>
 								<td class="text-center pe-3 py-3">
-									<div class="d-flex gap-1 justify-content-center">
-										<a href={ templ.URL("/admin/projects/" + formatUint(project.ID)) } class="btn btn-sm" style="background:#8b5cf6; color:white; border-radius:6px;" title="Detail">
-											<i class="bi bi-eye"></i>
-										</a>
+									<div class="d-flex gap-1 justify-content-center align-items-center">
+										<!-- Tombol Salin Link (hanya kalau published) -->
 										if project.Status == "published" {
-											<a href={ templ.URL("/invitation/" + project.Slug) } target="_blank" class="btn btn-sm" style="background:#10b981; color:white; border-radius:6px;" title="Lihat Undangan">
-												<i class="bi bi-box-arrow-up-right"></i>
-											</a>
-										}
-										<form action={ templ.URL("/admin/projects/" + formatUint(project.ID) + "/delete") } method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus project ini?')">
-											<button type="submit" class="btn btn-sm" style="background:#ef4444; color:white; border-radius:6px;" title="Hapus">
-												<i class="bi bi-trash"></i>
+											<button type="button" onclick={ templpkg.JSFuncCall("copyInvitationLink", "/invitation/"+project.Slug, project.Title) } class="btn btn-sm" style="background:#10b981; color:white; border-radius:8px;" title="Salin Link">
+												<i class="bi bi-clipboard"></i>
 											</button>
-										</form>
+										}
+
+										<!-- Tombol Aksi (buka modal) -->
+										<button type="button" onclick={ templpkg.JSFuncCall("openActionModal",
+											formatUint(project.ID),
+											project.Title,
+											project.Slug,
+											project.Status,
+											formatInt(int(project.TotalRsvp)),
+										) } class="btn btn-sm" style="background:#2a2a2a; color:white; border-radius:8px;" title="Aksi">
+											<i class="bi bi-grid-3x3-gap-fill"></i>
+										</button>
 									</div>
 								</td>
 							</tr>
 						}
 					} else {
 						<tr>
-							<td colspan="8" class="text-center py-5" style="color:#6b7280;">
+							<td colspan="9" class="text-center py-5" style="color:#6b7280;">
 								<i class="bi bi-inbox fs-3 d-block mb-2"></i>
 								Belum ada project
 							</td>
@@ -190,4 +201,150 @@ templ IndexContent(
 			</table>
 		</div>
 	</div>
+
+	<!-- MODAL AKSI -->
+	<div class="modal fade" id="actionModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content" style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px;">
+				<div class="modal-header" style="border-bottom:1px solid #2a2a2a; padding:20px 24px;">
+					<div>
+						<h5 class="modal-title" style="color:#ffffff; font-weight:700; margin:0;">
+							<i class="bi bi-lightning-charge-fill me-2" style="color:#8b5cf6;"></i>Aksi
+						</h5>
+						<small id="actionModalSubtitle" style="color:#9ca3af; font-size:0.75rem;">-</small>
+					</div>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+				</div>
+				<div class="modal-body" style="padding:16px 24px;">
+					<div class="d-grid gap-2">
+						<a id="actionRsvp" href="#" style="display:flex; align-items:center; gap:12px; padding:14px 16px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:12px; color:#d1d5db; text-decoration:none; transition:all 0.2s;">
+							<i class="bi bi-people" style="color:#ec489a; font-size:1.2rem;"></i>
+							<div style="flex:1;">
+								<div style="color:white; font-weight:600; font-size:0.9rem;">Reservasi</div>
+								<div style="color:#6b7280; font-size:0.7rem;">Kelola konfirmasi kehadiran</div>
+							</div>
+							<span id="rsvpBadge" class="badge" style="background:#ef4444; font-size:0.65rem; display:none;">0</span>
+							<i class="bi bi-chevron-right" style="color:#4b5563;"></i>
+						</a>
+
+						<a id="actionShare" href="#" style="display:flex; align-items:center; gap:12px; padding:14px 16px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:12px; color:#d1d5db; text-decoration:none; transition:all 0.2s;">
+							<i class="bi bi-whatsapp" style="color:#25D366; font-size:1.2rem;"></i>
+							<div style="flex:1;">
+								<div style="color:white; font-weight:600; font-size:0.9rem;">Share WhatsApp</div>
+								<div style="color:#6b7280; font-size:0.7rem;">Bagikan undangan ke tamu</div>
+							</div>
+							<i class="bi bi-chevron-right" style="color:#4b5563;"></i>
+						</a>
+
+						<a id="actionDetail" href="#" style="display:flex; align-items:center; gap:12px; padding:14px 16px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:12px; color:#d1d5db; text-decoration:none; transition:all 0.2s;">
+							<i class="bi bi-eye" style="color:#8b5cf6; font-size:1.2rem;"></i>
+							<div style="flex:1;">
+								<div style="color:white; font-weight:600; font-size:0.9rem;">Detail</div>
+								<div style="color:#6b7280; font-size:0.7rem;">Lihat data lengkap project</div>
+							</div>
+							<i class="bi bi-chevron-right" style="color:#4b5563;"></i>
+						</a>
+
+						<a id="actionEdit" href="#" style="display:flex; align-items:center; gap:12px; padding:14px 16px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:12px; color:#d1d5db; text-decoration:none; transition:all 0.2s;">
+							<i class="bi bi-pencil" style="color:#f59e0b; font-size:1.2rem;"></i>
+							<div style="flex:1;">
+								<div style="color:white; font-weight:600; font-size:0.9rem;">Edit</div>
+								<div style="color:#6b7280; font-size:0.7rem;">Ubah data undangan</div>
+							</div>
+							<i class="bi bi-chevron-right" style="color:#4b5563;"></i>
+						</a>
+
+						<a id="actionView" href="#" target="_blank" style="display:flex; align-items:center; gap:12px; padding:14px 16px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:12px; color:#d1d5db; text-decoration:none; transition:all 0.2s;">
+							<i class="bi bi-box-arrow-up-right" style="color:#8b5cf6; font-size:1.2rem;"></i>
+							<div style="flex:1;">
+								<div style="color:white; font-weight:600; font-size:0.9rem;">Lihat Undangan</div>
+								<div style="color:#6b7280; font-size:0.7rem;">Buka undangan di tab baru</div>
+							</div>
+							<i class="bi bi-chevron-right" style="color:#4b5563;"></i>
+						</a>
+
+						<hr style="border-color:#2a2a2a; margin:8px 0;"/>
+
+						<form id="actionDeleteForm" method="POST" action="#" style="margin:0;">
+							<button type="submit" onclick="return confirm('Yakin hapus project ini? Data tidak bisa dikembalikan!')" style="width:100%; display:flex; align-items:center; gap:12px; padding:14px 16px; background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.3); border-radius:12px; color:#ef4444; cursor:pointer; font-weight:600; font-size:0.9rem;">
+								<i class="bi bi-trash" style="font-size:1.2rem;"></i>
+								<div style="flex:1; text-align:left;">
+									<div style="font-weight:600;">Hapus Project</div>
+									<div style="color:#9ca3af; font-size:0.7rem; font-weight:400;">Tindakan ini tidak bisa dibatalkan</div>
+								</div>
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	@projectIndexScript()
+}
+
+// ============================================
+// SCRIPT
+// ============================================
+templ projectIndexScript() {
+	<script>
+		// ============================================
+		// COPY LINK
+		// ============================================
+		window.copyInvitationLink = function(path, title) {
+			var fullUrl = window.location.origin + path;
+			if (navigator.clipboard) {
+				navigator.clipboard.writeText(fullUrl).then(function() {
+					alert('✅ Link tersalin!\n\n' + title + '\n' + fullUrl);
+				}).catch(function() {
+					alert('Link: ' + fullUrl);
+				});
+			} else {
+				alert('Link: ' + fullUrl);
+			}
+		};
+
+		// ============================================
+		// OPEN ACTION MODAL
+		// ============================================
+		window.openActionModal = function(id, title, slug, status, rsvpCount) {
+			// Isi subtitle
+			document.getElementById('actionModalSubtitle').textContent = title;
+
+			// Isi link
+			document.getElementById('actionRsvp').href = '/admin/projects/' + id + '/rsvp';
+			document.getElementById('actionShare').href = '/share/invitation/' + id;
+			document.getElementById('actionDetail').href = '/admin/projects/' + id;
+			document.getElementById('actionEdit').href = '/invitation/create/general?project_id=' + id;
+			document.getElementById('actionView').href = '/invitation/' + slug;
+			document.getElementById('actionDeleteForm').action = '/admin/projects/' + id + '/delete';
+
+			// Badge RSVP
+			var rsvpBadge = document.getElementById('rsvpBadge');
+			var count = parseInt(rsvpCount, 10);
+			if (count > 0) {
+				rsvpBadge.textContent = count;
+				rsvpBadge.style.display = 'inline-block';
+			} else {
+				rsvpBadge.style.display = 'none';
+			}
+
+			// Sembunyikan tombol "Lihat Undangan" kalau belum published
+			var actionView = document.getElementById('actionView');
+			if (status !== 'published') {
+				actionView.style.opacity = '0.4';
+				actionView.style.pointerEvents = 'none';
+				actionView.title = 'Undangan belum dipublikasikan';
+			} else {
+				actionView.style.opacity = '1';
+				actionView.style.pointerEvents = 'auto';
+				actionView.title = '';
+			}
+
+			// Show modal
+			var modalEl = document.getElementById('actionModal');
+			var modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+			modal.show();
+		};
+	</script>
 }
