@@ -1,0 +1,81 @@
+package users
+
+import "wedding-invitation-go/internal/models"
+
+// IndexContent — konten halaman list user
+templ IndexContent(users []models.User) {
+	<div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3">
+		<div>
+			<h2 class="fw-bold" style="color: #8b5cf6;">
+				<i class="bi bi-people me-2"></i>Manajemen User
+			</h2>
+			<p class="text-secondary m-0">Kelola semua user yang terdaftar di platform</p>
+		</div>
+		<a href="/admin/users/create" class="btn-primary-custom">
+			<i class="bi bi-plus-lg me-2"></i>Tambah User
+		</a>
+	</div>
+
+	<div style="background: #1e1e1e; border-radius: 20px; border: 1px solid #2a2a2a; overflow: hidden;">
+		<div class="table-responsive">
+			<table class="table table-hover mb-0" style="margin-bottom: 0;">
+				<thead>
+					<tr>
+						<th class="ps-3 py-3" style="color: #8b5cf6;">ID</th>
+						<th class="py-3" style="color: #8b5cf6;">Nama</th>
+						<th class="d-none d-md-table-cell py-3" style="color: #8b5cf6;">Email</th>
+						<th class="py-3" style="color: #8b5cf6;">Role</th>
+						<th class="d-none d-lg-table-cell py-3" style="color: #8b5cf6;">Status</th>
+						<th class="text-center py-3" style="color: #8b5cf6;">Aksi</th>
+					</tr>
+				</thead>
+				<tbody>
+					if len(users) > 0 {
+						for _, user := range users {
+							<tr style="border-bottom: 1px solid #2a2a2a;">
+								<td class="ps-3 py-3" style="color: white;">{ formatUint(user.ID) }</td>
+								<td class="py-3" style="color: white;">{ user.Name }</td>
+								<td class="d-none d-md-table-cell py-3" style="color: #9ca3af;">{ user.Email }</td>
+								<td class="py-3">
+									if user.Role == "admin" {
+										<span class="badge" style="background: #8b5cf6; padding: 6px 12px; border-radius: 20px;">Admin</span>
+									} else if user.Role == "staff" {
+										<span class="badge" style="background: #f59e0b; color: #1a1a1a; padding: 6px 12px; border-radius: 20px;">Staff</span>
+									} else {
+										<span class="badge" style="background: #3b82f6; padding: 6px 12px; border-radius: 20px;">Client</span>
+									}
+								</td>
+								<td class="d-none d-lg-table-cell py-3">
+									if user.IsActive {
+										<span class="badge" style="background: #10b981; padding: 6px 12px; border-radius: 20px;">Aktif</span>
+									} else {
+										<span class="badge" style="background: #6b7280; padding: 6px 12px; border-radius: 20px;">Nonaktif</span>
+									}
+								</td>
+								<td class="text-center py-3">
+									<div class="d-flex gap-2 justify-content-center">
+										<a href={ templ.URL("/admin/users/" + formatUint(user.ID) + "/edit") } class="btn btn-sm" style="background: #f59e0b; color: #1a1a1a; border-radius: 8px;">
+											<i class="bi bi-pencil"></i>
+										</a>
+										<form action={ templ.URL("/admin/users/" + formatUint(user.ID) + "/delete") } method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus user ini?')">
+											<button type="submit" class="btn btn-sm" style="background: #ef4444; color: white; border-radius: 8px;">
+												<i class="bi bi-trash"></i>
+											</button>
+										</form>
+									</div>
+								</td>
+							</tr>
+						}
+					} else {
+						<tr>
+							<td colspan="6" class="text-center py-5" style="color:#6b7280;">
+								<i class="bi bi-inbox fs-3 d-block mb-2"></i>
+								Belum ada user
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+}
