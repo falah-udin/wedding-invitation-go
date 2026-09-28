@@ -1,0 +1,2113 @@
+package rustic_wood
+
+import (
+	"context"
+	"io"
+
+	templpkg "github.com/a-h/templ"
+	"wedding-invitation-go/internal/models"
+)
+
+// RusticWood — template undangan tema Rustic Wood (FULL)
+func RusticWood(ctx context.Context, w io.Writer, project models.Project, data map[string]interface{}, guestName string) error {
+	// Pre-compute data yang sering dipakai
+	groomName := getStr(data, "groom_name")
+	brideName := getStr(data, "bride_name")
+	groomPhoto := getDefaultPhoto(data, "groom_photo")
+	bridePhoto := getDefaultPhoto(data, "bride_photo")
+	eventInstagram := getStr(data, "event_instagram")
+	musicURL := getMusicUrlFromProject(project)
+	isNamedGuest := guestName != "" && guestName != "Tamu Undangan"
+
+	component := rusticWoodPage(
+		project, data, guestName,
+		groomName, brideName,
+		groomPhoto, bridePhoto,
+		eventInstagram, musicURL, isNamedGuest,
+	)
+	return component.Render(ctx, w)
+}
+
+templ rusticWoodPage(
+	project models.Project,
+	data map[string]interface{},
+	guestName string,
+	groomName string,
+	brideName string,
+	groomPhoto string,
+	bridePhoto string,
+	eventInstagram string,
+	musicURL string,
+	isNamedGuest bool,
+) {
+	<!DOCTYPE html>
+	<html lang="id">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
+		<title>{ groomName } &amp; { brideName } - Rustic Wood</title>
+
+		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+
+		<style>
+			/* ============================================ */
+			/* HTML & BODY */
+			/* ============================================ */
+			html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+			body {
+				font-family: 'Inter', sans-serif;
+				background: var(--rustic-cream);
+				color: var(--rustic-text);
+				line-height: 1.6;
+				overflow-x: hidden;
+				min-height: 100vh;
+				min-height: 100svh;
+			}
+			* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+			img { max-width: 100%; height: auto; }
+
+			/* ============================================ */
+			/* DATE CARD TEXT FIX */
+			/* ============================================ */
+			.date-card {
+				background: rgba(45, 31, 10, 0.5) !important;
+				border: 1px solid rgba(184, 149, 106, 0.15);
+				border-radius: 12px;
+				padding: 16px 18px;
+				text-align: center;
+				transition: all 0.3s ease;
+				backdrop-filter: blur(4px);
+				box-shadow: inset 0 0 30px rgba(0,0,0,0.1);
+			}
+			.date-card:hover {
+				background: rgba(45, 31, 10, 0.7) !important;
+				border-color: rgba(184, 149, 106, 0.25);
+				transform: translateY(-2px);
+			}
+			.date-label {
+				display: flex; align-items: center; justify-content: center; gap: 8px;
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 0.7rem; text-transform: uppercase; letter-spacing: 4px;
+				color: rgba(184, 149, 106, 0.5) !important;
+				margin-bottom: 8px;
+			}
+			.date-label i { font-size: 0.7rem; color: rgba(184, 149, 106, 0.3); }
+			.date-value {
+				display: flex; align-items: center; justify-content: center; gap: 8px;
+				color: #f5f0e8 !important;
+				font-size: 0.95rem; font-weight: 600 !important;
+				margin-bottom: 4px;
+				text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+			}
+			.date-value i { color: rgba(184, 149, 106, 0.2); font-size: 0.8rem; }
+			.date-time, .date-venue {
+				display: flex; align-items: center; justify-content: center; gap: 6px;
+				color: rgba(255, 255, 255, 0.7) !important;
+				font-size: 0.7rem; font-weight: 400 !important;
+			}
+			.date-time i, .date-venue i { color: rgba(184, 149, 106, 0.15); font-size: 0.6rem; }
+
+			/* ============================================ */
+			/* ROOT VARIABLES - RUSTIC WOOD THEME */
+			/* ============================================ */
+			:root {
+				--rustic-brown: #5a3d2b;
+				--rustic-brown-light: #8b7355;
+				--rustic-brown-dark: #2d1f0a;
+				--rustic-brown-warm: #7a5238;
+				--rustic-cream: #f5f0e8;
+				--rustic-cream-dark: #e8ddd0;
+				--rustic-gold: #b8956a;
+				--rustic-gold-light: #d4c5a9;
+				--rustic-text: #3d2b1f;
+				--rustic-muted: #8b7355;
+				--white: #ffffff;
+				--shadow: 0 4px 30px rgba(0,0,0,0.06);
+				--shadow-hover: 0 8px 45px rgba(0,0,0,0.1);
+			}
+
+			.container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+			@media (min-width: 768px) { .container { padding: 0 40px; } }
+
+			/* ============================================ */
+			/* TYPOGRAPHY */
+			/* ============================================ */
+			.section-label {
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 0.8rem; text-transform: uppercase; letter-spacing: 8px;
+				color: var(--rustic-gold); text-align: center;
+				margin-bottom: 6px; font-weight: 400;
+			}
+			.section-title {
+				font-family: 'Playfair Display', serif;
+				font-size: 2.5rem; font-weight: 600; text-align: center;
+				margin-bottom: 12px; color: var(--rustic-brown); line-height: 1.2;
+			}
+			.section-title .wood-leaf {
+				display: block; color: var(--rustic-gold);
+				font-size: 1.4rem; margin-top: 8px;
+				opacity: 0.4; font-weight: 300;
+				font-family: 'Playfair Display', serif;
+			}
+			.section-subtitle {
+				text-align: center; color: var(--rustic-muted);
+				font-size: 0.95rem; max-width: 500px;
+				margin: -8px auto 40px; font-style: italic;
+			}
+			@media (max-width: 600px) {
+				.section-title { font-size: 1.8rem; }
+				.section-subtitle { font-size: 0.85rem; padding: 0 16px; }
+			}
+
+			/* ============================================ */
+			/* TOAST */
+			/* ============================================ */
+			.toast-container {
+				position: fixed; top: 20px; right: 20px; z-index: 9999;
+				display: flex; flex-direction: column; gap: 8px;
+			}
+			.toast {
+				background: var(--rustic-brown); color: var(--white);
+				padding: 12px 20px; border-radius: 12px;
+				box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+				animation: slideInRustic 0.4s ease;
+				min-width: 200px;
+				display: flex; align-items: center; gap: 10px;
+				font-size: 0.85rem;
+				border-left: 4px solid var(--rustic-gold);
+			}
+			.toast i { font-size: 1.1rem; }
+			.toast.success i { color: #10b981; }
+			.toast.error i { color: #ef4444; }
+			.toast.info i { color: var(--rustic-gold); }
+			@keyframes slideInRustic {
+				from { transform: translateX(100%) rotate(-2deg); opacity: 0; }
+				to { transform: translateX(0) rotate(0); opacity: 1; }
+			}
+
+						/* ============================================ */
+			/* OVERLAY START */
+			/* ============================================ */
+			#startOverlay {
+				position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+				width: 100vw; height: 100vh; height: 100svh;
+				background: rgba(45, 31, 10, 0.94);
+				z-index: 9999;
+				display: flex; align-items: center; justify-content: center;
+				backdrop-filter: blur(10px);
+				transition: opacity 0.8s ease;
+				cursor: pointer; padding: 20px; overflow-y: auto;
+			}
+			#startOverlay .overlay-inner {
+				text-align: center; max-width: 500px; width: 100%;
+				padding: 20px; position: relative; margin: auto;
+			}
+			#startOverlay .overlay-wood {
+				font-size: 3rem; color: var(--rustic-gold);
+				opacity: 0.15; margin-bottom: 12px; display: block;
+				font-family: 'Playfair Display', serif;
+			}
+			#startOverlay .overlay-title {
+				font-family: 'Playfair Display', serif;
+				font-size: 2.4rem; font-weight: 700;
+				color: var(--rustic-gold); margin-bottom: 6px; letter-spacing: 4px;
+			}
+			#startOverlay .overlay-subtitle {
+				color: rgba(255,255,255,0.6);
+				font-size: 1rem; margin-bottom: 6px; font-weight: 300;
+			}
+			#startOverlay .overlay-divider {
+				width: 50px; height: 2px;
+				background: linear-gradient(90deg, transparent, var(--rustic-gold), transparent);
+				margin: 12px auto 20px; opacity: 0.15;
+			}
+			.overlay-guest { margin: 22px 0 26px; animation: fadeInGuestRustic 1.2s ease 0.4s both; }
+			.overlay-guest-label {
+				font-family: 'Playfair Display', serif;
+				font-size: 0.7rem; text-transform: uppercase; letter-spacing: 5px;
+				color: rgba(210, 180, 140, 0.6);
+				margin-bottom: 10px; font-style: italic; font-weight: 400;
+			}
+			.overlay-guest-name {
+				font-family: 'Playfair Display', serif;
+				font-size: 1.55rem; font-weight: 600;
+				color: #f5e6d3; line-height: 1.3; margin-bottom: 6px; letter-spacing: 0.5px;
+				text-shadow: 0 2px 12px rgba(0,0,0,0.4), 0 0 40px rgba(210,180,140,0.08);
+			}
+			.overlay-guest-divider {
+				width: 70px; height: 1px;
+				background: linear-gradient(90deg, transparent, #b8956a, transparent);
+				margin: 14px auto 0; opacity: 0.6; position: relative;
+			}
+			.overlay-guest-divider::before, .overlay-guest-divider::after {
+				content: '✦'; position: absolute; top: 50%;
+				transform: translateY(-50%); font-size: 0.5rem;
+				color: #b8956a; opacity: 0.8;
+			}
+			.overlay-guest-divider::before { left: -18px; }
+			.overlay-guest-divider::after { right: -18px; }
+			@keyframes fadeInGuestRustic {
+				from { opacity: 0; transform: translateY(14px) scale(0.98); }
+				to { opacity: 1; transform: translateY(0) scale(1); }
+			}
+			@media (max-width: 600px) {
+				.overlay-guest { margin: 18px 0 22px; }
+				.overlay-guest-name { font-size: 1.25rem; }
+				.overlay-guest-label { font-size: 0.6rem; letter-spacing: 4px; margin-bottom: 8px; }
+				.overlay-guest-divider { width: 55px; margin-top: 10px; }
+			}
+			@media (max-width: 400px) {
+				.overlay-guest-name { font-size: 1.08rem; }
+				.overlay-guest-label { font-size: 0.55rem; letter-spacing: 3px; }
+			}
+			#startOverlay .btn-start {
+				display: inline-block;
+				background: linear-gradient(135deg, var(--rustic-gold), var(--rustic-brown), var(--rustic-gold));
+				background-size: 200% auto; color: var(--white);
+				padding: 16px 48px; border-radius: 50px;
+				font-weight: 600; font-size: 0.95rem;
+				border: none; cursor: pointer;
+				box-shadow: 0 4px 40px rgba(184, 149, 106, 0.15);
+				transition: all 0.4s ease; letter-spacing: 2px;
+				position: relative; overflow: hidden;
+			}
+			#startOverlay .btn-start::before {
+				content: ''; position: absolute; top: 0; left: -100%;
+				width: 100%; height: 100%;
+				background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+				transition: left 0.6s ease;
+			}
+			#startOverlay .btn-start:hover::before { left: 100%; }
+			#startOverlay .btn-start:hover {
+				transform: scale(1.05) translateY(-2px);
+				box-shadow: 0 8px 60px rgba(184, 149, 106, 0.25);
+				background-position: right center;
+			}
+			#startOverlay .btn-start:active { transform: scale(0.95); }
+			#startOverlay .hint {
+				font-size: 0.6rem; opacity: 0.2; margin-top: 18px;
+				letter-spacing: 3px; color: var(--rustic-cream);
+			}
+			@media (max-width: 600px) {
+				#startOverlay .overlay-title { font-size: 1.8rem; }
+				#startOverlay .btn-start { padding: 14px 32px; font-size: 0.85rem; width: 100%; max-width: 280px; }
+				#startOverlay .overlay-wood { font-size: 2.5rem; }
+			}
+
+			/* ============================================ */
+			/* MUSIC PLAYER */
+			/* ============================================ */
+			.music-player { position: fixed; bottom: 24px; right: 24px; z-index: 1000; }
+			.music-btn {
+				width: 56px; height: 56px; border-radius: 50%;
+				background: linear-gradient(135deg, var(--rustic-brown), var(--rustic-brown-dark));
+				border: 2px solid var(--rustic-gold);
+				color: var(--white); font-size: 1.5rem; cursor: pointer;
+				box-shadow: 0 4px 30px rgba(0,0,0,0.15);
+				transition: all 0.3s;
+				display: flex; align-items: center; justify-content: center;
+			}
+			.music-btn:hover {
+				transform: scale(1.05) rotate(-5deg);
+				background: var(--rustic-brown-dark);
+				border-color: var(--rustic-gold-light);
+			}
+			.music-btn.playing { animation: pulseRustic 1.5s infinite; }
+			@keyframes pulseRustic {
+				0% { box-shadow: 0 0 0 0 rgba(90, 61, 43, 0.4); }
+				70% { box-shadow: 0 0 0 16px rgba(90, 61, 43, 0); }
+				100% { box-shadow: 0 0 0 0 rgba(90, 61, 43, 0); }
+			}
+
+			/* ============================================ */
+			/* HERO */
+			/* ============================================ */
+			.hero-rustic-ultimate {
+				min-height: 100vh; min-height: 100svh; height: auto;
+				display: flex; flex-direction: column;
+				align-items: center; justify-content: center;
+				text-align: center; position: relative;
+				padding: 40px 16px 90px; overflow: hidden;
+			}
+			@media (min-width: 768px) {
+				.hero-rustic-ultimate { padding: 60px 20px 100px; }
+			}
+			.hero-content {
+				position: relative; z-index: 2;
+				width: 100%; max-width: 100%; margin: 0 auto;
+			}
+			.wood-bg-solid {
+				position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+				z-index: 0;
+				background: radial-gradient(ellipse at 30% 40%, #6b4f3a, #3d2b1f 50%, #1a0f08 80%);
+			}
+			.wood-layer {
+				position: absolute; border-radius: 8px;
+				background:
+					repeating-linear-gradient(90deg, rgba(139, 115, 85, 0.03) 0px, rgba(139, 115, 85, 0.03) 2px, transparent 2px, transparent 6px),
+					repeating-linear-gradient(0deg, rgba(139, 115, 85, 0.02) 0px, rgba(139, 115, 85, 0.02) 1px, transparent 1px, transparent 8px);
+				pointer-events: none; z-index: 0;
+			}
+			.wood-layer-1 { top: 5%; left: 3%; right: 3%; bottom: 5%; background-color: rgba(61, 43, 31, 0.3); border: 1px solid rgba(139, 115, 85, 0.05); transform: rotate(-1deg); }
+			.wood-layer-2 { top: 8%; left: 6%; right: 6%; bottom: 8%; background-color: rgba(90, 61, 43, 0.2); border: 1px solid rgba(139, 115, 85, 0.04); transform: rotate(0.5deg); }
+			.wood-layer-3 { top: 12%; left: 10%; right: 10%; bottom: 12%; background-color: rgba(45, 31, 10, 0.15); border: 1px solid rgba(139, 115, 85, 0.03); transform: rotate(-0.3deg); }
+			.wood-grain-dynamic {
+				position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+				z-index: 1; pointer-events: none;
+				background:
+					repeating-linear-gradient(90deg, rgba(139, 115, 85, 0.02) 0px, rgba(139, 115, 85, 0.02) 1px, transparent 1px, transparent 5px),
+					repeating-linear-gradient(90deg, rgba(139, 115, 85, 0.01) 0px, rgba(139, 115, 85, 0.01) 1px, transparent 1px, transparent 12px),
+					repeating-linear-gradient(45deg, rgba(139, 115, 85, 0.015) 0px, rgba(139, 115, 85, 0.015) 1px, transparent 1px, transparent 15px),
+					repeating-linear-gradient(-45deg, rgba(139, 115, 85, 0.01) 0px, rgba(139, 115, 85, 0.01) 1px, transparent 1px, transparent 20px);
+			}
+			.wood-knot {
+				position: absolute; border-radius: 50%; pointer-events: none; z-index: 1;
+				background: radial-gradient(circle at 40% 40%, rgba(139, 115, 85, 0.02), rgba(45, 31, 10, 0.03));
+				border: 1px solid rgba(139, 115, 85, 0.02);
+			}
+			.wood-knot-1 { top: 15%; left: 8%; width: 80px; height: 60px; transform: rotate(-10deg); }
+			.wood-knot-2 { bottom: 20%; right: 5%; width: 60px; height: 50px; transform: rotate(15deg); }
+			.wood-knot-3 { top: 40%; right: 12%; width: 40px; height: 35px; transform: rotate(-5deg); }
+			.wood-split { position: absolute; pointer-events: none; z-index: 1; background: rgba(0, 0, 0, 0.03); border-radius: 2px; }
+			.wood-split-1 { top: 20%; left: 15%; width: 2px; height: 25%; transform: rotate(-8deg); }
+			.wood-split-2 { bottom: 25%; right: 20%; width: 1px; height: 20%; transform: rotate(12deg); }
+			.main-wood-plank {
+				position: relative; width: 100%; max-width: 780px;
+				margin: 0 auto; padding: 55px 50px 50px;
+				background: linear-gradient(160deg, #7a5a44, #4d3524 30%, #3d2b1f 60%, #4d3524);
+				border-radius: 16px;
+				box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.03), inset 0 -4px 8px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(139, 115, 85, 0.05);
+				z-index: 2;
+			}
+			.main-wood-plank::before {
+				content: ''; position: absolute;
+				top: -4px; left: -4px; right: -4px; bottom: -4px;
+				border-radius: 18px;
+				background: linear-gradient(145deg, rgba(139, 115, 85, 0.08), rgba(45, 31, 10, 0.2), rgba(139, 115, 85, 0.05));
+				z-index: -1;
+			}
+			.plank-wood-grain {
+				position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+				border-radius: 16px; overflow: hidden; pointer-events: none; z-index: 0;
+				background:
+					repeating-linear-gradient(90deg, rgba(139, 115, 85, 0.04) 0px, rgba(139, 115, 85, 0.04) 1px, transparent 1px, transparent 4px),
+					repeating-linear-gradient(90deg, rgba(139, 115, 85, 0.02) 0px, rgba(139, 115, 85, 0.02) 1px, transparent 1px, transparent 10px),
+					repeating-linear-gradient(45deg, rgba(139, 115, 85, 0.02) 0px, rgba(139, 115, 85, 0.02) 2px, transparent 2px, transparent 14px);
+			}
+			.plank-inner-shadow {
+				position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+				border-radius: 16px; pointer-events: none; z-index: 1;
+				background:
+					radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.02) 0%, transparent 60%),
+					radial-gradient(ellipse at 50% 100%, rgba(0, 0, 0, 0.1) 0%, transparent 60%);
+			}
+			.forged-nail {
+				position: absolute; width: 18px; height: 18px; border-radius: 50%; z-index: 5;
+				background: radial-gradient(circle at 35% 30%, #9a9a9a, #555 50%, #2a2a2a);
+				box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.15), inset 0 -3px 6px rgba(0, 0, 0, 0.6), 0 3px 12px rgba(0, 0, 0, 0.3);
+			}
+			.forged-nail::after {
+				content: ''; position: absolute; top: 50%; left: 50%;
+				transform: translate(-50%, -50%);
+				width: 4px; height: 4px; border-radius: 50%;
+				background: radial-gradient(circle, #bbb, #777);
+			}
+			.forged-nail-tl { top: 14px; left: 14px; }
+			.forged-nail-tr { top: 14px; right: 14px; }
+			.forged-nail-bl { bottom: 14px; left: 14px; }
+			.forged-nail-br { bottom: 14px; right: 14px; }
+			.wood-carving {
+				position: absolute; font-family: 'Playfair Display', serif;
+				font-size: 1.6rem; color: rgba(184, 149, 106, 0.06);
+				z-index: 3; pointer-events: none;
+			}
+			.carving-tl { top: 12px; left: 12px; }
+			.carving-tr { top: 12px; right: 12px; transform: rotate(90deg); }
+			.carving-bl { bottom: 12px; left: 12px; transform: rotate(-90deg); }
+			.carving-br { bottom: 12px; right: 12px; transform: rotate(180deg); }
+			.plank-content { position: relative; z-index: 4; text-align: center; }
+			.top-ornament, .bottom-ornament {
+				display: flex; align-items: center; justify-content: center;
+				gap: 12px; margin: 4px 0 16px;
+			}
+			.top-ornament .ornament-line, .bottom-ornament .ornament-line {
+				width: 50px; height: 1px;
+				background: linear-gradient(90deg, transparent, rgba(184, 149, 106, 0.15), transparent);
+			}
+			.top-ornament .ornament-diamond, .bottom-ornament .ornament-diamond {
+				color: rgba(184, 149, 106, 0.1); font-size: 0.6rem;
+			}
+			.hero-badge-wood {
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 0.75rem; letter-spacing: 8px; text-transform: uppercase;
+				color: rgba(255, 255, 255, 0.5); margin-bottom: 12px;
+			}
+			.hero-couple-wood {
+				font-family: 'Playfair Display', serif;
+				font-size: 4.5rem; font-weight: 700;
+				color: #f5f0e8; text-shadow: 0 2px 40px rgba(0, 0, 0, 0.3);
+				line-height: 1.1; margin-bottom: 8px;
+				display: flex; flex-direction: column; align-items: center; justify-content: center;
+			}
+			.hero-couple-wood .groom-name, .hero-couple-wood .bride-name {
+				display: block; text-align: center; word-break: break-word;
+			}
+			.hero-couple-wood .wood-ampersand {
+				display: block; color: rgba(184, 149, 106, 0.3);
+				font-weight: 300; font-size: 3rem; line-height: 1.2;
+				margin: 4px 0; text-align: center;
+			}
+			@media (max-width: 600px) {
+				.hero-couple-wood { font-size: 2.2rem !important; }
+				.hero-couple-wood .wood-ampersand { font-size: 1.8rem !important; margin: 2px 0 !important; }
+			}
+			@media (max-width: 400px) {
+				.hero-couple-wood { font-size: 1.8rem !important; }
+				.hero-couple-wood .wood-ampersand { font-size: 1.5rem !important; }
+			}
+			@media (min-width: 601px) and (max-width: 1024px) {
+				.hero-couple-wood { font-size: 3.2rem !important; }
+				.hero-couple-wood .wood-ampersand { font-size: 2.8rem !important; }
+			}
+			.wood-divider-ornate {
+				display: flex; align-items: center; justify-content: center;
+				gap: 16px; margin: 12px 0 20px;
+			}
+			.wood-divider-ornate .divider-line {
+				width: 60px; height: 2px;
+				background: linear-gradient(90deg, transparent, rgba(184, 149, 106, 0.08), transparent);
+				position: relative;
+			}
+			.wood-divider-ornate .divider-icon {
+				font-family: 'Playfair Display', serif;
+				color: rgba(184, 149, 106, 0.08); font-size: 1.2rem;
+			}
+			.btn-wood-rsvp {
+				display: inline-flex; align-items: center; gap: 10px;
+				padding: 14px 44px;
+				background: linear-gradient(160deg, #8b7355, #5a3d2b, #8b7355);
+				background-size: 200% auto;
+				color: #f5f0e8;
+				border: 1px solid rgba(184, 149, 106, 0.15);
+				border-radius: 50px; text-decoration: none;
+				font-weight: 500; font-size: 0.9rem; letter-spacing: 1px;
+				transition: all 0.4s ease;
+				box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.03);
+				cursor: pointer; position: relative; overflow: hidden;
+				margin-top: 8px;
+			}
+			.btn-wood-rsvp::before {
+				content: ''; position: absolute; top: 0; left: -100%;
+				width: 100%; height: 100%;
+				background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+				transition: left 0.6s ease;
+			}
+			.btn-wood-rsvp:hover::before { left: 100%; }
+			.btn-wood-rsvp:hover {
+				background-position: right center;
+				transform: translateY(-2px);
+				box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+				border-color: rgba(184, 149, 106, 0.2);
+			}
+			.scroll-indicator-wood {
+				position: absolute; bottom: 20px; left: 50%;
+				transform: translateX(-50%); z-index: 10;
+				color: rgba(255, 255, 255, 0.4);
+				font-size: 0.6rem; text-transform: uppercase; letter-spacing: 4px;
+				display: flex; flex-direction: column; align-items: center;
+				gap: 4px; cursor: pointer; transition: all 0.3s;
+				padding: 8px 0; margin: 0;
+			}
+			.scroll-indicator-wood:hover { color: rgba(184, 149, 106, 0.6); }
+			.scroll-indicator-wood i { font-size: 1.4rem; animation: bounceWood 2s infinite; }
+			@keyframes bounceWood {
+				0%, 100% { transform: translateY(0); }
+				50% { transform: translateY(10px); }
+			}
+			@media (max-width: 768px) {
+				.scroll-indicator-wood { bottom: 16px; font-size: 0.55rem; letter-spacing: 3px; }
+				.scroll-indicator-wood i { font-size: 1.2rem; }
+				.hero-rustic-ultimate { padding: 30px 12px 20px; }
+				.main-wood-plank { padding: 30px 20px 25px; border-radius: 12px; }
+				.forged-nail { width: 14px; height: 14px; }
+				.forged-nail-tl { top: 10px; left: 10px; }
+				.forged-nail-tr { top: 10px; right: 10px; }
+				.forged-nail-bl { bottom: 10px; left: 10px; }
+				.forged-nail-br { bottom: 10px; right: 10px; }
+				.wood-carving { font-size: 1rem; }
+				.btn-wood-rsvp { padding: 12px 28px; font-size: 0.8rem; width: 100%; justify-content: center; max-width: 280px; }
+				.top-ornament .ornament-line, .bottom-ornament .ornament-line { width: 30px; }
+				.wood-divider-ornate .divider-line { width: 35px; }
+				.wood-knot-1, .wood-knot-2, .wood-knot-3 { display: none; }
+				.wood-split-1, .wood-split-2 { display: none; }
+				.wood-layer-1, .wood-layer-2, .wood-layer-3 { display: none; }
+			}
+			@media (max-width: 400px) {
+				.main-wood-plank { padding: 20px 14px 18px; border-radius: 8px; }
+				.hero-badge-wood { font-size: 0.6rem; letter-spacing: 5px; }
+			}
+
+			/* ============================================ */
+			/* COUPLE */
+			/* ============================================ */
+			.section-couple { padding: 80px 0; background: var(--rustic-cream); }
+			.couple-grid {
+				display: grid; grid-template-columns: 1fr auto 1fr;
+				gap: 30px; align-items: center;
+			}
+			@media (max-width: 700px) {
+				.couple-grid { grid-template-columns: 1fr; gap: 40px; }
+			}
+			.couple-card {
+				text-align: center; padding: 25px;
+				background: var(--white); border-radius: 24px;
+				box-shadow: var(--shadow);
+				border: 1px solid rgba(139, 115, 85, 0.08);
+				transition: all 0.3s; position: relative; overflow: hidden;
+			}
+			.couple-card::before {
+				content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+				background: repeating-linear-gradient(90deg, rgba(139, 115, 85, 0.02) 0px, rgba(139, 115, 85, 0.02) 2px, transparent 2px, transparent 8px);
+				pointer-events: none; border-radius: 24px;
+			}
+			.couple-card:hover {
+				transform: translateY(-6px);
+				box-shadow: var(--shadow-hover);
+				border-color: rgba(184, 149, 106, 0.2);
+			}
+			.couple-photo {
+				width: 200px; height: 200px; margin: 0 auto 16px;
+				border-radius: 50%; background-size: cover; background-position: center;
+				border: 4px solid var(--rustic-gold);
+				transition: transform 0.3s; position: relative;
+			}
+			.couple-photo::after {
+				content: ''; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px;
+				border-radius: 50%; border: 1px solid rgba(184, 149, 106, 0.1);
+			}
+			.couple-card:hover .couple-photo { transform: scale(1.02); }
+			@media (max-width: 600px) { .couple-photo { width: 150px; height: 150px; } }
+			.couple-info h3 {
+				font-family: 'Playfair Display', serif;
+				font-size: 1.8rem; font-weight: 600;
+				color: var(--rustic-brown); margin-bottom: 4px;
+			}
+			.couple-title { color: var(--rustic-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
+			.couple-parents { font-weight: 500; color: var(--rustic-text); font-style: italic; }
+			.couple-social { margin-top: 12px; display: flex; justify-content: center; gap: 10px; }
+			.couple-social a {
+				color: var(--rustic-muted); transition: all 0.3s; font-size: 1.1rem;
+				display: inline-flex; align-items: center; justify-content: center;
+				width: 36px; height: 36px; border-radius: 50%;
+				border: 1px solid rgba(139, 115, 85, 0.06);
+			}
+			.couple-social a:hover {
+				color: var(--rustic-gold); border-color: var(--rustic-gold);
+				transform: translateY(-2px);
+			}
+			.couple-ampersand {
+				font-family: 'Playfair Display', serif;
+				font-size: 3rem; color: var(--rustic-gold);
+				font-weight: 400; opacity: 0.4;
+			}
+			@media (max-width: 700px) { .couple-ampersand { font-size: 2rem; } }
+
+			/* ============================================ */
+			/* LOVE STORY */
+			/* ============================================ */
+			.section-love { padding: 80px 0; background: var(--rustic-cream-dark); }
+			.love-timeline {
+				position: relative; padding-left: 35px;
+				max-width: 600px; margin: 0 auto;
+			}
+			.love-timeline::before {
+				content: ''; position: absolute; left: 10px; top: 0; bottom: 0;
+				width: 2px;
+				background: linear-gradient(180deg, transparent, var(--rustic-gold), transparent);
+				opacity: 0.15;
+			}
+			.timeline-item { position: relative; margin-bottom: 30px; padding-left: 30px; }
+			.timeline-dot {
+				position: absolute; left: -28px; top: 4px;
+				width: 22px; height: 22px;
+				background: var(--rustic-gold); border-radius: 50%;
+				display: flex; align-items: center; justify-content: center;
+				font-size: 0.5rem; color: var(--white);
+				border: 2px solid var(--rustic-cream-dark);
+				box-shadow: 0 2px 12px rgba(184, 149, 106, 0.1);
+				transition: all 0.3s;
+			}
+			.timeline-item:hover .timeline-dot { transform: scale(1.2); box-shadow: 0 4px 24px rgba(184, 149, 106, 0.15); }
+			.timeline-content {
+				background: var(--white); border-radius: 16px;
+				padding: 20px 24px;
+				border: 1px solid rgba(139, 115, 85, 0.06);
+				transition: all 0.3s; box-shadow: var(--shadow);
+			}
+			.timeline-item:hover .timeline-content {
+				border-color: rgba(184, 149, 106, 0.12);
+				box-shadow: var(--shadow-hover);
+				transform: translateX(4px);
+			}
+			.timeline-title {
+				font-family: 'Playfair Display', serif;
+				font-size: 1.1rem; font-weight: 600;
+				margin-bottom: 4px; color: var(--rustic-brown);
+			}
+			.timeline-desc { color: var(--rustic-muted); font-size: 0.9rem; margin: 0; }
+				@media (max-width: 600px) {
+					.love-timeline { padding-left: 24px; }
+					.timeline-item { padding-left: 20px; }
+					.timeline-content { padding: 16px 18px; }
+				}
+
+							/* ============================================ */
+			/* EVENT */
+			/* ============================================ */
+			.section-event { padding: 80px 0; background: var(--rustic-cream); }
+			.event-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+			@media (max-width: 600px) { .event-grid { grid-template-columns: 1fr; } }
+			.event-card {
+				background: var(--white); border-radius: 20px;
+				padding: 30px 24px; text-align: center;
+				box-shadow: var(--shadow);
+				border: 1px solid rgba(139, 115, 85, 0.06);
+				transition: all 0.3s; position: relative; overflow: hidden;
+			}
+			.event-card::before {
+				content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+				background: repeating-linear-gradient(90deg, rgba(139, 115, 85, 0.015) 0px, rgba(139, 115, 85, 0.015) 2px, transparent 2px, transparent 10px);
+				pointer-events: none;
+			}
+			.event-card:hover {
+				transform: translateY(-4px);
+				box-shadow: var(--shadow-hover);
+				border-color: rgba(184, 149, 106, 0.15);
+			}
+			.event-icon {
+				width: 64px; height: 64px;
+				background: rgba(184, 149, 106, 0.08);
+				border-radius: 50%;
+				display: flex; align-items: center; justify-content: center;
+				margin: 0 auto 16px;
+				font-size: 1.5rem; color: var(--rustic-gold);
+				border: 2px solid var(--rustic-gold);
+				transition: all 0.3s; position: relative; z-index: 1;
+			}
+			.event-card:hover .event-icon { transform: scale(1.05) rotate(-5deg); background: rgba(184, 149, 106, 0.12); }
+			.event-title {
+				font-family: 'Playfair Display', serif;
+				font-size: 1.3rem; font-weight: 600;
+				color: var(--rustic-brown); margin-bottom: 12px;
+				position: relative; z-index: 1;
+			}
+			.event-datetime, .event-venue {
+				display: flex; align-items: center; justify-content: center;
+				gap: 10px; color: var(--rustic-text);
+				font-size: 0.9rem; margin-bottom: 6px;
+				position: relative; z-index: 1;
+			}
+			.event-datetime i, .event-venue i { color: var(--rustic-gold); font-size: 0.9rem; }
+			.btn-map {
+				display: inline-block; margin-top: 16px;
+				color: var(--rustic-brown); text-decoration: none;
+				font-weight: 500;
+				border-bottom: 2px solid var(--rustic-gold);
+				padding-bottom: 4px;
+				transition: all 0.3s; font-size: 0.85rem;
+				position: relative; z-index: 1;
+			}
+			.btn-map:hover { color: var(--rustic-gold); border-bottom-color: var(--rustic-brown); }
+
+			/* ============================================ */
+			/* GALLERY */
+			/* ============================================ */
+			.section-gallery { padding: 80px 0; background: var(--rustic-cream-dark); }
+			.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+			@media (max-width: 600px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
+			.gallery-item {
+				position: relative; border-radius: 16px; overflow: hidden;
+				cursor: pointer; aspect-ratio: 1;
+				border: 2px solid rgba(139, 115, 85, 0.06);
+				transition: all 0.3s;
+			}
+			.gallery-item:hover {
+				transform: translateY(-4px) scale(1.02);
+				box-shadow: var(--shadow-hover);
+				border-color: var(--rustic-gold);
+			}
+			.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+			.gallery-item:hover img { transform: scale(1.08); }
+			.gallery-item .gallery-overlay {
+				position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+				background: rgba(45, 31, 10, 0.5);
+				display: flex; align-items: center; justify-content: center;
+				opacity: 0; transition: opacity 0.3s;
+				color: var(--white); font-size: 2rem;
+			}
+			.gallery-item:hover .gallery-overlay { opacity: 1; }
+
+			/* ============================================ */
+			/* RSVP */
+			/* ============================================ */
+			.section-rsvp { padding: 80px 0; background: var(--rustic-cream); }
+			.rsvp-form { max-width: 500px; margin: 0 auto; }
+			.form-group { margin-bottom: 16px; }
+			.form-group label { display: block; font-size: 0.85rem; font-weight: 500; margin-bottom: 4px; color: var(--rustic-brown); }
+			.form-group .required { color: #c0392b; }
+			.form-group input, .form-group select, .form-group textarea {
+				width: 100%; padding: 12px 16px;
+				border: 1px solid #d4c5a9; border-radius: 12px;
+				font-size: 1rem; font-family: 'Inter', sans-serif;
+				background: var(--white); transition: all 0.3s;
+			}
+			.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+				outline: none; border-color: var(--rustic-gold);
+				box-shadow: 0 0 0 3px rgba(184, 149, 106, 0.1);
+			}
+			.rsvp-form input[readonly] {
+				background: rgba(184, 149, 106, 0.08) !important;
+				border-color: rgba(184, 149, 106, 0.4) !important;
+				color: var(--rustic-brown-dark) !important;
+				cursor: not-allowed; font-weight: 600; letter-spacing: 0.3px;
+			}
+			.rsvp-form input[readonly]:focus { box-shadow: none; border-color: rgba(184, 149, 106, 0.5) !important; }
+			.btn-submit {
+				width: 100%; padding: 14px;
+				background: linear-gradient(135deg, var(--rustic-brown), var(--rustic-brown-dark));
+				color: var(--white); border: none; border-radius: 12px;
+				font-size: 1rem; font-weight: 600; cursor: pointer;
+				transition: all 0.3s; letter-spacing: 1px;
+			}
+			.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(90, 61, 43, 0.15); }
+			#rsvpList {
+				display: flex; flex-direction: column; gap: 10px;
+				max-height: 400px; overflow-y: auto; padding-right: 4px;
+			}
+			.rsvp-item {
+				background: var(--white);
+				border: 1px solid #e8e5e0; border-radius: 12px;
+				padding: 14px 18px; transition: all 0.2s ease;
+				box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+			}
+			.rsvp-item:hover {
+				border-color: var(--rustic-gold);
+				box-shadow: 0 4px 12px rgba(184, 149, 106, 0.08);
+				transform: translateX(4px);
+			}
+			.rsvp-item .row-main {
+				display: flex; justify-content: space-between; align-items: center;
+				flex-wrap: wrap; gap: 6px; margin-bottom: 6px;
+			}
+			.rsvp-item .guest-name { font-weight: 600; font-size: 0.95rem; color: var(--rustic-text); word-break: break-word; }
+			.rsvp-item .status-badge {
+				font-size: 0.65rem; padding: 3px 14px; border-radius: 20px;
+				font-weight: 500; white-space: nowrap; flex-shrink: 0;
+			}
+			.rsvp-item .status-badge.hadir { background: #dcfce7; color: #166534; }
+			.rsvp-item .status-badge.tidak_hadir { background: #fee2e2; color: #991b1b; }
+			.rsvp-item .status-badge.ragu { background: #fef3c7; color: #92400e; }
+			.rsvp-item .row-detail {
+				display: flex; justify-content: space-between; align-items: center;
+				flex-wrap: wrap; gap: 6px; padding-top: 4px;
+				border-top: 1px solid #f3f1ee;
+			}
+			.rsvp-item .meta-left { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+			.rsvp-item .meta-left .time { font-size: 0.65rem; color: #9ca3af; display: flex; align-items: center; gap: 4px; }
+			.rsvp-item .meta-left .guests {
+				font-size: 0.65rem; color: #6b7280;
+				background: #f3f4f6; padding: 1px 10px; border-radius: 10px;
+				display: flex; align-items: center; gap: 4px;
+			}
+			.rsvp-item .message {
+				font-size: 0.8rem; color: #4b5563;
+				background: #f9fafb; padding: 8px 14px; border-radius: 10px;
+				margin-top: 6px; border-left: 3px solid var(--rustic-gold);
+				font-style: italic; line-height: 1.5; word-break: break-word;
+			}
+			.rsvp-item .message::before { content: '"'; color: var(--rustic-gold); font-size: 1.2rem; }
+			.rsvp-item .message::after { content: '"'; color: var(--rustic-gold); font-size: 1.2rem; }
+			.rsvp-empty {
+				text-align: center; color: #9ca3af;
+				font-size: 0.85rem; padding: 30px 0;
+			}
+			.rsvp-empty i { display: block; font-size: 2rem; margin-bottom: 10px; color: #d1d5db; }
+
+			/* ============================================ */
+			/* BANK / AMPLOP DIGITAL */
+			/* ============================================ */
+			.section-bank {
+				padding: 80px 0; background: var(--rustic-cream-dark);
+				position: relative; overflow: hidden;
+			}
+			.section-bank::before {
+				content: '❦'; position: absolute; top: 50%; left: 50%;
+				transform: translate(-50%, -50%);
+				font-family: 'Playfair Display', serif;
+				font-size: 18rem; color: rgba(184, 149, 106, 0.03);
+				pointer-events: none; z-index: 0;
+			}
+			.section-bank .container { position: relative; z-index: 1; }
+			.bank-grid-rustic {
+				display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+				gap: 20px; max-width: 800px; margin: 0 auto;
+			}
+			.bank-card-rustic {
+				background: var(--white);
+				border: 1px solid rgba(139, 115, 85, 0.15);
+				border-radius: 16px; padding: 28px 24px;
+				text-align: center; transition: all 0.4s ease;
+				box-shadow: var(--shadow);
+				position: relative; overflow: hidden;
+			}
+			.bank-card-rustic::before {
+				content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+				background: repeating-linear-gradient(90deg, rgba(139, 115, 85, 0.02) 0px, rgba(139, 115, 85, 0.02) 1px, transparent 1px, transparent 6px);
+				pointer-events: none;
+			}
+			.bank-card-rustic::after {
+				content: ''; position: absolute; top: 0; left: 0; right: 0;
+				height: 3px;
+				background: linear-gradient(90deg, transparent, var(--rustic-gold), transparent);
+				opacity: 0.6;
+			}
+			.bank-card-rustic:hover {
+				transform: translateY(-6px);
+				border-color: rgba(184, 149, 106, 0.4);
+				box-shadow: 0 12px 50px rgba(139, 115, 85, 0.15);
+			}
+			.bank-logo-rustic {
+				width: 68px; height: 68px; margin: 0 auto 14px;
+				border-radius: 50%; background: rgba(184, 149, 106, 0.08);
+				border: 2px solid rgba(184, 149, 106, 0.25);
+				display: flex; align-items: center; justify-content: center;
+				overflow: hidden; transition: all 0.3s;
+				position: relative; z-index: 1;
+			}
+			.bank-card-rustic:hover .bank-logo-rustic {
+				background: rgba(184, 149, 106, 0.15);
+				transform: scale(1.05);
+				border-color: var(--rustic-gold);
+			}
+			.bank-logo-rustic img { max-width: 70%; max-height: 70%; object-fit: contain; }
+			.bank-logo-rustic .bank-logo-icon {
+				font-size: 1.5rem; color: var(--rustic-brown);
+				font-weight: 700; font-family: 'Playfair Display', serif; letter-spacing: 1px;
+			}
+			.bank-name-rustic {
+				font-family: 'Playfair Display', serif;
+				font-size: 1.1rem; font-weight: 600;
+				color: var(--rustic-brown); margin-bottom: 12px;
+				letter-spacing: 0.5px; position: relative; z-index: 1;
+			}
+			.bank-number-wrapper-rustic {
+				display: flex; align-items: center; justify-content: center;
+				gap: 8px; background: rgba(184, 149, 106, 0.06);
+				border: 1px dashed rgba(184, 149, 106, 0.4);
+				border-radius: 10px; padding: 10px 14px;
+				margin-bottom: 10px; cursor: pointer;
+				transition: all 0.3s; position: relative; z-index: 1;
+			}
+			.bank-number-wrapper-rustic:hover {
+				background: rgba(184, 149, 106, 0.12);
+				border-color: var(--rustic-gold);
+				transform: scale(1.02);
+			}
+			.bank-number-rustic {
+				font-family: 'Courier New', monospace;
+				font-size: 1rem; font-weight: 700;
+				color: var(--rustic-brown-dark); letter-spacing: 2px;
+				word-break: break-all;
+			}
+			.copy-icon-rustic {
+				color: var(--rustic-gold); font-size: 0.85rem;
+				opacity: 0.6; transition: all 0.3s; flex-shrink: 0;
+			}
+			.bank-number-wrapper-rustic:hover .copy-icon-rustic { opacity: 1; transform: scale(1.15); }
+			.bank-holder-rustic {
+				font-size: 0.8rem; color: var(--rustic-muted);
+				font-style: italic; margin-top: 4px;
+				position: relative; z-index: 1;
+			}
+			.bank-holder-rustic strong { color: var(--rustic-brown); font-weight: 600; font-style: normal; }
+			.bank-type-badge-rustic {
+				position: absolute; top: 12px; right: 12px;
+				font-size: 0.5rem; padding: 2px 8px; border-radius: 10px;
+				background: rgba(184, 149, 106, 0.15);
+				color: var(--rustic-brown); letter-spacing: 1.5px;
+				text-transform: uppercase; font-weight: 700; z-index: 2;
+			}
+			@media (max-width: 600px) {
+				.bank-grid-rustic { grid-template-columns: 1fr; }
+				.bank-logo-rustic { width: 58px; height: 58px; }
+				.bank-logo-rustic .bank-logo-icon { font-size: 1.3rem; }
+				.bank-name-rustic { font-size: 1rem; }
+				.bank-number-rustic { font-size: 0.9rem; letter-spacing: 1.5px; }
+				.section-bank::before { font-size: 10rem; }
+			}
+
+			/* ============================================ */
+			/* LIGHTBOX */
+			/* ============================================ */
+			.lightbox {
+				position: fixed; top: 0; left: 0;
+				width: 100%; height: 100%;
+				background: rgba(0,0,0,0.92); z-index: 9999;
+				display: flex; align-items: center; justify-content: center;
+				cursor: pointer; animation: fadeIn 0.3s ease;
+			}
+			.lightbox img { max-width: 90%; max-height: 90%; object-fit: contain; border: 1px solid rgba(184, 149, 106, 0.03); }
+			.lightbox-close {
+				position: absolute; top: 20px; right: 30px;
+				color: white; font-size: 2.5rem; cursor: pointer;
+				transition: 0.3s;
+			}
+			.lightbox-close:hover { transform: rotate(90deg); color: var(--rustic-gold); }
+			@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+			/* ============================================ */
+			/* FOOTER TAHAP 1 - INFO MEMPELAI */
+			/* ============================================ */
+			.section-footer {
+				padding: 60px 20px 45px;
+				background: var(--rustic-brown-dark);
+				text-align: center;
+				border-top: 1px solid rgba(184, 149, 106, 0.1);
+				position: relative; overflow: hidden;
+			}
+			.section-footer::before {
+				content: '✦'; position: absolute; top: 50%; left: 50%;
+				transform: translate(-50%, -50%);
+				font-family: 'Playfair Display', serif;
+				font-size: 16rem; color: rgba(184, 149, 106, 0.025);
+				pointer-events: none; z-index: 0;
+			}
+			.section-footer .footer-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+			.footer-couple {
+				font-family: 'Playfair Display', serif;
+				font-size: 1.6rem; color: var(--rustic-cream);
+				margin-bottom: 12px; letter-spacing: 2px;
+			}
+			.footer-ampersand { color: var(--rustic-gold); margin: 0 12px; }
+			.footer-divider {
+				width: 40px; height: 1px;
+				background: linear-gradient(90deg, transparent, var(--rustic-gold), transparent);
+				margin: 12px auto; opacity: 0.3;
+			}
+			.footer-date {
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 0.85rem; margin-bottom: 16px;
+				opacity: 0.5; font-weight: 300;
+				color: rgba(255,255,255,0.7); font-style: italic;
+			}
+			.footer-social { display: flex; justify-content: center; gap: 16px; margin-bottom: 16px; }
+			.footer-social a {
+				color: rgba(255,255,255,0.35); font-size: 1.2rem;
+				transition: all 0.3s; display: inline-flex; align-items: center; justify-content: center;
+				width: 40px; height: 40px; border-radius: 50%;
+				border: 1px solid rgba(184, 149, 106, 0.15);
+			}
+			.footer-social a:hover {
+				color: var(--rustic-gold); border-color: var(--rustic-gold);
+				transform: translateY(-3px); background: rgba(184, 149, 106, 0.05);
+			}
+			.footer-prayer {
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 0.8rem; font-style: italic;
+				opacity: 0.5; color: rgba(255,255,255,0.6);
+			}
+			@media (max-width: 600px) {
+				.footer-couple { font-size: 1.3rem; }
+				.section-footer::before { font-size: 10rem; }
+			}
+
+			/* ============================================ */
+			/* FOOTER TAHAP 2 - WEB FOOTER */
+			/* ============================================ */
+			.web-footer {
+				background: linear-gradient(180deg, #1a1208 0%, #0d0905 100%);
+				padding: 3rem 0 1.5rem;
+				border-top: 1px solid rgba(184, 149, 106, 0.15);
+				color: rgba(255,255,255,0.6);
+				position: relative; overflow: hidden;
+			}
+			.web-footer::before {
+				content: ''; position: absolute; top: 0; left: 0; right: 0;
+				height: 1px;
+				background: linear-gradient(90deg, transparent, rgba(184, 149, 106, 0.4), transparent);
+			}
+			.web-footer .container {
+				max-width: 1280px; margin: 0 auto;
+				padding: 0 24px; position: relative; z-index: 1;
+			}
+			.web-footer-brand {
+				font-family: 'Playfair Display', serif;
+				font-size: 1.4rem; font-weight: 700;
+				margin-bottom: 0.75rem; text-decoration: none; display: inline-block;
+			}
+			.web-footer-brand .wedding {
+				background: linear-gradient(135deg, #b8956a 0%, #d4c5a9 100%);
+				-webkit-background-clip: text; background-clip: text; color: transparent;
+			}
+			.web-footer-brand .saas { color: var(--rustic-gold); }
+			.web-footer-desc {
+				color: rgba(255,255,255,0.5); font-size: 0.85rem;
+				line-height: 1.6; margin-bottom: 1rem;
+			}
+			.web-footer-heading {
+				font-family: 'Playfair Display', serif;
+				font-size: 0.95rem; font-weight: 600;
+				color: var(--rustic-gold); margin-bottom: 1rem;
+				position: relative; padding-bottom: 0.5rem;
+			}
+			.web-footer-heading::after {
+				content: ''; position: absolute; bottom: 0; left: 0;
+				width: 30px; height: 2px;
+				background: linear-gradient(90deg, var(--rustic-gold), transparent);
+				border-radius: 2px;
+			}
+			.web-footer-list { list-style: none; padding: 0; margin: 0; }
+			.web-footer-list li {
+				display: flex; align-items: flex-start;
+				gap: 10px; margin-bottom: 0.65rem;
+				color: rgba(255,255,255,0.55);
+				font-size: 0.85rem; line-height: 1.5;
+			}
+			.web-footer-list li i {
+				color: var(--rustic-gold); font-size: 1rem;
+				margin-top: 2px; flex-shrink: 0; opacity: 0.85;
+			}
+			.web-footer-list li a, .web-footer-link {
+				color: rgba(255,255,255,0.55); text-decoration: none;
+				transition: color 0.2s;
+			}
+			.web-footer-list li a:hover, .web-footer-link:hover { color: var(--rustic-gold-light); }
+			.web-footer-socials { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 0.75rem; }
+			.web-social-link {
+				width: 38px; height: 38px;
+				display: inline-flex; align-items: center; justify-content: center;
+				background: rgba(184, 149, 106, 0.06);
+				border: 1px solid rgba(184, 149, 106, 0.2);
+				border-radius: 10px;
+				color: var(--rustic-gold-light); font-size: 1.05rem;
+				transition: all 0.25s; text-decoration: none;
+			}
+			.web-social-link:hover {
+				background: rgba(184, 149, 106, 0.18);
+				border-color: var(--rustic-gold);
+				color: #ffffff; transform: translateY(-3px);
+				box-shadow: 0 6px 16px rgba(184, 149, 106, 0.25);
+			}
+			.web-footer-version {
+				color: rgba(255,255,255,0.35); font-size: 0.75rem;
+				margin: 0; padding: 4px 10px;
+				background: rgba(184, 149, 106, 0.06);
+				border-radius: 6px; display: inline-block;
+				border: 1px solid rgba(184, 149, 106, 0.08);
+			}
+			.web-footer-divider {
+				border: 0; border-top: 1px solid rgba(184, 149, 106, 0.1);
+				margin: 2rem 0 1.25rem; opacity: 1;
+			}
+			.web-footer-text {
+				color: rgba(255,255,255,0.35); font-size: 0.8rem;
+				margin: 0; text-align: center;
+			}
+			.web-footer .row {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 2rem;
+			}
+			@media (max-width: 768px) {
+				.web-footer { padding: 2.25rem 0 1.25rem; text-align: center; }
+				.web-footer-heading::after { left: 50%; transform: translateX(-50%); }
+				.web-footer-list li { justify-content: center; }
+				.web-footer-socials { justify-content: center; }
+			}
+
+			/* ============================================ */
+			/* EVENT DATES */
+			/* ============================================ */
+			.event-dates-wood {
+				display: flex; flex-wrap: wrap; justify-content: center;
+				align-items: stretch; gap: 12px; margin: 12px 0 24px;
+			}
+			.date-divider-wood { display: flex; align-items: center; justify-content: center; padding: 0 4px; }
+			.date-divider-wood .divider-heart {
+				font-family: 'Playfair Display', serif;
+				color: rgba(184, 149, 106, 0.3); font-size: 1.4rem;
+				animation: heartPulse 2s ease-in-out infinite;
+			}
+			@keyframes heartPulse {
+				0%, 100% { transform: scale(1); opacity: 0.2; }
+				50% { transform: scale(1.15); opacity: 0.4; }
+			}
+			@media (max-width: 700px) {
+				.event-dates-wood { gap: 8px; flex-direction: column; align-items: center; }
+				.date-divider-wood { padding: 4px 0; transform: rotate(0); }
+				.date-divider-wood .divider-heart { font-size: 1.2rem; }
+				.date-card { padding: 14px 16px; width: 100%; max-width: 320px; flex: 0 0 auto; }
+				.date-value { font-size: 0.9rem; }
+			}
+			@media (max-width: 400px) {
+				.date-card { padding: 12px 14px; }
+				.date-value { font-size: 0.8rem; flex-wrap: wrap; }
+				.date-time, .date-venue { font-size: 0.65rem; }
+				.date-label { font-size: 0.6rem; letter-spacing: 2px; }
+			}
+			@media (max-width: 768px) {
+				[data-aos] { pointer-events: auto !important; }
+				section { min-height: auto; }
+			}
+			@supports (padding: max(0px)) {
+				.hero-rustic-ultimate {
+					padding-top: max(40px, env(safe-area-inset-top));
+					padding-bottom: max(40px, env(safe-area-inset-bottom));
+					padding-left: max(16px, env(safe-area-inset-left));
+					padding-right: max(16px, env(safe-area-inset-right));
+				}
+				@media (max-width: 768px) {
+					.hero-rustic-ultimate {
+						padding-top: max(30px, env(safe-area-inset-top));
+						padding-bottom: max(20px, env(safe-area-inset-bottom));
+						padding-left: max(12px, env(safe-area-inset-left));
+						padding-right: max(12px, env(safe-area-inset-right));
+					}
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<!-- ============================================ -->
+		<!-- OVERLAY START -->
+		<!-- ============================================ -->
+		<div id="startOverlay">
+			<div class="overlay-inner">
+				<span class="overlay-wood">✦</span>
+				<h1 class="overlay-title">Rustic Wood</h1>
+				<p class="overlay-subtitle">{ groomName } &amp; { brideName }</p>
+				<div class="overlay-divider"></div>
+
+				<div class="overlay-guest">
+					if isNamedGuest {
+						<div class="overlay-guest-label">Kepada</div>
+					} else {
+						<div class="overlay-guest-label">Salam Hangat untuk</div>
+					}
+					<div class="overlay-guest-name">{ guestName }</div>
+					<div class="overlay-guest-divider"></div>
+				</div>
+
+				<button class="btn-start" onclick={ templpkg.JSFuncCall("startMusic") }>
+					<i class="bi bi-play-fill me-2"></i>
+					Buka Undangan
+				</button>
+
+				<p class="hint">✦ Klik untuk membuka undangan ✦</p>
+			</div>
+		</div>
+
+		<!-- ============================================ -->
+		<!-- MUSIC PLAYER -->
+		<!-- ============================================ -->
+		<div class="music-player" id="musicPlayer">
+			<button class="music-btn" id="musicToggle" onclick={ templpkg.JSFuncCall("toggleMusic") }>
+				<i class="bi bi-music-note"></i>
+			</button>
+		</div>
+
+				<!-- ============================================ -->
+		<!-- HERO / COVER -->
+		<!-- ============================================ -->
+		<section class="hero-rustic-ultimate" id="section-cover">
+			<div class="wood-bg-solid"></div>
+			<div class="wood-layer wood-layer-1"></div>
+			<div class="wood-layer wood-layer-2"></div>
+			<div class="wood-layer wood-layer-3"></div>
+			<div class="wood-grain-dynamic"></div>
+			<div class="wood-knot wood-knot-1"></div>
+			<div class="wood-knot wood-knot-2"></div>
+			<div class="wood-knot wood-knot-3"></div>
+			<div class="wood-split wood-split-1"></div>
+			<div class="wood-split wood-split-2"></div>
+
+			<div class="hero-content" data-aos="fade-up" data-aos-duration="1200">
+				<div class="main-wood-plank">
+					<div class="forged-nail forged-nail-tl"></div>
+					<div class="forged-nail forged-nail-tr"></div>
+					<div class="forged-nail forged-nail-bl"></div>
+					<div class="forged-nail forged-nail-br"></div>
+					<div class="wood-carving carving-tl">❦</div>
+					<div class="wood-carving carving-tr">❦</div>
+					<div class="wood-carving carving-bl">❦</div>
+					<div class="wood-carving carving-br">❦</div>
+					<div class="plank-wood-grain"></div>
+					<div class="plank-inner-shadow"></div>
+
+					<div class="plank-content">
+						<div class="top-ornament">
+							<span class="ornament-line"></span>
+							<span class="ornament-diamond">◆</span>
+							<span class="ornament-line"></span>
+						</div>
+
+						<div class="hero-badge-wood">✦ The Wedding of ✦</div>
+
+						<h1 class="hero-couple-wood">
+							<span class="groom-name">{ groomName }</span>
+							<span class="wood-ampersand">&amp;</span>
+							<span class="bride-name">{ brideName }</span>
+						</h1>
+
+						<div class="wood-divider-ornate">
+							<span class="divider-line"></span>
+							<span class="divider-icon">⏚</span>
+							<span class="divider-line"></span>
+						</div>
+
+						<div class="event-dates-wood">
+							if showDates(data) == "both" || showDates(data) == "akad" {
+								<div class="date-card date-akad">
+									<div class="date-label">
+										<i class="bi bi-ring"></i>
+										<span>Akad Nikah</span>
+									</div>
+									<div class="date-value">
+										<i class="bi bi-calendar3"></i>
+										<span>{ getStr(data, "akad_date") }</span>
+									</div>
+									<div class="date-time">
+										<i class="bi bi-clock"></i>
+										<span>Pukul { getStr(data, "akad_time") }</span>
+									</div>
+									if showVenue(data) == "both" || showVenue(data) == "akad" {
+										<div class="date-venue">
+											<i class="bi bi-geo-alt"></i>
+											<span>{ getStr(data, "akad_venue") }</span>
+										</div>
+									}
+								</div>
+							}
+
+							if showDates(data) == "both" {
+								<div class="date-divider-wood">
+									<span class="divider-heart">❤</span>
+								</div>
+							}
+
+							if showDates(data) == "both" || showDates(data) == "resepsi" {
+								<div class="date-card date-resepsi">
+									<div class="date-label">
+										<i class="bi bi-balloon"></i>
+										<span>{ getResepsiLabel(data) }</span>
+									</div>
+									<div class="date-value">
+										<i class="bi bi-calendar3"></i>
+										<span>{ getStr(data, "resepsi_date") }</span>
+									</div>
+									<div class="date-time">
+										<i class="bi bi-clock"></i>
+										<span>Pukul { getStr(data, "resepsi_time") }</span>
+									</div>
+									if showVenue(data) == "both" || showVenue(data) == "resepsi" {
+										<div class="date-venue">
+											<i class="bi bi-geo-alt"></i>
+											<span>{ getStr(data, "resepsi_venue") }</span>
+										</div>
+									}
+								</div>
+							}
+						</div>
+
+						<a href="#section-rsvp" class="btn-wood-rsvp">
+							<i class="bi bi-envelope-check"></i>
+							<span>Konfirmasi Kehadiran</span>
+						</a>
+
+						<div class="bottom-ornament">
+							<span class="ornament-line"></span>
+							<span class="ornament-diamond">◆</span>
+							<span class="ornament-line"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="scroll-indicator-wood" onclick={ templpkg.JSFuncCall("scrollToCouple") }>
+				<span>Scroll</span>
+				<i class="bi bi-chevron-double-down"></i>
+			</div>
+		</section>
+
+		<!-- ============================================ -->
+		<!-- COUPLE -->
+		<!-- ============================================ -->
+		<section class="section-couple" id="section-couple">
+			<div class="container">
+				<div class="section-label" data-aos="fade-up">PASANGAN</div>
+				<h2 class="section-title" data-aos="fade-up">
+					Mempelai
+					<span class="wood-leaf">✦</span>
+				</h2>
+				<p class="section-subtitle" data-aos="fade-up" data-aos-delay="50">
+					Dua insan yang dipersatukan dalam ikatan suci pernikahan
+				</p>
+
+				<div class="couple-grid">
+					<div class="couple-card" data-aos="fade-right" data-aos-delay="100">
+						<div class="couple-photo" style={ "background-image: url('" + groomPhoto + "');" }></div>
+						<div class="couple-info">
+							<h3>{ groomName }</h3>
+							<p class="couple-title">Putra dari</p>
+							<p class="couple-parents">{ getParentsName(data, "groom") }</p>
+							if getStr(data, "groom_instagram") != "-" {
+								<div class="couple-social">
+									<a href={ templ.SafeURL(getStr(data, "groom_instagram")) } target="_blank"><i class="bi bi-instagram"></i></a>
+								</div>
+							}
+						</div>
+					</div>
+
+					<div class="couple-ampersand" data-aos="zoom-in" data-aos-delay="150">&amp;</div>
+
+					<div class="couple-card" data-aos="fade-left" data-aos-delay="200">
+						<div class="couple-photo" style={ "background-image: url('" + bridePhoto + "');" }></div>
+						<div class="couple-info">
+							<h3>{ brideName }</h3>
+							<p class="couple-title">Putri dari</p>
+							<p class="couple-parents">{ getParentsName(data, "bride") }</p>
+							if getStr(data, "bride_instagram") != "-" {
+								<div class="couple-social">
+									<a href={ templ.SafeURL(getStr(data, "bride_instagram")) } target="_blank"><i class="bi bi-instagram"></i></a>
+								</div>
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============================================ -->
+		<!-- LOVE STORY -->
+		<!-- ============================================ -->
+		if stories := getLoveStories(data); len(stories) > 0 {
+			<section class="section-love" id="section-love">
+				<div class="container">
+					<div class="section-label" data-aos="fade-up">CERITA</div>
+					<h2 class="section-title" data-aos="fade-up">
+						Perjalanan Cinta
+						<span class="wood-leaf">✦</span>
+					</h2>
+					<p class="section-subtitle" data-aos="fade-up" data-aos-delay="50">
+						Setiap pertemuan adalah takdir yang indah
+					</p>
+
+					<div class="love-timeline">
+						for index, story := range stories {
+							<div class="timeline-item" data-aos="fade-up" data-aos-delay={ formatInt(100 * (index + 1)) }>
+								<div class="timeline-dot"><i class="bi bi-heart-fill" style="font-size:0.4rem;"></i></div>
+								<div class="timeline-content">
+									<h3 class="timeline-title">{ story["title"] }</h3>
+									<p class="timeline-desc">{ story["desc"] }</p>
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+			</section>
+		}
+
+		<!-- ============================================ -->
+		<!-- EVENT -->
+		<!-- ============================================ -->
+		<section class="section-event" id="section-event">
+			<div class="container">
+				<div class="section-label" data-aos="fade-up">ACARA</div>
+				<h2 class="section-title" data-aos="fade-up">
+					Detail Acara
+					<span class="wood-leaf">✦</span>
+				</h2>
+				<p class="section-subtitle" data-aos="fade-up" data-aos-delay="50">
+					Kami mengundang kehadiran Bapak/Ibu/Saudara/i
+				</p>
+
+				<div class="event-grid">
+					<div class="event-card" data-aos="fade-up" data-aos-delay="100">
+						<div class="event-icon"><i class="bi bi-gem"></i></div>
+						<h3 class="event-title">Akad Nikah</h3>
+						<div class="event-datetime">
+							<i class="bi bi-calendar3"></i>
+							<span>{ getStr(data, "akad_date") }</span>
+						</div>
+						<div class="event-datetime">
+							<i class="bi bi-clock"></i>
+							<span>Pukul { getStr(data, "akad_time") }</span>
+						</div>
+						<div class="event-venue">
+							<i class="bi bi-geo-alt"></i>
+							<span>{ getStr(data, "akad_venue") }</span>
+						</div>
+						if getStr(data, "maps_url_akad") != "-" {
+							<div style="margin-top:14px;">
+								<a href={ templ.SafeURL(getStr(data, "maps_url_akad")) } target="_blank" class="btn-map">
+									<i class="bi bi-geo-alt me-2"></i>Buka Lokasi
+								</a>
+							</div>
+						}
+					</div>
+
+					<div class="event-card" data-aos="fade-up" data-aos-delay="150">
+						<div class="event-icon"><i class="bi bi-balloon"></i></div>
+						<h3 class="event-title">{ getResepsiLabel(data) }</h3>
+
+						if isIslamicLabel(data) && getResepsiArabic(data) != "" {
+							<div style="font-family:'Cormorant Garamond',serif; font-size:0.8rem; color:var(--rustic-gold); margin-bottom:8px; font-style:italic;">
+								{ getResepsiArabic(data) }
+							</div>
+						}
+
+						<div class="event-datetime">
+							<i class="bi bi-calendar3"></i>
+							<span>{ getStr(data, "resepsi_date") }</span>
+						</div>
+						<div class="event-datetime">
+							<i class="bi bi-clock"></i>
+							<span>Pukul { getStr(data, "resepsi_time") }</span>
+						</div>
+						<div class="event-venue">
+							<i class="bi bi-geo-alt"></i>
+							<span>{ getStr(data, "resepsi_venue") }</span>
+						</div>
+						if getStr(data, "maps_url_resepsi") != "-" {
+							<div style="margin-top:14px;">
+								<a href={ templ.SafeURL(getStr(data, "maps_url_resepsi")) } target="_blank" class="btn-map">
+									<i class="bi bi-geo-alt me-2"></i>Buka Lokasi { getResepsiLabel(data) }
+								</a>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============================================ -->
+		<!-- GALLERY -->
+		<!-- ============================================ -->
+		if gallery := getGallery(data); len(gallery) > 0 {
+			<section class="section-gallery" id="section-gallery">
+				<div class="container">
+					<div class="section-label" data-aos="fade-up">GALERI</div>
+					<h2 class="section-title" data-aos="fade-up">
+						Momen Terindah
+						<span class="wood-leaf">✦</span>
+					</h2>
+					<p class="section-subtitle" data-aos="fade-up" data-aos-delay="50">
+						Kebahagiaan yang terabadikan dalam setiap momen
+					</p>
+
+					<div class="gallery-grid">
+						for index, img := range gallery {
+							<div class="gallery-item" data-aos="fade-up" data-aos-delay={ formatInt(100 * ((index % 6) + 1)) }>
+								<img src={ img } alt={ "Foto " + formatInt(index+1) } loading="lazy"/>
+								<div class="gallery-overlay"><i class="bi bi-zoom-in"></i></div>
+							</div>
+						}
+					</div>
+				</div>
+			</section>
+		}
+
+		<!-- ============================================ -->
+		<!-- RSVP -->
+		<!-- ============================================ -->
+		<section class="section-rsvp" id="section-rsvp">
+			<div class="container">
+				<div class="section-label" data-aos="fade-up">KONFIRMASI</div>
+				<h2 class="section-title" data-aos="fade-up">
+					Kehadiran
+					<span class="wood-leaf">✦</span>
+				</h2>
+				<p class="section-subtitle" data-aos="fade-up" data-aos-delay="50">
+					Kami sangat berbahagia jika Anda bisa hadir di hari bahagia kami.
+				</p>
+
+				<form class="rsvp-form" method="POST" action={ templ.SafeURL("/invitation/" + project.Slug + "/rsvp") } data-aos="fade-up" data-aos-delay="100" id="rsvpForm">
+					<input type="hidden" name="project_id" value={ formatUint(project.ID) }/>
+
+					if hasExistingRsvp(data) {
+						<div style="background: rgba(184,149,106,0.1); border: 1px solid var(--rustic-gold); border-radius: 12px; padding: 14px 18px; margin-bottom: 20px;">
+							<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+								<i class="bi bi-check-circle-fill" style="color: var(--rustic-gold); font-size: 1.2rem;"></i>
+								<strong style="color: var(--rustic-brown-dark);">Anda sudah RSVP</strong>
+							</div>
+							<p style="margin: 0; font-size: 0.85rem; color: var(--rustic-muted); line-height: 1.6;">
+								Data di bawah sudah terisi otomatis. Anda bisa edit jika ada perubahan.
+							</p>
+						</div>
+					}
+
+					<div class="form-group">
+						<label for="rsvp-name">Nama Anda <span class="required">*</span></label>
+						if isNamedGuest {
+							<input type="text" id="rsvp-name" name="guest_name" value={ guestName } readonly/>
+							<small style="display:block; margin-top:6px; font-size:0.7rem; color:var(--rustic-muted); font-style:italic;">
+								<i class="bi bi-info-circle me-1"></i>Nama otomatis terisi dari undangan yang Anda terima
+							</small>
+						} else {
+							<input type="text" id="rsvp-name" name="guest_name" placeholder="Nama lengkap" required/>
+						}
+					</div>
+
+					<div class="form-group">
+						<label for="rsvp-attendance">Kehadiran <span class="required">*</span></label>
+						<select id="rsvp-attendance" name="attendance" required>
+							if getExistingRsvpField(data, "attendance", "") == "" {
+								<option value="" selected>Pilih konfirmasi</option>
+							} else {
+								<option value="">Pilih konfirmasi</option>
+							}
+							if getExistingRsvpField(data, "attendance", "") == "hadir" {
+								<option value="hadir" selected>Hadir</option>
+							} else {
+								<option value="hadir">Hadir</option>
+							}
+							if getExistingRsvpField(data, "attendance", "") == "tidak_hadir" {
+								<option value="tidak_hadir" selected>Tidak Hadir</option>
+							} else {
+								<option value="tidak_hadir">Tidak Hadir</option>
+							}
+							if getExistingRsvpField(data, "attendance", "") == "ragu" {
+								<option value="ragu" selected>Ragu-ragu</option>
+							} else {
+								<option value="ragu">Ragu-ragu</option>
+							}
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="rsvp-guests">Jumlah Tamu</label>
+						<input type="number" id="rsvp-guests" name="total_guests" value={ formatInt(getExistingRsvpGuests(data)) } min="1" max="10"/>
+					</div>
+
+					<div class="form-group">
+						<label for="rsvp-message">Ucapan &amp; Doa</label>
+						<textarea id="rsvp-message" name="message" rows="3" placeholder="Tuliskan ucapan dan doa untuk pengantin...">{ getExistingRsvpField(data, "message", "") }</textarea>
+					</div>
+
+					<button type="submit" class="btn-submit">
+						<i class="bi bi-send me-2"></i>
+						Kirim Konfirmasi
+					</button>
+				</form>
+
+				<div style="max-width:500px; margin:30px auto 0; padding-top:20px; border-top:1px solid rgba(139,115,85,0.15);">
+					<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+						<h4 style="font-size:0.95rem; color:var(--rustic-brown); font-weight:600; margin:0;">
+							<i class="bi bi-people me-2"></i>Konfirmasi Kehadiran
+						</h4>
+						<span id="rsvpCount" style="font-size:0.7rem; color:var(--rustic-muted); background:rgba(184,149,106,0.08); padding:2px 12px; border-radius:12px;">
+							0 tamu
+						</span>
+					</div>
+					<div id="rsvpList">
+						<div style="text-align:center; color:var(--rustic-muted); font-size:0.8rem; padding:20px 0;">
+							<i class="bi bi-hourglass-split me-2"></i>Memuat daftar konfirmasi...
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============================================ -->
+		<!-- AMPLOP DIGITAL -->
+		<!-- ============================================ -->
+		if showBankAccounts(data) && len(getBankAccounts(data)) > 0 {
+			<section class="section-bank" id="section-bank">
+				<div class="container">
+					<div class="section-label" data-aos="fade-up">AMPLOP DIGITAL</div>
+					<h2 class="section-title" data-aos="fade-up">
+						Kirim Hadiah
+						<span class="wood-leaf">✦</span>
+					</h2>
+					<p class="section-subtitle" data-aos="fade-up" data-aos-delay="50">
+						Doa restu Anda adalah hadiah terindah. Namun jika ingin memberi, kami sediakan:
+					</p>
+
+					<div class="bank-grid-rustic">
+						for index, account := range getBankAccounts(data) {
+							<div class="bank-card-rustic" data-aos="fade-up" data-aos-delay={ formatInt(80 * (index + 1)) }>
+								<span class="bank-type-badge-rustic">{ getBankTypeBadge(account) }</span>
+
+								<div class="bank-logo-rustic">
+									if hasCustomIcon(account) {
+										<img src={ "/storage/" + getAccountIconPath(account) } alt={ getAccountBankName(account, data) }/>
+									} else {
+										<span class="bank-logo-icon">{ getAccountInitial(account, data) }</span>
+									}
+								</div>
+
+								<div class="bank-name-rustic">{ getAccountBankName(account, data) }</div>
+
+								<div class="bank-number-wrapper-rustic" data-number={ getAccountNumber(account) } onclick={ templpkg.JSFuncCall("copyBankNumberFromEl", templpkg.JSExpression("this")) }>
+									<span class="bank-number-rustic">{ getAccountNumber(account) }</span>
+									<i class="bi bi-clipboard copy-icon-rustic"></i>
+								</div>
+
+								<div class="bank-holder-rustic">
+									a.n. <strong>{ getAccountName(account) }</strong>
+								</div>
+							</div>
+						}
+					</div>
+
+					<p style="text-align:center; margin-top:32px; font-size:0.8rem; color:var(--rustic-muted); font-style:italic; opacity:0.8;" data-aos="fade-up">
+						<i class="bi bi-info-circle me-1" style="color:var(--rustic-gold);"></i>
+						Klik nomor rekening untuk menyalin
+					</p>
+				</div>
+			</section>
+		}
+
+		<!-- ============================================ -->
+		<!-- FOOTER TAHAP 1 - INFO MEMPELAI -->
+		<!-- ============================================ -->
+		<footer class="section-footer">
+			<div class="footer-inner">
+				<div class="footer-couple">
+					<span>{ groomName }</span>
+					<span class="footer-ampersand">&amp;</span>
+					<span>{ brideName }</span>
+				</div>
+				<div class="footer-divider"></div>
+				<p class="footer-date">{ getStr(data, "akad_date") }</p>
+				<div class="footer-social">
+					if eventInstagram != "-" && eventInstagram != "" {
+						<a href={ templ.SafeURL(eventInstagram) } target="_blank"><i class="bi bi-instagram"></i></a>
+					}
+					if getStr(data, "whatsapp") != "-" {
+						<a href={ templ.SafeURL("https://wa.me/" + getStr(data, "whatsapp")) } target="_blank"><i class="bi bi-whatsapp"></i></a>
+					}
+				</div>
+				<p class="footer-prayer">
+					"Dua hati yang diikat dalam cinta dan doa"
+				</p>
+			</div>
+		</footer>
+
+		<!-- ============================================ -->
+		<!-- FOOTER TAHAP 2 - WEB FOOTER -->
+		<!-- ============================================ -->
+		<footer class="web-footer">
+			<div class="container">
+				<div class="row">
+					<div>
+						<a href="/" class="web-footer-brand-link" style="text-decoration:none;">
+							<h5 class="web-footer-brand">
+								if getSiteConfig(data, "site_favicon", "") != "" {
+									<img src={ "/storage/" + getSiteConfig(data, "site_favicon", "") } alt="Logo" style="width: 32px; height: 32px; object-fit: contain; margin-right: 8px; vertical-align: middle;"/>
+								}
+								<span class="wedding">Wedding</span><span class="saas">SaaS</span>
+							</h5>
+						</a>
+						<p class="web-footer-desc">
+							{ getSiteConfig(data, "footer_description", "Platform undangan pernikahan digital dengan template elegan, RSVP online, guest book, dan galeri foto.") }
+						</p>
+						<p class="web-footer-desc mb-2" style="margin-top: 8px;">
+							<i class="bi bi-globe me-1" style="color:var(--rustic-gold);"></i>
+							<a href="https://wedding.litebox.my.id" target="_blank" rel="noopener" class="web-footer-link">
+								wedding.litebox.my.id
+							</a>
+						</p>
+						<div class="web-footer-socials">
+							if getSiteConfig(data, "social_instagram", "") != "" {
+								<a href={ templ.SafeURL(getSiteConfig(data, "social_instagram", "")) } target="_blank" rel="noopener" class="web-social-link" title="Instagram">
+									<i class="bi bi-instagram"></i>
+								</a>
+							}
+							if getSiteConfig(data, "social_facebook", "") != "" {
+								<a href={ templ.SafeURL(getSiteConfig(data, "social_facebook", "")) } target="_blank" rel="noopener" class="web-social-link" title="Facebook">
+									<i class="bi bi-facebook"></i>
+								</a>
+							}
+							if getSiteConfig(data, "social_tiktok", "") != "" {
+								<a href={ templ.SafeURL(getSiteConfig(data, "social_tiktok", "")) } target="_blank" rel="noopener" class="web-social-link" title="TikTok">
+									<i class="bi bi-tiktok"></i>
+								</a>
+							}
+							if getSiteConfig(data, "social_youtube", "") != "" {
+								<a href={ templ.SafeURL(getSiteConfig(data, "social_youtube", "")) } target="_blank" rel="noopener" class="web-social-link" title="YouTube">
+									<i class="bi bi-youtube"></i>
+								</a>
+							}
+							if getSiteConfig(data, "social_twitter", "") != "" {
+								<a href={ templ.SafeURL(getSiteConfig(data, "social_twitter", "")) } target="_blank" rel="noopener" class="web-social-link" title="Twitter">
+									<i class="bi bi-twitter-x"></i>
+								</a>
+							}
+						</div>
+					</div>
+
+					<div>
+						<h6 class="web-footer-heading">Kontak Kami</h6>
+						<ul class="web-footer-list">
+							if getSiteConfig(data, "contact_email", "") != "" {
+								<li>
+									<i class="bi bi-envelope"></i>
+									<a href={ templ.SafeURL("mailto:" + getSiteConfig(data, "contact_email", "")) }>{ getSiteConfig(data, "contact_email", "") }</a>
+								</li>
+							}
+							if getSiteConfig(data, "contact_phone", "") != "" {
+								<li>
+									<i class="bi bi-telephone"></i>
+									<span>{ getSiteConfig(data, "contact_phone", "") }</span>
+								</li>
+							}
+							if getSiteConfig(data, "contact_whatsapp", "") != "" {
+								<li>
+									<i class="bi bi-whatsapp"></i>
+									<a href={ templ.SafeURL("https://wa.me/" + getSiteConfig(data, "contact_whatsapp", "")) } target="_blank" rel="noopener">WhatsApp Chat</a>
+								</li>
+							}
+							if getSiteConfig(data, "contact_address", "") != "" {
+								<li>
+									<i class="bi bi-geo-alt"></i>
+									<span>{ getSiteConfig(data, "contact_address", "") }</span>
+								</li>
+							}
+						</ul>
+					</div>
+
+					<div>
+						<h6 class="web-footer-heading">Dikembangkan Oleh</h6>
+						<p class="web-footer-desc mb-2">
+							<i class="bi bi-code-slash me-1" style="color:var(--rustic-gold);"></i>
+							if getSiteConfig(data, "developer_url", "") != "" {
+								<a href={ templ.SafeURL(getSiteConfig(data, "developer_url", "")) } target="_blank" rel="noopener" class="web-footer-link">{ getSiteConfig(data, "developer_name", "Tim Developer") }</a>
+							} else {
+								{ getSiteConfig(data, "developer_name", "Tim Developer") }
+							}
+						</p>
+						if getSiteConfig(data, "developer_email", "") != "" {
+							<p class="web-footer-desc mb-2">
+								<i class="bi bi-envelope-at me-1"></i>
+								<a href={ templ.SafeURL("mailto:" + getSiteConfig(data, "developer_email", "")) } class="web-footer-link">{ getSiteConfig(data, "developer_email", "") }</a>
+							</p>
+						}
+						if getSiteConfig(data, "footer_version", "") != "" {
+							<p class="web-footer-version">
+								<i class="bi bi-tag me-1"></i>{ getSiteConfig(data, "footer_version", "") }
+							</p>
+						}
+					</div>
+				</div>
+
+				<hr class="web-footer-divider"/>
+
+				<div class="text-center">
+					<p class="web-footer-text">
+						© { currentYear() } { getSiteConfig(data, "footer_copyright", "Wedding SaaS. Platform Undangan Digital. All rights reserved.") }
+					</p>
+				</div>
+			</div>
+		</footer>
+
+		<!-- ============================================ -->
+		<!-- SCRIPTS -->
+		<!-- ============================================ -->
+		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+		<script>
+			// AOS
+			AOS.init({
+				duration: 800,
+				easing: 'ease-in-out',
+				once: true,
+				mirror: false,
+				offset: 50,
+				disable: function() { return window.innerWidth < 480; }
+			});
+			window.addEventListener('resize', function() { AOS.refresh(); });
+
+			// MUSIC PLAYER
+			var audio = null;
+			var isPlaying = false;
+			var hasStarted = false;
+			var musicUrl = "{{ musicURL }}";
+			var projectID = {{ project.ID }};
+			var MUSIC_KEY = 'wedding_music_state_' + projectID;
+
+			function initAudio() {
+				if (!musicUrl) return false;
+				if (audio) return true;
+				audio = new Audio(musicUrl);
+				audio.loop = true;
+				audio.volume = 0.5;
+				return true;
+			}
+
+			window.startMusic = function() {
+				if (!initAudio()) {
+					showToast('info', 'Belum ada musik untuk undangan ini');
+					closeOverlay();
+					return;
+				}
+				audio.play().then(function() {
+					isPlaying = true;
+					hasStarted = true;
+					var btn = document.getElementById('musicToggle');
+					if (btn) {
+						btn.innerHTML = '<i class="bi bi-pause-fill"></i>';
+						btn.classList.add('playing');
+					}
+					localStorage.setItem(MUSIC_KEY, 'playing');
+					closeOverlay();
+				}).catch(function(e) {
+					console.log('Play failed:', e);
+					closeOverlay();
+					document.addEventListener('click', function retry() {
+						audio.play().catch(function(){});
+						document.removeEventListener('click', retry);
+					}, { once: true });
+				});
+			};
+
+			function closeOverlay() {
+				var overlay = document.getElementById('startOverlay');
+				if (overlay) {
+					overlay.style.opacity = '0';
+					setTimeout(function() {
+						overlay.style.display = 'none';
+						document.body.style.overflow = '';
+					}, 800);
+				}
+			}
+
+			window.toggleMusic = function() {
+				if (!audio && musicUrl) initAudio();
+				if (!audio) {
+					showToast('info', 'Belum ada musik untuk undangan ini');
+					return;
+				}
+				var btn = document.getElementById('musicToggle');
+				if (isPlaying) {
+					audio.pause();
+					isPlaying = false;
+					btn.innerHTML = '<i class="bi bi-music-note"></i>';
+					btn.classList.remove('playing');
+					localStorage.setItem(MUSIC_KEY, 'paused');
+				} else {
+					audio.play().catch(function(e) { console.log('Play blocked'); });
+					isPlaying = true;
+					btn.innerHTML = '<i class="bi bi-pause-fill"></i>';
+					btn.classList.add('playing');
+					localStorage.setItem(MUSIC_KEY, 'playing');
+				}
+			};
+
+			document.getElementById('startOverlay')?.addEventListener('click', function(e) {
+				startMusic();
+			});
+			document.getElementById('musicToggle')?.addEventListener('click', function(e) {
+				if (!hasStarted) startMusic();
+			});
+			document.addEventListener('keydown', function(e) {
+				if (e.key === ' ' && !hasStarted) { e.preventDefault(); startMusic(); }
+			});
+
+			window.scrollToCouple = function() {
+				var el = document.getElementById('section-couple');
+				if (el) el.scrollIntoView({ behavior: 'smooth' });
+			};
+
+			function showToast(type, message) {
+				var container = document.querySelector('.toast-container');
+				if (!container) {
+					container = document.createElement('div');
+					container.className = 'toast-container';
+					document.body.appendChild(container);
+				}
+				var toast = document.createElement('div');
+				toast.className = 'toast';
+				var icons = { success: 'bi-check-circle-fill', error: 'bi-x-circle-fill', info: 'bi-info-circle-fill' };
+				toast.innerHTML = '<i class="bi ' + (icons[type] || icons.info) + '"></i><span>' + message + '</span>';
+				container.appendChild(toast);
+				setTimeout(function() {
+					toast.style.opacity = '0';
+					toast.style.transform = 'translateX(100px)';
+					setTimeout(function() { toast.remove(); }, 400);
+				}, 3000);
+			}
+
+			function escapeHtml(text) {
+				if (!text) return '';
+				var div = document.createElement('div');
+				div.textContent = text;
+				return div.innerHTML;
+			}
+
+			// COPY BANK NUMBER
+			window.copyBankNumberFromEl = function(el) {
+				var number = el.getAttribute('data-number');
+				if (!number) return;
+				copyText(number, el);
+			};
+
+			function copyText(number, element) {
+				var doSuccess = function() {
+					showToast('success', 'Nomor rekening dicopy!');
+					if (element) {
+						var icon = element.querySelector('.copy-icon-rustic');
+						if (icon) {
+							var original = icon.className;
+							icon.className = 'bi bi-check-circle-fill copy-icon-rustic';
+							icon.style.color = '#10b981';
+							icon.style.opacity = '1';
+							setTimeout(function() {
+								icon.className = original;
+								icon.style.color = '';
+								icon.style.opacity = '';
+							}, 1500);
+						}
+					}
+				};
+				if (navigator.clipboard) {
+					navigator.clipboard.writeText(number).then(doSuccess).catch(function() {
+						fallbackCopy(number, element);
+					});
+				} else {
+					fallbackCopy(number, element);
+				}
+			}
+
+			function fallbackCopy(text, element) {
+				var textarea = document.createElement('textarea');
+				textarea.value = text;
+				textarea.style.position = 'fixed';
+				textarea.style.opacity = '0';
+				document.body.appendChild(textarea);
+				textarea.select();
+				try {
+					document.execCommand('copy');
+					showToast('success', 'Nomor rekening dicopy!');
+				} catch (err) {
+					showToast('error', 'Gagal copy nomor');
+				}
+				document.body.removeChild(textarea);
+			}
+
+			// LIGHTBOX
+			document.addEventListener('DOMContentLoaded', function() {
+				document.querySelectorAll('.gallery-item').forEach(function(item) {
+					item.addEventListener('click', function() {
+						var img = this.querySelector('img');
+						if (img) {
+							var lightbox = document.createElement('div');
+							lightbox.className = 'lightbox';
+							lightbox.innerHTML = '<span class="lightbox-close">&times;</span><img src="' + img.src + '" alt="' + (img.alt || 'Foto') + '">';
+							document.body.appendChild(lightbox);
+							lightbox.addEventListener('click', function(e) {
+								if (e.target === this || e.target.classList.contains('lightbox-close')) {
+									this.remove();
+								}
+							});
+						}
+					});
+				});
+			});
+
+			// LOAD RSVP LIST
+			function loadRsvpList() {
+				var slug = "{{ project.Slug }}";
+				var listContainer = document.getElementById('rsvpList');
+				var countContainer = document.getElementById('rsvpCount');
+				if (!listContainer) return;
+				fetch('/invitation/' + slug + '/rsvp-list')
+					.then(function(r) { return r.json(); })
+					.then(function(data) {
+						if (!data || data.length === 0) {
+							listContainer.innerHTML = '<div class="rsvp-empty"><i class="bi bi-envelope"></i>Belum ada konfirmasi kehadiran</div>';
+							if (countContainer) countContainer.textContent = '0 tamu';
+							return;
+						}
+						var totalGuests = 0;
+						var html = '';
+						data.forEach(function(item) {
+							var statusText = item.attendance === 'hadir' ? '✅ Hadir' : (item.attendance === 'tidak_hadir' ? '❌ Tidak Hadir' : '❓ Ragu-ragu');
+							totalGuests += parseInt(item.total_guests || 1);
+							var time = new Date(item.created_at);
+							var timeStr = time.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + time.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+							var messageHtml = item.message ? '<div class="message">' + escapeHtml(item.message) + '</div>' : '';
+							html += '<div class="rsvp-item"><div class="row-main"><span class="guest-name">' + escapeHtml(item.guest_name) + '</span><span class="status-badge ' + item.attendance + '">' + statusText + '</span></div><div class="row-detail"><div class="meta-left"><span class="time"><i class="bi bi-clock"></i> ' + timeStr + '</span><span class="guests"><i class="bi bi-person"></i> ' + (item.total_guests || 1) + ' org</span></div></div>' + messageHtml + '</div>';
+						});
+						listContainer.innerHTML = html;
+						if (countContainer) countContainer.textContent = totalGuests + ' tamu';
+					})
+					.catch(function() {
+						listContainer.innerHTML = '<div class="rsvp-empty"><i class="bi bi-exclamation-triangle"></i>Gagal memuat daftar konfirmasi<br><button onclick="loadRsvpList()" style="margin-top:10px; padding:8px 20px; background:var(--rustic-gold); color:white; border:none; border-radius:8px; cursor:pointer; font-weight:600;"><i class="bi bi-arrow-clockwise"></i> Coba Lagi</button></div>';
+					});
+			}
+
+			// SUBMIT RSVP
+			document.addEventListener('DOMContentLoaded', function() {
+				var form = document.getElementById('rsvpForm');
+				if (!form) return;
+				form.addEventListener('submit', function(e) {
+					e.preventDefault();
+					var formData = new FormData(form);
+					var btn = form.querySelector('button[type="submit"]');
+					var originalText = btn.innerHTML;
+					btn.disabled = true;
+					btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
+					fetch(form.action, { method: 'POST', body: formData })
+						.then(function(r) { return r.json(); })
+						.then(function(data) {
+							if (data.success) {
+								var isUpdate = data.updated === true;
+								Swal.fire({
+									title: isUpdate ? 'Konfirmasi Diperbarui!' : 'Berhasil!',
+									text: data.message,
+									icon: 'success',
+									confirmButtonColor: '#b8956a',
+									background: '#ffffff',
+									color: '#1a1a1a',
+									timer: 2000,
+									timerProgressBar: true,
+									showConfirmButton: false
+								});
+								if (!isUpdate) form.reset();
+								setTimeout(function() { loadRsvpList(); }, 500);
+							} else {
+								Swal.fire({
+									title: 'Gagal!',
+									text: data.message || 'Terjadi kesalahan',
+									icon: 'error',
+									confirmButtonColor: '#b8956a',
+									background: '#ffffff',
+									color: '#1a1a1a'
+								});
+							}
+						})
+						.catch(function() {
+							Swal.fire({
+								title: 'Error!',
+								text: 'Terjadi kesalahan, silakan coba lagi',
+								icon: 'error',
+								confirmButtonColor: '#b8956a',
+								background: '#ffffff',
+								color: '#1a1a1a'
+							});
+						})
+						.finally(function() {
+							btn.disabled = false;
+							btn.innerHTML = originalText;
+						});
+				});
+				loadRsvpList();
+			});
+		</script>
+	</body>
+	</html>
+}

@@ -80,6 +80,53 @@ func StoreClient(c *gin.Context) {
 }
 
 // ============================================
+// EditStart — GET /invitation/create/edit/:id
+// Set session wizard dari project existing,
+// lalu redirect ke General (form edit)
+// ============================================
+func EditStart(c *gin.Context) {
+	user := c.MustGet("user").(*models.User)
+
+	// Parse ID dari URL
+	idStr := c.Param("id")
+	var id uint
+	for _, ch := range idStr {
+		if ch < '0' || ch > '9' {
+			break
+		}
+		id = id*10 + uint(ch-'0')
+	}
+
+	if id == 0 {
+		c.Redirect(http.StatusFound, "/admin/projects?error=ID+tidak+valid")
+		return
+	}
+
+	// Load project
+	var project models.Project
+	db := database.GetDB()
+	if err := db.First(&project, id).Error; err != nil {
+		c.Redirect(http.StatusFound, "/admin/projects?error=Project+tidak+ditemukan")
+		return
+	}
+
+	// Cek akses: client cuma bisa edit project miliknya
+	if user.Role == "client" && project.UserID != user.ID {
+		c.Redirect(http.StatusFound, "/admin/projects?error=Tidak+memiliki+akses")
+		return
+	}
+
+	// ✅ Set session wizard: project_id + client_id
+	services.WizardSetProjectID(c.Writer, c.Request, project.ID)
+	services.WizardSetClientID(c.Writer, c.Request, project.UserID)
+
+	services.LogSuccess("EditStart", fmt.Sprintf("Edit mode untuk project %d (%s)", project.ID, project.Slug))
+
+	// Redirect ke General (mode edit)
+	c.Redirect(http.StatusFound, "/invitation/create/general")
+}
+
+// ============================================
 // General — GET /invitation/create/general
 // Step 1: Form data umum + bank accounts
 // ============================================
@@ -210,7 +257,7 @@ func GeneralSave(c *gin.Context) {
 	db := database.GetDB()
 
 	if projectID > 0 {
-		// Update
+		// Update existing project
 		var p models.Project
 		if err := db.First(&p, projectID).Error; err == nil {
 			p.DataUndangan = string(dataJSON)
@@ -221,10 +268,15 @@ func GeneralSave(c *gin.Context) {
 				c.Redirect(http.StatusFound, "/invitation/create/general?error="+errorMsg)
 				return
 			}
+
+			// ✅ FIX: redirect ke step berikutnya & STOP (jangan lanjut create baru)
+			services.LogSuccess("GeneralSave", "Project diupdate: "+p.Slug)
+			c.Redirect(http.StatusFound, "/invitation/create/template")
+			return
 		}
 	}
 
-	// Buat project baru
+	// ↓↓↓ HANYA JALAN KALAU projectID == 0 (create baru) ↓↓↓
 	slug := generateSlug(groomName + "-" + brideName)
 
 	// Pastikan slug unik

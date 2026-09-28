@@ -14,6 +14,11 @@ func Register(r *gin.Engine) {
 	r.GET("/", handlers.ShowHome)
 	r.GET("/health", handlers.ShowHealth)
 
+	// INVITATION PUBLIC (tamu akses)
+	r.GET("/invitation/:slug", invitationHandlers.ShowInvitation)
+	r.POST("/invitation/:slug/rsvp", invitationHandlers.RsvpSubmit)
+	r.GET("/invitation/:slug/rsvp-list", invitationHandlers.RsvpList)
+
 	// AUTH
 	r.GET("/login", handlers.ShowLogin)
 	r.POST("/login", handlers.HandleLogin)
@@ -76,6 +81,7 @@ func Register(r *gin.Engine) {
 	{
 		wizard.GET("/select-client", invitationHandlers.SelectClient)
 		wizard.POST("/select-client", invitationHandlers.StoreClient)
+		wizard.GET("/edit/:id", invitationHandlers.EditStart)      
 		wizard.GET("/general", invitationHandlers.General)
 		wizard.POST("/general", invitationHandlers.GeneralSave)
 		wizard.GET("/template", invitationHandlers.TemplateList)
