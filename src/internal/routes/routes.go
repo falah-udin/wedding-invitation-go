@@ -4,6 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"wedding-invitation-go/internal/handlers"
+	adminHandlers "wedding-invitation-go/internal/handlers/admin"
+	"wedding-invitation-go/internal/middleware"
 )
 
 // Register — daftarkan semua route ke Gin engine
@@ -24,9 +26,12 @@ func Register(r *gin.Engine) {
 	r.POST("/logout", handlers.HandleLogout)
 
 	// ============================================
-	// NANTI: ADMIN, CLIENT, STAFF ROUTES
+	// ADMIN ROUTES (Require Auth + Role Admin)
 	// ============================================
-	// r.GET("/admin/dashboard", handlers.AdminDashboard)
-	// r.GET("/client/dashboard", handlers.ClientDashboard)
-	// ...
+	admin := r.Group("/admin")
+	admin.Use(middleware.RequireAuth())
+	admin.Use(middleware.RequireRole("admin"))
+	{
+		admin.GET("/dashboard", adminHandlers.DashboardHandler)
+	}
 }

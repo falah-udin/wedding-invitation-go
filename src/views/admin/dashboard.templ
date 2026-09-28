@@ -1,0 +1,207 @@
+package admin
+
+import "wedding-invitation-go/internal/models"
+
+// DashboardContent — konten halaman dashboard admin
+// Ini yang dirender di dalam layout AdminLayout
+templ DashboardContent(
+	totalClients int,
+	totalStaff int,
+	totalProjects int,
+	totalTemplates int,
+	totalDraft int,
+	totalPublished int,
+	totalRsvp int,
+	totalViews int,
+	recentProjects []models.Project,
+	user models.User,
+) {
+	<div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
+		<div>
+			<h2 class="fw-bold fs-2" style="color: #8b5cf6;">
+				<i class="bi bi-speedometer2 me-2"></i>Dashboard Admin
+			</h2>
+			<p class="m-0" style="color: #9ca3af;">
+				Selamat datang kembali, <strong style="color:white;">{ user.Name }</strong>!
+			</p>
+		</div>
+		<a href="/invitation/create" class="btn-primary-custom">
+			<i class="bi bi-plus-circle me-2"></i>Buat Undangan
+		</a>
+	</div>
+
+	<!-- STATS CARDS - UTAMA -->
+	<div class="row g-3 mb-4">
+		<div class="col-6 col-md-3">
+			<div class="p-3 text-center" style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a; border-top:4px solid #8b5cf6;">
+				<i class="bi bi-envelope-paper fs-2 mb-2" style="color:#8b5cf6;"></i>
+				<h6 class="mb-1" style="color:#9ca3af; font-size:0.75rem;">Total Project</h6>
+				<h2 class="fw-bold mb-0" style="color:white; font-size:2rem;">{ formatNumber(totalProjects) }</h2>
+			</div>
+		</div>
+
+		<div class="col-6 col-md-3">
+			<div class="p-3 text-center" style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a; border-top:4px solid #f59e0b;">
+				<i class="bi bi-pencil-square fs-2 mb-2" style="color:#f59e0b;"></i>
+				<h6 class="mb-1" style="color:#9ca3af; font-size:0.75rem;">Draft</h6>
+				<h2 class="fw-bold mb-0" style="color:white; font-size:2rem;">{ formatNumber(totalDraft) }</h2>
+			</div>
+		</div>
+
+		<div class="col-6 col-md-3">
+			<div class="p-3 text-center" style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a; border-top:4px solid #10b981;">
+				<i class="bi bi-check-circle fs-2 mb-2" style="color:#10b981;"></i>
+				<h6 class="mb-1" style="color:#9ca3af; font-size:0.75rem;">Published</h6>
+				<h2 class="fw-bold mb-0" style="color:white; font-size:2rem;">{ formatNumber(totalPublished) }</h2>
+			</div>
+		</div>
+
+		<div class="col-6 col-md-3">
+			<div class="p-3 text-center" style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a; border-top:4px solid #ec489a;">
+				<i class="bi bi-envelope-check fs-2 mb-2" style="color:#ec489a;"></i>
+				<h6 class="mb-1" style="color:#9ca3af; font-size:0.75rem;">Total RSVP</h6>
+				<h2 class="fw-bold mb-0" style="color:white; font-size:2rem;">{ formatNumber(totalRsvp) }</h2>
+			</div>
+		</div>
+	</div>
+
+	<!-- STATS CARDS - SECONDARY -->
+	<div class="row g-3 mb-4">
+		<div class="col-6 col-md-3">
+			<div class="p-3 d-flex align-items-center gap-3" style="background:#1e1e1e; border-radius:12px; border:1px solid #2a2a2a;">
+				<div style="width:42px; height:42px; background:rgba(139,92,246,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center;">
+					<i class="bi bi-eye" style="color:#8b5cf6; font-size:1.2rem;"></i>
+				</div>
+				<div>
+					<div style="color:#9ca3af; font-size:0.7rem;">Total Views</div>
+					<div style="color:white; font-weight:700; font-size:1.1rem;">{ formatNumber(totalViews) }</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-6 col-md-3">
+			<div class="p-3 d-flex align-items-center gap-3" style="background:#1e1e1e; border-radius:12px; border:1px solid #2a2a2a;">
+				<div style="width:42px; height:42px; background:rgba(16,185,129,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center;">
+					<i class="bi bi-people" style="color:#10b981; font-size:1.2rem;"></i>
+				</div>
+				<div>
+					<div style="color:#9ca3af; font-size:0.7rem;">Total Client</div>
+					<div style="color:white; font-weight:700; font-size:1.1rem;">{ formatNumber(totalClients) }</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-6 col-md-3">
+			<div class="p-3 d-flex align-items-center gap-3" style="background:#1e1e1e; border-radius:12px; border:1px solid #2a2a2a;">
+				<div style="width:42px; height:42px; background:rgba(59,130,246,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center;">
+					<i class="bi bi-person-badge" style="color:#3b82f6; font-size:1.2rem;"></i>
+				</div>
+				<div>
+					<div style="color:#9ca3af; font-size:0.7rem;">Total Staff</div>
+					<div style="color:white; font-weight:700; font-size:1.1rem;">{ formatNumber(totalStaff) }</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-6 col-md-3">
+			<div class="p-3 d-flex align-items-center gap-3" style="background:#1e1e1e; border-radius:12px; border:1px solid #2a2a2a;">
+				<div style="width:42px; height:42px; background:rgba(139,92,246,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center;">
+					<i class="bi bi-layout-three-columns" style="color:#8b5cf6; font-size:1.2rem;"></i>
+				</div>
+				<div>
+					<div style="color:#9ca3af; font-size:0.7rem;">Total Template</div>
+					<div style="color:white; font-weight:700; font-size:1.1rem;">{ formatNumber(totalTemplates) }</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- RECENT PROJECTS -->
+	<div class="mb-4" style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a; overflow:hidden;">
+		<div class="p-3 d-flex justify-content-between align-items-center" style="border-bottom:1px solid #2a2a2a;">
+			<h5 class="mb-0" style="color:#8b5cf6; font-size:1rem;">
+				<i class="bi bi-clock-history me-2"></i>Project Terbaru
+			</h5>
+			<a href="/admin/projects" style="color:#8b5cf6; text-decoration:none; font-size:0.85rem; opacity:0.7;">
+				Lihat Semua <i class="bi bi-arrow-right"></i>
+			</a>
+		</div>
+		<div class="table-responsive">
+			<table class="table mb-0">
+				<thead>
+					<tr>
+						<th class="ps-3 py-3">Judul</th>
+						<th class="py-3">Client</th>
+						<th class="py-3">Status</th>
+						<th class="py-3">Dibuat</th>
+					</tr>
+				</thead>
+				<tbody>
+					if len(recentProjects) > 0 {
+						for _, project := range recentProjects {
+							<tr>
+								<td class="ps-3 py-3">
+									<div style="color:white; font-weight:600;">{ project.Title }</div>
+									if project.Template != nil {
+										<small style="color:#6b7280; font-size:0.7rem;">{ project.Template.Name }</small>
+									}
+								</td>
+								<td class="py-3" style="color:#9ca3af;">
+									if project.User != nil {
+										{ project.User.Name }
+									}
+								</td>
+								<td class="py-3">
+									if project.Status == "published" {
+										<span class="badge" style="background:#10b981;">Published</span>
+									} else if project.Status == "draft" {
+										<span class="badge" style="background:#f59e0b; color:#1a1a1a;">Draft</span>
+									} else {
+										<span class="badge" style="background:#6b7280;">Archived</span>
+									}
+								</td>
+								<td class="py-3" style="color:#6b7280; font-size:0.8rem;">
+									{ project.CreatedAt.Format("02/01/2006") }
+								</td>
+							</tr>
+						}
+					} else {
+						<tr>
+							<td colspan="4" class="text-center py-5" style="color:#6b7280;">
+								<i class="bi bi-inbox fs-3 d-block mb-2"></i>
+								Belum ada project
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<!-- INFO AKUN -->
+	<div class="p-4" style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a;">
+		<h5 class="fw-bold mb-3" style="color:#8b5cf6; font-size:1rem;">
+			<i class="bi bi-info-circle me-2"></i>Informasi Akun
+		</h5>
+		<div class="row g-3">
+			<div class="col-12 col-md-6">
+				<div class="d-flex justify-content-between py-2" style="border-bottom:1px solid #2a2a2a;">
+					<span style="color:#9ca3af;">Nama</span>
+					<span style="color:white;">{ user.Name }</span>
+				</div>
+			</div>
+			<div class="col-12 col-md-6">
+				<div class="d-flex justify-content-between py-2" style="border-bottom:1px solid #2a2a2a;">
+					<span style="color:#9ca3af;">Email</span>
+					<span style="color:white;">{ user.Email }</span>
+				</div>
+			</div>
+			<div class="col-12 col-md-6">
+				<div class="d-flex justify-content-between py-2" style="border-bottom:1px solid #2a2a2a;">
+					<span style="color:#9ca3af;">Role</span>
+					<span class="badge" style="background:#8b5cf6;">{ user.Role }</span>
+				</div>
+			</div>
+		</div>
+	</div>
+}

@@ -1,71 +1,32 @@
 package models
 
-// Template — model sederhana untuk template undangan
-// Nanti field-nya akan di-map dari database MySQL (tabel: templates)
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
+
+// Template — model template undangan, map ke tabel `templates`
+// Struktur mengikuti migration Laravel
 type Template struct {
-	ID          uint
-	Name        string
-	Slug        string
-	Folder      string
-	Thumbnail   string
-	Description string
-	IsActive    bool
-	Order       int
+	ID          uint    `gorm:"primaryKey" json:"id"`
+	Name        string  `gorm:"size:255;not null" json:"name"`
+	Slug        string  `gorm:"size:255;uniqueIndex;not null" json:"slug"`
+	Folder      string  `gorm:"size:255;not null" json:"folder"`
+	Sections    string  `gorm:"type:json" json:"sections,omitempty"`
+	Thumbnail   *string `gorm:"size:255" json:"thumbnail,omitempty"`
+	Description *string `gorm:"type:text" json:"description,omitempty"`
+	Fields      string  `gorm:"type:json" json:"fields,omitempty"`
+	FieldsSchema string `gorm:"column:fields_schema;type:json" json:"fields_schema,omitempty"`
+	IsActive    bool    `gorm:"column:is_active;default:true" json:"is_active"`
+	Order       int     `gorm:"default:0" json:"order"`
+
+	CreatedAt time.Time      `json:"created_at"`
+	UpdatedAt time.Time      `json:"updated_at"`
+	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
 }
 
-// DummyTemplates — data dummy untuk test UI
-// Setelah database siap, ini diganti query GORM ke tabel templates
-func DummyTemplates() []Template {
-	return []Template{
-		{
-			ID:          1,
-			Name:        "Rustic Wood",
-			Slug:        "rustic-wood",
-			Folder:      "rustic-wood",
-			Thumbnail:   "/images/templates/rustic-wood.jpg",
-			Description: "Tema kayu alami dengan nuansa hangat dan natural.",
-			IsActive:    true,
-			Order:       1,
-		},
-		{
-			ID:          2,
-			Name:        "Modern Minimalist",
-			Slug:        "modern-minimalist",
-			Folder:      "modern-minimalist",
-			Thumbnail:   "/images/templates/modern-minimalist.jpg",
-			Description: "Desain simpel elegan dengan gaya modern minimalis.",
-			IsActive:    true,
-			Order:       2,
-		},
-		{
-			ID:          3,
-			Name:        "Elegant Gold",
-			Slug:        "elegant-gold",
-			Folder:      "elegant-gold",
-			Thumbnail:   "/images/templates/elegant-gold.jpg",
-			Description: "Template elegan dengan nuansa emas mewah.",
-			IsActive:    true,
-			Order:       3,
-		},
-		{
-			ID:          4,
-			Name:        "Traditional Java",
-			Slug:        "traditional-java",
-			Folder:      "traditional-java",
-			Thumbnail:   "/images/templates/traditional-java.jpg",
-			Description: "Tema adat jawa yang kental dengan budaya dan tradisi.",
-			IsActive:    true,
-			Order:       4,
-		},
-		{
-			ID:          5,
-			Name:        "Muslim Elegan",
-			Slug:        "santri-islami",
-			Folder:      "santri-islami",
-			Thumbnail:   "/images/templates/santri-islami.jpg",
-			Description: "Template islami dengan nuansa elegan dan ayat Al-Quran.",
-			IsActive:    true,
-			Order:       5,
-		},
-	}
+// TableName — nama tabel eksplisit
+func (Template) TableName() string {
+	return "templates"
 }

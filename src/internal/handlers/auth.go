@@ -3,9 +3,13 @@ package handlers
 import (
 	"bytes"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 
+	"wedding-invitation-go/internal/database"
+	"wedding-invitation-go/internal/models"
 	"wedding-invitation-go/internal/services"
 	"wedding-invitation-go/views/auth"
 	"wedding-invitation-go/views/layouts"
@@ -37,16 +41,66 @@ func ShowLogin(c *gin.Context) {
 }
 
 // ============================================
-// HandleLogin — POST /login (placeholder)
+// HandleLogin — POST /login
+// Validasi email & password ke database
 // ============================================
 func HandleLogin(c *gin.Context) {
-	email := c.PostForm("email")
+	email := strings.ToLower(strings.TrimSpace(c.PostForm("email")))
 	password := c.PostForm("password")
 
-	_ = email
-	_ = password
+	// Validasi input
+	if email == "" || password == "" {
+		c.Redirect(http.StatusFound, "/login?error=Email+dan+password+wajib+diisi")
+		return
+	}
 
-	c.Redirect(http.StatusFound, "/login?error=Backend+login+belum+diimplementasikan&email="+email)
+	// Cari user di database
+	var user models.User
+	db := database.GetDB()
+	if err := db.Where("email = ?", email).First(&user).Error; err != nil {
+		c.Redirect(http.StatusFound, "/login?error=Email+tidak+terdaftar&email="+email)
+		return
+	}
+
+	// Cek apakah user aktif
+	if !user.IsActive {
+		c.Redirect(http.StatusFound, "/login?error=Akun+Anda+tidak+aktif.+Hubungi+administrator&email="+email)
+		return
+	}
+
+	// Verifikasi password dengan bcrypt
+	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
+		c.Redirect(http.StatusFound, "/login?error=Password+salah.+Silakan+coba+lagi&email="+email)
+		return
+	}
+
+	// Password benar → simpan user di session
+	store := services.GetStore()
+	session, err := store.Get(c.Request, "wedding_session")
+	if err != nil {
+		c.Redirect(http.StatusFound, "/login?error=Gagal+membuat+sesi")
+		return
+	}
+
+	session.Values["user_id"] = user.ID
+	session.Values["user_role"] = user.Role
+	session.Values["user_name"] = user.Name
+	session.Options.MaxAge = 86400 * 7 // 7 hari
+
+	if err := session.Save(c.Request, c.Writer); err != nil {
+		c.Redirect(http.StatusFound, "/login?error=Gagal+menyimpan+sesi")
+		return
+	}
+
+	// Redirect berdasarkan role
+	switch user.Role {
+	case "admin":
+		c.Redirect(http.StatusFound, "/admin/dashboard")
+	case "staff":
+		c.Redirect(http.StatusFound, "/staff/dashboard")
+	default:
+		c.Redirect(http.StatusFound, "/client/dashboard")
+	}
 }
 
 // ============================================
@@ -77,12 +131,20 @@ func ShowRegister(c *gin.Context) {
 // HandleRegister — POST /register (placeholder)
 // ============================================
 func HandleRegister(c *gin.Context) {
-	c.Redirect(http.StatusFound, "/login?success=Register+belum+diimplementasikan")
+	c.Redirect(http.StatusFound, "/login?error=Register+belum+diimplementasikan")
 }
 
 // ============================================
-// HandleLogout — POST /logout (placeholder)
+// HandleLogout — POST /logout
+// Hapus session & redirect ke login
 // ============================================
 func HandleLogout(c *gin.Context) {
+	store := services.GetStore()
+	session, err := store.Get(c.Request, "wedding_session")
+	if err == nil {
+		session.Options.MaxAge = -1 // hapus cookie
+		session.Save(c.Request, c.Writer)
+	}
+
 	c.Redirect(http.StatusFound, "/login?success=Berhasil+logout")
 }
