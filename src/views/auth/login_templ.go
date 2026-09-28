@@ -16,7 +16,7 @@ import "wedding-invitation-go/internal/models"
 //   - errorMsg: pesan error global (misal session expired)
 //   - successMsg: pesan sukses (misal berhasil logout)
 //   - emailValue: value input email yang di-submit (untuk sticky form)
-func LoginPage(setting models.SiteSetting, errorMsg string, successMsg string, emailValue string) templ.Component {
+func LoginPage(setting models.Config, errorMsg string, successMsg string, emailValue string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -67,7 +67,7 @@ func LoginPage(setting models.SiteSetting, errorMsg string, successMsg string, e
 }
 
 // LoginForm — form login dengan content
-func LoginContent(setting models.SiteSetting, errorMsg string, successMsg string, emailValue string) templ.Component {
+func LoginContent(setting models.Config, errorMsg string, successMsg string, emailValue string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {

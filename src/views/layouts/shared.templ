@@ -5,7 +5,7 @@ import "wedding-invitation-go/internal/models"
 // ============================================
 // NAVBAR — dipakai di home page
 // ============================================
-templ Navbar(setting models.SiteSetting, isLoggedIn bool, userRole string) {
+templ Navbar(setting models.Config, isLoggedIn bool, userRole string) {
 	<nav class="navbar navbar-expand-lg fixed-top">
 		<div class="container">
 			<a class="navbar-brand" href="/">
@@ -52,7 +52,7 @@ templ Navbar(setting models.SiteSetting, isLoggedIn bool, userRole string) {
 // ============================================
 // FOOTER — dipakai di home page
 // ============================================
-templ Footer(setting models.SiteSetting) {
+templ Footer(setting models.Config) {
 	<footer class="footer">
 		<div class="container">
 			<div class="row g-4">
@@ -175,7 +175,7 @@ templ Footer(setting models.SiteSetting) {
 // ============================================
 // QRIS MODAL — ditampilkan kalau ada qris_image
 // ============================================
-templ QrisModal(setting models.SiteSetting) {
+templ QrisModal(setting models.Config) {
 	if setting.QrisImage != "" {
 		<div class="qris-modal-overlay" id="qrisModal" onclick="closeQrisModalOnOverlay(event)">
 			<div class="qris-modal-content">

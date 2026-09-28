@@ -9,25 +9,25 @@ import (
 )
 
 func Register(r *gin.Engine) {
-	// PUBLIC ROUTES
+	// PUBLIC
 	r.GET("/", handlers.ShowHome)
 	r.GET("/health", handlers.ShowHealth)
 
-	// AUTH ROUTES
+	// AUTH
 	r.GET("/login", handlers.ShowLogin)
 	r.POST("/login", handlers.HandleLogin)
 	r.GET("/register", handlers.ShowRegister)
 	r.POST("/register", handlers.HandleRegister)
 	r.POST("/logout", handlers.HandleLogout)
 
-	// ADMIN ROUTES
+	// ADMIN
 	admin := r.Group("/admin")
 	admin.Use(middleware.RequireAuth())
 	admin.Use(middleware.RequireRole("admin"))
 	{
 		admin.GET("/dashboard", adminHandlers.DashboardHandler)
 
-		// USER CRUD
+		// User
 		admin.GET("/users", adminHandlers.UserIndex)
 		admin.GET("/users/create", adminHandlers.UserCreate)
 		admin.POST("/users/create", adminHandlers.UserStore)
@@ -35,7 +35,7 @@ func Register(r *gin.Engine) {
 		admin.POST("/users/:id/edit", adminHandlers.UserUpdate)
 		admin.POST("/users/:id/delete", adminHandlers.UserDelete)
 
-		// TEMPLATE CRUD
+		// Template
 		admin.GET("/templates", adminHandlers.TemplateIndex)
 		admin.GET("/templates/create", adminHandlers.TemplateCreate)
 		admin.POST("/templates/create", adminHandlers.TemplateStore)
@@ -44,16 +44,20 @@ func Register(r *gin.Engine) {
 		admin.GET("/templates/:id/toggle", adminHandlers.TemplateToggle)
 		admin.POST("/templates/:id/delete", adminHandlers.TemplateDelete)
 
-		// MUSIC CRUD
+		// Music
 		admin.GET("/music", adminHandlers.MusicIndex)
 		admin.GET("/music/create", adminHandlers.MusicCreate)
 		admin.POST("/music/create", adminHandlers.MusicStore)
 		admin.GET("/music/:id/toggle", adminHandlers.MusicToggle)
 		admin.POST("/music/:id/delete", adminHandlers.MusicDelete)
 
-		// PROJECT MANAGEMENT
+		// Projects
 		admin.GET("/projects", adminHandlers.ProjectIndex)
 		admin.GET("/projects/:id", adminHandlers.ProjectShow)
 		admin.POST("/projects/:id/delete", adminHandlers.ProjectDelete)
+
+		// Settings
+		admin.GET("/settings", adminHandlers.SettingIndex)
+		admin.POST("/settings", adminHandlers.SettingUpdate)
 	}
 }

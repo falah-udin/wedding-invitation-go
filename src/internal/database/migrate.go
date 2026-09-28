@@ -15,10 +15,7 @@ func Migrate() error {
 		&models.Template{},
 		&models.Project{},
 		&models.Music{},
-		// Nanti tambahkan model lain di sini:
-		// &models.Rsvp{},
-		// &models.InvitationGuest{},
-		// &models.SiteSetting{},
+		&models.SiteSetting{},
 	)
 
 	if err != nil {

@@ -1,20 +1,57 @@
 package services
 
-import "wedding-invitation-go/internal/models"
+import (
+	"wedding-invitation-go/internal/database"
+	"wedding-invitation-go/internal/models"
+)
 
-// GetSiteSetting — ambil site setting
-// Sementara return dummy. Nanti diganti query ke DB via GORM.
-func GetSiteSetting() models.SiteSetting {
-	return models.DummySiteSetting()
+func GetSiteSetting() models.Config {
+	var settings []models.SiteSetting
+	db := database.GetDB()
+	db.Find(&settings)
+
+	m := make(map[string]string)
+	for _, s := range settings {
+		if s.Value != nil {
+			m[s.SettingKey] = *s.Value
+		}
+	}
+
+	cfg := models.Config{
+		SiteName:          m["site_name"],
+		SiteTagline:       m["site_tagline"],
+		SiteFavicon:       m["site_favicon"],
+		FooterDescription: m["footer_description"],
+		FooterCopyright:   m["footer_copyright"],
+		FooterVersion:     m["footer_version"],
+		ContactEmail:      m["contact_email"],
+		ContactPhone:      m["contact_phone"],
+		ContactWhatsapp:   m["contact_whatsapp"],
+		ContactAddress:    m["contact_address"],
+		SocialInstagram:   m["social_instagram"],
+		SocialFacebook:    m["social_facebook"],
+		SocialTiktok:      m["social_tiktok"],
+		SocialYoutube:     m["social_youtube"],
+		SocialTwitter:     m["social_twitter"],
+		DeveloperName:     m["developer_name"],
+		DeveloperEmail:    m["developer_email"],
+		DeveloperUrl:      m["developer_url"],
+		QrisImage:         m["qris_image"],
+	}
+
+	return cfg.WithDefaults()
 }
 
-// GetTemplates — ambil semua template aktif (ordered)
-// Sementara return empty. Nanti diganti query GORM ke tabel templates.
 func GetTemplates() []models.Template {
-	return []models.Template{}
+	var list []models.Template
+	db := database.GetDB()
+	db.Where("is_active = ?", true).Order("`order` ASC, id ASC").Find(&list)
+	return list
 }
 
-// GetTemplateBySlug — ambil satu template berdasarkan slug
 func GetTemplateBySlug(slug string) (models.Template, bool) {
-	return models.Template{}, false
+	var tmpl models.Template
+	db := database.GetDB()
+	err := db.Where("slug = ?", slug).First(&tmpl).Error
+	return tmpl, err == nil
 }

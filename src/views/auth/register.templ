@@ -4,7 +4,7 @@ import "wedding-invitation-go/internal/models"
 
 // RegisterContent — konten halaman register (tanpa DOCTYPE/head/body)
 // Akan dibungkus oleh layouts.AuthLayout
-templ RegisterContent(setting models.SiteSetting, errorMsg string, successMsg string) {
+templ RegisterContent(setting models.Config, errorMsg string, successMsg string) {
 	<div class="auth-left">
 		<a href="/" class="back-home-btn" title="Kembali ke Beranda">
 			<i class="bi bi-arrow-left"></i>

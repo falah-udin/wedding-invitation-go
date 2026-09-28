@@ -1,0 +1,185 @@
+package settings
+
+// IndexContent — form pengaturan situs
+templ IndexContent(settings map[string]string, errorMsg string, successMsg string) {
+	<div class="container-fluid">
+		<div class="d-flex justify-content-between align-items-center mb-4">
+			<div>
+				<h3 class="mb-1" style="color: #8b5cf6;">
+					<i class="bi bi-gear-fill me-2"></i>Pengaturan Situs
+				</h3>
+				<p class="text-secondary mb-0">Kelola informasi footer, kontak, sosial media, dan favicon</p>
+			</div>
+		</div>
+
+		if successMsg != "" {
+			<div class="alert mb-3" style="background: rgba(16,185,129,0.1); border-left: 4px solid #10b981; color: #10b981; border-radius: 12px; padding: 12px 16px;">
+				<i class="bi bi-check-circle-fill me-2"></i>{ successMsg }
+			</div>
+		}
+		if errorMsg != "" {
+			<div class="alert mb-3" style="background: rgba(239,68,68,0.1); border-left: 4px solid #ef4444; color: #ef4444; border-radius: 12px; padding: 12px 16px;">
+				<i class="bi bi-exclamation-triangle-fill me-2"></i>{ errorMsg }
+			</div>
+		}
+
+		<form method="POST" action="/admin/settings" enctype="multipart/form-data">
+			<div class="row g-4">
+				<!-- BRAND -->
+				<div class="col-lg-6">
+					<div class="card-dark p-4 h-100">
+						<h5 class="mb-3" style="color: #8b5cf6;">
+							<i class="bi bi-shop me-2"></i>Brand
+						</h5>
+						<div class="mb-3">
+							<label class="form-label" style="color: #9ca3af;">Nama Situs</label>
+							<input type="text" name="site_name" value={ settings["site_name"] } class="form-control-dark"/>
+						</div>
+						<div class="mb-3">
+							<label class="form-label" style="color: #9ca3af;">Tagline</label>
+							<input type="text" name="site_tagline" value={ settings["site_tagline"] } class="form-control-dark"/>
+						</div>
+						<div class="mb-0">
+							<label class="form-label" style="color: #9ca3af;">
+								<i class="bi bi-browser-chrome me-1"></i>Favicon
+							</label>
+							if settings["site_favicon"] != "" {
+								<div class="mb-2">
+									<img src={ "/storage/" + settings["site_favicon"] } alt="Favicon" style="width: 48px; height: 48px; object-fit: contain; border-radius: 8px; border: 1px solid #2a2a2a;"/>
+								</div>
+							}
+							<input type="file" name="site_favicon" class="form-control-dark" accept=".png,.jpg,.jpeg,.ico,.svg,.webp"/>
+							<small style="color: #6b7280;">Format: PNG, JPG, ICO, SVG, WebP. Max 512 KB.</small>
+						</div>
+					</div>
+				</div>
+
+				<!-- KONTAK -->
+				<div class="col-lg-6">
+					<div class="card-dark p-4 h-100">
+						<h5 class="mb-3" style="color: #8b5cf6;">
+							<i class="bi bi-envelope-at me-2"></i>Kontak
+						</h5>
+						<div class="mb-3">
+							<label class="form-label" style="color: #9ca3af;">Email</label>
+							<input type="email" name="contact_email" value={ settings["contact_email"] } class="form-control-dark"/>
+						</div>
+						<div class="mb-3">
+							<label class="form-label" style="color: #9ca3af;">Telepon</label>
+							<input type="text" name="contact_phone" value={ settings["contact_phone"] } class="form-control-dark"/>
+						</div>
+						<div class="mb-3">
+							<label class="form-label" style="color: #9ca3af;">WhatsApp (angka saja)</label>
+							<input type="text" name="contact_whatsapp" value={ settings["contact_whatsapp"] } class="form-control-dark"/>
+						</div>
+						<div class="mb-0">
+							<label class="form-label" style="color: #9ca3af;">Alamat</label>
+							<input type="text" name="contact_address" value={ settings["contact_address"] } class="form-control-dark"/>
+						</div>
+					</div>
+				</div>
+
+				<!-- SOSIAL MEDIA -->
+				<div class="col-lg-6">
+					<div class="card-dark p-4 h-100">
+						<h5 class="mb-3" style="color: #8b5cf6;">
+							<i class="bi bi-share me-2"></i>Sosial Media
+						</h5>
+						<div class="mb-3">
+							<label class="form-label" style="color: #9ca3af;"><i class="bi bi-instagram me-1"></i>Instagram</label>
+							<input type="url" name="social_instagram" value={ settings["social_instagram"] } class="form-control-dark"/>
+						</div>
+						<div class="mb-3">
+							<label class="form-label" style="color: #9ca3af;"><i class="bi bi-facebook me-1"></i>Facebook</label>
+							<input type="url" name="social_facebook" value={ settings["social_facebook"] } class="form-control-dark"/>
+						</div>
+						<div class="mb-3">
+							<label class="form-label" style="color: #9ca3af;"><i class="bi bi-tiktok me-1"></i>TikTok</label>
+							<input type="url" name="social_tiktok" value={ settings["social_tiktok"] } class="form-control-dark"/>
+						</div>
+						<div class="mb-3">
+							<label class="form-label" style="color: #9ca3af;"><i class="bi bi-youtube me-1"></i>YouTube</label>
+							<input type="url" name="social_youtube" value={ settings["social_youtube"] } class="form-control-dark"/>
+						</div>
+						<div class="mb-0">
+							<label class="form-label" style="color: #9ca3af;"><i class="bi bi-twitter-x me-1"></i>Twitter</label>
+							<input type="url" name="social_twitter" value={ settings["social_twitter"] } class="form-control-dark"/>
+						</div>
+					</div>
+				</div>
+
+				<!-- QRIS -->
+				<div class="col-lg-6">
+					<div class="card-dark p-4 h-100">
+						<h5 class="mb-3" style="color: #8b5cf6;">
+							<i class="bi bi-qr-code me-2"></i>QRIS / Donasi
+						</h5>
+						<p style="color: #9ca3af; font-size: 0.85rem;">
+							Upload gambar QRIS untuk ditampilkan di footer halaman home.
+						</p>
+						if settings["qris_image"] != "" {
+							<div class="mb-3">
+								<img src={ "/storage/" + settings["qris_image"] } alt="QRIS" style="width: 140px; height: 140px; object-fit: contain; border-radius: 12px; background: white; padding: 8px; border: 1px solid #2a2a2a;"/>
+							</div>
+						}
+						<div class="mb-0">
+							<input type="file" name="qris_image" class="form-control-dark" accept=".png,.jpg,.jpeg,.webp"/>
+							<small style="color: #6b7280;">Format: PNG, JPG, WebP. Max 2 MB.</small>
+						</div>
+					</div>
+				</div>
+
+				<!-- FOOTER -->
+				<div class="col-lg-6">
+					<div class="card-dark p-4 h-100">
+						<h5 class="mb-3" style="color: #8b5cf6;">
+							<i class="bi bi-layout-text-window-reverse me-2"></i>Footer
+						</h5>
+						<div class="mb-3">
+							<label class="form-label" style="color: #9ca3af;">Deskripsi Footer</label>
+							<textarea name="footer_description" class="form-control-dark" rows="3">{ settings["footer_description"] }</textarea>
+						</div>
+						<div class="mb-3">
+							<label class="form-label" style="color: #9ca3af;">Copyright</label>
+							<input type="text" name="footer_copyright" value={ settings["footer_copyright"] } class="form-control-dark"/>
+						</div>
+						<div class="mb-0">
+							<label class="form-label" style="color: #9ca3af;">Versi</label>
+							<input type="text" name="footer_version" value={ settings["footer_version"] } class="form-control-dark" placeholder="v1.0.0"/>
+						</div>
+					</div>
+				</div>
+
+				<!-- DEVELOPER -->
+				<div class="col-lg-12">
+					<div class="card-dark p-4">
+						<h5 class="mb-3" style="color: #8b5cf6;">
+							<i class="bi bi-code-slash me-2"></i>Developer
+						</h5>
+						<div class="row g-3">
+							<div class="col-md-4">
+								<label class="form-label" style="color: #9ca3af;">Nama</label>
+								<input type="text" name="developer_name" value={ settings["developer_name"] } class="form-control-dark"/>
+							</div>
+							<div class="col-md-4">
+								<label class="form-label" style="color: #9ca3af;">Email</label>
+								<input type="email" name="developer_email" value={ settings["developer_email"] } class="form-control-dark"/>
+							</div>
+							<div class="col-md-4">
+								<label class="form-label" style="color: #9ca3af;">Website</label>
+								<input type="url" name="developer_url" value={ settings["developer_url"] } class="form-control-dark"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="mt-4 d-flex justify-content-end gap-2">
+				<a href="/admin/dashboard" class="btn" style="background:#2a2a2a; color:white; border:none; padding:10px 24px; border-radius:12px; text-decoration:none;">Batal</a>
+				<button type="submit" class="btn-primary-custom">
+					<i class="bi bi-save me-2"></i>Simpan Pengaturan
+				</button>
+			</div>
+		</form>
+	</div>
+}

@@ -13,7 +13,7 @@ import "wedding-invitation-go/internal/models"
 // ============================================
 // NAVBAR — dipakai di home page
 // ============================================
-func Navbar(setting models.SiteSetting, isLoggedIn bool, userRole string) templ.Component {
+func Navbar(setting models.Config, isLoggedIn bool, userRole string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -95,7 +95,7 @@ func Navbar(setting models.SiteSetting, isLoggedIn bool, userRole string) templ.
 // ============================================
 // FOOTER — dipakai di home page
 // ============================================
-func Footer(setting models.SiteSetting) templ.Component {
+func Footer(setting models.Config) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -488,7 +488,7 @@ func Footer(setting models.SiteSetting) templ.Component {
 // ============================================
 // QRIS MODAL — ditampilkan kalau ada qris_image
 // ============================================
-func QrisModal(setting models.SiteSetting) templ.Component {
+func QrisModal(setting models.Config) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {

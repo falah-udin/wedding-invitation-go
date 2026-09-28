@@ -11,7 +11,7 @@ import templruntime "github.com/a-h/templ/runtime"
 import "wedding-invitation-go/internal/models"
 
 // HomePage — halaman home publik
-func HomePage(setting models.SiteSetting, templates []models.Template, isLoggedIn bool, userRole string) templ.Component {
+func HomePage(setting models.Config, templates []models.Template, isLoggedIn bool, userRole string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {

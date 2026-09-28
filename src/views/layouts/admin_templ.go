@@ -19,7 +19,7 @@ import (
 //   - setting: site setting (untuk favicon, nama situs)
 //   - activePage: key menu yang sedang aktif (untuk highlight sidebar)
 //   - content: komponen halaman yang akan dirender di dalam <main>
-func AdminLayout(user models.User, setting models.SiteSetting, activePage string, content templpkg.Component) templ.Component {
+func AdminLayout(user models.User, setting models.Config, activePage string, content templpkg.Component) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {

@@ -1,61 +1,61 @@
 package models
 
-// SiteSetting — model untuk pengaturan situs
-// Nanti di-map dari tabel site_settings
-type SiteSetting struct {
-	// Brand
-	SiteName    string
-	SiteTagline string
-	SiteFavicon string
+import (
+	"time"
+)
 
-	// Footer
+// SiteSetting — model untuk tabel site_settings
+// Kolom pakai prefix setting_ untuk hindari reserved word MySQL
+type SiteSetting struct {
+	ID           uint      `gorm:"primaryKey" json:"id"`
+	SettingKey   string    `gorm:"column:setting_key;size:255;uniqueIndex;not null" json:"setting_key"`
+	Value        *string   `gorm:"type:text" json:"value,omitempty"`
+	SettingGroup string    `gorm:"column:setting_group;size:50;default:'general'" json:"setting_group"`
+	CreatedAt    time.Time `json:"created_at"`
+	UpdatedAt    time.Time `json:"updated_at"`
+}
+
+func (SiteSetting) TableName() string {
+	return "site_settings"
+}
+
+type Config struct {
+	SiteName          string
+	SiteTagline       string
+	SiteFavicon       string
 	FooterDescription string
 	FooterCopyright   string
 	FooterVersion     string
-
-	// Contact
-	ContactEmail    string
-	ContactPhone    string
-	ContactWhatsapp string
-	ContactAddress  string
-
-	// Social
-	SocialInstagram string
-	SocialFacebook  string
-	SocialTiktok    string
-	SocialYoutube   string
-	SocialTwitter   string
-
-	// Developer
-	DeveloperName  string
-	DeveloperEmail string
-	DeveloperUrl   string
-
-	// Payment
-	QrisImage string
+	ContactEmail      string
+	ContactPhone      string
+	ContactWhatsapp   string
+	ContactAddress    string
+	SocialInstagram   string
+	SocialFacebook    string
+	SocialTiktok      string
+	SocialYoutube     string
+	SocialTwitter     string
+	DeveloperName     string
+	DeveloperEmail    string
+	DeveloperUrl      string
+	QrisImage         string
 }
 
-// DummySiteSetting — data dummy untuk test UI
-func DummySiteSetting() SiteSetting {
-	return SiteSetting{
-		SiteName:          "Wedding SaaS",
-		SiteTagline:       "Platform Undangan Digital",
-		SiteFavicon:       "",
-		FooterDescription: "Platform undangan pernikahan digital dengan template elegan, RSVP online, guest book, dan galeri foto. Praktis, hemat, dan ramah lingkungan.",
-		FooterCopyright:   "Wedding SaaS. Platform Undangan Digital. All rights reserved.",
-		FooterVersion:     "v1.0.0",
-		ContactEmail:      "hello@weddingsaas.com",
-		ContactPhone:      "+62 812-3456-7890",
-		ContactWhatsapp:   "6281234567890",
-		ContactAddress:    "Jakarta, Indonesia",
-		SocialInstagram:   "https://instagram.com/weddingsaas",
-		SocialFacebook:    "https://facebook.com/weddingsaas",
-		SocialTiktok:      "https://tiktok.com/@weddingsaas",
-		SocialYoutube:     "",
-		SocialTwitter:     "",
-		DeveloperName:     "Tim Developer",
-		DeveloperEmail:    "dev@weddingsaas.com",
-		DeveloperUrl:      "https://weddingsaas.com",
-		QrisImage:         "",
+func (c Config) WithDefaults() Config {
+	if c.SiteName == "" {
+		c.SiteName = "Wedding SaaS"
 	}
+	if c.SiteTagline == "" {
+		c.SiteTagline = "Platform Undangan Digital"
+	}
+	if c.FooterDescription == "" {
+		c.FooterDescription = "Platform undangan pernikahan digital dengan template elegan, RSVP online, guest book, dan galeri foto."
+	}
+	if c.FooterCopyright == "" {
+		c.FooterCopyright = "Wedding SaaS. Platform Undangan Digital. All rights reserved."
+	}
+	if c.DeveloperName == "" {
+		c.DeveloperName = "Tim Developer"
+	}
+	return c
 }

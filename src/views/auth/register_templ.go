@@ -12,7 +12,7 @@ import "wedding-invitation-go/internal/models"
 
 // RegisterContent — konten halaman register (tanpa DOCTYPE/head/body)
 // Akan dibungkus oleh layouts.AuthLayout
-func RegisterContent(setting models.SiteSetting, errorMsg string, successMsg string) templ.Component {
+func RegisterContent(setting models.Config, errorMsg string, successMsg string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {

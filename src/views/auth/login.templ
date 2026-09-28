@@ -8,7 +8,7 @@ import "wedding-invitation-go/internal/models"
 //   - errorMsg: pesan error global (misal session expired)
 //   - successMsg: pesan sukses (misal berhasil logout)
 //   - emailValue: value input email yang di-submit (untuk sticky form)
-templ LoginPage(setting models.SiteSetting, errorMsg string, successMsg string, emailValue string) {
+templ LoginPage(setting models.Config, errorMsg string, successMsg string, emailValue string) {
 	<!DOCTYPE html>
 	<html lang="id">
 	<head>
@@ -29,7 +29,7 @@ templ LoginPage(setting models.SiteSetting, errorMsg string, successMsg string, 
 }
 
 // LoginForm — form login dengan content
-templ LoginContent(setting models.SiteSetting, errorMsg string, successMsg string, emailValue string) {
+templ LoginContent(setting models.Config, errorMsg string, successMsg string, emailValue string) {
 	<div class="auth-left">
 		<a href="/" class="back-home-btn" title="Kembali ke Beranda">
 			<i class="bi bi-arrow-left"></i>

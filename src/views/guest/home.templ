@@ -3,7 +3,7 @@ package guest
 import "wedding-invitation-go/internal/models"
 
 // HomePage — halaman home publik
-templ HomePage(setting models.SiteSetting, templates []models.Template, isLoggedIn bool, userRole string) {
+templ HomePage(setting models.Config, templates []models.Template, isLoggedIn bool, userRole string) {
 	<!DOCTYPE html>
 	<html lang="id">
 	<head>
