@@ -1,0 +1,204 @@
+package layouts
+
+import "wedding-invitation-go/internal/models"
+
+// ============================================
+// NAVBAR — dipakai di home page
+// ============================================
+templ Navbar(setting models.SiteSetting, isLoggedIn bool, userRole string) {
+	<nav class="navbar navbar-expand-lg fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="/">
+				if setting.SiteFavicon != "" {
+					<img src={ "/storage/" + setting.SiteFavicon } alt="Logo" style="width: 32px; height: 32px; object-fit: contain; margin-right: 8px; vertical-align: middle;"/>
+				}
+				<span class="wedding">Wedding</span><span class="saas">SaaS</span>
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+				<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 30 30">
+					<path stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/>
+				</svg>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<div class="d-flex gap-2 ms-auto">
+					if isLoggedIn {
+						if userRole == "admin" {
+							<a href="/admin/dashboard" class="btn btn-primary-custom">
+								<i class="bi bi-speedometer2 me-2"></i>Dashboard
+							</a>
+						} else if userRole == "client" {
+							<a href="/client/dashboard" class="btn btn-primary-custom">
+								<i class="bi bi-speedometer2 me-2"></i>Dashboard
+							</a>
+						} else {
+							<a href="/staff/dashboard" class="btn btn-primary-custom">
+								<i class="bi bi-speedometer2 me-2"></i>Dashboard
+							</a>
+						}
+					} else {
+						<a href="/login" class="btn btn-login">
+							<i class="bi bi-box-arrow-in-right me-2"></i>Login
+						</a>
+						<a href="/register" class="btn btn-primary-custom">
+							<i class="bi bi-person-plus me-2"></i>Daftar
+						</a>
+					}
+				</div>
+			</div>
+		</div>
+	</nav>
+}
+
+// ============================================
+// FOOTER — dipakai di home page
+// ============================================
+templ Footer(setting models.SiteSetting) {
+	<footer class="footer">
+		<div class="container">
+			<div class="row g-4">
+				<div class="col-lg-4 col-md-6">
+					<h5 class="footer-brand">
+						if setting.SiteFavicon != "" {
+							<img src={ "/storage/" + setting.SiteFavicon } alt="Logo" style="width: 32px; height: 32px; object-fit: contain; margin-right: 8px; vertical-align: middle;"/>
+						}
+						<span class="wedding">Wedding</span><span class="saas">SaaS</span>
+					</h5>
+					<p class="footer-desc">
+						{ setting.FooterDescription }
+					</p>
+					<div class="footer-socials">
+						if setting.SocialInstagram != "" {
+							<a href={ templ.URL(setting.SocialInstagram) } target="_blank" rel="noopener" class="social-link" title="Instagram">
+								<i class="bi bi-instagram"></i>
+							</a>
+						}
+						if setting.SocialFacebook != "" {
+							<a href={ templ.URL(setting.SocialFacebook) } target="_blank" rel="noopener" class="social-link" title="Facebook">
+								<i class="bi bi-facebook"></i>
+							</a>
+						}
+						if setting.SocialTiktok != "" {
+							<a href={ templ.URL(setting.SocialTiktok) } target="_blank" rel="noopener" class="social-link" title="TikTok">
+								<i class="bi bi-tiktok"></i>
+							</a>
+						}
+						if setting.SocialYoutube != "" {
+							<a href={ templ.URL(setting.SocialYoutube) } target="_blank" rel="noopener" class="social-link" title="YouTube">
+								<i class="bi bi-youtube"></i>
+							</a>
+						}
+						if setting.SocialTwitter != "" {
+							<a href={ templ.URL(setting.SocialTwitter) } target="_blank" rel="noopener" class="social-link" title="Twitter">
+								<i class="bi bi-twitter-x"></i>
+							</a>
+						}
+					</div>
+				</div>
+
+				<div class="col-lg-4 col-md-6">
+					<h6 class="footer-heading">Kontak Kami</h6>
+					<ul class="footer-list">
+						if setting.ContactEmail != "" {
+							<li>
+								<i class="bi bi-envelope"></i>
+								<a href={ templ.URL("mailto:" + setting.ContactEmail) }>{ setting.ContactEmail }</a>
+							</li>
+						}
+						if setting.ContactPhone != "" {
+							<li>
+								<i class="bi bi-telephone"></i>
+								<span>{ setting.ContactPhone }</span>
+							</li>
+						}
+						if setting.ContactWhatsapp != "" {
+							<li>
+								<i class="bi bi-whatsapp"></i>
+								<a href={ templ.URL("https://wa.me/" + setting.ContactWhatsapp) } target="_blank" rel="noopener">WhatsApp Chat</a>
+							</li>
+						}
+						if setting.ContactAddress != "" {
+							<li>
+								<i class="bi bi-geo-alt"></i>
+								<span>{ setting.ContactAddress }</span>
+							</li>
+						}
+					</ul>
+				</div>
+
+				<div class="col-lg-4 col-md-6">
+					<h6 class="footer-heading">Dikembangkan Oleh</h6>
+					<p class="footer-desc mb-2">
+						<i class="bi bi-code-slash me-1" style="color:#10b981;"></i>
+						if setting.DeveloperUrl != "" {
+							<a href={ templ.URL(setting.DeveloperUrl) } target="_blank" rel="noopener" class="footer-link">{ setting.DeveloperName }</a>
+						} else {
+							{ setting.DeveloperName }
+						}
+					</p>
+					if setting.DeveloperEmail != "" {
+						<p class="footer-desc mb-2">
+							<i class="bi bi-envelope-at me-1"></i>
+							<a href={ templ.URL("mailto:" + setting.DeveloperEmail) } class="footer-link">{ setting.DeveloperEmail }</a>
+						</p>
+					}
+					if setting.FooterVersion != "" {
+						<p class="footer-version">
+							<i class="bi bi-tag me-1"></i>{ setting.FooterVersion }
+						</p>
+					}
+					if setting.QrisImage != "" {
+						<div class="qris-support-card" onclick="openQrisModal()">
+							<div class="qris-support-icon">
+								<img src={ "/storage/" + setting.QrisImage } alt="QRIS"/>
+							</div>
+							<div class="qris-support-text">
+								<strong>Dukung Developer</strong>
+								<span>Klik untuk lihat QRIS</span>
+							</div>
+							<i class="bi bi-arrow-right qris-support-arrow"></i>
+						</div>
+					}
+				</div>
+			</div>
+
+			<hr class="footer-divider"/>
+
+			<div class="text-center">
+				<p class="footer-text">
+					© 2026 { setting.FooterCopyright }
+				</p>
+			</div>
+		</div>
+	</footer>
+}
+
+// ============================================
+// QRIS MODAL — ditampilkan kalau ada qris_image
+// ============================================
+templ QrisModal(setting models.SiteSetting) {
+	if setting.QrisImage != "" {
+		<div class="qris-modal-overlay" id="qrisModal" onclick="closeQrisModalOnOverlay(event)">
+			<div class="qris-modal-content">
+				<button type="button" class="qris-modal-close" onclick="closeQrisModal()">
+					<i class="bi bi-x-lg"></i>
+				</button>
+				<div class="qris-modal-icon">
+					<i class="bi bi-qr-code"></i>
+				</div>
+				<h5 class="qris-modal-title">Dukung Developer</h5>
+				<p class="qris-modal-subtitle">
+					Scan QRIS di bawah untuk memberikan dukungan<br/>kepada pengembang platform ini
+				</p>
+				<div class="qris-modal-image-wrap">
+					<img src={ "/storage/" + setting.QrisImage } alt="QRIS Developer" id="qrisModalImage"/>
+				</div>
+				<a href={ templ.URL("/storage/" + setting.QrisImage) } download="QRIS-Developer-2026.png" class="qris-download-btn" id="qrisDownloadBtn">
+					<i class="bi bi-download"></i> Download QRIS
+				</a>
+				<p class="qris-modal-footer" style="margin-top: 12px;">
+					Terima kasih atas dukungan Anda!
+				</p>
+			</div>
+		</div>
+	}
+}

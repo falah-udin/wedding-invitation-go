@@ -1,0 +1,137 @@
+package auth
+
+import "wedding-invitation-go/internal/models"
+
+// LoginPage — halaman login
+// Parameter:
+//   - setting: SiteSetting (dummy dulu)
+//   - errorMsg: pesan error global (misal session expired)
+//   - successMsg: pesan sukses (misal berhasil logout)
+//   - emailValue: value input email yang di-submit (untuk sticky form)
+templ LoginPage(setting models.SiteSetting, errorMsg string, successMsg string, emailValue string) {
+	<!DOCTYPE html>
+	<html lang="id">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes"/>
+		<title>Login - { setting.SiteName }</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+		<link rel="stylesheet" href="/css/auth.css"/>
+	</head>
+	<body>
+		<div class="auth-wrapper">
+			{ children... }
+		</div>
+	</body>
+	</html>
+}
+
+// LoginForm — form login dengan content
+templ LoginContent(setting models.SiteSetting, errorMsg string, successMsg string, emailValue string) {
+	<div class="auth-left">
+		<a href="/" class="back-home-btn" title="Kembali ke Beranda">
+			<i class="bi bi-arrow-left"></i>
+			<span>Kembali ke Beranda</span>
+		</a>
+
+		<div class="auth-info">
+			<h2 class="auth-info-title">
+				Buat Undangan <span>Digital</span> Impianmu
+			</h2>
+			<p class="auth-info-desc">
+				Platform undangan pernikahan online dengan berbagai template elegan, RSVP online, guest book, dan galeri foto.
+			</p>
+			<ul class="auth-info-list">
+				<li><i class="bi bi-check-circle-fill"></i><span>Template modern &amp; elegan</span></li>
+				<li><i class="bi bi-check-circle-fill"></i><span>RSVP &amp; guest book online</span></li>
+				<li><i class="bi bi-check-circle-fill"></i><span>Musik latar &amp; galeri foto</span></li>
+				<li><i class="bi bi-check-circle-fill"></i><span>Mudah dibagikan ke sosial media</span></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="auth-right">
+		<div class="auth-card">
+			<div class="auth-header">
+				<h1 class="auth-title">
+					<span>Wedding</span> SaaS
+				</h1>
+				<p class="auth-subtitle">Platform Undangan Digital</p>
+			</div>
+
+			if errorMsg != "" {
+				<div class="alert-auth alert-danger" role="alert">
+					<i class="bi bi-exclamation-triangle-fill"></i>
+					<div>{ errorMsg }</div>
+				</div>
+			}
+			if successMsg != "" {
+				<div class="alert-auth alert-success" role="alert">
+					<i class="bi bi-check-circle-fill"></i>
+					<div>{ successMsg }</div>
+				</div>
+			}
+
+			<form method="POST" action="/login" style="width: 100%;">
+				<div class="form-group">
+					<label for="email" class="form-label">
+						<i class="bi bi-envelope"></i>Email
+					</label>
+					<div class="input-icon">
+						<i class="bi bi-envelope"></i>
+						<input type="email" id="email" name="email" class="form-control" value={ emailValue } placeholder="contoh@email.com" required autofocus/>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="password" class="form-label">
+						<i class="bi bi-lock"></i>Password
+					</label>
+					<div class="input-icon">
+						<i class="bi bi-lock"></i>
+						<input type="password" id="password" name="password" class="form-control" placeholder="Masukkan password" required/>
+					</div>
+				</div>
+
+				<div class="remember-me">
+					<input type="checkbox" name="remember" id="remember"/>
+					<label for="remember">Ingat saya</label>
+				</div>
+
+				<button type="submit" class="btn-auth">
+					<i class="bi bi-box-arrow-in-right"></i>
+					<span>Login</span>
+				</button>
+			</form>
+
+			<div class="forgot-password">
+				<a href="#">
+					<i class="bi bi-key"></i>
+					Lupa password?
+				</a>
+			</div>
+
+			<div class="divider-or">atau</div>
+
+			<a href="/auth/google" class="btn-google">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+					<path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+					<path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+					<path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+					<path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+				</svg>
+				<span>Login dengan Google</span>
+			</a>
+
+			<div class="register-section">
+				<p class="register-text">Belum punya akun?</p>
+				<a href="/register" class="btn-register-link">
+					<i class="bi bi-person-plus"></i>
+					<span>Daftar Sekarang</span>
+				</a>
+			</div>
+		</div>
+	</div>
+}

@@ -1,0 +1,77 @@
+# ============================================
+# ENVIRONMENT
+# ============================================
+.env
+.env.local
+.env.*.local
+
+# ============================================
+# DOCKER & DATA
+# ============================================
+mysql_data/
+*.tar.gz
+*.zip
+
+# ============================================
+# GO
+# ============================================
+# Binary
+tmp/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+main
+server
+
+# Test binary
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go workspace file
+go.work
+
+# ============================================
+# TEMPL GENERATED FILES
+# ============================================
+# File _templ.go di-generate otomatis oleh templ generate
+# Komentar kalau mau ikut di-commit (untuk konsistensi build)
+# *_templ.go
+
+# ============================================
+# STORAGE / USER UPLOADS
+# ============================================
+src/storage/app/public/*
+!src/storage/app/public/.gitkeep
+
+# ============================================
+# PUBLIC STORAGE (symlink)
+# ============================================
+src/public/storage
+
+# ============================================
+# LOGS
+# ============================================
+*.log
+logs/
+
+# ============================================
+# OS FILES
+# ============================================
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# ============================================
+# IDE
+# ============================================
+.idea/
+.vscode/
+*.sublime-*
+
+# Catatan pribadi (bukan bagian project)
+notes/

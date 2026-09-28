@@ -1,0 +1,134 @@
+name: wedding-invitation-go
+
+services:
+    # ============================================
+    # MYSQL
+    # ============================================
+    mysql:
+        container_name: wedding-invitation-go-mysql
+        image: mysql:8.0
+        environment:
+            MYSQL_DATABASE: wedding_invitation_db
+            MYSQL_PASSWORD: wedding123
+            MYSQL_ROOT_PASSWORD: root123
+            MYSQL_USER: wedding_user
+            TZ: Asia/Jakarta
+        volumes:
+            - /DATA/AppData/wedding-invitation-go/mysql_data:/var/lib/mysql
+        ports:
+            - "3311:3306"
+        restart: unless-stopped
+        networks:
+            - wedding-invitation-go-network
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot123"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+            start_period: 60s
+        # Optimasi untuk HG680 (RAM terbatas)
+        command: >
+            --innodb-buffer-pool-size=256M
+            --innodb-log-file-size=64M
+            --max-connections=50
+            --performance-schema=OFF
+        deploy:
+            resources:
+                limits:
+                    memory: 512M
+                    cpus: '1.0'
+
+    # ============================================
+    # NGINX
+    # ============================================
+    nginx:
+        container_name: wedding-invitation-go-nginx
+        image: nginx:alpine
+        depends_on:
+            - golang
+        volumes:
+            - /DATA/AppData/wedding-invitation-go/docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+            - /DATA/AppData/wedding-invitation-go/src/public:/var/www/public:ro
+        ports:
+            - "8086:80"
+        restart: unless-stopped
+        networks:
+            - wedding-invitation-go-network
+        deploy:
+            resources:
+                limits:
+                    memory: 64M
+                    cpus: '0.25'
+
+    # ============================================
+    # GO APP
+    # ============================================
+    golang:
+        container_name: wedding-invitation-go-app
+        build:
+            context: /DATA/AppData/wedding-invitation-go
+            dockerfile: Dockerfile
+            target: development
+        volumes:
+            - /DATA/AppData/wedding-invitation-go/src:/app
+            - wedding-invitation-go-mod-cache:/go/pkg/mod
+            - wedding-invitation-go-build-cache:/root/.cache/go-build
+        working_dir: /app
+        environment:
+            APP_ENV: development
+            APP_PORT: 8080
+            APP_URL: http://<IP-HG680>:8086
+            APP_NAME: "Wedding Invitation Go"
+            APP_DEBUG: "true"
+            
+            DB_HOST: mysql
+            DB_PORT: 3306
+            DB_DATABASE: wedding_invitation_db
+            DB_USERNAME: wedding_user
+            DB_PASSWORD: wedding123
+            
+            SESSION_SECRET: "ganti-dengan-random-32-karakter-disini-ya"
+            TZ: Asia/Jakarta
+        depends_on:
+            mysql:
+                condition: service_healthy
+        restart: unless-stopped
+        networks:
+            - wedding-invitation-go-network
+        deploy:
+            resources:
+                limits:
+                    memory: 768M
+                    cpus: '2.0'
+                reservations:
+                    memory: 256M
+                    cpus: '0.5'
+
+networks:
+    wedding-invitation-go-network:
+        driver: bridge
+
+volumes:
+    wedding-invitation-go-mod-cache:
+    wedding-invitation-go-build-cache:
+
+# ============================================
+# CASAOS METADATA
+# ============================================
+x-casaos:
+    author: self
+    category: Web
+    icon: https://go.dev/images/go-logo-blue.svg
+    index: /
+    port_map: "8086"
+    scheme: http
+    title:
+        custom: Wedding Invitation (Go)
+    description:
+        custom: Platform Undangan Pernikahan Digital - Golang Version (Gin + templ + GORM)
+    tagline:
+        custom: Wedding Invitation SaaS - Go Version
+    developer: self
+    main: golang
+    # Optional: health check URL untuk CasaOS monitoring
+    healthcheck: /health
