@@ -98,248 +98,324 @@ func IndexContent(settings map[string]string, errorMsg string, successMsg string
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "\" class=\"form-control-dark\"></div><div class=\"mb-0\"><label class=\"form-label\" style=\"color: #9ca3af;\"><i class=\"bi bi-browser-chrome me-1\"></i>Favicon</label> ")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "\" class=\"form-control-dark\"></div><!-- FAVICON dengan 2 card preview --><div class=\"mb-0\"><label class=\"form-label\" style=\"color: #9ca3af;\"><i class=\"bi bi-browser-chrome me-1\"></i>Favicon</label><div class=\"d-flex align-items-start gap-3 mb-3 flex-wrap\"><!-- Card Saat Ini --><div><div style=\"font-size: 0.7rem; color: #6b7280; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;\">Saat Ini</div><div style=\"width: 80px; height: 80px; background: #0f0f0f; border: 2px solid #2a2a2a; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if settings["site_favicon"] != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<div class=\"mb-2\"><img src=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<img src=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var6 string
 			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + settings["site_favicon"])
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 48, Col: 58}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 57, Col: 60}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var6)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "\" alt=\"Favicon\" style=\"width: 48px; height: 48px; object-fit: contain; border-radius: 8px; border: 1px solid #2a2a2a;\"></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "\" alt=\"Favicon saat ini\" style=\"width: 100%; height: 100%; object-fit: contain;\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		} else {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<i class=\"bi bi-image text-secondary\" style=\"font-size: 1.5rem; color: #4b5563;\"></i>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<input type=\"file\" name=\"site_favicon\" class=\"form-control-dark\" accept=\".png,.jpg,.jpeg,.ico,.svg,.webp\"> <small style=\"color: #6b7280;\">Format: PNG, JPG, ICO, SVG, WebP. Max 512 KB.</small></div></div></div><!-- KONTAK --><div class=\"col-lg-6\"><div class=\"card-dark p-4 h-100\"><h5 class=\"mb-3\" style=\"color: #8b5cf6;\"><i class=\"bi bi-envelope-at me-2\"></i>Kontak</h5><div class=\"mb-3\"><label class=\"form-label\" style=\"color: #9ca3af;\">Email</label> <input type=\"email\" name=\"contact_email\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "</div><div style=\"font-size: 0.65rem; color: #6b7280; margin-top: 4px; text-align: center;\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if settings["site_favicon"] != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "Tersimpan")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		} else {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "Belum ada")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "</div></div><!-- Arrow --><div style=\"align-self: center; margin-top: 20px;\"><i class=\"bi bi-arrow-right\" style=\"color: #4b5563; font-size: 1.5rem;\"></i></div><!-- Card Preview Baru --><div><div style=\"font-size: 0.7rem; color: #8b5cf6; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;\">Preview Baru</div><div id=\"favicon-new-box\" style=\"width: 80px; height: 80px; background: #0f0f0f; border: 2px dashed #2a2a2a; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: all 0.3s;\"><div id=\"favicon-new-placeholder\" style=\"text-align: center; color: #6b7280;\"><i class=\"bi bi-cloud-arrow-up\" style=\"font-size: 1.5rem; display: block; margin-bottom: 2px;\"></i> <span style=\"font-size: 0.6rem;\">Pilih file</span></div><img id=\"favicon-new-preview\" src=\"\" alt=\"Preview favicon baru\" style=\"width: 100%; height: 100%; object-fit: contain; display: none;\"></div><div id=\"favicon-new-info\" style=\"font-size: 0.65rem; color: #6b7280; margin-top: 4px; text-align: center; max-width: 80px; word-wrap: break-word;\">Belum dipilih</div></div></div><div class=\"mb-2\"><input type=\"file\" name=\"site_favicon\" id=\"site_favicon_input\" class=\"form-control-dark\" accept=\".png,.jpg,.jpeg,.ico,.svg,.webp\" onchange=\"previewFavicon(this)\"></div><small style=\"color: #6b7280; display: block; margin-bottom: 8px;\">Format: PNG, JPG, ICO, SVG, WebP. Max 512 KB. Ukuran ideal: 32×32 atau 64×64 px.</small> ")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if settings["site_favicon"] != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "<button type=\"button\" class=\"btn btn-sm\" style=\"background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; padding: 6px 14px; font-size: 0.75rem;\" onclick=\"confirmDeleteFavicon()\"><i class=\"bi bi-trash me-1\"></i>Hapus Favicon</button>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "</div></div></div><!-- KONTAK --><div class=\"col-lg-6\"><div class=\"card-dark p-4 h-100\"><h5 class=\"mb-3\" style=\"color: #8b5cf6;\"><i class=\"bi bi-envelope-at me-2\"></i>Kontak</h5><div class=\"mb-3\"><label class=\"form-label\" style=\"color: #9ca3af;\">Email</label> <input type=\"email\" name=\"contact_email\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var7 string
 		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.ResolveAttributeValue(settings["contact_email"])
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 65, Col: 81}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 116, Col: 81}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var7)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "\" class=\"form-control-dark\"></div><div class=\"mb-3\"><label class=\"form-label\" style=\"color: #9ca3af;\">Telepon</label> <input type=\"text\" name=\"contact_phone\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "\" class=\"form-control-dark\"></div><div class=\"mb-3\"><label class=\"form-label\" style=\"color: #9ca3af;\">Telepon</label> <input type=\"text\" name=\"contact_phone\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var8 string
 		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.ResolveAttributeValue(settings["contact_phone"])
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 69, Col: 80}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 120, Col: 80}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var8)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "\" class=\"form-control-dark\"></div><div class=\"mb-3\"><label class=\"form-label\" style=\"color: #9ca3af;\">WhatsApp (angka saja)</label> <input type=\"text\" name=\"contact_whatsapp\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "\" class=\"form-control-dark\"></div><div class=\"mb-3\"><label class=\"form-label\" style=\"color: #9ca3af;\">WhatsApp (angka saja)</label> <input type=\"text\" name=\"contact_whatsapp\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var9 string
 		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.ResolveAttributeValue(settings["contact_whatsapp"])
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 73, Col: 86}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 124, Col: 86}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var9)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "\" class=\"form-control-dark\"></div><div class=\"mb-0\"><label class=\"form-label\" style=\"color: #9ca3af;\">Alamat</label> <input type=\"text\" name=\"contact_address\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "\" class=\"form-control-dark\"></div><div class=\"mb-0\"><label class=\"form-label\" style=\"color: #9ca3af;\">Alamat</label> <input type=\"text\" name=\"contact_address\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var10 string
 		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.ResolveAttributeValue(settings["contact_address"])
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 77, Col: 84}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 128, Col: 84}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var10)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "\" class=\"form-control-dark\"></div></div></div><!-- SOSIAL MEDIA --><div class=\"col-lg-6\"><div class=\"card-dark p-4 h-100\"><h5 class=\"mb-3\" style=\"color: #8b5cf6;\"><i class=\"bi bi-share me-2\"></i>Sosial Media</h5><div class=\"mb-3\"><label class=\"form-label\" style=\"color: #9ca3af;\"><i class=\"bi bi-instagram me-1\"></i>Instagram</label> <input type=\"url\" name=\"social_instagram\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "\" class=\"form-control-dark\"></div></div></div><!-- SOSIAL MEDIA --><div class=\"col-lg-6\"><div class=\"card-dark p-4 h-100\"><h5 class=\"mb-3\" style=\"color: #8b5cf6;\"><i class=\"bi bi-share me-2\"></i>Sosial Media</h5><div class=\"mb-3\"><label class=\"form-label\" style=\"color: #9ca3af;\"><i class=\"bi bi-instagram me-1\"></i>Instagram</label> <input type=\"url\" name=\"social_instagram\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var11 string
 		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.ResolveAttributeValue(settings["social_instagram"])
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 90, Col: 85}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 141, Col: 85}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var11)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "\" class=\"form-control-dark\"></div><div class=\"mb-3\"><label class=\"form-label\" style=\"color: #9ca3af;\"><i class=\"bi bi-facebook me-1\"></i>Facebook</label> <input type=\"url\" name=\"social_facebook\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "\" class=\"form-control-dark\"></div><div class=\"mb-3\"><label class=\"form-label\" style=\"color: #9ca3af;\"><i class=\"bi bi-facebook me-1\"></i>Facebook</label> <input type=\"url\" name=\"social_facebook\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var12 string
 		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.ResolveAttributeValue(settings["social_facebook"])
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 94, Col: 83}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 145, Col: 83}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var12)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "\" class=\"form-control-dark\"></div><div class=\"mb-3\"><label class=\"form-label\" style=\"color: #9ca3af;\"><i class=\"bi bi-tiktok me-1\"></i>TikTok</label> <input type=\"url\" name=\"social_tiktok\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "\" class=\"form-control-dark\"></div><div class=\"mb-3\"><label class=\"form-label\" style=\"color: #9ca3af;\"><i class=\"bi bi-tiktok me-1\"></i>TikTok</label> <input type=\"url\" name=\"social_tiktok\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var13 string
 		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.ResolveAttributeValue(settings["social_tiktok"])
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 98, Col: 79}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 149, Col: 79}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var13)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "\" class=\"form-control-dark\"></div><div class=\"mb-3\"><label class=\"form-label\" style=\"color: #9ca3af;\"><i class=\"bi bi-youtube me-1\"></i>YouTube</label> <input type=\"url\" name=\"social_youtube\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "\" class=\"form-control-dark\"></div><div class=\"mb-3\"><label class=\"form-label\" style=\"color: #9ca3af;\"><i class=\"bi bi-youtube me-1\"></i>YouTube</label> <input type=\"url\" name=\"social_youtube\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var14 string
 		templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.ResolveAttributeValue(settings["social_youtube"])
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 102, Col: 81}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 153, Col: 81}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var14)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "\" class=\"form-control-dark\"></div><div class=\"mb-0\"><label class=\"form-label\" style=\"color: #9ca3af;\"><i class=\"bi bi-twitter-x me-1\"></i>Twitter</label> <input type=\"url\" name=\"social_twitter\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "\" class=\"form-control-dark\"></div><div class=\"mb-0\"><label class=\"form-label\" style=\"color: #9ca3af;\"><i class=\"bi bi-twitter-x me-1\"></i>Twitter</label> <input type=\"url\" name=\"social_twitter\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var15 string
 		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.ResolveAttributeValue(settings["social_twitter"])
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 106, Col: 81}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 157, Col: 81}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var15)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "\" class=\"form-control-dark\"></div></div></div><!-- QRIS --><div class=\"col-lg-6\"><div class=\"card-dark p-4 h-100\"><h5 class=\"mb-3\" style=\"color: #8b5cf6;\"><i class=\"bi bi-qr-code me-2\"></i>QRIS / Donasi</h5><p style=\"color: #9ca3af; font-size: 0.85rem;\">Upload gambar QRIS untuk ditampilkan di footer halaman home.</p>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "\" class=\"form-control-dark\"></div></div></div><!-- QRIS dengan 2 card preview --><div class=\"col-lg-6\"><div class=\"card-dark p-4 h-100\"><h5 class=\"mb-3\" style=\"color: #8b5cf6;\"><i class=\"bi bi-qr-code me-2\"></i>QRIS / Donasi</h5><p style=\"color: #9ca3af; font-size: 0.85rem;\">Upload gambar QRIS untuk ditampilkan di footer halaman home.</p><div class=\"d-flex align-items-start gap-3 mb-3 flex-wrap\"><!-- Card Saat Ini --><div><div style=\"font-size: 0.7rem; color: #6b7280; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;\">Saat Ini</div><div style=\"width: 140px; height: 140px; background: #0f0f0f; border: 2px solid #2a2a2a; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if settings["qris_image"] != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "<div class=\"mb-3\"><img src=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "<img src=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var16 string
 			templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + settings["qris_image"])
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 122, Col: 55}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 180, Col: 57}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var16)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "\" alt=\"QRIS\" style=\"width: 140px; height: 140px; object-fit: contain; border-radius: 12px; background: white; padding: 8px; border: 1px solid #2a2a2a;\"></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "\" alt=\"QRIS saat ini\" style=\"width: 100%; height: 100%; object-fit: contain; background: white;\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		} else {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "<i class=\"bi bi-qr-code text-secondary\" style=\"font-size: 2rem; color: #4b5563;\"></i>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "<div class=\"mb-0\"><input type=\"file\" name=\"qris_image\" class=\"form-control-dark\" accept=\".png,.jpg,.jpeg,.webp\"> <small style=\"color: #6b7280;\">Format: PNG, JPG, WebP. Max 2 MB.</small></div></div></div><!-- FOOTER --><div class=\"col-lg-6\"><div class=\"card-dark p-4 h-100\"><h5 class=\"mb-3\" style=\"color: #8b5cf6;\"><i class=\"bi bi-layout-text-window-reverse me-2\"></i>Footer</h5><div class=\"mb-3\"><label class=\"form-label\" style=\"color: #9ca3af;\">Deskripsi Footer</label> <textarea name=\"footer_description\" class=\"form-control-dark\" rows=\"3\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "</div><div style=\"font-size: 0.65rem; color: #6b7280; margin-top: 4px; text-align: center;\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if settings["qris_image"] != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "Tersimpan")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		} else {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "Belum ada")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "</div></div><!-- Arrow --><div style=\"align-self: center; margin-top: 20px;\"><i class=\"bi bi-arrow-right\" style=\"color: #4b5563; font-size: 1.5rem;\"></i></div><!-- Card Preview Baru --><div><div style=\"font-size: 0.7rem; color: #8b5cf6; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;\">Preview Baru</div><div id=\"qris-new-box\" style=\"width: 140px; height: 140px; background: #0f0f0f; border: 2px dashed #2a2a2a; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: all 0.3s;\"><div id=\"qris-new-placeholder\" style=\"text-align: center; color: #6b7280;\"><i class=\"bi bi-cloud-arrow-up\" style=\"font-size: 1.5rem; display: block; margin-bottom: 2px;\"></i> <span style=\"font-size: 0.6rem;\">Pilih file</span></div><img id=\"qris-new-preview\" src=\"\" alt=\"Preview QRIS baru\" style=\"width: 100%; height: 100%; object-fit: contain; display: none; background: white;\"></div><div id=\"qris-new-info\" style=\"font-size: 0.65rem; color: #6b7280; margin-top: 4px; text-align: center; max-width: 140px; word-wrap: break-word;\">Belum dipilih</div></div></div><div class=\"mb-2\"><input type=\"file\" name=\"qris_image\" id=\"qris_image_input\" class=\"form-control-dark\" accept=\".png,.jpg,.jpeg,.webp\" onchange=\"previewQris(this)\"></div><small style=\"color: #6b7280; display: block; margin-bottom: 8px;\">Format: PNG, JPG, WebP. Max 2 MB. Disarankan rasio 1:1.</small> ")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if settings["qris_image"] != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "<button type=\"button\" class=\"btn btn-sm\" style=\"background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; padding: 6px 14px; font-size: 0.75rem;\" onclick=\"confirmDeleteQris()\"><i class=\"bi bi-trash me-1\"></i>Hapus QRIS</button>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "</div></div><!-- FOOTER --><div class=\"col-lg-6\"><div class=\"card-dark p-4 h-100\"><h5 class=\"mb-3\" style=\"color: #8b5cf6;\"><i class=\"bi bi-layout-text-window-reverse me-2\"></i>Footer</h5><div class=\"mb-3\"><label class=\"form-label\" style=\"color: #9ca3af;\">Deskripsi Footer</label> <textarea name=\"footer_description\" class=\"form-control-dark\" rows=\"3\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var17 string
 		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(settings["footer_description"])
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 140, Col: 110}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 238, Col: 110}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "</textarea></div><div class=\"mb-3\"><label class=\"form-label\" style=\"color: #9ca3af;\">Copyright</label> <input type=\"text\" name=\"footer_copyright\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "</textarea></div><div class=\"mb-3\"><label class=\"form-label\" style=\"color: #9ca3af;\">Copyright</label> <input type=\"text\" name=\"footer_copyright\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var18 string
 		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.ResolveAttributeValue(settings["footer_copyright"])
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 144, Col: 86}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 242, Col: 86}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var18)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "\" class=\"form-control-dark\"></div><div class=\"mb-0\"><label class=\"form-label\" style=\"color: #9ca3af;\">Versi</label> <input type=\"text\" name=\"footer_version\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "\" class=\"form-control-dark\"></div><div class=\"mb-0\"><label class=\"form-label\" style=\"color: #9ca3af;\">Versi</label> <input type=\"text\" name=\"footer_version\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var19 string
 		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.ResolveAttributeValue(settings["footer_version"])
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 148, Col: 82}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 246, Col: 82}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var19)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "\" class=\"form-control-dark\" placeholder=\"v1.0.0\"></div></div></div><!-- DEVELOPER --><div class=\"col-lg-12\"><div class=\"card-dark p-4\"><h5 class=\"mb-3\" style=\"color: #8b5cf6;\"><i class=\"bi bi-code-slash me-2\"></i>Developer</h5><div class=\"row g-3\"><div class=\"col-md-4\"><label class=\"form-label\" style=\"color: #9ca3af;\">Nama</label> <input type=\"text\" name=\"developer_name\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "\" class=\"form-control-dark\" placeholder=\"v1.0.0\"></div></div></div><!-- DEVELOPER --><div class=\"col-lg-12\"><div class=\"card-dark p-4\"><h5 class=\"mb-3\" style=\"color: #8b5cf6;\"><i class=\"bi bi-code-slash me-2\"></i>Developer</h5><div class=\"row g-3\"><div class=\"col-md-4\"><label class=\"form-label\" style=\"color: #9ca3af;\">Nama</label> <input type=\"text\" name=\"developer_name\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var20 string
 		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.ResolveAttributeValue(settings["developer_name"])
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 162, Col: 83}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 260, Col: 83}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var20)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "\" class=\"form-control-dark\"></div><div class=\"col-md-4\"><label class=\"form-label\" style=\"color: #9ca3af;\">Email</label> <input type=\"email\" name=\"developer_email\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "\" class=\"form-control-dark\"></div><div class=\"col-md-4\"><label class=\"form-label\" style=\"color: #9ca3af;\">Email</label> <input type=\"email\" name=\"developer_email\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var21 string
 		templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.ResolveAttributeValue(settings["developer_email"])
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 166, Col: 86}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 264, Col: 86}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var21)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "\" class=\"form-control-dark\"></div><div class=\"col-md-4\"><label class=\"form-label\" style=\"color: #9ca3af;\">Website</label> <input type=\"url\" name=\"developer_url\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "\" class=\"form-control-dark\"></div><div class=\"col-md-4\"><label class=\"form-label\" style=\"color: #9ca3af;\">Website</label> <input type=\"url\" name=\"developer_url\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var22 string
 		templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.ResolveAttributeValue(settings["developer_url"])
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 170, Col: 80}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/admin/settings/index.templ`, Line: 268, Col: 80}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var22)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "\" class=\"form-control-dark\"></div></div></div></div></div><div class=\"mt-4 d-flex justify-content-end gap-2\"><a href=\"/admin/dashboard\" class=\"btn\" style=\"background:#2a2a2a; color:white; border:none; padding:10px 24px; border-radius:12px; text-decoration:none;\">Batal</a> <button type=\"submit\" class=\"btn-primary-custom\"><i class=\"bi bi-save me-2\"></i>Simpan Pengaturan</button></div></form></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "\" class=\"form-control-dark\"></div></div></div></div></div><div class=\"mt-4 d-flex justify-content-end gap-2\"><a href=\"/admin/dashboard\" class=\"btn\" style=\"background:#2a2a2a; color:white; border:none; padding:10px 24px; border-radius:12px; text-decoration:none;\">Batal</a> <button type=\"submit\" class=\"btn-primary-custom\"><i class=\"bi bi-save me-2\"></i>Simpan Pengaturan</button></div></form><!-- Hidden forms untuk delete -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if settings["site_favicon"] != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "<form id=\"deleteFaviconForm\" action=\"/admin/settings/delete-favicon\" method=\"POST\" style=\"display:none;\"><input type=\"hidden\" name=\"_method\" value=\"DELETE\"></form>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		if settings["qris_image"] != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "<form id=\"deleteQrisForm\" action=\"/admin/settings/delete-qris\" method=\"POST\" style=\"display:none;\"><input type=\"hidden\" name=\"_method\" value=\"DELETE\"></form>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "<!-- JavaScript untuk preview --><script>\n\t\t\tfunction previewFavicon(input) {\n\t\t\t\tconst file = input.files[0];\n\t\t\t\tconst previewImg = document.getElementById('favicon-new-preview');\n\t\t\t\tconst placeholder = document.getElementById('favicon-new-placeholder');\n\t\t\t\tconst infoText = document.getElementById('favicon-new-info');\n\t\t\t\tconst newBox = document.getElementById('favicon-new-box');\n\n\t\t\t\tif (!file) {\n\t\t\t\t\tresetFaviconPreview();\n\t\t\t\t\treturn;\n\t\t\t\t}\n\n\t\t\t\t// Validasi ukuran (512KB)\n\t\t\t\tif (file.size > 512 * 1024) {\n\t\t\t\t\talert('File terlalu besar! Maksimal 512 KB. Ukuran Anda: ' + (file.size / 1024).toFixed(1) + ' KB');\n\t\t\t\t\tinput.value = '';\n\t\t\t\t\tresetFaviconPreview();\n\t\t\t\t\treturn;\n\t\t\t\t}\n\n\t\t\t\t// Validasi ekstensi\n\t\t\t\tconst allowed = ['png', 'jpg', 'jpeg', 'ico', 'svg', 'webp'];\n\t\t\t\tconst ext = file.name.split('.').pop().toLowerCase();\n\t\t\t\tif (!allowed.includes(ext)) {\n\t\t\t\t\talert('Format tidak didukung! Gunakan: PNG, JPG, ICO, SVG, WebP');\n\t\t\t\t\tinput.value = '';\n\t\t\t\t\tresetFaviconPreview();\n\t\t\t\t\treturn;\n\t\t\t\t}\n\n\t\t\t\tconst reader = new FileReader();\n\t\t\t\treader.onload = function(e) {\n\t\t\t\t\tpreviewImg.src = e.target.result;\n\t\t\t\t\tpreviewImg.style.display = 'block';\n\t\t\t\t\tplaceholder.style.display = 'none';\n\n\t\t\t\t\tconst sizeKB = (file.size / 1024).toFixed(1);\n\t\t\t\t\tconst fileName = file.name.length > 15 ? file.name.substring(0, 12) + '...' : file.name;\n\t\t\t\t\tinfoText.innerHTML = '<span style=\"color: #10b981;\">✅ ' + fileName + '</span><br><span style=\"color: #6b7280;\">' + sizeKB + ' KB</span>';\n\t\t\t\t\tnewBox.style.borderColor = '#10b981';\n\t\t\t\t\tnewBox.style.borderStyle = 'solid';\n\t\t\t\t\tnewBox.style.background = 'rgba(16, 185, 129, 0.05)';\n\t\t\t\t};\n\t\t\t\treader.readAsDataURL(file);\n\t\t\t}\n\n\t\t\tfunction resetFaviconPreview() {\n\t\t\t\tdocument.getElementById('favicon-new-preview').src = '';\n\t\t\t\tdocument.getElementById('favicon-new-preview').style.display = 'none';\n\t\t\t\tdocument.getElementById('favicon-new-placeholder').style.display = 'block';\n\t\t\t\tdocument.getElementById('favicon-new-info').innerHTML = 'Belum dipilih';\n\t\t\t\tconst box = document.getElementById('favicon-new-box');\n\t\t\t\tbox.style.borderColor = '#2a2a2a';\n\t\t\t\tbox.style.borderStyle = 'dashed';\n\t\t\t\tbox.style.background = '#0f0f0f';\n\t\t\t}\n\n\t\t\tfunction previewQris(input) {\n\t\t\t\tconst file = input.files[0];\n\t\t\t\tconst previewImg = document.getElementById('qris-new-preview');\n\t\t\t\tconst placeholder = document.getElementById('qris-new-placeholder');\n\t\t\t\tconst infoText = document.getElementById('qris-new-info');\n\t\t\t\tconst newBox = document.getElementById('qris-new-box');\n\n\t\t\t\tif (!file) {\n\t\t\t\t\tresetQrisPreview();\n\t\t\t\t\treturn;\n\t\t\t\t}\n\n\t\t\t\t// Validasi ukuran (2MB)\n\t\t\t\tif (file.size > 2 * 1024 * 1024) {\n\t\t\t\t\talert('File terlalu besar! Maksimal 2 MB. Ukuran Anda: ' + (file.size / 1024 / 1024).toFixed(2) + ' MB');\n\t\t\t\t\tinput.value = '';\n\t\t\t\t\tresetQrisPreview();\n\t\t\t\t\treturn;\n\t\t\t\t}\n\n\t\t\t\t// Validasi ekstensi\n\t\t\t\tconst allowed = ['png', 'jpg', 'jpeg', 'webp'];\n\t\t\t\tconst ext = file.name.split('.').pop().toLowerCase();\n\t\t\t\tif (!allowed.includes(ext)) {\n\t\t\t\t\talert('Format tidak didukung! Gunakan: PNG, JPG, WebP');\n\t\t\t\t\tinput.value = '';\n\t\t\t\t\tresetQrisPreview();\n\t\t\t\t\treturn;\n\t\t\t\t}\n\n\t\t\t\tconst reader = new FileReader();\n\t\t\t\treader.onload = function(e) {\n\t\t\t\t\tpreviewImg.src = e.target.result;\n\t\t\t\t\tpreviewImg.style.display = 'block';\n\t\t\t\t\tplaceholder.style.display = 'none';\n\n\t\t\t\t\tconst sizeKB = (file.size / 1024).toFixed(1);\n\t\t\t\t\tconst fileName = file.name.length > 20 ? file.name.substring(0, 17) + '...' : file.name;\n\t\t\t\t\tinfoText.innerHTML = '<span style=\"color: #10b981;\">✅ ' + fileName + '</span><br><span style=\"color: #6b7280;\">' + sizeKB + ' KB</span>';\n\t\t\t\t\tnewBox.style.borderColor = '#8b5cf6';\n\t\t\t\t\tnewBox.style.borderStyle = 'solid';\n\t\t\t\t\tnewBox.style.background = 'rgba(139, 92, 246, 0.05)';\n\t\t\t\t};\n\t\t\t\treader.readAsDataURL(file);\n\t\t\t}\n\n\t\t\tfunction resetQrisPreview() {\n\t\t\t\tdocument.getElementById('qris-new-preview').src = '';\n\t\t\t\tdocument.getElementById('qris-new-preview').style.display = 'none';\n\t\t\t\tdocument.getElementById('qris-new-placeholder').style.display = 'block';\n\t\t\t\tdocument.getElementById('qris-new-info').innerHTML = 'Belum dipilih';\n\t\t\t\tconst box = document.getElementById('qris-new-box');\n\t\t\t\tbox.style.borderColor = '#2a2a2a';\n\t\t\t\tbox.style.borderStyle = 'dashed';\n\t\t\t\tbox.style.background = '#0f0f0f';\n\t\t\t}\n\n\t\t\tfunction confirmDeleteFavicon() {\n\t\t\t\tif (confirm('Yakin hapus favicon? Favicon akan diganti dengan default.')) {\n\t\t\t\t\tdocument.getElementById('deleteFaviconForm').submit();\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tfunction confirmDeleteQris() {\n\t\t\t\tif (confirm('Yakin hapus QRIS? QRIS tidak akan muncul di footer.')) {\n\t\t\t\t\tdocument.getElementById('deleteQrisForm').submit();\n\t\t\t\t}\n\t\t\t}\n\t\t</script></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -59,5 +59,7 @@ func Register(r *gin.Engine) {
 		// Settings
 		admin.GET("/settings", adminHandlers.SettingIndex)
 		admin.POST("/settings", adminHandlers.SettingUpdate)
+		admin.POST("/settings/delete-favicon", adminHandlers.SettingDeleteFavicon)
+		admin.POST("/settings/delete-qris", adminHandlers.SettingDeleteQris)
 	}
 }

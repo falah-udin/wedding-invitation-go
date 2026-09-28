@@ -191,3 +191,27 @@ func saveQrisFile(c *gin.Context, file *multipart.FileHeader) (string, error) {
 
 	return "qris/" + filename, nil
 }
+
+// ============================================
+// SettingDeleteFavicon — POST /admin/settings/delete-favicon
+// ============================================
+func SettingDeleteFavicon(c *gin.Context) {
+	oldFavicon := getSettingValue("site_favicon")
+	if oldFavicon != "" {
+		os.Remove(filepath.Join("/app/public/storage", oldFavicon))
+	}
+	upsertSetting("site_favicon", "")
+	c.Redirect(http.StatusFound, "/admin/settings?success=Favicon+berhasil+dihapus")
+}
+
+// ============================================
+// SettingDeleteQris — POST /admin/settings/delete-qris
+// ============================================
+func SettingDeleteQris(c *gin.Context) {
+	oldQris := getSettingValue("qris_image")
+	if oldQris != "" {
+		os.Remove(filepath.Join("/app/public/storage", oldQris))
+	}
+	upsertSetting("qris_image", "")
+	c.Redirect(http.StatusFound, "/admin/settings?success=QRIS+berhasil+dihapus")
+}

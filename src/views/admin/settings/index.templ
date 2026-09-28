@@ -39,17 +39,68 @@ templ IndexContent(settings map[string]string, errorMsg string, successMsg strin
 							<label class="form-label" style="color: #9ca3af;">Tagline</label>
 							<input type="text" name="site_tagline" value={ settings["site_tagline"] } class="form-control-dark"/>
 						</div>
+
+						<!-- FAVICON dengan 2 card preview -->
 						<div class="mb-0">
 							<label class="form-label" style="color: #9ca3af;">
 								<i class="bi bi-browser-chrome me-1"></i>Favicon
 							</label>
-							if settings["site_favicon"] != "" {
-								<div class="mb-2">
-									<img src={ "/storage/" + settings["site_favicon"] } alt="Favicon" style="width: 48px; height: 48px; object-fit: contain; border-radius: 8px; border: 1px solid #2a2a2a;"/>
+
+							<div class="d-flex align-items-start gap-3 mb-3 flex-wrap">
+								<!-- Card Saat Ini -->
+								<div>
+									<div style="font-size: 0.7rem; color: #6b7280; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">
+										Saat Ini
+									</div>
+									<div style="width: 80px; height: 80px; background: #0f0f0f; border: 2px solid #2a2a2a; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+										if settings["site_favicon"] != "" {
+											<img src={ "/storage/" + settings["site_favicon"] } alt="Favicon saat ini" style="width: 100%; height: 100%; object-fit: contain;"/>
+										} else {
+											<i class="bi bi-image text-secondary" style="font-size: 1.5rem; color: #4b5563;"></i>
+										}
+									</div>
+									<div style="font-size: 0.65rem; color: #6b7280; margin-top: 4px; text-align: center;">
+										if settings["site_favicon"] != "" {
+											Tersimpan
+										} else {
+											Belum ada
+										}
+									</div>
 								</div>
+
+								<!-- Arrow -->
+								<div style="align-self: center; margin-top: 20px;">
+									<i class="bi bi-arrow-right" style="color: #4b5563; font-size: 1.5rem;"></i>
+								</div>
+
+								<!-- Card Preview Baru -->
+								<div>
+									<div style="font-size: 0.7rem; color: #8b5cf6; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">
+										Preview Baru
+									</div>
+									<div id="favicon-new-box" style="width: 80px; height: 80px; background: #0f0f0f; border: 2px dashed #2a2a2a; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: all 0.3s;">
+										<div id="favicon-new-placeholder" style="text-align: center; color: #6b7280;">
+											<i class="bi bi-cloud-arrow-up" style="font-size: 1.5rem; display: block; margin-bottom: 2px;"></i>
+											<span style="font-size: 0.6rem;">Pilih file</span>
+										</div>
+										<img id="favicon-new-preview" src="" alt="Preview favicon baru" style="width: 100%; height: 100%; object-fit: contain; display: none;"/>
+									</div>
+									<div id="favicon-new-info" style="font-size: 0.65rem; color: #6b7280; margin-top: 4px; text-align: center; max-width: 80px; word-wrap: break-word;">
+										Belum dipilih
+									</div>
+								</div>
+							</div>
+
+							<div class="mb-2">
+								<input type="file" name="site_favicon" id="site_favicon_input" class="form-control-dark" accept=".png,.jpg,.jpeg,.ico,.svg,.webp" onchange="previewFavicon(this)"/>
+							</div>
+							<small style="color: #6b7280; display: block; margin-bottom: 8px;">Format: PNG, JPG, ICO, SVG, WebP. Max 512 KB. Ukuran ideal: 32×32 atau 64×64 px.</small>
+
+							if settings["site_favicon"] != "" {
+								<button type="button" class="btn btn-sm" style="background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; padding: 6px 14px; font-size: 0.75rem;" onclick="confirmDeleteFavicon()">
+									<i class="bi bi-trash me-1"></i>Hapus Favicon
+								</button>
 							}
-							<input type="file" name="site_favicon" class="form-control-dark" accept=".png,.jpg,.jpeg,.ico,.svg,.webp"/>
-							<small style="color: #6b7280;">Format: PNG, JPG, ICO, SVG, WebP. Max 512 KB.</small>
 						</div>
 					</div>
 				</div>
@@ -108,7 +159,7 @@ templ IndexContent(settings map[string]string, errorMsg string, successMsg strin
 					</div>
 				</div>
 
-				<!-- QRIS -->
+				<!-- QRIS dengan 2 card preview -->
 				<div class="col-lg-6">
 					<div class="card-dark p-4 h-100">
 						<h5 class="mb-3" style="color: #8b5cf6;">
@@ -117,15 +168,62 @@ templ IndexContent(settings map[string]string, errorMsg string, successMsg strin
 						<p style="color: #9ca3af; font-size: 0.85rem;">
 							Upload gambar QRIS untuk ditampilkan di footer halaman home.
 						</p>
-						if settings["qris_image"] != "" {
-							<div class="mb-3">
-								<img src={ "/storage/" + settings["qris_image"] } alt="QRIS" style="width: 140px; height: 140px; object-fit: contain; border-radius: 12px; background: white; padding: 8px; border: 1px solid #2a2a2a;"/>
+
+						<div class="d-flex align-items-start gap-3 mb-3 flex-wrap">
+							<!-- Card Saat Ini -->
+							<div>
+								<div style="font-size: 0.7rem; color: #6b7280; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">
+									Saat Ini
+								</div>
+								<div style="width: 140px; height: 140px; background: #0f0f0f; border: 2px solid #2a2a2a; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+									if settings["qris_image"] != "" {
+										<img src={ "/storage/" + settings["qris_image"] } alt="QRIS saat ini" style="width: 100%; height: 100%; object-fit: contain; background: white;"/>
+									} else {
+										<i class="bi bi-qr-code text-secondary" style="font-size: 2rem; color: #4b5563;"></i>
+									}
+								</div>
+								<div style="font-size: 0.65rem; color: #6b7280; margin-top: 4px; text-align: center;">
+									if settings["qris_image"] != "" {
+										Tersimpan
+									} else {
+										Belum ada
+									}
+								</div>
 							</div>
-						}
-						<div class="mb-0">
-							<input type="file" name="qris_image" class="form-control-dark" accept=".png,.jpg,.jpeg,.webp"/>
-							<small style="color: #6b7280;">Format: PNG, JPG, WebP. Max 2 MB.</small>
+
+							<!-- Arrow -->
+							<div style="align-self: center; margin-top: 20px;">
+								<i class="bi bi-arrow-right" style="color: #4b5563; font-size: 1.5rem;"></i>
+							</div>
+
+							<!-- Card Preview Baru -->
+							<div>
+								<div style="font-size: 0.7rem; color: #8b5cf6; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">
+									Preview Baru
+								</div>
+								<div id="qris-new-box" style="width: 140px; height: 140px; background: #0f0f0f; border: 2px dashed #2a2a2a; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: all 0.3s;">
+									<div id="qris-new-placeholder" style="text-align: center; color: #6b7280;">
+										<i class="bi bi-cloud-arrow-up" style="font-size: 1.5rem; display: block; margin-bottom: 2px;"></i>
+										<span style="font-size: 0.6rem;">Pilih file</span>
+									</div>
+									<img id="qris-new-preview" src="" alt="Preview QRIS baru" style="width: 100%; height: 100%; object-fit: contain; display: none; background: white;"/>
+								</div>
+								<div id="qris-new-info" style="font-size: 0.65rem; color: #6b7280; margin-top: 4px; text-align: center; max-width: 140px; word-wrap: break-word;">
+									Belum dipilih
+								</div>
+							</div>
 						</div>
+
+						<div class="mb-2">
+							<input type="file" name="qris_image" id="qris_image_input" class="form-control-dark" accept=".png,.jpg,.jpeg,.webp" onchange="previewQris(this)"/>
+						</div>
+						<small style="color: #6b7280; display: block; margin-bottom: 8px;">Format: PNG, JPG, WebP. Max 2 MB. Disarankan rasio 1:1.</small>
+
+						if settings["qris_image"] != "" {
+							<button type="button" class="btn btn-sm" style="background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; padding: 6px 14px; font-size: 0.75rem;" onclick="confirmDeleteQris()">
+								<i class="bi bi-trash me-1"></i>Hapus QRIS
+							</button>
+						}
 					</div>
 				</div>
 
@@ -181,5 +279,146 @@ templ IndexContent(settings map[string]string, errorMsg string, successMsg strin
 				</button>
 			</div>
 		</form>
+
+		<!-- Hidden forms untuk delete -->
+		if settings["site_favicon"] != "" {
+			<form id="deleteFaviconForm" action="/admin/settings/delete-favicon" method="POST" style="display:none;">
+				<input type="hidden" name="_method" value="DELETE"/>
+			</form>
+		}
+		if settings["qris_image"] != "" {
+			<form id="deleteQrisForm" action="/admin/settings/delete-qris" method="POST" style="display:none;">
+				<input type="hidden" name="_method" value="DELETE"/>
+			</form>
+		}
+
+		<!-- JavaScript untuk preview -->
+		<script>
+			function previewFavicon(input) {
+				const file = input.files[0];
+				const previewImg = document.getElementById('favicon-new-preview');
+				const placeholder = document.getElementById('favicon-new-placeholder');
+				const infoText = document.getElementById('favicon-new-info');
+				const newBox = document.getElementById('favicon-new-box');
+
+				if (!file) {
+					resetFaviconPreview();
+					return;
+				}
+
+				// Validasi ukuran (512KB)
+				if (file.size > 512 * 1024) {
+					alert('File terlalu besar! Maksimal 512 KB. Ukuran Anda: ' + (file.size / 1024).toFixed(1) + ' KB');
+					input.value = '';
+					resetFaviconPreview();
+					return;
+				}
+
+				// Validasi ekstensi
+				const allowed = ['png', 'jpg', 'jpeg', 'ico', 'svg', 'webp'];
+				const ext = file.name.split('.').pop().toLowerCase();
+				if (!allowed.includes(ext)) {
+					alert('Format tidak didukung! Gunakan: PNG, JPG, ICO, SVG, WebP');
+					input.value = '';
+					resetFaviconPreview();
+					return;
+				}
+
+				const reader = new FileReader();
+				reader.onload = function(e) {
+					previewImg.src = e.target.result;
+					previewImg.style.display = 'block';
+					placeholder.style.display = 'none';
+
+					const sizeKB = (file.size / 1024).toFixed(1);
+					const fileName = file.name.length > 15 ? file.name.substring(0, 12) + '...' : file.name;
+					infoText.innerHTML = '<span style="color: #10b981;">✅ ' + fileName + '</span><br><span style="color: #6b7280;">' + sizeKB + ' KB</span>';
+					newBox.style.borderColor = '#10b981';
+					newBox.style.borderStyle = 'solid';
+					newBox.style.background = 'rgba(16, 185, 129, 0.05)';
+				};
+				reader.readAsDataURL(file);
+			}
+
+			function resetFaviconPreview() {
+				document.getElementById('favicon-new-preview').src = '';
+				document.getElementById('favicon-new-preview').style.display = 'none';
+				document.getElementById('favicon-new-placeholder').style.display = 'block';
+				document.getElementById('favicon-new-info').innerHTML = 'Belum dipilih';
+				const box = document.getElementById('favicon-new-box');
+				box.style.borderColor = '#2a2a2a';
+				box.style.borderStyle = 'dashed';
+				box.style.background = '#0f0f0f';
+			}
+
+			function previewQris(input) {
+				const file = input.files[0];
+				const previewImg = document.getElementById('qris-new-preview');
+				const placeholder = document.getElementById('qris-new-placeholder');
+				const infoText = document.getElementById('qris-new-info');
+				const newBox = document.getElementById('qris-new-box');
+
+				if (!file) {
+					resetQrisPreview();
+					return;
+				}
+
+				// Validasi ukuran (2MB)
+				if (file.size > 2 * 1024 * 1024) {
+					alert('File terlalu besar! Maksimal 2 MB. Ukuran Anda: ' + (file.size / 1024 / 1024).toFixed(2) + ' MB');
+					input.value = '';
+					resetQrisPreview();
+					return;
+				}
+
+				// Validasi ekstensi
+				const allowed = ['png', 'jpg', 'jpeg', 'webp'];
+				const ext = file.name.split('.').pop().toLowerCase();
+				if (!allowed.includes(ext)) {
+					alert('Format tidak didukung! Gunakan: PNG, JPG, WebP');
+					input.value = '';
+					resetQrisPreview();
+					return;
+				}
+
+				const reader = new FileReader();
+				reader.onload = function(e) {
+					previewImg.src = e.target.result;
+					previewImg.style.display = 'block';
+					placeholder.style.display = 'none';
+
+					const sizeKB = (file.size / 1024).toFixed(1);
+					const fileName = file.name.length > 20 ? file.name.substring(0, 17) + '...' : file.name;
+					infoText.innerHTML = '<span style="color: #10b981;">✅ ' + fileName + '</span><br><span style="color: #6b7280;">' + sizeKB + ' KB</span>';
+					newBox.style.borderColor = '#8b5cf6';
+					newBox.style.borderStyle = 'solid';
+					newBox.style.background = 'rgba(139, 92, 246, 0.05)';
+				};
+				reader.readAsDataURL(file);
+			}
+
+			function resetQrisPreview() {
+				document.getElementById('qris-new-preview').src = '';
+				document.getElementById('qris-new-preview').style.display = 'none';
+				document.getElementById('qris-new-placeholder').style.display = 'block';
+				document.getElementById('qris-new-info').innerHTML = 'Belum dipilih';
+				const box = document.getElementById('qris-new-box');
+				box.style.borderColor = '#2a2a2a';
+				box.style.borderStyle = 'dashed';
+				box.style.background = '#0f0f0f';
+			}
+
+			function confirmDeleteFavicon() {
+				if (confirm('Yakin hapus favicon? Favicon akan diganti dengan default.')) {
+					document.getElementById('deleteFaviconForm').submit();
+				}
+			}
+
+			function confirmDeleteQris() {
+				if (confirm('Yakin hapus QRIS? QRIS tidak akan muncul di footer.')) {
+					document.getElementById('deleteQrisForm').submit();
+				}
+			}
+		</script>
 	</div>
 }
