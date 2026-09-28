@@ -35,5 +35,14 @@ func Register(r *gin.Engine) {
 		admin.GET("/users/:id/edit", adminHandlers.UserEdit)
 		admin.POST("/users/:id/edit", adminHandlers.UserUpdate)
 		admin.POST("/users/:id/delete", adminHandlers.UserDelete)
+
+		// TEMPLATE CRUD
+		admin.GET("/templates", adminHandlers.TemplateIndex)
+		admin.GET("/templates/create", adminHandlers.TemplateCreate)
+		admin.POST("/templates/create", adminHandlers.TemplateStore)
+		admin.GET("/templates/:id/edit", adminHandlers.TemplateEdit)
+		admin.POST("/templates/:id/edit", adminHandlers.TemplateUpdate)
+		admin.GET("/templates/:id/toggle", adminHandlers.TemplateToggle)
+		admin.POST("/templates/:id/delete", adminHandlers.TemplateDelete)
 	}
 }

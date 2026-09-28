@@ -1,0 +1,80 @@
+package templates
+
+import "wedding-invitation-go/internal/models"
+
+// IndexContent — list semua template
+templ IndexContent(templates []models.Template) {
+	<div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3">
+		<div>
+			<h2 class="fw-bold" style="color: #8b5cf6;">
+				<i class="bi bi-layout-three-columns me-2"></i>Manajemen Template
+			</h2>
+			<p class="text-secondary m-0">Kelola template undangan yang tersedia</p>
+		</div>
+		<a href="/admin/templates/create" class="btn-primary-custom">
+			<i class="bi bi-plus-lg me-2"></i>Tambah Template
+		</a>
+	</div>
+
+	<div style="background: #1e1e1e; border-radius: 20px; border: 1px solid #2a2a2a; overflow: hidden;">
+		<div class="table-responsive">
+			<table class="table table-hover mb-0">
+				<thead>
+					<tr>
+						<th class="ps-3 py-3" style="color: #8b5cf6;">ID</th>
+						<th class="py-3" style="color: #8b5cf6;">Nama Template</th>
+						<th class="d-none d-md-table-cell py-3" style="color: #8b5cf6;">Slug</th>
+						<th class="py-3" style="color: #8b5cf6;">Status</th>
+						<th class="py-3" style="color: #8b5cf6;">Urutan</th>
+						<th class="text-center py-3" style="color: #8b5cf6;">Aksi</th>
+					</tr>
+				</thead>
+				<tbody>
+					if len(templates) > 0 {
+						for _, tmpl := range templates {
+							<tr style="border-bottom: 1px solid #2a2a2a;">
+								<td class="ps-3 py-3" style="color: white;">{ formatUint(tmpl.ID) }</td>
+								<td class="py-3" style="color: white;">{ tmpl.Name }</td>
+								<td class="d-none d-md-table-cell py-3" style="color: #9ca3af;">{ tmpl.Slug }</td>
+								<td class="py-3">
+									if tmpl.IsActive {
+										<span class="badge" style="background: #10b981; padding: 6px 12px; border-radius: 20px;">
+											<i class="bi bi-check-circle me-1"></i>Aktif
+										</span>
+									} else {
+										<span class="badge" style="background: #6b7280; padding: 6px 12px; border-radius: 20px;">
+											<i class="bi bi-x-circle me-1"></i>Nonaktif
+										</span>
+									}
+								</td>
+								<td class="py-3" style="color: white;">{ formatInt(tmpl.Order) }</td>
+								<td class="text-center py-3">
+									<div class="d-flex gap-2 justify-content-center">
+										<a href={ templ.URL("/admin/templates/" + formatUint(tmpl.ID) + "/edit") } class="btn btn-sm" style="background: #f59e0b; color: #1a1a1a; border-radius: 8px;">
+											<i class="bi bi-pencil"></i>
+										</a>
+										<a href={ templ.URL("/admin/templates/" + formatUint(tmpl.ID) + "/toggle") } class="btn btn-sm" style="background: #6b7280; color: white; border-radius: 8px;" title="Toggle Status">
+											<i class="bi bi-power"></i>
+										</a>
+										<form action={ templ.URL("/admin/templates/" + formatUint(tmpl.ID) + "/delete") } method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus template ini?')">
+											<button type="submit" class="btn btn-sm" style="background: #ef4444; color: white; border-radius: 8px;">
+												<i class="bi bi-trash"></i>
+											</button>
+										</form>
+									</div>
+								</td>
+							</tr>
+						}
+					} else {
+						<tr>
+							<td colspan="6" class="text-center py-5" style="color:#6b7280;">
+								<i class="bi bi-inbox fs-3 d-block mb-2"></i>
+								Belum ada template
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+}
