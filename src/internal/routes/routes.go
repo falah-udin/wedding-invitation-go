@@ -44,5 +44,12 @@ func Register(r *gin.Engine) {
 		admin.POST("/templates/:id/edit", adminHandlers.TemplateUpdate)
 		admin.GET("/templates/:id/toggle", adminHandlers.TemplateToggle)
 		admin.POST("/templates/:id/delete", adminHandlers.TemplateDelete)
+
+		// MUSIC CRUD
+		admin.GET("/music", adminHandlers.MusicIndex)
+		admin.GET("/music/create", adminHandlers.MusicCreate)
+		admin.POST("/music/create", adminHandlers.MusicStore)
+		admin.GET("/music/:id/toggle", adminHandlers.MusicToggle)
+		admin.POST("/music/:id/delete", adminHandlers.MusicDelete)
 	}
 }

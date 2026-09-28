@@ -12,11 +12,13 @@ func Migrate() error {
 
 	err := DB.AutoMigrate(
 		&models.User{},
+		&models.Template{},
+		&models.Project{},
+		&models.Music{},
 		// Nanti tambahkan model lain di sini:
-		// &models.Template{},
-		// &models.Project{},
 		// &models.Rsvp{},
-		// dst
+		// &models.InvitationGuest{},
+		// &models.SiteSetting{},
 	)
 
 	if err != nil {
