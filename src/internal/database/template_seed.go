@@ -422,8 +422,8 @@ func seedTemplates() error {
 	}
 	if err := upsertTemplate(
 		"Muslim Elegan",
-		"santri-islami",
-		"santri-islami",
+		"muslim-elegan",       
+		"muslim-elegan",      
 		"Template dengan nuansa islami yang elegan, dilengkapi ayat Al-Quran dan desain hangat.",
 		buildSchema(muslimFields, library),
 		5,

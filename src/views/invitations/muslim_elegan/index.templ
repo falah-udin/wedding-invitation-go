@@ -1,0 +1,1994 @@
+package muslim_elegan
+
+import (
+	"context"
+	"io"
+
+	templpkg "github.com/a-h/templ"
+	"wedding-invitation-go/internal/models"
+)
+
+// MuslimElegan — template undangan Muslim Elegan (FULL)
+func MuslimElegan(ctx context.Context, w io.Writer, project models.Project, data map[string]interface{}, guestName string) error {
+	groomName := getStr(data, "groom_name")
+	brideName := getStr(data, "bride_name")
+	groomPhoto := getDefaultPhoto(data, "groom_photo")
+	bridePhoto := getDefaultPhoto(data, "bride_photo")
+	fatherGroomPhoto := getDefaultPhoto(data, "father_groom_photo")
+	motherGroomPhoto := getDefaultPhoto(data, "mother_groom_photo")
+	fatherBridePhoto := getDefaultPhoto(data, "father_bride_photo")
+	motherBridePhoto := getDefaultPhoto(data, "mother_bride_photo")
+	fatherGroomName := getStr(data, "father_groom")
+	motherGroomName := getStr(data, "mother_groom")
+	fatherBrideName := getStr(data, "father_bride")
+	motherBrideName := getStr(data, "mother_bride")
+	eventInstagram := getStr(data, "event_instagram")
+	musicURL := getMusicUrlFromProject(project)
+	isNamedGuest := guestName != "" && guestName != "Tamu Undangan"
+
+	component := muslimEleganPage(
+		project, data, guestName,
+		groomName, brideName,
+		groomPhoto, bridePhoto,
+		fatherGroomPhoto, motherGroomPhoto,
+		fatherBridePhoto, motherBridePhoto,
+		fatherGroomName, motherGroomName,
+		fatherBrideName, motherBrideName,
+		eventInstagram, musicURL, isNamedGuest,
+	)
+	return component.Render(ctx, w)
+}
+
+templ muslimEleganPage(
+	project models.Project,
+	data map[string]interface{},
+	guestName string,
+	groomName string,
+	brideName string,
+	groomPhoto string,
+	bridePhoto string,
+	fatherGroomPhoto string,
+	motherGroomPhoto string,
+	fatherBridePhoto string,
+	motherBridePhoto string,
+	fatherGroomName string,
+	motherGroomName string,
+	fatherBrideName string,
+	motherBrideName string,
+	eventInstagram string,
+	musicURL string,
+	isNamedGuest bool,
+) {
+	<!DOCTYPE html>
+	<html lang="id">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
+		<title>{ groomName } &amp; { brideName } - Muslim Elegan</title>
+
+		<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+
+		<style>
+			/* ============================================ */
+			/* ROOT VARIABLES */
+			/* ============================================ */
+			:root {
+				--islamic-green: #1a5f3a;
+				--islamic-green-light: #2a7f4a;
+				--islamic-gold: #c9a03d;
+				--islamic-gold-light: #e8d5a3;
+				--islamic-dark: #0d1f0d;
+				--islamic-cream: #fdf8f0;
+				--islamic-text: #1e2a2e;
+				--islamic-muted: #6b7b7f;
+				--white: #ffffff;
+				--shadow: 0 8px 40px rgba(0,0,0,0.08);
+				--shadow-hover: 0 12px 60px rgba(0,0,0,0.12);
+			}
+
+			/* RESET & BASE */
+			* { margin: 0; padding: 0; box-sizing: border-box; }
+			html { scroll-behavior: smooth; }
+			body {
+				font-family: 'Inter', sans-serif;
+				background: var(--islamic-cream);
+				color: var(--islamic-text);
+				line-height: 1.8;
+				overflow-x: hidden;
+			}
+			.container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+			@media (min-width: 768px) { .container { padding: 0 40px; } }
+
+			/* SECTION HEADER */
+			.section-label {
+				font-family: 'Amiri', serif;
+				font-size: 0.8rem; text-transform: uppercase; letter-spacing: 6px;
+				color: var(--islamic-gold); text-align: center;
+				margin-bottom: 6px; font-weight: 400;
+			}
+			.section-title {
+				font-family: 'Playfair Display', serif;
+				font-size: 2.2rem; font-weight: 600; text-align: center;
+				margin-bottom: 12px; color: var(--islamic-green); line-height: 1.2;
+			}
+			.section-title::after {
+				content: '✦'; display: block; color: var(--islamic-gold);
+				font-size: 1.2rem; margin-top: 8px; opacity: 0.6;
+			}
+			.section-subtitle {
+				text-align: center; color: var(--islamic-muted);
+				font-size: 0.95rem; max-width: 500px;
+				margin: -8px auto 40px; font-style: italic;
+			}
+			@media (max-width: 600px) {
+				.section-title { font-size: 1.6rem; }
+				.section-subtitle { font-size: 0.85rem; padding: 0 16px; }
+			}
+
+			/* DIVIDER */
+			.divider-gold {
+				display: flex; align-items: center; justify-content: center;
+				gap: 16px; margin: 16px 0;
+			}
+			.divider-gold span {
+				width: 50px; height: 1px;
+				background: var(--islamic-gold); opacity: 0.4;
+			}
+			.divider-gold i { color: var(--islamic-gold); font-size: 0.8rem; opacity: 0.6; }
+
+			/* TOAST */
+			.toast-container {
+				position: fixed; top: 20px; right: 20px; z-index: 9999;
+				display: flex; flex-direction: column; gap: 8px;
+			}
+			.toast {
+				background: var(--islamic-dark); color: var(--white);
+				padding: 12px 20px; border-radius: 12px;
+				box-shadow: var(--shadow); animation: slideInToast 0.4s ease;
+				min-width: 200px; display: flex; align-items: center; gap: 10px;
+				font-size: 0.85rem; border-left: 3px solid var(--islamic-gold);
+			}
+			.toast i { font-size: 1.1rem; }
+			.toast.success i { color: #10b981; }
+			.toast.error i { color: #ef4444; }
+			.toast.info i { color: var(--islamic-gold); }
+			@keyframes slideInToast {
+				from { transform: translateX(100%); opacity: 0; }
+				to { transform: translateX(0); opacity: 1; }
+			}
+
+			/* SCROLL INDICATOR */
+			.scroll-indicator {
+				position: absolute; bottom: 28px; left: 50%;
+				transform: translateX(-50%); z-index: 2;
+				color: rgba(255,255,255,0.4); font-size: 0.65rem;
+				text-transform: uppercase; letter-spacing: 3px;
+				display: flex; flex-direction: column; align-items: center;
+				gap: 4px; cursor: pointer; transition: all 0.3s;
+			}
+			.scroll-indicator:hover { color: var(--white); }
+			.scroll-indicator i { font-size: 1.2rem; animation: bounceDown 2s infinite; }
+			@keyframes bounceDown {
+				0%, 100% { transform: translateY(0); }
+				50% { transform: translateY(6px); }
+			}
+
+			/* OVERLAY */
+			#startOverlay {
+				position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+				width: 100vw; height: 100vh;
+				background: rgba(13, 31, 13, 0.92); z-index: 9999;
+				display: flex; align-items: center; justify-content: center;
+				backdrop-filter: blur(8px); transition: opacity 0.8s ease;
+				cursor: pointer; padding: 20px; box-sizing: border-box;
+			}
+			#startOverlay .overlay-inner {
+				text-align: center; max-width: 500px; width: 100%;
+				padding: 20px; display: flex; flex-direction: column;
+				align-items: center; justify-content: center;
+			}
+			#startOverlay .bismillah {
+				font-family: 'Amiri', serif; font-size: 1.4rem;
+				color: #e8d5a3; opacity: 0.85; letter-spacing: 2px;
+				margin-bottom: 12px; text-shadow: 0 0 20px rgba(201, 160, 61, 0.1);
+			}
+			#startOverlay .divider {
+				width: 40px; height: 1px;
+				background: linear-gradient(90deg, transparent, #c9a03d, transparent);
+				margin: 0 auto 14px; opacity: 0.25;
+			}
+			#startOverlay .btn-start {
+				display: inline-block;
+				background: linear-gradient(135deg, #c9a03d, #b8922f);
+				color: #1a2a1a; padding: 14px 40px;
+				border-radius: 50px; font-weight: 600; font-size: 0.9rem;
+				border: none; cursor: pointer;
+				box-shadow: 0 4px 30px rgba(201, 160, 61, 0.25);
+				transition: all 0.3s; touch-action: manipulation; min-height: 48px;
+			}
+			#startOverlay .btn-start:hover {
+				transform: scale(1.05);
+				box-shadow: 0 4px 50px rgba(201, 160, 61, 0.4);
+			}
+			#startOverlay .btn-start:active { transform: scale(0.95); }
+			#startOverlay .hint {
+				font-size: 0.6rem; opacity: 0.25; margin-top: 16px;
+				letter-spacing: 1px; color: #9ca3af;
+			}
+			@media (max-width: 600px) {
+				#startOverlay { padding: 16px; }
+				#startOverlay .overlay-inner { padding: 10px; max-width: 100%; }
+				#startOverlay .bismillah { font-size: 1.2rem !important; }
+				#startOverlay .btn-start {
+					padding: 16px 32px !important; font-size: 0.85rem !important;
+					min-height: 56px !important; width: 100% !important; max-width: 280px !important;
+				}
+				#startOverlay .hint { font-size: 0.7rem !important; }
+			}
+			@media (max-width: 400px) {
+				#startOverlay .bismillah { font-size: 1rem !important; }
+				#startOverlay .btn-start {
+					padding: 14px 24px !important; font-size: 0.8rem !important;
+					min-height: 48px !important; max-width: 240px !important;
+				}
+			}
+
+			/* MUSIC PLAYER */
+			.music-player { position: fixed; bottom: 24px; right: 24px; z-index: 1000; }
+			.music-btn {
+				width: 52px; height: 52px; border-radius: 50%;
+				background: var(--islamic-green);
+				border: 2px solid var(--islamic-gold);
+				color: var(--white); font-size: 1.3rem; cursor: pointer;
+				box-shadow: 0 4px 25px rgba(0,0,0,0.15);
+				transition: all 0.3s;
+				display: flex; align-items: center; justify-content: center;
+			}
+			.music-btn:hover { transform: scale(1.05); background: var(--islamic-dark); }
+			.music-btn.playing { animation: pulseIslam 1.5s infinite; }
+			@keyframes pulseIslam {
+				0% { box-shadow: 0 0 0 0 rgba(26, 95, 58, 0.4); }
+				70% { box-shadow: 0 0 0 14px rgba(26, 95, 58, 0); }
+				100% { box-shadow: 0 0 0 0 rgba(26, 95, 58, 0); }
+			}
+
+            			/* HERO */
+			.hero-islam {
+				min-height: 100vh;
+				display: flex; align-items: center; justify-content: center;
+				text-align: center; position: relative;
+				background: linear-gradient(135deg, #0d1f0d 0%, #1a2a1a 40%, #0d1f0d 100%);
+				color: var(--white);
+				padding: 60px 20px; overflow: hidden;
+			}
+			.hero-islam::before {
+				content: '';
+				position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+				background:
+					radial-gradient(circle at 20% 30%, rgba(201,160,61,0.06) 0%, transparent 50%),
+					radial-gradient(circle at 80% 70%, rgba(201,160,61,0.06) 0%, transparent 50%),
+					radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 0%, transparent 70%);
+				pointer-events: none; z-index: 1;
+			}
+			.hero-islam::after {
+				content: '';
+				position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+				background-image:
+					radial-gradient(circle at 10% 20%, rgba(201,160,61,0.03) 1px, transparent 1px),
+					radial-gradient(circle at 30% 60%, rgba(201,160,61,0.02) 1px, transparent 1px),
+					radial-gradient(circle at 50% 10%, rgba(201,160,61,0.03) 1px, transparent 1px),
+					radial-gradient(circle at 70% 80%, rgba(201,160,61,0.02) 1px, transparent 1px),
+					radial-gradient(circle at 90% 40%, rgba(201,160,61,0.03) 1px, transparent 1px);
+				background-size: 60px 60px;
+				pointer-events: none; z-index: 1;
+			}
+			.hero-content { position: relative; z-index: 2; max-width: 700px; }
+			.hero-kaligrafi {
+				position: absolute;
+				font-family: 'Amiri', serif;
+				font-size: 12rem; color: rgba(201,160,61,0.04);
+				pointer-events: none; z-index: 0; user-select: none;
+			}
+			.hero-kaligrafi-1 { top: -20px; right: -30px; transform: rotate(15deg); }
+			.hero-kaligrafi-2 { bottom: -40px; left: -40px; transform: rotate(-10deg); }
+			.hero-name-border {
+				position: relative; display: inline-block; padding: 0 20px;
+			}
+			.hero-name-border::before,
+			.hero-name-border::after {
+				content: '✦'; position: absolute; top: 50%;
+				transform: translateY(-50%);
+				color: var(--islamic-gold); font-size: 0.8rem; opacity: 0.5;
+			}
+			.hero-name-border::before { left: -15px; }
+			.hero-name-border::after { right: -15px; }
+			.hero-couple {
+				text-shadow: 0 0 40px rgba(201,160,61,0.1), 0 0 80px rgba(201,160,61,0.05);
+			}
+			.hero-floral {
+				position: absolute; font-size: 4rem;
+				color: rgba(201,160,61,0.05);
+				pointer-events: none; z-index: 0;
+			}
+			.hero-floral-1 { top: 10%; left: 5%; transform: rotate(-20deg); }
+			.hero-floral-2 { bottom: 15%; right: 5%; transform: rotate(20deg); }
+			.hero-dates {
+				display: flex; justify-content: center;
+				gap: 30px; margin: 12px 0 8px; flex-wrap: wrap;
+			}
+			.hero-dates .date-item {
+				display: flex; align-items: center; gap: 8px;
+				font-size: 0.9rem; opacity: 0.85; letter-spacing: 1px;
+			}
+			.hero-dates .date-item i { color: var(--islamic-gold); font-size: 0.9rem; }
+			.hero-dates .date-divider { color: var(--islamic-gold); opacity: 0.3; font-size: 0.6rem; }
+			.hero-venue { font-size: 0.9rem; opacity: 0.7; margin-bottom: 32px; letter-spacing: 1px; }
+			.btn-rsvp {
+				display: inline-block;
+				background: var(--islamic-gold); color: var(--islamic-dark);
+				padding: 14px 40px; border-radius: 50px;
+				text-decoration: none; font-weight: 600; font-size: 0.9rem;
+				transition: all 0.3s; border: none; cursor: pointer;
+				letter-spacing: 1px;
+				box-shadow: 0 4px 25px rgba(201,160,61,0.15);
+				position: relative; overflow: hidden;
+			}
+			.btn-rsvp::before {
+				content: ''; position: absolute; top: 0; left: -100%;
+				width: 100%; height: 100%;
+				background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+				transition: left 0.6s ease;
+			}
+			.btn-rsvp:hover::before { left: 100%; }
+			.btn-rsvp:hover {
+				transform: translateY(-2px) scale(1.02);
+				box-shadow: 0 8px 35px rgba(201,160,61,0.3);
+			}
+			.hero-bismillah {
+				text-shadow: 0 0 30px rgba(201,160,61,0.15);
+				position: relative;
+			}
+			.hero-bismillah::after {
+				content: ''; position: absolute; bottom: -8px; left: 50%;
+				transform: translateX(-50%);
+				width: 40%; height: 1px;
+				background: linear-gradient(90deg, transparent, var(--islamic-gold), transparent);
+				opacity: 0.2;
+			}
+			@media (max-width: 600px) {
+				.hero-kaligrafi { font-size: 6rem; }
+				.hero-kaligrafi-1 { top: 10px; right: -10px; }
+				.hero-kaligrafi-2 { bottom: 10px; left: -10px; }
+				.hero-couple { font-size: 2.2rem !important; }
+				.hero-couple span { font-size: 1.6rem !important; }
+				.hero-bismillah { font-size: 1.8rem !important; }
+				.divider-gold span { width: 30px !important; }
+				.hero-floral { font-size: 2rem; }
+				.hero-dates {
+					gap: 12px !important;
+					flex-direction: column; align-items: center;
+				}
+				.hero-dates .date-item { font-size: 0.8rem !important; }
+				.hero-dates .date-divider { display: none; }
+			}
+			@media (min-width: 768px) and (max-width: 1024px) {
+				.hero-couple { font-size: 3rem !important; }
+				.hero-kaligrafi { font-size: 8rem; }
+			}
+
+			/* COUPLE */
+			.couple-islam-grid {
+				display: grid; grid-template-columns: 1fr 1fr;
+				gap: 40px; align-items: start; margin-top: 20px;
+			}
+			.couple-islam-card {
+				text-align: center; background: var(--islamic-cream);
+				border-radius: 24px; padding: 30px 20px;
+				border: 1px solid rgba(201,160,61,0.12);
+				transition: all 0.3s;
+			}
+			.couple-islam-card:hover {
+				transform: translateY(-6px);
+				border-color: var(--islamic-gold);
+				box-shadow: 0 12px 50px rgba(0,0,0,0.08);
+			}
+			.couple-islam-card .photo { transition: transform 0.3s; }
+			.couple-islam-card:hover .photo { transform: scale(1.02); }
+			@media (max-width: 700px) {
+				.couple-islam-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+				.couple-islam-card .photo { width: 120px !important; height: 120px !important; }
+			}
+
+			/* LOVE STORY */
+			.love-timeline {
+				position: relative; padding-left: 30px;
+				max-width: 600px; margin: 0 auto;
+			}
+			.timeline-item {
+				position: relative; margin-bottom: 28px; padding-left: 28px;
+			}
+			.timeline-item > div {
+				background: var(--white); border-radius: 16px;
+				padding: 16px 20px;
+				border: 1px solid rgba(201,160,61,0.08);
+				transition: all 0.3s;
+			}
+			.timeline-item:hover > div {
+				border-color: var(--islamic-gold) !important;
+				box-shadow: var(--shadow-hover);
+			}
+			@media (max-width: 600px) {
+				.love-timeline { padding-left: 20px !important; }
+				.timeline-item { padding-left: 20px !important; }
+				.timeline-item > div { padding: 14px 16px !important; }
+			}
+
+            			/* EVENT */
+			.event-islam-grid {
+				display: grid; grid-template-columns: 1fr 1fr;
+				gap: 24px; margin-top: 10px;
+			}
+			.event-islam-card {
+				background: var(--islamic-cream);
+				border-radius: 20px; padding: 28px 24px;
+				text-align: center;
+				border: 1px solid rgba(201,160,61,0.12);
+				transition: all 0.3s;
+				position: relative; overflow: hidden;
+				box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+			}
+			.event-islam-card:hover {
+				transform: translateY(-6px);
+				border-color: var(--islamic-gold) !important;
+				box-shadow: 0 12px 50px rgba(0,0,0,0.08);
+			}
+			.event-islam-card:hover .bi { transform: scale(1.1); }
+			@media (max-width: 600px) {
+				.event-islam-grid { grid-template-columns: 1fr !important; }
+				.event-islam-card { padding: 20px 16px !important; }
+			}
+
+			/* GALLERY */
+			.gallery-container {
+				max-width: 900px; margin: 0 auto;
+				position: relative; padding: 0 20px;
+			}
+			.gallery-swiper {
+				border-radius: 20px; overflow: hidden;
+				box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+				background: #0f0f0f; padding: 20px 0 40px;
+			}
+			.swiper-slide {
+				display: flex; align-items: center; justify-content: center;
+				background: #0f0f0f; position: relative;
+				border-radius: 16px; overflow: hidden;
+				min-height: 250px;
+				opacity: 0.7;
+				transition: opacity 0.5s ease, transform 0.5s ease;
+				transform: scale(0.95);
+			}
+			.swiper-slide-active { opacity: 1; transform: scale(1); }
+			.swiper-slide-prev, .swiper-slide-next { opacity: 0.85; transform: scale(0.97); }
+			.swiper-image {
+				width: 100%; height: auto; max-height: 75vh;
+				object-fit: contain; display: block;
+				border-radius: 16px; background: #0f0f0f;
+				transition: transform 0.3s ease;
+			}
+			.swiper-slide:hover .swiper-image { transform: scale(1.02); }
+			.swiper-caption {
+				position: absolute; bottom: 0; left: 0; right: 0;
+				padding: 16px 24px;
+				background: linear-gradient(transparent, rgba(0,0,0,0.7));
+				color: white; font-size: 0.9rem; text-align: center;
+				pointer-events: none; opacity: 0;
+				transition: opacity 0.4s ease;
+			}
+			.swiper-slide:hover .swiper-caption { opacity: 1; }
+			.swiper-button-next, .swiper-button-prev {
+				background: rgba(0,0,0,0.5) !important;
+				width: 44px !important; height: 44px !important;
+				border-radius: 50% !important;
+				backdrop-filter: blur(8px);
+				transition: all 0.3s ease;
+				box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+			}
+			.swiper-button-next:hover, .swiper-button-prev:hover {
+				background: rgba(0,0,0,0.8) !important;
+				transform: scale(1.1);
+			}
+			.swiper-button-next::after, .swiper-button-prev::after {
+				font-size: 18px !important; font-weight: bold; color: white;
+			}
+			.swiper-pagination {
+				position: absolute; bottom: 8px; left: 0; right: 0;
+				text-align: center; z-index: 10;
+			}
+			.swiper-pagination-bullet {
+				background: rgba(255,255,255,0.4) !important;
+				opacity: 1 !important;
+				width: 10px; height: 10px;
+				transition: all 0.3s ease;
+			}
+			.swiper-pagination-bullet-active {
+				background: #c9a03d !important;
+				transform: scale(1.3);
+				box-shadow: 0 0 20px rgba(201,160,61,0.3);
+			}
+			@media (max-width: 600px) {
+				.swiper-slide { min-height: 180px; }
+				.swiper-image { max-height: 50vh; }
+				.swiper-button-next, .swiper-button-prev {
+					width: 32px !important; height: 32px !important;
+				}
+				.swiper-button-next::after, .swiper-button-prev::after {
+					font-size: 12px !important;
+				}
+				.swiper-caption { font-size: 0.75rem; padding: 10px 16px; opacity: 1; }
+				.gallery-container { padding: 0 8px; }
+				.swiper-pagination-bullet { width: 7px; height: 7px; }
+			}
+
+			/* RSVP */
+			#rsvpList { display: flex; flex-direction: column; gap: 10px; }
+			.rsvp-item {
+				background: #ffffff; border: 1px solid #e8e5e0;
+				border-radius: 12px; padding: 14px 18px;
+				transition: all 0.2s ease;
+				box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+			}
+			.rsvp-item:hover {
+				border-color: #c9a03d;
+				box-shadow: 0 4px 12px rgba(201,160,61,0.10);
+			}
+			.rsvp-item .row-main {
+				display: flex; justify-content: space-between;
+				align-items: center; flex-wrap: wrap; gap: 6px;
+				margin-bottom: 6px;
+			}
+			.rsvp-item .guest-name {
+				font-weight: 600; font-size: 0.95rem;
+				color: #1a1a1a; word-break: break-word;
+			}
+			.rsvp-item .status-badge {
+				font-size: 0.7rem; padding: 3px 12px;
+				border-radius: 20px; font-weight: 500;
+				white-space: nowrap; flex-shrink: 0;
+			}
+			.rsvp-item .status-badge.hadir { background: #dcfce7; color: #166534; }
+			.rsvp-item .status-badge.tidak_hadir { background: #fee2e2; color: #991b1b; }
+			.rsvp-item .status-badge.ragu { background: #fef3c7; color: #92400e; }
+			.rsvp-item .row-detail {
+				display: flex; justify-content: space-between;
+				align-items: center; flex-wrap: wrap; gap: 6px;
+				padding-top: 4px; border-top: 1px solid #f3f1ee;
+			}
+			.rsvp-item .meta-left {
+				display: flex; align-items: center;
+				gap: 12px; flex-wrap: wrap;
+			}
+			.rsvp-item .meta-left .time {
+				font-size: 0.7rem; color: #9ca3af;
+				display: flex; align-items: center; gap: 4px;
+			}
+			.rsvp-item .meta-left .guests {
+				font-size: 0.7rem; color: #6b7280;
+				background: #f3f4f6; padding: 1px 10px;
+				border-radius: 10px;
+				display: flex; align-items: center; gap: 4px;
+			}
+			.rsvp-item .message {
+				font-size: 0.8rem; color: #4b5563;
+				background: #f9fafb; padding: 8px 12px;
+				border-radius: 8px; margin-top: 6px;
+				border-left: 3px solid #c9a03d;
+				font-style: italic; line-height: 1.5;
+				word-break: break-word;
+			}
+			.rsvp-item .message::before { content: '"'; color: #c9a03d; font-size: 1.2rem; }
+			.rsvp-item .message::after { content: '"'; color: #c9a03d; font-size: 1.2rem; }
+			.rsvp-empty {
+				text-align: center; color: #9ca3af;
+				font-size: 0.85rem; padding: 30px 0;
+			}
+			.rsvp-empty i { display: block; font-size: 2rem; margin-bottom: 10px; color: #d1d5db; }
+			.rsvp-form input:focus, .rsvp-form select:focus, .rsvp-form textarea:focus {
+				border-color: var(--islamic-gold) !important;
+				box-shadow: 0 0 0 2px rgba(201, 160, 61, 0.15);
+				outline: none;
+			}
+			.btn-submit-islam {
+				width: 100%; padding: 14px;
+				background: var(--islamic-green); color: var(--white);
+				border: none; border-radius: 12px;
+				font-size: 1rem; font-weight: 600; cursor: pointer;
+				transition: all 0.3s; letter-spacing: 1px;
+			}
+			.btn-submit-islam:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 8px 30px rgba(26, 95, 58, 0.25);
+			}
+			.btn-submit-islam:active { transform: scale(0.98); }
+
+			/* BANK / AMPLOP DIGITAL */
+			.section-bank-islam {
+				padding: 70px 0; background: var(--islamic-cream);
+				position: relative; overflow: hidden;
+			}
+			.section-bank-islam::before {
+				content: 'ﷲ'; position: absolute; top: 50%; left: 50%;
+				transform: translate(-50%, -50%);
+				font-family: 'Amiri', serif;
+				font-size: 20rem; color: rgba(201,160,61,0.03);
+				pointer-events: none; z-index: 0;
+			}
+			.section-bank-islam .container { position: relative; z-index: 1; }
+			.bank-grid-islam {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+				gap: 20px; max-width: 800px; margin: 0 auto;
+			}
+			.bank-card-islam {
+				background: var(--white);
+				border: 1px solid rgba(201,160,61,0.2);
+				border-radius: 20px; padding: 28px 22px;
+				text-align: center; transition: all 0.4s ease;
+				box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+				position: relative; overflow: hidden;
+			}
+			.bank-card-islam::before {
+				content: ''; position: absolute; top: 0; left: 0; right: 0;
+				height: 3px;
+				background: linear-gradient(90deg, transparent, var(--islamic-gold), transparent);
+				opacity: 0.6;
+			}
+			.bank-card-islam::after {
+				content: ''; position: absolute; bottom: -20px; right: -20px;
+				width: 100px; height: 100px; border-radius: 50%;
+				background: radial-gradient(circle, rgba(201,160,61,0.05), transparent 70%);
+				pointer-events: none;
+			}
+			.bank-card-islam:hover {
+				transform: translateY(-6px);
+				border-color: var(--islamic-gold);
+				box-shadow: 0 12px 50px rgba(201,160,61,0.15);
+			}
+			.bank-logo-islam {
+				width: 68px; height: 68px; margin: 0 auto 14px;
+				border-radius: 16px; background: rgba(201,160,61,0.08);
+				border: 2px solid rgba(201,160,61,0.2);
+				display: flex; align-items: center; justify-content: center;
+				overflow: hidden; transition: all 0.3s;
+				position: relative; z-index: 1;
+			}
+			.bank-card-islam:hover .bank-logo-islam {
+				background: rgba(201,160,61,0.15);
+				transform: scale(1.05);
+				border-color: var(--islamic-gold);
+			}
+			.bank-logo-islam img { max-width: 70%; max-height: 70%; object-fit: contain; }
+			.bank-logo-islam .bank-logo-icon {
+				font-size: 1.5rem; color: var(--islamic-green);
+				font-weight: 700; font-family: 'Playfair Display', serif;
+				letter-spacing: 1px;
+			}
+			.bank-name-islam {
+				font-family: 'Playfair Display', serif;
+				font-size: 1.1rem; font-weight: 600;
+				color: var(--islamic-green); margin-bottom: 12px;
+				letter-spacing: 0.5px; position: relative; z-index: 1;
+			}
+			.bank-number-wrapper-islam {
+				display: flex; align-items: center; justify-content: center;
+				gap: 8px; background: rgba(26,95,58,0.04);
+				border: 1px dashed rgba(201,160,61,0.4);
+				border-radius: 12px; padding: 10px 14px;
+				margin-bottom: 10px; cursor: pointer;
+				transition: all 0.3s; position: relative; z-index: 1;
+			}
+			.bank-number-wrapper-islam:hover {
+				background: rgba(26,95,58,0.08);
+				border-color: var(--islamic-green);
+				transform: scale(1.02);
+			}
+			.bank-number-islam {
+				font-family: 'Courier New', monospace;
+				font-size: 1rem; font-weight: 700;
+				color: var(--islamic-green); letter-spacing: 2px;
+				word-break: break-all;
+			}
+			.copy-icon-islam {
+				color: var(--islamic-gold); font-size: 0.85rem;
+				opacity: 0.7; transition: all 0.3s; flex-shrink: 0;
+			}
+			.bank-number-wrapper-islam:hover .copy-icon-islam {
+				opacity: 1; transform: scale(1.15);
+			}
+			.bank-holder-islam {
+				font-size: 0.8rem; color: var(--islamic-muted);
+				font-style: italic; margin-top: 4px;
+				position: relative; z-index: 1;
+			}
+			.bank-holder-islam strong {
+				color: var(--islamic-green); font-weight: 600; font-style: normal;
+			}
+			.bank-type-badge-islam {
+				position: absolute; top: 12px; right: 12px;
+				font-size: 0.5rem; padding: 2px 8px;
+				border-radius: 10px;
+				background: rgba(26,95,58,0.1);
+				color: var(--islamic-green);
+				letter-spacing: 1.5px; text-transform: uppercase;
+				font-weight: 700; z-index: 2;
+			}
+			.bank-note-islam {
+				text-align: center; margin-top: 32px;
+				font-size: 0.8rem; color: var(--islamic-muted);
+				font-style: italic; opacity: 0.8;
+				position: relative; z-index: 1;
+			}
+			.bank-note-islam i { color: var(--islamic-gold); }
+			@media (max-width: 600px) {
+				.bank-grid-islam { grid-template-columns: 1fr; }
+				.bank-logo-islam { width: 58px; height: 58px; }
+				.bank-logo-islam .bank-logo-icon { font-size: 1.3rem; }
+				.bank-name-islam { font-size: 1rem; }
+				.bank-number-islam { font-size: 0.9rem; letter-spacing: 1.5px; }
+				.section-bank-islam::before { font-size: 12rem; }
+			}
+
+			/* FOOTER TAHAP 1 */
+			.section-footer-islam {
+				padding: 60px 20px 40px;
+				background: linear-gradient(180deg, #0d1f0d 0%, #0a1a0a 100%);
+				color: rgba(255,255,255,0.7);
+				text-align: center;
+				position: relative; overflow: hidden;
+			}
+			.section-footer-islam::before {
+				content: 'ﷲ'; position: absolute; top: 50%; left: 50%;
+				transform: translate(-50%, -50%);
+				font-family: 'Amiri', serif;
+				font-size: 18rem; color: rgba(201,160,61,0.025);
+				pointer-events: none; z-index: 0;
+			}
+			.section-footer-islam .footer-inner {
+				position: relative; z-index: 1;
+				max-width: 700px; margin: 0 auto;
+			}
+			.footer-couple {
+				font-family: 'Playfair Display', serif;
+				font-size: 1.6rem; color: var(--white);
+				margin-bottom: 10px; letter-spacing: 1px;
+			}
+			.footer-couple .amp {
+				color: var(--islamic-gold);
+				margin: 0 12px; font-weight: 400;
+			}
+			.footer-social {
+				display: flex; justify-content: center;
+				gap: 16px; margin-bottom: 16px;
+			}
+			.footer-social a {
+				color: rgba(255,255,255,0.4); font-size: 1.2rem;
+				transition: all 0.3s; text-decoration: none;
+			}
+			.footer-social a:hover {
+				color: var(--islamic-gold); transform: translateY(-2px);
+			}
+			@media (max-width: 600px) {
+				.footer-couple { font-size: 1.2rem !important; }
+				.section-footer-islam::before { font-size: 10rem; }
+			}
+
+			/* FOOTER TAHAP 2 - WEB FOOTER */
+			.web-footer {
+				background: linear-gradient(180deg, #0a1a0a 0%, #050f05 100%);
+				padding: 3rem 0 1.5rem;
+				border-top: 1px solid rgba(201,160,61,0.15);
+				color: rgba(255,255,255,0.6);
+				position: relative; overflow: hidden;
+			}
+			.web-footer::before {
+				content: ''; position: absolute; top: 0; left: 0; right: 0;
+				height: 1px;
+				background: linear-gradient(90deg, transparent, rgba(201,160,61,0.4), transparent);
+			}
+			.web-footer .container {
+				max-width: 1280px; margin: 0 auto;
+				padding: 0 24px; position: relative; z-index: 1;
+			}
+			.web-footer-brand {
+				font-family: 'Playfair Display', serif;
+				font-size: 1.4rem; font-weight: 700;
+				margin-bottom: 0.75rem; text-decoration: none;
+				display: inline-block;
+			}
+			.web-footer-brand .wedding {
+				background: linear-gradient(135deg, #c9a03d 0%, #e8d5a3 100%);
+				-webkit-background-clip: text; background-clip: text;
+				color: transparent;
+			}
+			.web-footer-brand .saas { color: var(--islamic-gold); }
+			.web-footer-desc {
+				color: rgba(255,255,255,0.55); font-size: 0.85rem;
+				line-height: 1.6; margin-bottom: 1rem;
+			}
+			.web-footer-heading {
+				font-family: 'Playfair Display', serif;
+				font-size: 0.95rem; font-weight: 600;
+				color: var(--islamic-gold); margin-bottom: 1rem;
+				position: relative; padding-bottom: 0.5rem;
+			}
+			.web-footer-heading::after {
+				content: ''; position: absolute; bottom: 0; left: 0;
+				width: 30px; height: 2px;
+				background: linear-gradient(90deg, var(--islamic-gold), transparent);
+				border-radius: 2px;
+			}
+			.web-footer-list { list-style: none; padding: 0; margin: 0; }
+			.web-footer-list li {
+				display: flex; align-items: flex-start;
+				gap: 10px; margin-bottom: 0.65rem;
+				color: rgba(255,255,255,0.55);
+				font-size: 0.85rem; line-height: 1.5;
+			}
+			.web-footer-list li i {
+				color: var(--islamic-gold); font-size: 1rem;
+				margin-top: 2px; flex-shrink: 0; opacity: 0.85;
+			}
+			.web-footer-list li a, .web-footer-link {
+				color: rgba(255,255,255,0.55); text-decoration: none;
+				transition: color 0.2s;
+			}
+			.web-footer-list li a:hover, .web-footer-link:hover {
+				color: var(--islamic-gold-light);
+			}
+			.web-footer-socials {
+				display: flex; gap: 10px;
+				flex-wrap: wrap; margin-top: 0.75rem;
+			}
+			.web-social-link {
+				width: 38px; height: 38px;
+				display: inline-flex; align-items: center; justify-content: center;
+				background: rgba(201,160,61,0.06);
+				border: 1px solid rgba(201,160,61,0.2);
+				border-radius: 10px;
+				color: var(--islamic-gold-light); font-size: 1.05rem;
+				transition: all 0.25s; text-decoration: none;
+			}
+			.web-social-link:hover {
+				background: rgba(201,160,61,0.18);
+				border-color: var(--islamic-gold);
+				color: #ffffff; transform: translateY(-3px);
+				box-shadow: 0 6px 16px rgba(201,160,61,0.25);
+			}
+			.web-footer-version {
+				color: rgba(255,255,255,0.35); font-size: 0.75rem;
+				margin: 0; padding: 4px 10px;
+				background: rgba(201,160,61,0.06);
+				border-radius: 6px; display: inline-block;
+				border: 1px solid rgba(201,160,61,0.08);
+			}
+			.web-footer-divider {
+				border: 0; border-top: 1px solid rgba(201,160,61,0.1);
+				margin: 2rem 0 1.25rem; opacity: 1;
+			}
+			.web-footer-text {
+				color: rgba(255,255,255,0.35); font-size: 0.8rem;
+				margin: 0; text-align: center;
+			}
+			.web-footer .row {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 2rem;
+			}
+			@media (max-width: 768px) {
+				.web-footer { padding: 2.25rem 0 1.25rem; text-align: center; }
+				.web-footer-heading::after { left: 50%; transform: translateX(-50%); }
+				.web-footer-list li { justify-content: center; }
+				.web-footer-socials { justify-content: center; }
+			}
+		</style>
+	</head>
+	<body data-music-url={ musicURL } data-project-id={ formatUint(project.ID) } data-project-slug={ project.Slug }>
+
+		<!-- ============================================ -->
+		<!-- OVERLAY START -->
+		<!-- ============================================ -->
+		<div id="startOverlay">
+			<div class="overlay-inner">
+				<div class="bismillah">
+					بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ
+				</div>
+				<div class="divider"></div>
+
+				<div class="guest-greeting">
+					<div style="font-size:0.7rem; letter-spacing:4px; text-transform:uppercase; color:rgba(232,213,163,0.5); margin-bottom:8px;">
+						Kepada
+					</div>
+					<div style="font-family:'Playfair Display',serif; font-size:1.4rem; color:#e8d5a3; font-weight:600; margin-bottom:4px; line-height:1.3;">
+						{ guestName }
+					</div>
+					<div style="width:40px; height:1px; background:linear-gradient(90deg, transparent, #c9a03d, transparent); margin:10px auto 20px; opacity:0.4;"></div>
+				</div>
+
+				<button class="btn-start" onclick={ templpkg.JSFuncCall("startMusic") }>
+					<i class="bi bi-play-fill me-2"></i>
+					Klik untuk membuka undangan
+				</button>
+				<p class="hint">
+					Dengan mengharap ridha Allah
+				</p>
+			</div>
+		</div>
+
+		<!-- ============================================ -->
+		<!-- MUSIC PLAYER -->
+		<!-- ============================================ -->
+		<div class="music-player" id="musicPlayer">
+			<button class="music-btn" id="musicToggle" onclick={ templpkg.JSFuncCall("toggleMusic") }>
+				<i class="bi bi-music-note"></i>
+			</button>
+		</div>
+
+		<!-- ============================================ -->
+		<!-- HERO / COVER -->
+		<!-- ============================================ -->
+		<section class="hero-islam" id="section-hero">
+			<div class="hero-kaligrafi hero-kaligrafi-1">ﷲ</div>
+			<div class="hero-kaligrafi hero-kaligrafi-2">ﷻ</div>
+			<div class="hero-floral hero-floral-1">✦</div>
+			<div class="hero-floral hero-floral-2">✦</div>
+
+			<div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+				<div class="hero-bismillah" style="font-family:'Amiri',serif; font-size:2.5rem; color:var(--islamic-gold); margin-bottom:20px;">
+					بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ
+				</div>
+
+				<div style="font-family:'Amiri',serif; font-size:0.7rem; letter-spacing:6px; text-transform:uppercase; border:1px solid rgba(201,160,61,0.2); padding:4px 24px; border-radius:30px; display:inline-block; margin-bottom:20px; background:rgba(201,160,61,0.04); backdrop-filter:blur(4px);">
+					✦ --------- ✦
+				</div>
+
+				<h1 class="hero-couple" style="font-family:'Playfair Display',serif; font-size:3.8rem; font-weight:700; margin-bottom:8px; line-height:1.1; letter-spacing:2px;">
+					<span class="hero-name-border">{ groomName }</span>
+					<br/>
+					<span style="color:var(--islamic-gold); font-weight:400; font-size:2.8rem; line-height:1;">&amp;</span>
+					<br/>
+					<span class="hero-name-border">{ brideName }</span>
+				</h1>
+
+				<div class="divider-gold">
+					<span></span>
+					<i class="bi bi-heart-fill" style="color:var(--islamic-gold); font-size:0.7rem; opacity:0.6;"></i>
+					<i class="bi bi-star-fill" style="color:var(--islamic-gold); font-size:0.5rem; opacity:0.4;"></i>
+					<i class="bi bi-heart-fill" style="color:var(--islamic-gold); font-size:0.7rem; opacity:0.6;"></i>
+					<span></span>
+				</div>
+
+				<div class="hero-dates">
+					if showDates(data) == "both" || showDates(data) == "akad" {
+						<div class="date-item">
+							<i class="bi bi-calendar3"></i>
+							<span>Akad: { getStr(data, "akad_date") }</span>
+						</div>
+					}
+
+					if showDates(data) == "both" {
+						<span class="date-divider">|</span>
+					}
+
+					if showDates(data) == "both" || showDates(data) == "resepsi" {
+						<div class="date-item">
+							<i class="bi bi-calendar-event"></i>
+							<span>{ getResepsiLabel(data) }: { getStr(data, "resepsi_date") }</span>
+						</div>
+					}
+				</div>
+
+				<div class="hero-venue">
+					if showVenue(data) == "both" || showVenue(data) == "akad" {
+						<div class="venue-item">
+							<i class="bi bi-geo-alt me-2" style="color:var(--islamic-gold);"></i>
+							<span>Akad: { getStr(data, "akad_venue") }</span>
+						</div>
+					}
+
+					if showVenue(data) == "both" {
+						<div class="venue-divider" style="display:inline-block; margin:0 8px; color:rgba(201,160,61,0.2);">|</div>
+					}
+
+					if showVenue(data) == "both" || showVenue(data) == "resepsi" {
+						<div class="venue-item">
+							<i class="bi bi-geo-alt me-2" style="color:var(--islamic-gold);"></i>
+							<span>{ getResepsiLabel(data) }: { getStr(data, "resepsi_venue") }</span>
+						</div>
+					}
+				</div>
+
+				<a href="#section-rsvp" class="btn-rsvp">
+					<i class="bi bi-envelope-check me-2"></i>Konfirmasi Kehadiran
+				</a>
+			</div>
+
+			<div class="scroll-indicator" onclick={ templpkg.JSFuncCall("scrollToQuran") }>
+				<span>Scroll</span>
+				<i class="bi bi-chevron-double-down"></i>
+			</div>
+		</section>
+
+		<!-- ============================================ -->
+		<!-- QURAN VERSE -->
+		<!-- ============================================ -->
+		<section class="section-quran" id="section-quran" style="padding:70px 0; background:var(--islamic-cream); text-align:center;">
+			<div class="container">
+				<div class="quran-verse" data-aos="fade-up">
+					<div style="font-family:'Amiri',serif; font-size:2rem; color:var(--islamic-green); line-height:1.8; max-width:700px; margin:0 auto;">
+						وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
+					</div>
+					<div style="font-size:0.85rem; color:var(--islamic-muted); margin-top:12px; font-style:italic; max-width:600px; margin:12px auto 0;">
+						"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang."
+					</div>
+					<div style="font-size:0.75rem; color:var(--islamic-gold); margin-top:4px;">
+						— QS. Ar-Rum: 21
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============================================ -->
+		<!-- COUPLE -->
+		<!-- ============================================ -->
+		<section class="section-couple-islam" id="section-couple" style="padding:70px 0; background:var(--white);">
+			<div class="container">
+				<div class="section-label" data-aos="fade-up">PASANGAN</div>
+				<h2 class="section-title" data-aos="fade-up" data-aos-delay="50">Mempelai &amp; Keluarga</h2>
+				<p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+					Dua hati yang dipertemukan dalam ikatan suci, dengan restu orang tua
+				</p>
+
+				<div class="couple-islam-grid">
+					<!-- GROOM -->
+					<div class="couple-islam-card" data-aos="fade-right" data-aos-delay="100">
+						<div class="photo" style="width:150px; height:150px; margin:0 auto 10px; border-radius:50%; border:3px solid var(--islamic-gold); box-shadow:0 4px 20px rgba(0,0,0,0.06); overflow:hidden;">
+							<img src={ groomPhoto } alt={ groomName } style="width:100%; height:100%; object-fit:cover;"/>
+						</div>
+
+						<h3 style="font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--islamic-green); margin-bottom:2px;">
+							{ groomName }
+						</h3>
+
+						<div style="width:40px; height:1px; background:var(--islamic-gold); margin:10px auto; opacity:0.2;"></div>
+
+						<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px;">
+							<div>
+								<div style="width:60px; height:60px; border-radius:50%; margin:0 auto 6px; border:2px solid var(--islamic-gold); overflow:hidden; background:#e8e0d8;">
+									<img src={ fatherGroomPhoto } alt={ fatherGroomName } style="width:100%; height:100%; object-fit:cover;"/>
+								</div>
+								<div style="font-size:0.7rem; color:var(--islamic-text); font-weight:500;">
+									{ fatherGroomName }
+								</div>
+								<div style="font-size:0.55rem; color:var(--islamic-muted);">Ayah</div>
+							</div>
+							<div>
+								<div style="width:60px; height:60px; border-radius:50%; margin:0 auto 6px; border:2px solid var(--islamic-gold); overflow:hidden; background:#e8e0d8;">
+									<img src={ motherGroomPhoto } alt={ motherGroomName } style="width:100%; height:100%; object-fit:cover;"/>
+								</div>
+								<div style="font-size:0.7rem; color:var(--islamic-text); font-weight:500;">
+									{ motherGroomName }
+								</div>
+								<div style="font-size:0.55rem; color:var(--islamic-muted);">Ibu</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- BRIDE -->
+					<div class="couple-islam-card" data-aos="fade-left" data-aos-delay="150">
+						<div class="photo" style="width:150px; height:150px; margin:0 auto 10px; border-radius:50%; border:3px solid var(--islamic-gold); box-shadow:0 4px 20px rgba(0,0,0,0.06); overflow:hidden;">
+							<img src={ bridePhoto } alt={ brideName } style="width:100%; height:100%; object-fit:cover;"/>
+						</div>
+
+						<h3 style="font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--islamic-green); margin-bottom:2px;">
+							{ brideName }
+						</h3>
+
+						<div style="width:40px; height:1px; background:var(--islamic-gold); margin:10px auto; opacity:0.2;"></div>
+
+						<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px;">
+							<div>
+								<div style="width:60px; height:60px; border-radius:50%; margin:0 auto 6px; border:2px solid var(--islamic-gold); overflow:hidden; background:#e8e0d8;">
+									<img src={ fatherBridePhoto } alt={ fatherBrideName } style="width:100%; height:100%; object-fit:cover;"/>
+								</div>
+								<div style="font-size:0.7rem; color:var(--islamic-text); font-weight:500;">
+									{ fatherBrideName }
+								</div>
+								<div style="font-size:0.55rem; color:var(--islamic-muted);">Ayah</div>
+							</div>
+							<div>
+								<div style="width:60px; height:60px; border-radius:50%; margin:0 auto 6px; border:2px solid var(--islamic-gold); overflow:hidden; background:#e8e0d8;">
+									<img src={ motherBridePhoto } alt={ motherBrideName } style="width:100%; height:100%; object-fit:cover;"/>
+								</div>
+								<div style="font-size:0.7rem; color:var(--islamic-text); font-weight:500;">
+									{ motherBrideName }
+								</div>
+								<div style="font-size:0.55rem; color:var(--islamic-muted);">Ibu</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div style="text-align:center; margin-top:40px;">
+					<span style="font-family:'Amiri',serif; color:var(--islamic-gold); opacity:0.3; font-size:2rem;">❦</span>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============================================ -->
+		<!-- LOVE STORY -->
+		<!-- ============================================ -->
+		if stories := getLoveStories(data); len(stories) > 0 {
+			<section class="section-love" id="section-love" style="padding:70px 0; background:var(--islamic-cream);">
+				<div class="container">
+					<div class="section-label" data-aos="fade-up">CERITA</div>
+					<h2 class="section-title" data-aos="fade-up" data-aos-delay="50">Perjalanan Cinta</h2>
+					<p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+						Setiap pertemuan adalah takdir yang indah
+					</p>
+
+					<div class="love-timeline">
+						<div style="position:absolute; left:8px; top:0; bottom:0; width:2px; background:var(--islamic-gold); opacity:0.2;"></div>
+
+						for index, story := range stories {
+							<div class="timeline-item" data-aos="fade-up" data-aos-delay={ formatInt(80 * (index + 1)) }>
+								<div style="position:absolute; left:-22px; top:4px; width:20px; height:20px; background:var(--islamic-gold); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.5rem; color:var(--white); border:2px solid var(--white); box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+									<i class="bi bi-heart-fill" style="font-size:0.4rem;"></i>
+								</div>
+								<div>
+									<h4 style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:600; color:var(--islamic-green); margin-bottom:2px;">
+										{ story["title"] }
+									</h4>
+									<p style="color:var(--islamic-muted); font-size:0.9rem; margin:0;">
+										{ story["desc"] }
+									</p>
+								</div>
+							</div>
+						}
+					</div>
+
+					<div style="text-align:center; margin-top:40px;">
+						<span style="font-family:'Amiri',serif; color:var(--islamic-gold); opacity:0.2; font-size:2rem;">❦</span>
+					</div>
+				</div>
+			</section>
+		}
+
+		<!-- ============================================ -->
+		<!-- EVENT -->
+		<!-- ============================================ -->
+		<section class="section-event-islam" id="section-event" style="padding:70px 0; background:var(--white);">
+			<div class="container">
+				<div class="section-label" data-aos="fade-up">
+					<span style="font-family:'Amiri',serif; font-size:1.2rem; color:var(--islamic-gold); display:block; margin-bottom:4px;">
+						وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً
+					</span>
+					ACARA
+				</div>
+				<h2 class="section-title" data-aos="fade-up" data-aos-delay="50">
+					Detail Acara
+				</h2>
+				<p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+					Dengan mengharap ridha Allah, kami mengundang kehadiran Bapak/Ibu/Saudara/i
+				</p>
+
+				<div class="event-islam-grid">
+					<!-- AKAD -->
+					<div class="event-islam-card" data-aos="fade-up" data-aos-delay="100">
+						<div style="position:absolute; top:-20px; right:-20px; font-size:6rem; opacity:0.04; font-family:'Amiri',serif; color:var(--islamic-green); pointer-events:none;">
+							ﷲ
+						</div>
+
+						<div style="width:64px; height:64px; background:rgba(201,160,61,0.12); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 14px; font-size:1.8rem; color:var(--islamic-gold); border:2px solid var(--islamic-gold); box-shadow:0 0 30px rgba(201,160,61,0.08); transition:all 0.3s;">
+							<i class="bi bi-gem"></i>
+						</div>
+
+						<h3 style="font-family:'Playfair Display',serif; color:var(--islamic-green); margin-bottom:2px; font-size:1.2rem;">
+							Akad Nikah
+						</h3>
+						<div style="font-family:'Amiri',serif; font-size:0.85rem; color:var(--islamic-gold); margin-bottom:10px; font-style:italic;">
+							عَقْدُ النِّكَاحِ
+						</div>
+
+						<div style="color:var(--islamic-text); font-size:0.9rem; line-height:1.8;">
+							<div style="display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;">
+								<i class="bi bi-calendar3" style="color:var(--islamic-gold); width:18px;"></i>
+								<span>{ getStr(data, "akad_date") }</span>
+							</div>
+							<div style="display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;">
+								<i class="bi bi-clock" style="color:var(--islamic-gold); width:18px;"></i>
+								<span>Pukul { getStr(data, "akad_time") }</span>
+							</div>
+							<div style="display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;">
+								<i class="bi bi-geo-alt" style="color:var(--islamic-gold); width:18px;"></i>
+								<span>{ getStr(data, "akad_venue") }</span>
+							</div>
+						</div>
+
+						if getStr(data, "maps_url_akad") != "-" {
+							<div style="margin-top:14px;">
+								<a href={ templ.SafeURL(getStr(data, "maps_url_akad")) } target="_blank"
+								   style="display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg, var(--islamic-green), #0d4a2a); color:white; padding:8px 20px; border-radius:50px; text-decoration:none; font-size:0.75rem; font-weight:500; transition:all 0.3s; border:1px solid rgba(255,255,255,0.05); box-shadow:0 4px 15px rgba(26,95,58,0.2);">
+									<i class="bi bi-geo-alt-fill" style="color:var(--islamic-gold);"></i>
+									<span>Buka Lokasi Akad</span>
+									<i class="bi bi-box-arrow-up-right" style="font-size:0.6rem; opacity:0.6;"></i>
+								</a>
+							</div>
+						}
+
+						<div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(201,160,61,0.08); font-family:'Amiri',serif; font-size:0.7rem; color:var(--islamic-muted);">
+							وَأَنْكِحُوا الْأَيَامَى مِنْكُمْ
+						</div>
+					</div>
+
+					<!-- RESEPSI -->
+					<div class="event-islam-card" data-aos="fade-up" data-aos-delay="150">
+						<div style="position:absolute; bottom:-20px; left:-20px; font-size:6rem; opacity:0.04; font-family:'Amiri',serif; color:var(--islamic-green); pointer-events:none;">
+							ﷻ
+						</div>
+
+						<div style="width:64px; height:64px; background:rgba(201,160,61,0.12); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 14px; font-size:1.8rem; color:var(--islamic-gold); border:2px solid var(--islamic-gold); box-shadow:0 0 30px rgba(201,160,61,0.08); transition:all 0.3s;">
+							<i class="bi bi-balloon"></i>
+						</div>
+
+						<h3 style="font-family:'Playfair Display',serif; color:var(--islamic-green); margin-bottom:2px; font-size:1.2rem;">
+							{ getResepsiLabel(data) }
+						</h3>
+
+						if isIslamicLabel(data) && getResepsiArabic(data) != "" {
+							<div style="font-family:'Amiri',serif; font-size:0.85rem; color:var(--islamic-gold); margin-bottom:10px; font-style:italic;">
+								{ getResepsiArabic(data) }
+							</div>
+						}
+
+						<div style="color:var(--islamic-text); font-size:0.9rem; line-height:1.8;">
+							<div style="display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;">
+								<i class="bi bi-calendar3" style="color:var(--islamic-gold); width:18px;"></i>
+								<span>{ getStr(data, "resepsi_date") }</span>
+							</div>
+							<div style="display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;">
+								<i class="bi bi-clock" style="color:var(--islamic-gold); width:18px;"></i>
+								<span>Pukul { getStr(data, "resepsi_time") }</span>
+							</div>
+							<div style="display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;">
+								<i class="bi bi-geo-alt" style="color:var(--islamic-gold); width:18px;"></i>
+								<span>{ getStr(data, "resepsi_venue") }</span>
+							</div>
+						</div>
+
+						if getStr(data, "maps_url_resepsi") != "-" {
+							<div style="margin-top:14px;">
+								<a href={ templ.SafeURL(getStr(data, "maps_url_resepsi")) } target="_blank"
+								   style="display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg, var(--islamic-gold), #b8922f); color:var(--islamic-dark); padding:8px 20px; border-radius:50px; text-decoration:none; font-size:0.75rem; font-weight:500; transition:all 0.3s; border:1px solid rgba(255,255,255,0.05); box-shadow:0 4px 15px rgba(201,160,61,0.2);">
+									<i class="bi bi-geo-alt-fill" style="color:var(--islamic-dark);"></i>
+									<span>Buka Lokasi { getResepsiLabel(data) }</span>
+									<i class="bi bi-box-arrow-up-right" style="font-size:0.6rem; opacity:0.6;"></i>
+								</a>
+							</div>
+						}
+
+						<div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(201,160,61,0.08); font-family:'Amiri',serif; font-size:0.7rem; color:var(--islamic-muted);">
+							وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ أَزْوَاجًا
+						</div>
+					</div>
+				</div>
+
+				<div style="text-align:center; margin-top:40px; padding:20px 0; border-top:1px solid rgba(201,160,61,0.06); border-bottom:1px solid rgba(201,160,61,0.06);">
+					<div style="font-family:'Amiri',serif; font-size:1.2rem; color:var(--islamic-green); line-height:1.8;">
+						اللَّهُمَّ بَارِكْ لَهُمَا وَبَارِكْ عَلَيْهِمَا وَاجْمَعْ بَيْنَهُمَا فِي خَيْرٍ
+					</div>
+					<div style="font-size:0.85rem; color:var(--islamic-muted); margin-top:4px; font-style:italic;">
+						"Ya Allah, berkatilah mereka berdua, limpahkanlah keberkahan atas mereka, dan kumpulkanlah mereka dalam kebaikan."
+					</div>
+					<div style="font-size:0.7rem; color:var(--islamic-gold); margin-top:4px; opacity:0.6;">
+						— Doa untuk Pengantin
+					</div>
+				</div>
+
+				<div style="text-align:center; margin-top:20px;">
+					<span style="font-family:'Amiri',serif; color:var(--islamic-gold); opacity:0.2; font-size:2rem;">❦</span>
+				</div>
+			</div>
+		</section>
+
+        		<!-- ============================================ -->
+		<!-- GALLERY -->
+		<!-- ============================================ -->
+		if gallery := getGallery(data); len(gallery) > 0 {
+			<section class="section-gallery" id="section-gallery" style="padding:70px 0; background:var(--islamic-cream);">
+				<div class="container">
+					<div class="section-label" data-aos="fade-up">GALERI</div>
+					<h2 class="section-title" data-aos="fade-up" data-aos-delay="50">Momen Terindah</h2>
+					<p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+						Kebahagiaan yang terabadikan dalam setiap momen
+					</p>
+
+					<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+					<div class="gallery-container">
+						<div class="swiper gallery-swiper">
+							<div class="swiper-wrapper">
+								for index, img := range gallery {
+									<div class="swiper-slide">
+										<img src={ img } alt={ "Foto " + formatInt(index+1) } class="swiper-image" loading="lazy"/>
+									</div>
+								}
+							</div>
+
+							<div class="swiper-button-next"></div>
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-pagination"></div>
+						</div>
+					</div>
+
+					<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+				</div>
+			</section>
+		}
+
+		<!-- ============================================ -->
+		<!-- RSVP -->
+		<!-- ============================================ -->
+		<section class="section-rsvp-islam" id="section-rsvp" style="padding:70px 0; background:var(--white);">
+			<div class="container">
+				<div class="section-label" data-aos="fade-up">KONFIRMASI</div>
+				<h2 class="section-title" data-aos="fade-up" data-aos-delay="50">Kehadiran</h2>
+				<p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+					Kami sangat berbahagia jika Anda bisa hadir di hari bahagia kami.
+				</p>
+
+				<form class="rsvp-form" method="POST" action={ templ.SafeURL("/invitation/" + project.Slug + "/rsvp") } data-aos="fade-up" data-aos-delay="150" id="rsvpForm" style="max-width:500px; margin:0 auto;">
+					<input type="hidden" name="project_id" value={ formatUint(project.ID) }/>
+
+					if hasExistingRsvp(data) {
+						<div style="background: rgba(16,185,129,0.08); border: 1px solid #10b981; border-radius: 12px; padding: 14px 18px; margin-bottom: 20px;">
+							<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+								<i class="bi bi-check-circle-fill" style="color: #10b981; font-size: 1.2rem;"></i>
+								<strong style="color: var(--islamic-green);">Anda sudah RSVP</strong>
+							</div>
+							<p style="margin: 0; font-size: 0.85rem; color: var(--islamic-muted); line-height: 1.6;">
+								Data di bawah sudah terisi otomatis. Anda bisa edit jika ada perubahan.
+							</p>
+						</div>
+					}
+
+					<div class="form-group" style="margin-bottom:16px;">
+						<label for="rsvp-name" style="display:block; font-size:0.85rem; font-weight:500; margin-bottom:4px; color:var(--islamic-green);">
+							Nama Anda <span style="color:#c0392b;">*</span>
+						</label>
+
+						if isNamedGuest {
+							<input type="text" id="rsvp-name" name="guest_name" value={ guestName } readonly
+								style="width:100%; padding:12px 16px; border:1px solid #c9a03d; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:rgba(201,160,61,0.05); color:var(--islamic-green); font-weight:600; cursor:not-allowed;"/>
+							<small style="display:block; margin-top:6px; font-size:0.7rem; color:var(--islamic-muted); font-style:italic;">
+								<i class="bi bi-info-circle me-1"></i>Nama otomatis terisi dari undangan yang Anda terima
+							</small>
+						} else {
+							<input type="text" id="rsvp-name" name="guest_name" placeholder="Nama lengkap" required
+								style="width:100%; padding:12px 16px; border:1px solid #e0ddd8; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:var(--white); transition:all 0.3s;"/>
+						}
+					</div>
+
+					<div class="form-group" style="margin-bottom:16px;">
+						<label for="rsvp-attendance" style="display:block; font-size:0.85rem; font-weight:500; margin-bottom:4px; color:var(--islamic-green);">
+							Kehadiran <span style="color:#c0392b;">*</span>
+						</label>
+						<select id="rsvp-attendance" name="attendance" required
+							style="width:100%; padding:12px 16px; border:1px solid #e0ddd8; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:var(--white); transition:all 0.3s;">
+							if getExistingRsvpField(data, "attendance", "") == "" {
+								<option value="" selected>Pilih konfirmasi</option>
+							} else {
+								<option value="">Pilih konfirmasi</option>
+							}
+							if getExistingRsvpField(data, "attendance", "") == "hadir" {
+								<option value="hadir" selected>Hadir</option>
+							} else {
+								<option value="hadir">Hadir</option>
+							}
+							if getExistingRsvpField(data, "attendance", "") == "tidak_hadir" {
+								<option value="tidak_hadir" selected>Tidak Hadir</option>
+							} else {
+								<option value="tidak_hadir">Tidak Hadir</option>
+							}
+							if getExistingRsvpField(data, "attendance", "") == "ragu" {
+								<option value="ragu" selected>Ragu-ragu</option>
+							} else {
+								<option value="ragu">Ragu-ragu</option>
+							}
+						</select>
+					</div>
+
+					<div class="form-group" style="margin-bottom:16px;">
+						<label for="rsvp-guests" style="display:block; font-size:0.85rem; font-weight:500; margin-bottom:4px; color:var(--islamic-green);">
+							Jumlah Tamu
+						</label>
+						<input type="number" id="rsvp-guests" name="total_guests" value={ formatInt(getExistingRsvpGuests(data)) } min="1" max="10"
+							style="width:100%; padding:12px 16px; border:1px solid #e0ddd8; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:var(--white); transition:all 0.3s;"/>
+					</div>
+
+					<div class="form-group" style="margin-bottom:20px;">
+						<label for="rsvp-message" style="display:block; font-size:0.85rem; font-weight:500; margin-bottom:4px; color:var(--islamic-green);">
+							Ucapan &amp; Doa
+						</label>
+						<textarea id="rsvp-message" name="message" rows="3" placeholder="Tuliskan ucapan dan doa untuk pengantin..."
+							style="width:100%; padding:12px 16px; border:1px solid #e0ddd8; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:var(--white); transition:all 0.3s; resize:vertical; min-height:80px;">{ getExistingRsvpField(data, "message", "") }</textarea>
+					</div>
+
+					<button type="submit" class="btn-submit-islam">
+						<i class="bi bi-send me-2"></i>
+						Kirim Konfirmasi
+					</button>
+				</form>
+
+				<div style="max-width:500px; margin:30px auto 0; padding-top:20px; border-top:1px solid rgba(201,160,61,0.08);">
+					<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+						<h4 style="font-size:0.95rem; color:var(--islamic-green); font-weight:600; margin:0;">
+							<i class="bi bi-people me-2"></i>Konfirmasi Kehadiran
+						</h4>
+						<span id="rsvpCount" style="font-size:0.7rem; color:var(--islamic-muted); background:rgba(201,160,61,0.08); padding:2px 12px; border-radius:12px;">
+							0 tamu
+						</span>
+					</div>
+
+					<div id="rsvpList" style="max-height:400px; overflow-y:auto; padding-right:4px;">
+						<div style="text-align:center; color:var(--islamic-muted); font-size:0.8rem; padding:20px 0;">
+							<i class="bi bi-hourglass-split me-2"></i>Memuat daftar konfirmasi...
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============================================ -->
+		<!-- AMPLOP DIGITAL -->
+		<!-- ============================================ -->
+		if showBankAccounts(data) && len(getBankAccounts(data)) > 0 {
+			<section class="section-bank-islam" id="section-bank">
+				<div class="container">
+					<div class="section-label" data-aos="fade-up">
+						<span style="font-family:'Amiri',serif; font-size:1.1rem; color:var(--islamic-gold); display:block; margin-bottom:4px;">
+							إِنَّ اللَّهَ يُحِبُّ الْمُحْسِنِينَ
+						</span>
+						AMPLOP DIGITAL
+					</div>
+					<h2 class="section-title" data-aos="fade-up" data-aos-delay="50">Kirim Hadiah</h2>
+					<p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+						Doa restu Anda adalah hadiah terindah. Namun jika ingin memberi, kami sediakan:
+					</p>
+
+					<div class="bank-grid-islam">
+						for index, account := range getBankAccounts(data) {
+							<div class="bank-card-islam" data-aos="fade-up" data-aos-delay={ formatInt(80 * (index + 1)) }>
+								<span class="bank-type-badge-islam">{ getBankTypeBadge(account) }</span>
+
+								<div class="bank-logo-islam">
+									if hasCustomIcon(account) {
+										<img src={ "/storage/" + getAccountIconPath(account) } alt={ getAccountBankName(account, data) }/>
+									} else {
+										<span class="bank-logo-icon">{ getAccountInitial(account, data) }</span>
+									}
+								</div>
+
+								<div class="bank-name-islam">{ getAccountBankName(account, data) }</div>
+
+								<div class="bank-number-wrapper-islam" data-number={ getAccountNumber(account) } onclick={ templpkg.JSFuncCall("copyBankNumberFromEl", templpkg.JSExpression("this")) }>
+									<span class="bank-number-islam">{ getAccountNumber(account) }</span>
+									<i class="bi bi-clipboard copy-icon-islam"></i>
+								</div>
+
+								<div class="bank-holder-islam">
+									a.n. <strong>{ getAccountName(account) }</strong>
+								</div>
+							</div>
+						}
+					</div>
+
+					<p class="bank-note-islam" data-aos="fade-up">
+						<i class="bi bi-info-circle me-1"></i>
+						Klik nomor rekening untuk menyalin
+					</p>
+				</div>
+			</section>
+		}
+
+		<!-- ============================================ -->
+		<!-- FOOTER TAHAP 1 - INFO MEMPELAI -->
+		<!-- ============================================ -->
+		<footer class="section-footer-islam">
+			<div class="footer-inner">
+				<div class="footer-couple">
+					<span>{ groomName }</span>
+					<span class="amp">&amp;</span>
+					<span>{ brideName }</span>
+				</div>
+
+				<div style="width:50px; height:1px; background:rgba(201,160,61,0.3); margin:14px auto;"></div>
+
+				<p style="font-size:0.85rem; margin-bottom:14px; opacity:0.7; font-family:'Amiri',serif;">
+					{ getStr(data, "akad_date") }
+				</p>
+
+				<div class="footer-social">
+					if eventInstagram != "-" && eventInstagram != "" {
+						<a href={ templ.SafeURL(eventInstagram) } target="_blank" rel="noopener">
+							<i class="bi bi-instagram"></i>
+						</a>
+					}
+					if getStr(data, "whatsapp") != "-" {
+						<a href={ templ.SafeURL("https://wa.me/" + getStr(data, "whatsapp")) } target="_blank" rel="noopener">
+							<i class="bi bi-whatsapp"></i>
+						</a>
+					}
+				</div>
+
+				<p style="font-size:0.75rem; opacity:0.4; font-style:italic;">
+					"Barakallahu lakuma wa baraka 'alaikuma wa jama'a bainakuma fii khairin"
+				</p>
+			</div>
+		</footer>
+
+		<!-- ============================================ -->
+		<!-- FOOTER TAHAP 2 - WEB FOOTER -->
+		<!-- ============================================ -->
+		<footer class="web-footer">
+			<div class="container">
+				<div class="row">
+					<div>
+						<a href="/" class="web-footer-brand-link" style="text-decoration:none;">
+							<h5 class="web-footer-brand">
+								if getSiteConfig(data, "site_favicon", "") != "" {
+									<img src={ "/storage/" + getSiteConfig(data, "site_favicon", "") } alt="Logo" style="width: 32px; height: 32px; object-fit: contain; margin-right: 8px; vertical-align: middle;"/>
+								}
+								<span class="wedding">Wedding</span><span class="saas">SaaS</span>
+							</h5>
+						</a>
+						<p class="web-footer-desc">
+							{ getSiteConfig(data, "footer_description", "Platform undangan pernikahan digital dengan template elegan, RSVP online, guest book, dan galeri foto.") }
+						</p>
+
+						<p class="web-footer-desc mb-2" style="margin-top: 8px;">
+							<i class="bi bi-globe me-1" style="color:var(--islamic-gold);"></i>
+							<a href="https://wedding.litebox.my.id" target="_blank" rel="noopener" class="web-footer-link">
+								wedding.litebox.my.id
+							</a>
+						</p>
+
+						<div class="web-footer-socials">
+							if getSiteConfig(data, "social_instagram", "") != "" {
+								<a href={ templ.SafeURL(getSiteConfig(data, "social_instagram", "")) } target="_blank" rel="noopener" class="web-social-link" title="Instagram">
+									<i class="bi bi-instagram"></i>
+								</a>
+							}
+							if getSiteConfig(data, "social_facebook", "") != "" {
+								<a href={ templ.SafeURL(getSiteConfig(data, "social_facebook", "")) } target="_blank" rel="noopener" class="web-social-link" title="Facebook">
+									<i class="bi bi-facebook"></i>
+								</a>
+							}
+							if getSiteConfig(data, "social_tiktok", "") != "" {
+								<a href={ templ.SafeURL(getSiteConfig(data, "social_tiktok", "")) } target="_blank" rel="noopener" class="web-social-link" title="TikTok">
+									<i class="bi bi-tiktok"></i>
+								</a>
+							}
+							if getSiteConfig(data, "social_youtube", "") != "" {
+								<a href={ templ.SafeURL(getSiteConfig(data, "social_youtube", "")) } target="_blank" rel="noopener" class="web-social-link" title="YouTube">
+									<i class="bi bi-youtube"></i>
+								</a>
+							}
+							if getSiteConfig(data, "social_twitter", "") != "" {
+								<a href={ templ.SafeURL(getSiteConfig(data, "social_twitter", "")) } target="_blank" rel="noopener" class="web-social-link" title="Twitter">
+									<i class="bi bi-twitter-x"></i>
+								</a>
+							}
+						</div>
+					</div>
+
+					<div>
+						<h6 class="web-footer-heading">Kontak Kami</h6>
+						<ul class="web-footer-list">
+							if getSiteConfig(data, "contact_email", "") != "" {
+								<li>
+									<i class="bi bi-envelope"></i>
+									<a href={ templ.SafeURL("mailto:" + getSiteConfig(data, "contact_email", "")) }>{ getSiteConfig(data, "contact_email", "") }</a>
+								</li>
+							}
+							if getSiteConfig(data, "contact_phone", "") != "" {
+								<li>
+									<i class="bi bi-telephone"></i>
+									<span>{ getSiteConfig(data, "contact_phone", "") }</span>
+								</li>
+							}
+							if getSiteConfig(data, "contact_whatsapp", "") != "" {
+								<li>
+									<i class="bi bi-whatsapp"></i>
+									<a href={ templ.SafeURL("https://wa.me/" + getSiteConfig(data, "contact_whatsapp", "")) } target="_blank" rel="noopener">WhatsApp Chat</a>
+								</li>
+							}
+							if getSiteConfig(data, "contact_address", "") != "" {
+								<li>
+									<i class="bi bi-geo-alt"></i>
+									<span>{ getSiteConfig(data, "contact_address", "") }</span>
+								</li>
+							}
+						</ul>
+					</div>
+
+					<div>
+						<h6 class="web-footer-heading">Dikembangkan Oleh</h6>
+						<p class="web-footer-desc mb-2">
+							<i class="bi bi-code-slash me-1" style="color:var(--islamic-gold);"></i>
+							if getSiteConfig(data, "developer_url", "") != "" {
+								<a href={ templ.SafeURL(getSiteConfig(data, "developer_url", "")) } target="_blank" rel="noopener" class="web-footer-link">{ getSiteConfig(data, "developer_name", "Tim Developer") }</a>
+							} else {
+								{ getSiteConfig(data, "developer_name", "Tim Developer") }
+							}
+						</p>
+						if getSiteConfig(data, "developer_email", "") != "" {
+							<p class="web-footer-desc mb-2">
+								<i class="bi bi-envelope-at me-1"></i>
+								<a href={ templ.SafeURL("mailto:" + getSiteConfig(data, "developer_email", "")) } class="web-footer-link">{ getSiteConfig(data, "developer_email", "") }</a>
+							</p>
+						}
+						if getSiteConfig(data, "footer_version", "") != "" {
+							<p class="web-footer-version">
+								<i class="bi bi-tag me-1"></i>{ getSiteConfig(data, "footer_version", "") }
+							</p>
+						}
+					</div>
+				</div>
+
+				<hr class="web-footer-divider"/>
+
+				<div class="text-center">
+					<p class="web-footer-text">
+						© { formatInt(currentYear()) } { getSiteConfig(data, "footer_copyright", "Wedding SaaS. Platform Undangan Digital. All rights reserved.") }
+					</p>
+				</div>
+			</div>
+		</footer>
+
+		<!-- ============================================ -->
+		<!-- SCRIPTS -->
+		<!-- ============================================ -->
+		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+		<script>
+			// AOS
+			AOS.init({
+				duration: 800,
+				easing: 'ease-in-out',
+				once: false,
+				mirror: true,
+				offset: 50
+			});
+
+			// MUSIC PLAYER
+			var audio = null;
+			var isPlaying = false;
+			var hasStarted = false;
+			var musicUrl = document.body.dataset.musicUrl || '';
+			var projectID = document.body.dataset.projectId || '';
+			var projectSlug = document.body.dataset.projectSlug || '';
+			var MUSIC_KEY = 'wedding_music_state_' + projectID;
+
+			function initAudio() {
+				if (!musicUrl) return false;
+				if (audio) return true;
+				audio = new Audio(musicUrl);
+				audio.loop = true;
+				audio.volume = 0.5;
+				return true;
+			}
+
+			window.startMusic = function() {
+				if (!initAudio()) {
+					showToast('info', 'Belum ada musik untuk undangan ini');
+					closeOverlay();
+					return;
+				}
+				audio.play().then(function() {
+					isPlaying = true;
+					hasStarted = true;
+					var btn = document.getElementById('musicToggle');
+					if (btn) {
+						btn.innerHTML = '<i class="bi bi-pause-fill"></i>';
+						btn.classList.add('playing');
+					}
+					localStorage.setItem(MUSIC_KEY, 'playing');
+					closeOverlay();
+				}).catch(function(e) {
+					console.log('Play failed:', e);
+					closeOverlay();
+					document.addEventListener('click', function retry() {
+						audio.play().catch(function(){});
+						document.removeEventListener('click', retry);
+					}, { once: true });
+				});
+			};
+
+			function closeOverlay() {
+				var overlay = document.getElementById('startOverlay');
+				if (overlay) {
+					overlay.style.opacity = '0';
+					setTimeout(function() {
+						overlay.style.display = 'none';
+					}, 800);
+				}
+			}
+
+			window.toggleMusic = function() {
+				if (!audio && musicUrl) initAudio();
+				if (!audio) {
+					showToast('info', 'Belum ada musik untuk undangan ini');
+					return;
+				}
+				var btn = document.getElementById('musicToggle');
+				if (isPlaying) {
+					audio.pause();
+					isPlaying = false;
+					btn.innerHTML = '<i class="bi bi-music-note"></i>';
+					btn.classList.remove('playing');
+					localStorage.setItem(MUSIC_KEY, 'paused');
+				} else {
+					audio.play().catch(function(e) { console.log('Play blocked'); });
+					isPlaying = true;
+					btn.innerHTML = '<i class="bi bi-pause-fill"></i>';
+					btn.classList.add('playing');
+					localStorage.setItem(MUSIC_KEY, 'playing');
+				}
+			};
+
+			document.getElementById('startOverlay')?.addEventListener('click', function(e) {
+				startMusic();
+			});
+			document.getElementById('musicToggle')?.addEventListener('click', function(e) {
+				if (!hasStarted) startMusic();
+			});
+			document.addEventListener('keydown', function(e) {
+				if (e.key === ' ' && !hasStarted) { e.preventDefault(); startMusic(); }
+			});
+
+			window.scrollToQuran = function() {
+				var el = document.getElementById('section-quran');
+				if (el) el.scrollIntoView({ behavior: 'smooth' });
+			};
+
+			function showToast(type, message) {
+				var container = document.querySelector('.toast-container');
+				if (!container) {
+					container = document.createElement('div');
+					container.className = 'toast-container';
+					document.body.appendChild(container);
+				}
+				var toast = document.createElement('div');
+				toast.className = 'toast';
+				var icons = { success: 'bi-check-circle-fill', error: 'bi-x-circle-fill', info: 'bi-info-circle-fill' };
+				toast.innerHTML = '<i class="bi ' + (icons[type] || icons.info) + '"></i><span>' + message + '</span>';
+				container.appendChild(toast);
+				setTimeout(function() {
+					toast.style.opacity = '0';
+					toast.style.transform = 'translateX(100px)';
+					setTimeout(function() { toast.remove(); }, 400);
+				}, 3000);
+			}
+
+			function escapeHtml(text) {
+				if (!text) return '';
+				var div = document.createElement('div');
+				div.textContent = text;
+				return div.innerHTML;
+			}
+
+			// COPY BANK NUMBER
+			window.copyBankNumberFromEl = function(el) {
+				var number = el.getAttribute('data-number');
+				if (!number) return;
+				copyText(number, el);
+			};
+
+			function copyText(number, element) {
+				var doSuccess = function() {
+					showToast('success', 'Nomor rekening dicopy!');
+					if (element) {
+						var icon = element.querySelector('.copy-icon-islam');
+						if (icon) {
+							var original = icon.className;
+							icon.className = 'bi bi-check-circle-fill copy-icon-islam';
+							icon.style.color = '#10b981';
+							icon.style.opacity = '1';
+							setTimeout(function() {
+								icon.className = original;
+								icon.style.color = '';
+								icon.style.opacity = '';
+							}, 1500);
+						}
+					}
+				};
+				if (navigator.clipboard) {
+					navigator.clipboard.writeText(number).then(doSuccess).catch(function() {
+						fallbackCopy(number, element);
+					});
+				} else {
+					fallbackCopy(number, element);
+				}
+			}
+
+			function fallbackCopy(text, element) {
+				var textarea = document.createElement('textarea');
+				textarea.value = text;
+				textarea.style.position = 'fixed';
+				textarea.style.opacity = '0';
+				document.body.appendChild(textarea);
+				textarea.select();
+				try {
+					document.execCommand('copy');
+					showToast('success', 'Nomor rekening dicopy!');
+				} catch (err) {
+					showToast('error', 'Gagal copy nomor');
+				}
+				document.body.removeChild(textarea);
+			}
+
+			// SWIPER GALLERY
+			document.addEventListener('DOMContentLoaded', function() {
+				if (typeof Swiper !== 'undefined') {
+					new Swiper('.gallery-swiper', {
+						effect: 'coverflow',
+						grabCursor: true,
+						centeredSlides: true,
+						slidesPerView: 'auto',
+						coverflowEffect: {
+							rotate: 15,
+							stretch: 0,
+							depth: 100,
+							modifier: 1,
+							slideShadows: true,
+						},
+						loop: true,
+						autoplay: {
+							delay: 4000,
+							disableOnInteraction: true,
+							pauseOnMouseEnter: true,
+						},
+						speed: 800,
+						breakpoints: {
+							320: {
+								slidesPerView: 1,
+								spaceBetween: 0,
+								coverflowEffect: { rotate: 0, stretch: 0, depth: 50, modifier: 0.5, slideShadows: false },
+							},
+							768: {
+								slidesPerView: 1.2,
+								spaceBetween: 16,
+								coverflowEffect: { rotate: 5, stretch: 0, depth: 80, modifier: 1, slideShadows: true },
+							},
+							1024: {
+								slidesPerView: 1.5,
+								spaceBetween: 24,
+								coverflowEffect: { rotate: 8, stretch: 0, depth: 100, modifier: 1, slideShadows: true },
+							},
+							1400: {
+								slidesPerView: 2,
+								spaceBetween: 30,
+								coverflowEffect: { rotate: 10, stretch: 0, depth: 120, modifier: 1, slideShadows: true },
+							}
+						},
+						pagination: {
+							el: '.swiper-pagination',
+							clickable: true,
+							dynamicBullets: true,
+						},
+						navigation: {
+							nextEl: '.swiper-button-next',
+							prevEl: '.swiper-button-prev',
+						},
+						keyboard: { enabled: true },
+						autoHeight: true,
+					});
+				}
+			});
+
+			// LOAD RSVP LIST
+			function loadRsvpList() {
+				var listContainer = document.getElementById('rsvpList');
+				var countContainer = document.getElementById('rsvpCount');
+				if (!listContainer) return;
+
+				fetch('/invitation/' + projectSlug + '/rsvp-list')
+					.then(function(r) { return r.json(); })
+					.then(function(data) {
+						if (!data || data.length === 0) {
+							listContainer.innerHTML = '<div class="rsvp-empty"><i class="bi bi-envelope"></i>Belum ada konfirmasi kehadiran</div>';
+							if (countContainer) countContainer.textContent = '0 tamu';
+							return;
+						}
+						var totalGuests = 0;
+						var html = '';
+						data.forEach(function(item) {
+							var statusText = item.attendance === 'hadir' ? '✅ Hadir' : (item.attendance === 'tidak_hadir' ? '❌ Tidak Hadir' : '❓ Ragu-ragu');
+							totalGuests += parseInt(item.total_guests || 1);
+							var time = new Date(item.created_at);
+							var timeStr = time.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + time.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+							var messageHtml = item.message ? '<div class="message">' + escapeHtml(item.message) + '</div>' : '';
+							html += '<div class="rsvp-item"><div class="row-main"><span class="guest-name">' + escapeHtml(item.guest_name) + '</span><span class="status-badge ' + item.attendance + '">' + statusText + '</span></div><div class="row-detail"><div class="meta-left"><span class="time"><i class="bi bi-clock"></i> ' + timeStr + '</span><span class="guests"><i class="bi bi-person"></i> ' + (item.total_guests || 1) + ' org</span></div></div>' + messageHtml + '</div>';
+						});
+						listContainer.innerHTML = html;
+						if (countContainer) countContainer.textContent = totalGuests + ' tamu';
+					})
+					.catch(function() {
+						listContainer.innerHTML = '<div class="rsvp-empty"><i class="bi bi-exclamation-triangle"></i>Gagal memuat daftar konfirmasi<br><button onclick="loadRsvpList()" style="margin-top:10px; padding:8px 20px; background:var(--islamic-green); color:white; border:none; border-radius:8px; cursor:pointer;"><i class="bi bi-arrow-clockwise"></i> Coba Lagi</button></div>';
+					});
+			}
+
+			// SUBMIT RSVP
+			document.addEventListener('DOMContentLoaded', function() {
+				var form = document.getElementById('rsvpForm');
+				if (!form) return;
+				form.addEventListener('submit', function(e) {
+					e.preventDefault();
+					var formData = new FormData(form);
+					var btn = form.querySelector('button[type="submit"]');
+					var originalText = btn.innerHTML;
+					btn.disabled = true;
+					btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
+					fetch(form.action, { method: 'POST', body: formData })
+						.then(function(r) { return r.json(); })
+						.then(function(data) {
+							if (data.success) {
+								var isUpdate = data.updated === true;
+								Swal.fire({
+									title: isUpdate ? 'Konfirmasi Diperbarui!' : 'Berhasil!',
+									text: data.message,
+									icon: 'success',
+									confirmButtonColor: '#1a5f3a',
+									background: '#ffffff',
+									color: '#1a1a1a',
+									timer: 2000,
+									timerProgressBar: true,
+									showConfirmButton: false
+								});
+								if (!isUpdate) form.reset();
+								setTimeout(function() { loadRsvpList(); }, 500);
+							} else {
+								Swal.fire({
+									title: 'Gagal!',
+									text: data.message || 'Terjadi kesalahan',
+									icon: 'error',
+									confirmButtonColor: '#1a5f3a',
+									background: '#ffffff',
+									color: '#1a1a1a'
+								});
+							}
+						})
+						.catch(function() {
+							Swal.fire({
+								title: 'Error!',
+								text: 'Terjadi kesalahan, silakan coba lagi',
+								icon: 'error',
+								confirmButtonColor: '#1a5f3a',
+								background: '#ffffff',
+								color: '#1a1a1a'
+							});
+						})
+						.finally(function() {
+							btn.disabled = false;
+							btn.innerHTML = originalText;
+						});
+				});
+				loadRsvpList();
+			});
+		</script>
+	</body>
+	</html>
+}
+
