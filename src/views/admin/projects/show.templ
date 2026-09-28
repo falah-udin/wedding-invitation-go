@@ -1,0 +1,144 @@
+package projects
+
+import "wedding-invitation-go/internal/models"
+
+// ShowContent — detail project
+templ ShowContent(project models.Project, dataUndangan map[string]string) {
+	<div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3">
+		<div>
+			<h2 class="fw-bold" style="color: #8b5cf6;">
+				<i class="bi bi-info-circle me-2"></i>Detail Project
+			</h2>
+			<p class="text-secondary m-0">{ project.Title }</p>
+		</div>
+		<div class="d-flex gap-2">
+			<a href="/admin/projects" class="btn" style="background:#2a2a2a; border:none; border-radius:12px; padding:8px 20px; color:white; text-decoration:none;">
+				<i class="bi bi-arrow-left me-2"></i>Kembali
+			</a>
+			if project.Status == "published" {
+				<a href={ templ.URL("/invitation/" + project.Slug) } target="_blank" class="btn" style="background:#10b981; border:none; border-radius:12px; padding:8px 20px; color:white; text-decoration:none;">
+					<i class="bi bi-eye me-2"></i>Lihat Undangan
+				</a>
+			}
+		</div>
+	</div>
+
+	<div class="row g-4">
+		<!-- INFO PROJECT -->
+		<div class="col-12 col-md-6">
+			<div class="p-4" style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a;">
+				<h5 class="mb-3" style="color: #8b5cf6;">
+					<i class="bi bi-info-circle me-2"></i>Informasi Project
+				</h5>
+				<div class="mb-3">
+					<label style="color:#9ca3af; font-size:0.75rem;">ID Project</label>
+					<p class="mb-0" style="color:white;">#{ formatUint(project.ID) }</p>
+				</div>
+				<div class="mb-3">
+					<label style="color:#9ca3af; font-size:0.75rem;">Judul</label>
+					<p class="mb-0" style="color:white;">{ project.Title }</p>
+				</div>
+				<div class="mb-3">
+					<label style="color:#9ca3af; font-size:0.75rem;">Slug</label>
+					<p class="mb-0" style="color:white;">{ project.Slug }</p>
+				</div>
+				<div class="mb-3">
+					<label style="color:#9ca3af; font-size:0.75rem;">Status</label>
+					<div>
+						if project.Status == "published" {
+							<span class="badge" style="background:#10b981;">Published</span>
+						} else if project.Status == "draft" {
+							<span class="badge" style="background:#f59e0b; color:#1a1a1a;">Draft</span>
+						} else {
+							<span class="badge" style="background:#6b7280;">Archived</span>
+						}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<label style="color:#9ca3af; font-size:0.75rem;">Total Views</label>
+						<p class="mb-0" style="color:#8b5cf6; font-size:1.5rem; font-weight:700;">{ formatInt(project.TotalViews) }</p>
+					</div>
+					<div class="col-6">
+						<label style="color:#9ca3af; font-size:0.75rem;">Total RSVP</label>
+						<p class="mb-0" style="color:#ec489a; font-size:1.5rem; font-weight:700;">{ formatInt(project.TotalRsvp) }</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- CLIENT & TEMPLATE -->
+		<div class="col-12 col-md-6">
+			<div class="p-4" style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a;">
+				<h5 class="mb-3" style="color: #8b5cf6;">
+					<i class="bi bi-person me-2"></i>Client &amp; Template
+				</h5>
+				if project.User != nil {
+					<div class="mb-3">
+						<label style="color:#9ca3af; font-size:0.75rem;">Nama Client</label>
+						<p class="mb-0" style="color:white;">{ project.User.Name }</p>
+					</div>
+					<div class="mb-3">
+						<label style="color:#9ca3af; font-size:0.75rem;">Email Client</label>
+						<p class="mb-0" style="color:white;">{ project.User.Email }</p>
+					</div>
+				}
+				if project.Template != nil {
+					<div class="mb-3">
+						<label style="color:#9ca3af; font-size:0.75rem;">Template</label>
+						<p class="mb-0">
+							<span class="badge" style="background:#3b82f6;">{ project.Template.Name }</span>
+						</p>
+					</div>
+				}
+				<div class="row">
+					<div class="col-6">
+						<label style="color:#9ca3af; font-size:0.75rem;">Dibuat</label>
+						<p class="mb-0" style="color:white;">{ formatDate(project.CreatedAt) }</p>
+					</div>
+					<div class="col-6">
+						<label style="color:#9ca3af; font-size:0.75rem;">Update</label>
+						<p class="mb-0" style="color:white;">{ formatDate(project.UpdatedAt) }</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- DATA UNDANGAN -->
+		<div class="col-12">
+			<div class="p-4" style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a;">
+				<h5 class="mb-3" style="color: #8b5cf6;">
+					<i class="bi bi-envelope-paper me-2"></i>Data Undangan
+				</h5>
+				<div class="row g-3">
+					<div class="col-12 col-md-6">
+						<label style="color:#9ca3af; font-size:0.75rem;">Mempelai Pria</label>
+						<p class="mb-0" style="color:white;">{ dataUndangan["groom_name"] }</p>
+					</div>
+					<div class="col-12 col-md-6">
+						<label style="color:#9ca3af; font-size:0.75rem;">Mempelai Wanita</label>
+						<p class="mb-0" style="color:white;">{ dataUndangan["bride_name"] }</p>
+					</div>
+					<div class="col-12 col-md-6">
+						<label style="color:#9ca3af; font-size:0.75rem;">Tanggal Akad</label>
+						<p class="mb-0" style="color:white;">{ dataUndangan["akad_date"] }</p>
+						<small style="color:#9ca3af;">Waktu: { dataUndangan["akad_time"] }</small>
+					</div>
+					<div class="col-12 col-md-6">
+						<label style="color:#9ca3af; font-size:0.75rem;">Tempat Akad</label>
+						<p class="mb-0" style="color:white;">{ dataUndangan["akad_venue"] }</p>
+					</div>
+					<div class="col-12 col-md-6">
+						<label style="color:#9ca3af; font-size:0.75rem;">Tanggal Resepsi</label>
+						<p class="mb-0" style="color:white;">{ dataUndangan["resepsi_date"] }</p>
+						<small style="color:#9ca3af;">Waktu: { dataUndangan["resepsi_time"] }</small>
+					</div>
+					<div class="col-12 col-md-6">
+						<label style="color:#9ca3af; font-size:0.75rem;">Tempat Resepsi</label>
+						<p class="mb-0" style="color:white;">{ dataUndangan["resepsi_venue"] }</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}

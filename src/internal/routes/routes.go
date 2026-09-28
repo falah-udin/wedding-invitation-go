@@ -8,7 +8,6 @@ import (
 	"wedding-invitation-go/internal/middleware"
 )
 
-// Register — daftarkan semua route
 func Register(r *gin.Engine) {
 	// PUBLIC ROUTES
 	r.GET("/", handlers.ShowHome)
@@ -51,5 +50,10 @@ func Register(r *gin.Engine) {
 		admin.POST("/music/create", adminHandlers.MusicStore)
 		admin.GET("/music/:id/toggle", adminHandlers.MusicToggle)
 		admin.POST("/music/:id/delete", adminHandlers.MusicDelete)
+
+		// PROJECT MANAGEMENT
+		admin.GET("/projects", adminHandlers.ProjectIndex)
+		admin.GET("/projects/:id", adminHandlers.ProjectShow)
+		admin.POST("/projects/:id/delete", adminHandlers.ProjectDelete)
 	}
 }
