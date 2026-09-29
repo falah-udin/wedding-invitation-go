@@ -579,10 +579,16 @@ templ rusticWoodPage(
 			}
 			.couple-photo {
 				width: 200px; height: 200px; margin: 0 auto 16px;
-				border-radius: 50%; background-size: cover; background-position: center;
+				border-radius: 50%; overflow: hidden;
 				border: 4px solid var(--rustic-gold);
 				transition: transform 0.3s; position: relative;
+				background: var(--rustic-cream-dark);
 			}
+			.couple-photo img {
+				width: 100%; height: 100%;
+				object-fit: cover;
+				display: block;
+			}		
 			.couple-photo::after {
 				content: ''; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px;
 				border-radius: 50%; border: 1px solid rgba(184, 149, 106, 0.1);
@@ -1321,10 +1327,10 @@ templ rusticWoodPage(
 							}
 						</div>
 
-						<a href="#section-rsvp" class="btn-wood-rsvp">
-							<i class="bi bi-envelope-check"></i>
-							<span>Konfirmasi Kehadiran</span>
-						</a>
+						<button class="btn-wood-rsvp" onclick={ templpkg.JSFuncCall("scrollToCouple") }>
+							<i class="bi bi-arrow-down"></i>
+							<span>Buka Undangan</span>
+						</button>
 
 						<div class="bottom-ornament">
 							<span class="ornament-line"></span>
@@ -1357,7 +1363,9 @@ templ rusticWoodPage(
 
 				<div class="couple-grid">
 					<div class="couple-card" data-aos="fade-right" data-aos-delay="100">
-						<div class="couple-photo" style={ "background-image: url('" + groomPhoto + "');" }></div>
+						<div class="couple-photo">
+							<img src={ groomPhoto } alt={ groomName } loading="lazy"/>
+						</div>						
 						<div class="couple-info">
 							<h3>{ groomName }</h3>
 							<p class="couple-title">Putra dari</p>
@@ -1373,7 +1381,9 @@ templ rusticWoodPage(
 					<div class="couple-ampersand" data-aos="zoom-in" data-aos-delay="150">&amp;</div>
 
 					<div class="couple-card" data-aos="fade-left" data-aos-delay="200">
-						<div class="couple-photo" style={ "background-image: url('" + bridePhoto + "');" }></div>
+						<div class="couple-photo">
+							<img src={ bridePhoto } alt={ brideName } loading="lazy"/>
+						</div>
 						<div class="couple-info">
 							<h3>{ brideName }</h3>
 							<p class="couple-title">Putri dari</p>

@@ -378,7 +378,7 @@ func elegantGoldPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "</div><a href=\"#section-rsvp\" class=\"btn-rsvp\"><i class=\"bi bi-envelope-check me-2\"></i>Konfirmasi Kehadiran</a></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -386,7 +386,7 @@ func elegantGoldPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "<div class=\"scroll-indicator\" onclick=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "<button class=\"btn-rsvp\" onclick=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -395,725 +395,742 @@ func elegantGoldPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "\"><span>Scroll</span> <i class=\"bi bi-chevron-double-down\"></i></div></section><!-- ============================================ --><!-- COUPLE --><!-- ============================================ --><section class=\"section-gold\" id=\"section-couple\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">MEMPELAI</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Pasangan Bahagia <span class=\"gold-ornament\">✦</span></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Dua hati yang dipertemukan dalam ikatan suci, bersinar dalam kemewahan cinta</p><div class=\"couple-grid\"><div class=\"couple-card\" data-aos=\"fade-right\" data-aos-delay=\"100\"><div class=\"couple-photo-wrap\"><div class=\"couple-photo\"><img src=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "\"><i class=\"bi bi-arrow-down me-2\"></i>Buka Undangan</button></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var21 string
-		templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.ResolveAttributeValue(groomPhoto)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1293, Col: 29}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var21)
+		templ_7745c5c3_Err = templ.RenderScriptItems(ctx, templ_7745c5c3_Buffer, templpkg.JSFuncCall("scrollToCouple"))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "\" alt=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "<div class=\"scroll-indicator\" onclick=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var21 templ.ComponentScript = templpkg.JSFuncCall("scrollToCouple")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var21.Call)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "\"><span>Scroll</span> <i class=\"bi bi-chevron-double-down\"></i></div></section><!-- ============================================ --><!-- COUPLE --><!-- ============================================ --><section class=\"section-gold\" id=\"section-couple\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">MEMPELAI</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Pasangan Bahagia <span class=\"gold-ornament\">✦</span></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Dua hati yang dipertemukan dalam ikatan suci, bersinar dalam kemewahan cinta</p><div class=\"couple-grid\"><div class=\"couple-card\" data-aos=\"fade-right\" data-aos-delay=\"100\"><div class=\"couple-photo-wrap\"><div class=\"couple-photo\"><img src=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var22 string
-		templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.ResolveAttributeValue(groomName)
+		templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.ResolveAttributeValue(groomPhoto)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1293, Col: 47}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1293, Col: 29}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var22)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "\" style=\"width:100%; height:100%; object-fit:cover;\"></div></div><div class=\"couple-info\"><h3>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "\" alt=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var23 string
-		templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs(groomName)
+		templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.ResolveAttributeValue(groomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1297, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1293, Col: 47}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var23)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "</h3><p class=\"couple-title\">Putra dari</p><p class=\"couple-parents\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "\" style=\"width:100%; height:100%; object-fit:cover;\"></div></div><div class=\"couple-info\"><h3>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var24 string
-		templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(getParentsNameSplit(fatherGroomName, motherGroomName))
+		templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(groomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1299, Col: 88}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1297, Col: 22}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "</p>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "</h3><p class=\"couple-title\">Putra dari</p><p class=\"couple-parents\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var25 string
+		templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinStringErrs(getParentsNameSplit(fatherGroomName, motherGroomName))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1299, Col: 88}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "</p>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if getStr(data, "groom_instagram") != "-" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "<div class=\"couple-social\"><a href=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "<div class=\"couple-social\"><a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var25 templ.SafeURL
-			templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getStr(data, "groom_instagram")))
+			var templ_7745c5c3_Var26 templ.SafeURL
+			templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getStr(data, "groom_instagram")))
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1302, Col: 68}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var26))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "\" target=\"_blank\"><i class=\"bi bi-instagram\"></i></a></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "\" target=\"_blank\"><i class=\"bi bi-instagram\"></i></a></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "</div></div><div class=\"couple-ampersand\" data-aos=\"zoom-in\" data-aos-delay=\"150\">&amp;</div><div class=\"couple-card\" data-aos=\"fade-left\" data-aos-delay=\"200\"><div class=\"couple-photo-wrap\"><div class=\"couple-photo\"><img src=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var26 string
-		templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.ResolveAttributeValue(bridePhoto)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1313, Col: 29}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var26)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "\" alt=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "</div></div><div class=\"couple-ampersand\" data-aos=\"zoom-in\" data-aos-delay=\"150\">&amp;</div><div class=\"couple-card\" data-aos=\"fade-left\" data-aos-delay=\"200\"><div class=\"couple-photo-wrap\"><div class=\"couple-photo\"><img src=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var27 string
-		templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.ResolveAttributeValue(brideName)
+		templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.ResolveAttributeValue(bridePhoto)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1313, Col: 47}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1313, Col: 29}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var27)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "\" style=\"width:100%; height:100%; object-fit:cover;\"></div></div><div class=\"couple-info\"><h3>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "\" alt=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var28 string
-		templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.JoinStringErrs(brideName)
+		templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.ResolveAttributeValue(brideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1317, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1313, Col: 47}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var28))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var28)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "</h3><p class=\"couple-title\">Putri dari</p><p class=\"couple-parents\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, "\" style=\"width:100%; height:100%; object-fit:cover;\"></div></div><div class=\"couple-info\"><h3>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var29 string
-		templ_7745c5c3_Var29, templ_7745c5c3_Err = templ.JoinStringErrs(getParentsNameSplit(fatherBrideName, motherBrideName))
+		templ_7745c5c3_Var29, templ_7745c5c3_Err = templ.JoinStringErrs(brideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1319, Col: 88}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1317, Col: 22}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var29))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, "</p>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 46, "</h3><p class=\"couple-title\">Putri dari</p><p class=\"couple-parents\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var30 string
+		templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.JoinStringErrs(getParentsNameSplit(fatherBrideName, motherBrideName))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1319, Col: 88}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var30))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 47, "</p>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if getStr(data, "bride_instagram") != "-" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 46, "<div class=\"couple-social\"><a href=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 48, "<div class=\"couple-social\"><a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var30 templ.SafeURL
-			templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getStr(data, "bride_instagram")))
+			var templ_7745c5c3_Var31 templ.SafeURL
+			templ_7745c5c3_Var31, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getStr(data, "bride_instagram")))
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1322, Col: 68}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var30))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var31))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 47, "\" target=\"_blank\"><i class=\"bi bi-instagram\"></i></a></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 49, "\" target=\"_blank\"><i class=\"bi bi-instagram\"></i></a></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 48, "</div></div></div></div></section><!-- ============================================ --><!-- LOVE STORY --><!-- ============================================ -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 50, "</div></div></div></div></section><!-- ============================================ --><!-- LOVE STORY --><!-- ============================================ -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if stories := getLoveStories(data); len(stories) > 0 {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 49, "<section class=\"section-gold-alt\" id=\"section-love\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">CERITA</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Perjalanan Cinta <span class=\"gold-ornament\">✦</span></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Setiap pertemuan adalah takdir yang indah, setiap momen adalah emas</p><div class=\"love-timeline\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 51, "<section class=\"section-gold-alt\" id=\"section-love\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">CERITA</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Perjalanan Cinta <span class=\"gold-ornament\">✦</span></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Setiap pertemuan adalah takdir yang indah, setiap momen adalah emas</p><div class=\"love-timeline\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			for index, story := range stories {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 50, "<div class=\"timeline-item\" data-aos=\"fade-up\" data-aos-delay=\"")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var31 string
-				templ_7745c5c3_Var31, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(100 * (index + 1)))
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1348, Col: 98}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var31)
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 51, "\"><div class=\"timeline-dot\"><i class=\"bi bi-heart-fill\" style=\"font-size:0.4rem;\"></i></div><div class=\"timeline-content\"><h4 class=\"timeline-title\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 52, "<div class=\"timeline-item\" data-aos=\"fade-up\" data-aos-delay=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var32 string
-				templ_7745c5c3_Var32, templ_7745c5c3_Err = templ.JoinStringErrs(story["title"])
+				templ_7745c5c3_Var32, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(100 * (index + 1)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1351, Col: 52}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1348, Col: 98}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var32))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var32)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 52, "</h4><p class=\"timeline-desc\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 53, "\"><div class=\"timeline-dot\"><i class=\"bi bi-heart-fill\" style=\"font-size:0.4rem;\"></i></div><div class=\"timeline-content\"><h4 class=\"timeline-title\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var33 string
-				templ_7745c5c3_Var33, templ_7745c5c3_Err = templ.JoinStringErrs(story["desc"])
+				templ_7745c5c3_Var33, templ_7745c5c3_Err = templ.JoinStringErrs(story["title"])
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1352, Col: 49}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1351, Col: 52}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var33))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 53, "</p></div></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 54, "</h4><p class=\"timeline-desc\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var34 string
+				templ_7745c5c3_Var34, templ_7745c5c3_Err = templ.JoinStringErrs(story["desc"])
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1352, Col: 49}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var34))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 55, "</p></div></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 54, "</div></div></section>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 56, "</div></div></section>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 55, "<!-- ============================================ --><!-- EVENT --><!-- ============================================ --><section class=\"section-gold\" id=\"section-event\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">ACARA</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Detail Acara <span class=\"gold-ornament\">✦</span></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Kami mengundang kehadiran Bapak/Ibu/Saudara/i dalam kebahagiaan ini</p><div class=\"event-grid\"><div class=\"event-card\" data-aos=\"fade-up\" data-aos-delay=\"100\"><div class=\"event-icon\"><i class=\"bi bi-gem\"></i></div><h3 class=\"event-title\">Akad Nikah</h3><div class=\"event-datetime\"><i class=\"bi bi-calendar3\"></i> <span>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var34 string
-		templ_7745c5c3_Var34, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_date"))
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1381, Col: 40}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var34))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 56, "</span></div><div class=\"event-datetime\"><i class=\"bi bi-clock\"></i> <span>Pukul ")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 57, "<!-- ============================================ --><!-- EVENT --><!-- ============================================ --><section class=\"section-gold\" id=\"section-event\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">ACARA</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Detail Acara <span class=\"gold-ornament\">✦</span></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Kami mengundang kehadiran Bapak/Ibu/Saudara/i dalam kebahagiaan ini</p><div class=\"event-grid\"><div class=\"event-card\" data-aos=\"fade-up\" data-aos-delay=\"100\"><div class=\"event-icon\"><i class=\"bi bi-gem\"></i></div><h3 class=\"event-title\">Akad Nikah</h3><div class=\"event-datetime\"><i class=\"bi bi-calendar3\"></i> <span>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var35 string
-		templ_7745c5c3_Var35, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_time"))
+		templ_7745c5c3_Var35, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_date"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1385, Col: 46}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1381, Col: 40}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var35))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 57, "</span></div><div class=\"event-venue\"><i class=\"bi bi-geo-alt\"></i> <span>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 58, "</span></div><div class=\"event-datetime\"><i class=\"bi bi-clock\"></i> <span>Pukul ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var36 string
-		templ_7745c5c3_Var36, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_venue"))
+		templ_7745c5c3_Var36, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_time"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1389, Col: 41}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1385, Col: 46}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var36))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 58, "</span></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 59, "</span></div><div class=\"event-venue\"><i class=\"bi bi-geo-alt\"></i> <span>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var37 string
+		templ_7745c5c3_Var37, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_venue"))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1389, Col: 41}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var37))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 60, "</span></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if getStr(data, "maps_url_akad") != "-" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 59, "<div><a href=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 61, "<div><a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var37 templ.SafeURL
-			templ_7745c5c3_Var37, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getStr(data, "maps_url_akad")))
+			var templ_7745c5c3_Var38 templ.SafeURL
+			templ_7745c5c3_Var38, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getStr(data, "maps_url_akad")))
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1393, Col: 65}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var37))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var38))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 60, "\" target=\"_blank\" class=\"btn-map\"><i class=\"bi bi-geo-alt me-2\"></i>Buka Lokasi</a></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 62, "\" target=\"_blank\" class=\"btn-map\"><i class=\"bi bi-geo-alt me-2\"></i>Buka Lokasi</a></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 61, "</div><div class=\"event-card\" data-aos=\"fade-up\" data-aos-delay=\"150\"><div class=\"event-icon\"><i class=\"bi bi-balloon\"></i></div><h3 class=\"event-title\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 63, "</div><div class=\"event-card\" data-aos=\"fade-up\" data-aos-delay=\"150\"><div class=\"event-icon\"><i class=\"bi bi-balloon\"></i></div><h3 class=\"event-title\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var38 string
-		templ_7745c5c3_Var38, templ_7745c5c3_Err = templ.JoinStringErrs(getResepsiLabel(data))
+		var templ_7745c5c3_Var39 string
+		templ_7745c5c3_Var39, templ_7745c5c3_Err = templ.JoinStringErrs(getResepsiLabel(data))
 		if templ_7745c5c3_Err != nil {
 			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1403, Col: 53}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var38))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var39))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 62, "</h3>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 64, "</h3>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if isIslamicLabel(data) && getResepsiArabic(data) != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 63, "<div style=\"font-family:'Cormorant Garamond',serif; font-size:0.85rem; color:var(--gold); margin-bottom:8px; font-style:italic; opacity:0.7;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 65, "<div style=\"font-family:'Cormorant Garamond',serif; font-size:0.85rem; color:var(--gold); margin-bottom:8px; font-style:italic; opacity:0.7;\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var39 string
-			templ_7745c5c3_Var39, templ_7745c5c3_Err = templ.JoinStringErrs(getResepsiArabic(data))
+			var templ_7745c5c3_Var40 string
+			templ_7745c5c3_Var40, templ_7745c5c3_Err = templ.JoinStringErrs(getResepsiArabic(data))
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1407, Col: 32}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var39))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var40))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 64, "</div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 66, "</div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 65, "<div class=\"event-datetime\"><i class=\"bi bi-calendar3\"></i> <span>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var40 string
-		templ_7745c5c3_Var40, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_date"))
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1413, Col: 43}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var40))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 66, "</span></div><div class=\"event-datetime\"><i class=\"bi bi-clock\"></i> <span>Pukul ")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 67, "<div class=\"event-datetime\"><i class=\"bi bi-calendar3\"></i> <span>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var41 string
-		templ_7745c5c3_Var41, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_time"))
+		templ_7745c5c3_Var41, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_date"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1417, Col: 49}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1413, Col: 43}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var41))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 67, "</span></div><div class=\"event-venue\"><i class=\"bi bi-geo-alt\"></i> <span>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 68, "</span></div><div class=\"event-datetime\"><i class=\"bi bi-clock\"></i> <span>Pukul ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var42 string
-		templ_7745c5c3_Var42, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_venue"))
+		templ_7745c5c3_Var42, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_time"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1421, Col: 44}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1417, Col: 49}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var42))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 68, "</span></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 69, "</span></div><div class=\"event-venue\"><i class=\"bi bi-geo-alt\"></i> <span>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var43 string
+		templ_7745c5c3_Var43, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_venue"))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1421, Col: 44}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var43))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 70, "</span></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if getStr(data, "maps_url_resepsi") != "-" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 69, "<div><a href=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 71, "<div><a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var43 templ.SafeURL
-			templ_7745c5c3_Var43, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getStr(data, "maps_url_resepsi")))
+			var templ_7745c5c3_Var44 templ.SafeURL
+			templ_7745c5c3_Var44, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getStr(data, "maps_url_resepsi")))
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1425, Col: 68}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var43))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 70, "\" target=\"_blank\" class=\"btn-map\"><i class=\"bi bi-geo-alt me-2\"></i>Buka Lokasi ")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var44 string
-			templ_7745c5c3_Var44, templ_7745c5c3_Err = templ.JoinStringErrs(getResepsiLabel(data))
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1426, Col: 78}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var44))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 71, "</a></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 72, "\" target=\"_blank\" class=\"btn-map\"><i class=\"bi bi-geo-alt me-2\"></i>Buka Lokasi ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 72, "</div></div>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		if getStr(data, "maps_url") != "-" && getStr(data, "maps_url_akad") == "-" && getStr(data, "maps_url_resepsi") == "-" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 73, "<div style=\"text-align:center; margin-top:30px;\" data-aos=\"fade-up\"><a href=\"")
+			var templ_7745c5c3_Var45 string
+			templ_7745c5c3_Var45, templ_7745c5c3_Err = templ.JoinStringErrs(getResepsiLabel(data))
 			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var45 templ.SafeURL
-			templ_7745c5c3_Var45, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getStr(data, "maps_url")))
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1435, Col: 58}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1426, Col: 78}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var45))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 74, "\" target=\"_blank\" style=\"display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg, var(--gold), var(--gold-dark)); color:var(--dark); padding:12px 32px; border-radius:50px; text-decoration:none; font-size:0.85rem; font-weight:500; transition:all 0.3s; box-shadow:0 4px 30px rgba(201,160,61,0.15);\"><i class=\"bi bi-geo-alt-fill\"></i> <span>Buka Lokasi ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 73, "</a></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var46 string
-			templ_7745c5c3_Var46, templ_7745c5c3_Err = templ.JoinStringErrs(getResepsiLabel(data))
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 74, "</div></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if getStr(data, "maps_url") != "-" && getStr(data, "maps_url_akad") == "-" && getStr(data, "maps_url_resepsi") == "-" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 75, "<div style=\"text-align:center; margin-top:30px;\" data-aos=\"fade-up\"><a href=\"")
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1438, Col: 48}
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var46 templ.SafeURL
+			templ_7745c5c3_Var46, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getStr(data, "maps_url")))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1435, Col: 58}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var46))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 75, "</span></a></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 76, "\" target=\"_blank\" style=\"display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg, var(--gold), var(--gold-dark)); color:var(--dark); padding:12px 32px; border-radius:50px; text-decoration:none; font-size:0.85rem; font-weight:500; transition:all 0.3s; box-shadow:0 4px 30px rgba(201,160,61,0.15);\"><i class=\"bi bi-geo-alt-fill\"></i> <span>Buka Lokasi ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var47 string
+			templ_7745c5c3_Var47, templ_7745c5c3_Err = templ.JoinStringErrs(getResepsiLabel(data))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1438, Col: 48}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var47))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 77, "</span></a></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 76, "</div></section><!-- ============================================ --><!-- GALLERY --><!-- ============================================ -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 78, "</div></section><!-- ============================================ --><!-- GALLERY --><!-- ============================================ -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if gallery := getGallery(data); len(gallery) > 0 {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 77, "<section class=\"section-gold\" id=\"section-gallery\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">GALERI</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Momen Terindah <span class=\"gold-ornament\">✦</span></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Kebahagiaan yang terabadikan dalam setiap momen berharga</p><div class=\"gallery-grid\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 79, "<section class=\"section-gold\" id=\"section-gallery\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">GALERI</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Momen Terindah <span class=\"gold-ornament\">✦</span></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Kebahagiaan yang terabadikan dalam setiap momen berharga</p><div class=\"gallery-grid\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			for index, img := range gallery {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 78, "<div class=\"gallery-item\" data-aos=\"fade-up\" data-aos-delay=\"")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var47 string
-				templ_7745c5c3_Var47, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(100 * ((index % 6) + 1)))
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1462, Col: 103}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var47)
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 79, "\"><img src=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 80, "<div class=\"gallery-item\" data-aos=\"fade-up\" data-aos-delay=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var48 string
-				templ_7745c5c3_Var48, templ_7745c5c3_Err = templ.ResolveAttributeValue(img)
+				templ_7745c5c3_Var48, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(100 * ((index % 6) + 1)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1463, Col: 22}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1462, Col: 103}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var48)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 80, "\" alt=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 81, "\"><img src=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var49 string
-				templ_7745c5c3_Var49, templ_7745c5c3_Err = templ.ResolveAttributeValue("Foto " + formatInt(index+1))
+				templ_7745c5c3_Var49, templ_7745c5c3_Err = templ.ResolveAttributeValue(img)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1463, Col: 59}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1463, Col: 22}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var49)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 81, "\" loading=\"lazy\"><div class=\"gallery-overlay\"><i class=\"bi bi-zoom-in\"></i></div><span class=\"gallery-badge\">✦</span></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 82, "\" alt=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var50 string
+				templ_7745c5c3_Var50, templ_7745c5c3_Err = templ.ResolveAttributeValue("Foto " + formatInt(index+1))
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1463, Col: 59}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var50)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 83, "\" loading=\"lazy\"><div class=\"gallery-overlay\"><i class=\"bi bi-zoom-in\"></i></div><span class=\"gallery-badge\">✦</span></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 82, "</div></div></section>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 84, "</div></div></section>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 83, "<!-- ============================================ --><!-- RSVP --><!-- ============================================ --><section class=\"section-gold-alt\" id=\"section-rsvp\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">KONFIRMASI</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Kehadiran <span class=\"gold-ornament\">✦</span></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Kami sangat berbahagia jika Anda bisa hadir di hari bahagia kami</p><form class=\"rsvp-form\" method=\"POST\" action=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 85, "<!-- ============================================ --><!-- RSVP --><!-- ============================================ --><section class=\"section-gold-alt\" id=\"section-rsvp\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">KONFIRMASI</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Kehadiran <span class=\"gold-ornament\">✦</span></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Kami sangat berbahagia jika Anda bisa hadir di hari bahagia kami</p><form class=\"rsvp-form\" method=\"POST\" action=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var50 templ.SafeURL
-		templ_7745c5c3_Var50, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("/invitation/" + project.Slug + "/rsvp"))
+		var templ_7745c5c3_Var51 templ.SafeURL
+		templ_7745c5c3_Var51, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("/invitation/" + project.Slug + "/rsvp"))
 		if templ_7745c5c3_Err != nil {
 			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1487, Col: 108}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var50))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var51))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 84, "\" data-aos=\"fade-up\" data-aos-delay=\"150\" id=\"rsvpForm\"><input type=\"hidden\" name=\"project_id\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 86, "\" data-aos=\"fade-up\" data-aos-delay=\"150\" id=\"rsvpForm\"><input type=\"hidden\" name=\"project_id\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var51 string
-		templ_7745c5c3_Var51, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatUint(project.ID))
+		var templ_7745c5c3_Var52 string
+		templ_7745c5c3_Var52, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatUint(project.ID))
 		if templ_7745c5c3_Err != nil {
 			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1488, Col: 74}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var51)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var52)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 85, "\"> ")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 87, "\"> ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if hasExistingRsvp(data) {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 86, "<div style=\"background: rgba(201,160,61,0.08); border: 1px solid var(--gold); border-radius: 14px; padding: 14px 18px; margin-bottom: 20px;\"><div style=\"display: flex; align-items: center; gap: 8px; margin-bottom: 6px;\"><i class=\"bi bi-check-circle-fill\" style=\"color: var(--gold); font-size: 1.2rem;\"></i> <strong style=\"color: var(--gold-light);\">Anda sudah RSVP</strong></div><p style=\"margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;\">Data di bawah sudah terisi otomatis. Anda bisa edit jika ada perubahan.</p></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 88, "<div style=\"background: rgba(201,160,61,0.08); border: 1px solid var(--gold); border-radius: 14px; padding: 14px 18px; margin-bottom: 20px;\"><div style=\"display: flex; align-items: center; gap: 8px; margin-bottom: 6px;\"><i class=\"bi bi-check-circle-fill\" style=\"color: var(--gold); font-size: 1.2rem;\"></i> <strong style=\"color: var(--gold-light);\">Anda sudah RSVP</strong></div><p style=\"margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;\">Data di bawah sudah terisi otomatis. Anda bisa edit jika ada perubahan.</p></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 87, "<div class=\"form-group\"><label for=\"rsvp-name\">Nama Anda <span class=\"required\">*</span></label> ")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 89, "<div class=\"form-group\"><label for=\"rsvp-name\">Nama Anda <span class=\"required\">*</span></label> ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if isNamedGuest {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 88, "<input type=\"text\" id=\"rsvp-name\" name=\"guest_name\" value=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 90, "<input type=\"text\" id=\"rsvp-name\" name=\"guest_name\" value=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var52 string
-			templ_7745c5c3_Var52, templ_7745c5c3_Err = templ.ResolveAttributeValue(guestName)
+			var templ_7745c5c3_Var53 string
+			templ_7745c5c3_Var53, templ_7745c5c3_Err = templ.ResolveAttributeValue(guestName)
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1505, Col: 76}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var52)
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var53)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 89, "\" readonly> <small style=\"display:block; margin-top:6px; font-size:0.7rem; color:var(--text-muted); font-style:italic;\"><i class=\"bi bi-info-circle me-1\"></i>Nama otomatis terisi dari undangan yang Anda terima</small>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 91, "\" readonly> <small style=\"display:block; margin-top:6px; font-size:0.7rem; color:var(--text-muted); font-style:italic;\"><i class=\"bi bi-info-circle me-1\"></i>Nama otomatis terisi dari undangan yang Anda terima</small>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		} else {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 90, "<input type=\"text\" id=\"rsvp-name\" name=\"guest_name\" placeholder=\"Nama lengkap\" required>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 92, "<input type=\"text\" id=\"rsvp-name\" name=\"guest_name\" placeholder=\"Nama lengkap\" required>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 91, "</div><div class=\"form-group\"><label for=\"rsvp-attendance\">Kehadiran <span class=\"required\">*</span></label> <select id=\"rsvp-attendance\" name=\"attendance\" required>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 93, "</div><div class=\"form-group\"><label for=\"rsvp-attendance\">Kehadiran <span class=\"required\">*</span></label> <select id=\"rsvp-attendance\" name=\"attendance\" required>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if getExistingRsvpField(data, "attendance", "") == "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 92, "<option value=\"\" selected>Pilih konfirmasi</option> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 94, "<option value=\"\" selected>Pilih konfirmasi</option> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		} else {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 93, "<option value=\"\">Pilih konfirmasi</option> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 95, "<option value=\"\">Pilih konfirmasi</option> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
 		if getExistingRsvpField(data, "attendance", "") == "hadir" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 94, "<option value=\"hadir\" selected>Hadir</option> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 96, "<option value=\"hadir\" selected>Hadir</option> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		} else {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 95, "<option value=\"hadir\">Hadir</option> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 97, "<option value=\"hadir\">Hadir</option> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
 		if getExistingRsvpField(data, "attendance", "") == "tidak_hadir" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 96, "<option value=\"tidak_hadir\" selected>Tidak Hadir</option> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 98, "<option value=\"tidak_hadir\" selected>Tidak Hadir</option> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		} else {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 97, "<option value=\"tidak_hadir\">Tidak Hadir</option> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 99, "<option value=\"tidak_hadir\">Tidak Hadir</option> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
 		if getExistingRsvpField(data, "attendance", "") == "ragu" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 98, "<option value=\"ragu\" selected>Ragu-ragu</option>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 100, "<option value=\"ragu\" selected>Ragu-ragu</option>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		} else {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 99, "<option value=\"ragu\">Ragu-ragu</option>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 101, "<option value=\"ragu\">Ragu-ragu</option>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 100, "</select></div><div class=\"form-group\"><label for=\"rsvp-guests\">Jumlah Tamu</label> <input type=\"number\" id=\"rsvp-guests\" name=\"total_guests\" value=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var53 string
-		templ_7745c5c3_Var53, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(getExistingRsvpGuests(data)))
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1542, Col: 110}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var53)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 101, "\" min=\"1\" max=\"10\"></div><div class=\"form-group\"><label for=\"rsvp-message\">Ucapan &amp; Doa</label> <textarea id=\"rsvp-message\" name=\"message\" rows=\"3\" placeholder=\"Tuliskan ucapan dan doa untuk pengantin...\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 102, "</select></div><div class=\"form-group\"><label for=\"rsvp-guests\">Jumlah Tamu</label> <input type=\"number\" id=\"rsvp-guests\" name=\"total_guests\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var54 string
-		templ_7745c5c3_Var54, templ_7745c5c3_Err = templ.JoinStringErrs(getExistingRsvpField(data, "message", ""))
+		templ_7745c5c3_Var54, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(getExistingRsvpGuests(data)))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1547, Col: 158}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1542, Col: 110}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var54))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var54)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 102, "</textarea></div><button type=\"submit\" class=\"btn-submit\"><i class=\"bi bi-send me-2\"></i> Kirim Konfirmasi</button></form><div style=\"max-width:500px; margin:30px auto 0; padding-top:20px; border-top:1px solid rgba(201,160,61,0.06);\"><div style=\"display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;\"><h4 style=\"font-size:0.95rem; color:var(--gold); font-weight:600; margin:0;\"><i class=\"bi bi-people me-2\"></i>Konfirmasi Kehadiran</h4><span id=\"rsvpCount\" style=\"font-size:0.7rem; color:var(--text-muted); background:rgba(201,160,61,0.06); padding:2px 14px; border-radius:12px;\">0 tamu</span></div><div id=\"rsvpList\"><div style=\"text-align:center; color:var(--text-muted); font-size:0.8rem; padding:20px 0;\"><i class=\"bi bi-hourglass-split me-2\"></i>Memuat daftar konfirmasi...</div></div></div></div></section><!-- ============================================ --><!-- AMPLOP DIGITAL --><!-- ============================================ -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 103, "\" min=\"1\" max=\"10\"></div><div class=\"form-group\"><label for=\"rsvp-message\">Ucapan &amp; Doa</label> <textarea id=\"rsvp-message\" name=\"message\" rows=\"3\" placeholder=\"Tuliskan ucapan dan doa untuk pengantin...\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var55 string
+		templ_7745c5c3_Var55, templ_7745c5c3_Err = templ.JoinStringErrs(getExistingRsvpField(data, "message", ""))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1547, Col: 158}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var55))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 104, "</textarea></div><button type=\"submit\" class=\"btn-submit\"><i class=\"bi bi-send me-2\"></i> Kirim Konfirmasi</button></form><div style=\"max-width:500px; margin:30px auto 0; padding-top:20px; border-top:1px solid rgba(201,160,61,0.06);\"><div style=\"display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;\"><h4 style=\"font-size:0.95rem; color:var(--gold); font-weight:600; margin:0;\"><i class=\"bi bi-people me-2\"></i>Konfirmasi Kehadiran</h4><span id=\"rsvpCount\" style=\"font-size:0.7rem; color:var(--text-muted); background:rgba(201,160,61,0.06); padding:2px 14px; border-radius:12px;\">0 tamu</span></div><div id=\"rsvpList\"><div style=\"text-align:center; color:var(--text-muted); font-size:0.8rem; padding:20px 0;\"><i class=\"bi bi-hourglass-split me-2\"></i>Memuat daftar konfirmasi...</div></div></div></div></section><!-- ============================================ --><!-- AMPLOP DIGITAL --><!-- ============================================ -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if showBankAccounts(data) && len(getBankAccounts(data)) > 0 {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 103, "<section class=\"section-gold-alt\" id=\"section-bank\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">AMPLOP DIGITAL</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Kirim Hadiah <span class=\"gold-ornament\">✦</span></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Doa restu Anda adalah hadiah terindah. Namun jika ingin memberi, kami sediakan:</p><div class=\"bank-grid\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 105, "<section class=\"section-gold-alt\" id=\"section-bank\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">AMPLOP DIGITAL</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Kirim Hadiah <span class=\"gold-ornament\">✦</span></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Doa restu Anda adalah hadiah terindah. Namun jika ingin memberi, kami sediakan:</p><div class=\"bank-grid\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			for index, account := range getBankAccounts(data) {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 104, "<div class=\"bank-card-elegant\" data-aos=\"fade-up\" data-aos-delay=\"")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var55 string
-				templ_7745c5c3_Var55, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(80 * (index + 1)))
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1592, Col: 101}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var55)
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 105, "\"><span class=\"bank-type-badge\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 106, "<div class=\"bank-card-elegant\" data-aos=\"fade-up\" data-aos-delay=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var56 string
-				templ_7745c5c3_Var56, templ_7745c5c3_Err = templ.JoinStringErrs(getBankTypeBadge(account))
+				templ_7745c5c3_Var56, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(80 * (index + 1)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1593, Col: 65}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1592, Col: 101}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var56))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var56)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 106, "</span><div class=\"bank-logo\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 107, "\"><span class=\"bank-type-badge\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var57 string
+				templ_7745c5c3_Var57, templ_7745c5c3_Err = templ.JoinStringErrs(getBankTypeBadge(account))
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1593, Col: 65}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var57))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 108, "</span><div class=\"bank-logo\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				if hasCustomIcon(account) {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 107, "<img src=\"")
-					if templ_7745c5c3_Err != nil {
-						return templ_7745c5c3_Err
-					}
-					var templ_7745c5c3_Var57 string
-					templ_7745c5c3_Var57, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + getAccountIconPath(account))
-					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1597, Col: 62}
-					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var57)
-					if templ_7745c5c3_Err != nil {
-						return templ_7745c5c3_Err
-					}
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 108, "\" alt=\"")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 109, "<img src=\"")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 					var templ_7745c5c3_Var58 string
-					templ_7745c5c3_Var58, templ_7745c5c3_Err = templ.ResolveAttributeValue(getAccountBankName(account, data))
+					templ_7745c5c3_Var58, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + getAccountIconPath(account))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1597, Col: 104}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1597, Col: 62}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var58)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 109, "\">")
-					if templ_7745c5c3_Err != nil {
-						return templ_7745c5c3_Err
-					}
-				} else {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 110, "<span class=\"bank-logo-icon\">")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 110, "\" alt=\"")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 					var templ_7745c5c3_Var59 string
-					templ_7745c5c3_Var59, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountInitial(account, data))
+					templ_7745c5c3_Var59, templ_7745c5c3_Err = templ.ResolveAttributeValue(getAccountBankName(account, data))
+					if templ_7745c5c3_Err != nil {
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1597, Col: 104}
+					}
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var59)
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 111, "\">")
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+				} else {
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 112, "<span class=\"bank-logo-icon\">")
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+					var templ_7745c5c3_Var60 string
+					templ_7745c5c3_Var60, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountInitial(account, data))
 					if templ_7745c5c3_Err != nil {
 						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1599, Col: 73}
 					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var59))
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var60))
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 111, "</span>")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 113, "</span>")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 112, "</div><div class=\"bank-name\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 114, "</div><div class=\"bank-name\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var60 string
-				templ_7745c5c3_Var60, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountBankName(account, data))
+				var templ_7745c5c3_Var61 string
+				templ_7745c5c3_Var61, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountBankName(account, data))
 				if templ_7745c5c3_Err != nil {
 					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1603, Col: 66}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var60))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var61))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 113, "</div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 115, "</div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -1121,501 +1138,501 @@ func elegantGoldPage(
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 114, "<div class=\"bank-number-wrapper\" data-number=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 116, "<div class=\"bank-number-wrapper\" data-number=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var61 string
-				templ_7745c5c3_Var61, templ_7745c5c3_Err = templ.ResolveAttributeValue(getAccountNumber(account))
+				var templ_7745c5c3_Var62 string
+				templ_7745c5c3_Var62, templ_7745c5c3_Err = templ.ResolveAttributeValue(getAccountNumber(account))
 				if templ_7745c5c3_Err != nil {
 					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1605, Col: 80}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var61)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var62)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 115, "\" onclick=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 117, "\" onclick=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var62 templ.ComponentScript = templpkg.JSFuncCall("copyBankNumberFromEl", templpkg.JSExpression("this"))
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var62.Call)
+				var templ_7745c5c3_Var63 templ.ComponentScript = templpkg.JSFuncCall("copyBankNumberFromEl", templpkg.JSExpression("this"))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var63.Call)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 116, "\"><span class=\"bank-number\">")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var63 string
-				templ_7745c5c3_Var63, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountNumber(account))
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1606, Col: 62}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var63))
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 117, "</span> <i class=\"bi bi-clipboard copy-icon\"></i></div><div class=\"bank-holder\">a.n. <strong>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 118, "\"><span class=\"bank-number\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var64 string
-				templ_7745c5c3_Var64, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountName(account))
+				templ_7745c5c3_Var64, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountNumber(account))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1611, Col: 47}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1606, Col: 62}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var64))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 118, "</strong></div></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 119, "</span> <i class=\"bi bi-clipboard copy-icon\"></i></div><div class=\"bank-holder\">a.n. <strong>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var65 string
+				templ_7745c5c3_Var65, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountName(account))
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1611, Col: 47}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var65))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 120, "</strong></div></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 119, "</div><p style=\"text-align:center; margin-top:32px; font-size:0.8rem; color:var(--text-muted); font-style:italic; opacity:0.7;\" data-aos=\"fade-up\"><i class=\"bi bi-info-circle me-1\" style=\"color:var(--gold);\"></i> Klik nomor rekening untuk menyalin</p></div></section>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 121, "</div><p style=\"text-align:center; margin-top:32px; font-size:0.8rem; color:var(--text-muted); font-style:italic; opacity:0.7;\" data-aos=\"fade-up\"><i class=\"bi bi-info-circle me-1\" style=\"color:var(--gold);\"></i> Klik nomor rekening untuk menyalin</p></div></section>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 120, "<!-- ============================================ --><!-- FOOTER TAHAP 1 --><!-- ============================================ --><footer class=\"section-footer\"><div class=\"footer-inner\"><div class=\"footer-couple\"><span>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var65 string
-		templ_7745c5c3_Var65, templ_7745c5c3_Err = templ.JoinStringErrs(groomName)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1631, Col: 22}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var65))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 121, "</span> <span class=\"footer-ampersand\">&amp;</span> <span>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 122, "<!-- ============================================ --><!-- FOOTER TAHAP 1 --><!-- ============================================ --><footer class=\"section-footer\"><div class=\"footer-inner\"><div class=\"footer-couple\"><span>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var66 string
-		templ_7745c5c3_Var66, templ_7745c5c3_Err = templ.JoinStringErrs(brideName)
+		templ_7745c5c3_Var66, templ_7745c5c3_Err = templ.JoinStringErrs(groomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1633, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1631, Col: 22}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var66))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 122, "</span></div><div class=\"footer-divider\"></div><p class=\"footer-date\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 123, "</span> <span class=\"footer-ampersand\">&amp;</span> <span>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var67 string
-		templ_7745c5c3_Var67, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_date"))
+		templ_7745c5c3_Var67, templ_7745c5c3_Err = templ.JoinStringErrs(brideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1636, Col: 54}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1633, Col: 22}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var67))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 123, "</p><div class=\"footer-social\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 124, "</span></div><div class=\"footer-divider\"></div><p class=\"footer-date\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var68 string
+		templ_7745c5c3_Var68, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_date"))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1636, Col: 54}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var68))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 125, "</p><div class=\"footer-social\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if eventInstagram != "-" && eventInstagram != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 124, "<a href=\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var68 templ.SafeURL
-			templ_7745c5c3_Var68, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(eventInstagram))
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1639, Col: 48}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var68))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 125, "\" target=\"_blank\"><i class=\"bi bi-instagram\"></i></a> ")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		}
-		if getStr(data, "whatsapp") != "-" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 126, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var69 templ.SafeURL
-			templ_7745c5c3_Var69, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("https://wa.me/" + getStr(data, "whatsapp")))
+			templ_7745c5c3_Var69, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(eventInstagram))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1642, Col: 77}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1639, Col: 48}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var69))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 127, "\" target=\"_blank\"><i class=\"bi bi-whatsapp\"></i></a>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 127, "\" target=\"_blank\"><i class=\"bi bi-instagram\"></i></a> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 128, "</div><p class=\"footer-prayer\">\"Cinta sejati adalah anugerah terindah dari Tuhan\"</p></div></footer><!-- ============================================ --><!-- FOOTER TAHAP 2 --><!-- ============================================ --><footer class=\"web-footer\"><div class=\"container\"><div class=\"row\"><div><a href=\"/\" class=\"web-footer-brand-link\" style=\"text-decoration:none;\"><h5 class=\"web-footer-brand\">")
+		if getStr(data, "whatsapp") != "-" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 128, "<a href=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var70 templ.SafeURL
+			templ_7745c5c3_Var70, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("https://wa.me/" + getStr(data, "whatsapp")))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1642, Col: 77}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var70))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 129, "\" target=\"_blank\"><i class=\"bi bi-whatsapp\"></i></a>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 130, "</div><p class=\"footer-prayer\">\"Cinta sejati adalah anugerah terindah dari Tuhan\"</p></div></footer><!-- ============================================ --><!-- FOOTER TAHAP 2 --><!-- ============================================ --><footer class=\"web-footer\"><div class=\"container\"><div class=\"row\"><div><a href=\"/\" class=\"web-footer-brand-link\" style=\"text-decoration:none;\"><h5 class=\"web-footer-brand\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if getSiteConfig(data, "site_favicon", "") != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 129, "<img src=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 131, "<img src=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var70 string
-			templ_7745c5c3_Var70, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + getSiteConfig(data, "site_favicon", ""))
+			var templ_7745c5c3_Var71 string
+			templ_7745c5c3_Var71, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + getSiteConfig(data, "site_favicon", ""))
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1661, Col: 73}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var70)
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var71)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 130, "\" alt=\"Logo\" style=\"width: 32px; height: 32px; object-fit: contain; margin-right: 8px; vertical-align: middle;\"> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 132, "\" alt=\"Logo\" style=\"width: 32px; height: 32px; object-fit: contain; margin-right: 8px; vertical-align: middle;\"> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 131, "<span class=\"wedding\">Wedding</span><span class=\"saas\">SaaS</span></h5></a><p class=\"web-footer-desc\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 133, "<span class=\"wedding\">Wedding</span><span class=\"saas\">SaaS</span></h5></a><p class=\"web-footer-desc\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var71 string
-		templ_7745c5c3_Var71, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "footer_description", "Platform undangan pernikahan digital dengan template elegan, RSVP online, guest book, dan galeri foto."))
+		var templ_7745c5c3_Var72 string
+		templ_7745c5c3_Var72, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "footer_description", "Platform undangan pernikahan digital dengan template elegan, RSVP online, guest book, dan galeri foto."))
 		if templ_7745c5c3_Err != nil {
 			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1667, Col: 156}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var71))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var72))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 132, "</p><p class=\"web-footer-desc mb-2\" style=\"margin-top: 8px;\"><i class=\"bi bi-globe me-1\" style=\"color:var(--gold);\"></i> <a href=\"https://wedding.litebox.my.id\" target=\"_blank\" rel=\"noopener\" class=\"web-footer-link\">wedding.litebox.my.id</a></p><div class=\"web-footer-socials\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 134, "</p><p class=\"web-footer-desc mb-2\" style=\"margin-top: 8px;\"><i class=\"bi bi-globe me-1\" style=\"color:var(--gold);\"></i> <a href=\"https://wedding.litebox.my.id\" target=\"_blank\" rel=\"noopener\" class=\"web-footer-link\">wedding.litebox.my.id</a></p><div class=\"web-footer-socials\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if getSiteConfig(data, "social_instagram", "") != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 133, "<a href=\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var72 templ.SafeURL
-			templ_7745c5c3_Var72, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_instagram", "")))
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1679, Col: 79}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var72))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 134, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"Instagram\"><i class=\"bi bi-instagram\"></i></a> ")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		}
-		if getSiteConfig(data, "social_facebook", "") != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 135, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var73 templ.SafeURL
-			templ_7745c5c3_Var73, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_facebook", "")))
+			templ_7745c5c3_Var73, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_instagram", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1684, Col: 78}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1679, Col: 79}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var73))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 136, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"Facebook\"><i class=\"bi bi-facebook\"></i></a> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 136, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"Instagram\"><i class=\"bi bi-instagram\"></i></a> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		if getSiteConfig(data, "social_tiktok", "") != "" {
+		if getSiteConfig(data, "social_facebook", "") != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 137, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var74 templ.SafeURL
-			templ_7745c5c3_Var74, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_tiktok", "")))
+			templ_7745c5c3_Var74, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_facebook", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1689, Col: 76}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1684, Col: 78}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var74))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 138, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"TikTok\"><i class=\"bi bi-tiktok\"></i></a> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 138, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"Facebook\"><i class=\"bi bi-facebook\"></i></a> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		if getSiteConfig(data, "social_youtube", "") != "" {
+		if getSiteConfig(data, "social_tiktok", "") != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 139, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var75 templ.SafeURL
-			templ_7745c5c3_Var75, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_youtube", "")))
+			templ_7745c5c3_Var75, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_tiktok", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1694, Col: 77}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1689, Col: 76}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var75))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 140, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"YouTube\"><i class=\"bi bi-youtube\"></i></a> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 140, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"TikTok\"><i class=\"bi bi-tiktok\"></i></a> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		if getSiteConfig(data, "social_twitter", "") != "" {
+		if getSiteConfig(data, "social_youtube", "") != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 141, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var76 templ.SafeURL
-			templ_7745c5c3_Var76, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_twitter", "")))
+			templ_7745c5c3_Var76, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_youtube", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1699, Col: 77}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1694, Col: 77}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var76))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 142, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"Twitter\"><i class=\"bi bi-twitter-x\"></i></a>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 142, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"YouTube\"><i class=\"bi bi-youtube\"></i></a> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 143, "</div></div><div><h6 class=\"web-footer-heading\">Kontak Kami</h6><ul class=\"web-footer-list\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		if getSiteConfig(data, "contact_email", "") != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 144, "<li><i class=\"bi bi-envelope\"></i> <a href=\"")
+		if getSiteConfig(data, "social_twitter", "") != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 143, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var77 templ.SafeURL
-			templ_7745c5c3_Var77, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("mailto:" + getSiteConfig(data, "contact_email", "")))
+			templ_7745c5c3_Var77, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_twitter", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1712, Col: 89}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1699, Col: 77}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var77))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 145, "\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 144, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"Twitter\"><i class=\"bi bi-twitter-x\"></i></a>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var78 string
-			templ_7745c5c3_Var78, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "contact_email", ""))
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 145, "</div></div><div><h6 class=\"web-footer-heading\">Kontak Kami</h6><ul class=\"web-footer-list\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if getSiteConfig(data, "contact_email", "") != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 146, "<li><i class=\"bi bi-envelope\"></i> <a href=\"")
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1712, Col: 134}
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var78 templ.SafeURL
+			templ_7745c5c3_Var78, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("mailto:" + getSiteConfig(data, "contact_email", "")))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1712, Col: 89}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var78))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 146, "</a></li>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		}
-		if getSiteConfig(data, "contact_phone", "") != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 147, "<li><i class=\"bi bi-telephone\"></i> <span>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 147, "\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var79 string
-			templ_7745c5c3_Var79, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "contact_phone", ""))
+			templ_7745c5c3_Var79, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "contact_email", ""))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1718, Col: 57}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1712, Col: 134}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var79))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 148, "</span></li>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 148, "</a></li>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		if getSiteConfig(data, "contact_whatsapp", "") != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 149, "<li><i class=\"bi bi-whatsapp\"></i> <a href=\"")
+		if getSiteConfig(data, "contact_phone", "") != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 149, "<li><i class=\"bi bi-telephone\"></i> <span>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var80 templ.SafeURL
-			templ_7745c5c3_Var80, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("https://wa.me/" + getSiteConfig(data, "contact_whatsapp", "")))
+			var templ_7745c5c3_Var80 string
+			templ_7745c5c3_Var80, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "contact_phone", ""))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1724, Col: 99}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1718, Col: 57}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var80))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 150, "\" target=\"_blank\" rel=\"noopener\">WhatsApp Chat</a></li>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 150, "</span></li>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		if getSiteConfig(data, "contact_address", "") != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 151, "<li><i class=\"bi bi-geo-alt\"></i> <span>")
+		if getSiteConfig(data, "contact_whatsapp", "") != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 151, "<li><i class=\"bi bi-whatsapp\"></i> <a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var81 string
-			templ_7745c5c3_Var81, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "contact_address", ""))
+			var templ_7745c5c3_Var81 templ.SafeURL
+			templ_7745c5c3_Var81, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("https://wa.me/" + getSiteConfig(data, "contact_whatsapp", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1730, Col: 59}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1724, Col: 99}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var81))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 152, "</span></li>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 152, "\" target=\"_blank\" rel=\"noopener\">WhatsApp Chat</a></li>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 153, "</ul></div><div><h6 class=\"web-footer-heading\">Dikembangkan Oleh</h6><p class=\"web-footer-desc mb-2\"><i class=\"bi bi-code-slash me-1\" style=\"color:var(--gold);\"></i> ")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		if getSiteConfig(data, "developer_url", "") != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 154, "<a href=\"")
+		if getSiteConfig(data, "contact_address", "") != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 153, "<li><i class=\"bi bi-geo-alt\"></i> <span>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var82 templ.SafeURL
-			templ_7745c5c3_Var82, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "developer_url", "")))
+			var templ_7745c5c3_Var82 string
+			templ_7745c5c3_Var82, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "contact_address", ""))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1741, Col: 76}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1730, Col: 59}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var82))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 155, "\" target=\"_blank\" rel=\"noopener\" class=\"web-footer-link\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 154, "</span></li>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var83 string
-			templ_7745c5c3_Var83, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "developer_name", "Tim Developer"))
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 155, "</ul></div><div><h6 class=\"web-footer-heading\">Dikembangkan Oleh</h6><p class=\"web-footer-desc mb-2\"><i class=\"bi bi-code-slash me-1\" style=\"color:var(--gold);\"></i> ")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if getSiteConfig(data, "developer_url", "") != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 156, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1741, Col: 190}
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var83 templ.SafeURL
+			templ_7745c5c3_Var83, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "developer_url", "")))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1741, Col: 76}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var83))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 156, "</a>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 157, "\" target=\"_blank\" rel=\"noopener\" class=\"web-footer-link\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-		} else {
 			var templ_7745c5c3_Var84 string
 			templ_7745c5c3_Var84, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "developer_name", "Tim Developer"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1743, Col: 64}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1741, Col: 190}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var84))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 157, "</p>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		if getSiteConfig(data, "developer_email", "") != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 158, "<p class=\"web-footer-desc mb-2\"><i class=\"bi bi-envelope-at me-1\"></i> <a href=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 158, "</a>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var85 templ.SafeURL
-			templ_7745c5c3_Var85, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("mailto:" + getSiteConfig(data, "developer_email", "")))
+		} else {
+			var templ_7745c5c3_Var85 string
+			templ_7745c5c3_Var85, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "developer_name", "Tim Developer"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1749, Col: 90}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1743, Col: 64}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var85))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 159, "\" class=\"web-footer-link\">")
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 159, "</p>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if getSiteConfig(data, "developer_email", "") != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 160, "<p class=\"web-footer-desc mb-2\"><i class=\"bi bi-envelope-at me-1\"></i> <a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var86 string
-			templ_7745c5c3_Var86, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "developer_email", ""))
+			var templ_7745c5c3_Var86 templ.SafeURL
+			templ_7745c5c3_Var86, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("mailto:" + getSiteConfig(data, "developer_email", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1749, Col: 161}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1749, Col: 90}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var86))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 160, "</a></p>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		}
-		if getSiteConfig(data, "footer_version", "") != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 161, "<p class=\"web-footer-version\"><i class=\"bi bi-tag me-1\"></i>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 161, "\" class=\"web-footer-link\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var87 string
-			templ_7745c5c3_Var87, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "footer_version", ""))
+			templ_7745c5c3_Var87, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "developer_email", ""))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1754, Col: 81}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1749, Col: 161}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var87))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 162, "</p>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 162, "</a></p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 163, "</div></div><hr class=\"web-footer-divider\"><div class=\"text-center\"><p class=\"web-footer-text\">© ")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
+		if getSiteConfig(data, "footer_version", "") != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 163, "<p class=\"web-footer-version\"><i class=\"bi bi-tag me-1\"></i>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var88 string
+			templ_7745c5c3_Var88, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "footer_version", ""))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1754, Col: 81}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var88))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 164, "</p>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 		}
-		var templ_7745c5c3_Var88 string
-		templ_7745c5c3_Var88, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(currentYear()))
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1764, Col: 35}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var88))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 164, " ")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 165, "</div></div><hr class=\"web-footer-divider\"><div class=\"text-center\"><p class=\"web-footer-text\">© ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var89 string
-		templ_7745c5c3_Var89, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "footer_copyright", "Wedding SaaS. Platform Undangan Digital. All rights reserved."))
+		templ_7745c5c3_Var89, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(currentYear()))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1764, Col: 144}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1764, Col: 35}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var89))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 165, "</p></div></div></footer><!-- ============================================ --><!-- SCRIPTS --><!-- ============================================ --><script src=\"https://unpkg.com/aos@2.3.1/dist/aos.js\"></script><script src=\"https://cdn.jsdelivr.net/npm/sweetalert2@11\"></script><script>\n\t\t\t// AOS\n\t\t\tAOS.init({\n\t\t\t\tduration: 800,\n\t\t\t\teasing: 'ease-in-out',\n\t\t\t\tonce: true,\n\t\t\t\tmirror: false,\n\t\t\t\toffset: 50,\n\t\t\t\tdisable: function() { return window.innerWidth < 480; }\n\t\t\t});\n\t\t\twindow.addEventListener('resize', function() { AOS.refresh(); });\n\n\t\t\t// MUSIC PLAYER — baca dari data-attribute\n\t\t\tvar musicUrl = document.body.dataset.musicUrl || '';\n\t\t\tvar projectID = document.body.dataset.projectId || '';\n\t\t\tvar projectSlug = document.body.dataset.projectSlug || '';\n\t\t\tvar audio = null;\n\t\t\tvar isPlaying = false;\n\t\t\tvar hasStarted = false;\n\t\t\tvar MUSIC_KEY = 'wedding_music_state_' + projectID;\n\n\t\t\tfunction initAudio() {\n\t\t\t\tif (!musicUrl) return false;\n\t\t\t\tif (audio) return true;\n\t\t\t\taudio = new Audio(musicUrl);\n\t\t\t\taudio.loop = true;\n\t\t\t\taudio.volume = 0.5;\n\t\t\t\treturn true;\n\t\t\t}\n\n\t\t\twindow.startMusic = function() {\n\t\t\t\tif (!initAudio()) {\n\t\t\t\t\tshowToast('info', 'Belum ada musik untuk undangan ini');\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\taudio.play().then(function() {\n\t\t\t\t\tisPlaying = true;\n\t\t\t\t\thasStarted = true;\n\t\t\t\t\tvar btn = document.getElementById('musicToggle');\n\t\t\t\t\tif (btn) {\n\t\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-pause-fill\"></i>';\n\t\t\t\t\t\tbtn.classList.add('playing');\n\t\t\t\t\t}\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'playing');\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t}).catch(function(e) {\n\t\t\t\t\tconsole.log('Play failed:', e);\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t\tdocument.addEventListener('click', function retry() {\n\t\t\t\t\t\taudio.play().catch(function(){});\n\t\t\t\t\t\tdocument.removeEventListener('click', retry);\n\t\t\t\t\t}, { once: true });\n\t\t\t\t});\n\t\t\t};\n\n\t\t\tfunction closeOverlay() {\n\t\t\t\tvar overlay = document.getElementById('startOverlay');\n\t\t\t\tif (overlay) {\n\t\t\t\t\toverlay.style.opacity = '0';\n\t\t\t\t\tsetTimeout(function() {\n\t\t\t\t\t\toverlay.style.display = 'none';\n\t\t\t\t\t\tdocument.body.style.overflow = '';\n\t\t\t\t\t}, 800);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\twindow.toggleMusic = function() {\n\t\t\t\tif (!audio && musicUrl) initAudio();\n\t\t\t\tif (!audio) {\n\t\t\t\t\tshowToast('info', 'Belum ada musik untuk undangan ini');\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\tvar btn = document.getElementById('musicToggle');\n\t\t\t\tif (isPlaying) {\n\t\t\t\t\taudio.pause();\n\t\t\t\t\tisPlaying = false;\n\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-music-note\"></i>';\n\t\t\t\t\tbtn.classList.remove('playing');\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'paused');\n\t\t\t\t} else {\n\t\t\t\t\taudio.play().catch(function(e) { console.log('Play blocked'); });\n\t\t\t\t\tisPlaying = true;\n\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-pause-fill\"></i>';\n\t\t\t\t\tbtn.classList.add('playing');\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'playing');\n\t\t\t\t}\n\t\t\t};\n\n\t\t\tdocument.getElementById('startOverlay')?.addEventListener('click', function(e) {\n\t\t\t\tstartMusic();\n\t\t\t});\n\t\t\tdocument.getElementById('musicToggle')?.addEventListener('click', function(e) {\n\t\t\t\tif (!hasStarted) startMusic();\n\t\t\t});\n\t\t\tdocument.addEventListener('keydown', function(e) {\n\t\t\t\tif (e.key === ' ' && !hasStarted) { e.preventDefault(); startMusic(); }\n\t\t\t});\n\n\t\t\twindow.scrollToCouple = function() {\n\t\t\t\tvar el = document.getElementById('section-couple');\n\t\t\t\tif (el) el.scrollIntoView({ behavior: 'smooth' });\n\t\t\t};\n\n\t\t\tfunction showToast(type, message) {\n\t\t\t\tvar container = document.querySelector('.toast-container');\n\t\t\t\tif (!container) {\n\t\t\t\t\tcontainer = document.createElement('div');\n\t\t\t\t\tcontainer.className = 'toast-container';\n\t\t\t\t\tdocument.body.appendChild(container);\n\t\t\t\t}\n\t\t\t\tvar toast = document.createElement('div');\n\t\t\t\ttoast.className = 'toast';\n\t\t\t\tvar icons = { success: 'bi-check-circle-fill', error: 'bi-x-circle-fill', info: 'bi-info-circle-fill' };\n\t\t\t\ttoast.innerHTML = '<i class=\"bi ' + (icons[type] || icons.info) + '\"></i><span>' + message + '</span>';\n\t\t\t\tcontainer.appendChild(toast);\n\t\t\t\tsetTimeout(function() {\n\t\t\t\t\ttoast.style.opacity = '0';\n\t\t\t\t\ttoast.style.transform = 'translateX(100px)';\n\t\t\t\t\tsetTimeout(function() { toast.remove(); }, 400);\n\t\t\t\t}, 3000);\n\t\t\t}\n\n\t\t\tfunction escapeHtml(text) {\n\t\t\t\tif (!text) return '';\n\t\t\t\tvar div = document.createElement('div');\n\t\t\t\tdiv.textContent = text;\n\t\t\t\treturn div.innerHTML;\n\t\t\t}\n\n\t\t\t// COPY BANK NUMBER\n\t\t\twindow.copyBankNumberFromEl = function(el) {\n\t\t\t\tvar number = el.getAttribute('data-number');\n\t\t\t\tif (!number) return;\n\t\t\t\tcopyText(number, el);\n\t\t\t};\n\n\t\t\tfunction copyText(number, element) {\n\t\t\t\tvar doSuccess = function() {\n\t\t\t\t\tshowToast('success', 'Nomor rekening dicopy!');\n\t\t\t\t\tif (element) {\n\t\t\t\t\t\tvar icon = element.querySelector('.copy-icon');\n\t\t\t\t\t\tif (icon) {\n\t\t\t\t\t\t\tvar original = icon.className;\n\t\t\t\t\t\t\ticon.className = 'bi bi-check-circle-fill copy-icon';\n\t\t\t\t\t\t\ticon.style.color = '#10b981';\n\t\t\t\t\t\t\ticon.style.opacity = '1';\n\t\t\t\t\t\t\tsetTimeout(function() {\n\t\t\t\t\t\t\t\ticon.className = original;\n\t\t\t\t\t\t\t\ticon.style.color = '';\n\t\t\t\t\t\t\t\ticon.style.opacity = '';\n\t\t\t\t\t\t\t}, 1500);\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t};\n\t\t\t\tif (navigator.clipboard) {\n\t\t\t\t\tnavigator.clipboard.writeText(number).then(doSuccess).catch(function() {\n\t\t\t\t\t\tfallbackCopy(number, element);\n\t\t\t\t\t});\n\t\t\t\t} else {\n\t\t\t\t\tfallbackCopy(number, element);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tfunction fallbackCopy(text, element) {\n\t\t\t\tvar textarea = document.createElement('textarea');\n\t\t\t\ttextarea.value = text;\n\t\t\t\ttextarea.style.position = 'fixed';\n\t\t\t\ttextarea.style.opacity = '0';\n\t\t\t\tdocument.body.appendChild(textarea);\n\t\t\t\ttextarea.select();\n\t\t\t\ttry {\n\t\t\t\t\tdocument.execCommand('copy');\n\t\t\t\t\tshowToast('success', 'Nomor rekening dicopy!');\n\t\t\t\t} catch (err) {\n\t\t\t\t\tshowToast('error', 'Gagal copy nomor');\n\t\t\t\t}\n\t\t\t\tdocument.body.removeChild(textarea);\n\t\t\t}\n\n\t\t\t// LIGHTBOX\n\t\t\tdocument.addEventListener('DOMContentLoaded', function() {\n\t\t\t\tdocument.querySelectorAll('.gallery-item').forEach(function(item) {\n\t\t\t\t\titem.addEventListener('click', function() {\n\t\t\t\t\t\tvar img = this.querySelector('img');\n\t\t\t\t\t\tif (img) {\n\t\t\t\t\t\t\tvar lightbox = document.createElement('div');\n\t\t\t\t\t\t\tlightbox.className = 'lightbox';\n\t\t\t\t\t\t\tlightbox.innerHTML = '<span class=\"lightbox-close\">&times;</span><img src=\"' + img.src + '\" alt=\"' + (img.alt || 'Foto') + '\">';\n\t\t\t\t\t\t\tdocument.body.appendChild(lightbox);\n\t\t\t\t\t\t\tlightbox.addEventListener('click', function(e) {\n\t\t\t\t\t\t\t\tif (e.target === this || e.target.classList.contains('lightbox-close')) {\n\t\t\t\t\t\t\t\t\tthis.remove();\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t}\n\t\t\t\t\t});\n\t\t\t\t});\n\t\t\t});\n\n\t\t\t// LOAD RSVP LIST\n\t\t\tfunction loadRsvpList() {\n\t\t\t\tvar listContainer = document.getElementById('rsvpList');\n\t\t\t\tvar countContainer = document.getElementById('rsvpCount');\n\t\t\t\tif (!listContainer) return;\n\n\t\t\t\tfetch('/invitation/' + projectSlug + '/rsvp-list')\n\t\t\t\t\t.then(function(r) { return r.json(); })\n\t\t\t\t\t.then(function(data) {\n\t\t\t\t\t\tif (!data || data.length === 0) {\n\t\t\t\t\t\t\tlistContainer.innerHTML = '<div class=\"rsvp-empty\"><i class=\"bi bi-envelope\"></i>Belum ada konfirmasi kehadiran</div>';\n\t\t\t\t\t\t\tif (countContainer) countContainer.textContent = '0 tamu';\n\t\t\t\t\t\t\treturn;\n\t\t\t\t\t\t}\n\t\t\t\t\t\tvar totalGuests = 0;\n\t\t\t\t\t\tvar html = '';\n\t\t\t\t\t\tdata.forEach(function(item) {\n\t\t\t\t\t\t\tvar statusText = item.attendance === 'hadir' ? '✅ Hadir' : (item.attendance === 'tidak_hadir' ? '❌ Tidak Hadir' : '❓ Ragu-ragu');\n\t\t\t\t\t\t\ttotalGuests += parseInt(item.total_guests || 1);\n\t\t\t\t\t\t\tvar time = new Date(item.created_at);\n\t\t\t\t\t\t\tvar timeStr = time.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + time.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });\n\t\t\t\t\t\t\tvar messageHtml = item.message ? '<div class=\"message\">' + escapeHtml(item.message) + '</div>' : '';\n\t\t\t\t\t\t\thtml += '<div class=\"rsvp-item\"><div class=\"row-main\"><span class=\"guest-name\">' + escapeHtml(item.guest_name) + '</span><span class=\"status-badge ' + item.attendance + '\">' + statusText + '</span></div><div class=\"row-detail\"><div class=\"meta-left\"><span class=\"time\"><i class=\"bi bi-clock\"></i> ' + timeStr + '</span><span class=\"guests\"><i class=\"bi bi-person\"></i> ' + (item.total_guests || 1) + ' org</span></div></div>' + messageHtml + '</div>';\n\t\t\t\t\t\t});\n\t\t\t\t\t\tlistContainer.innerHTML = html;\n\t\t\t\t\t\tif (countContainer) countContainer.textContent = totalGuests + ' tamu';\n\t\t\t\t\t})\n\t\t\t\t\t.catch(function() {\n\t\t\t\t\t\tlistContainer.innerHTML = '<div class=\"rsvp-empty\"><i class=\"bi bi-exclamation-triangle\"></i>Gagal memuat daftar konfirmasi<br><button onclick=\"loadRsvpList()\" style=\"margin-top:10px; padding:8px 20px; background:var(--gold); color:var(--dark); border:none; border-radius:8px; cursor:pointer; font-weight:600;\"><i class=\"bi bi-arrow-clockwise\"></i> Coba Lagi</button></div>';\n\t\t\t\t\t});\n\t\t\t}\n\n\t\t\t// SUBMIT RSVP\n\t\t\tdocument.addEventListener('DOMContentLoaded', function() {\n\t\t\t\tvar form = document.getElementById('rsvpForm');\n\t\t\t\tif (!form) return;\n\t\t\t\tform.addEventListener('submit', function(e) {\n\t\t\t\t\te.preventDefault();\n\t\t\t\t\tvar formData = new FormData(form);\n\t\t\t\t\tvar btn = form.querySelector('button[type=\"submit\"]');\n\t\t\t\t\tvar originalText = btn.innerHTML;\n\t\t\t\t\tbtn.disabled = true;\n\t\t\t\t\tbtn.innerHTML = '<span class=\"spinner-border spinner-border-sm me-2\"></span>Mengirim...';\n\t\t\t\t\tfetch(form.action, { method: 'POST', body: formData })\n\t\t\t\t\t\t.then(function(r) { return r.json(); })\n\t\t\t\t\t\t.then(function(data) {\n\t\t\t\t\t\t\tif (data.success) {\n\t\t\t\t\t\t\t\tvar isUpdate = data.updated === true;\n\t\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\t\ttitle: isUpdate ? 'Konfirmasi Diperbarui!' : 'Berhasil!',\n\t\t\t\t\t\t\t\t\ttext: data.message,\n\t\t\t\t\t\t\t\t\ticon: 'success',\n\t\t\t\t\t\t\t\t\tconfirmButtonColor: '#c9a03d',\n\t\t\t\t\t\t\t\t\tbackground: '#1a1a1a',\n\t\t\t\t\t\t\t\t\tcolor: '#e8d5b7',\n\t\t\t\t\t\t\t\t\ttimer: 2000,\n\t\t\t\t\t\t\t\t\ttimerProgressBar: true,\n\t\t\t\t\t\t\t\t\tshowConfirmButton: false\n\t\t\t\t\t\t\t\t});\n\t\t\t\t\t\t\t\tif (!isUpdate) form.reset();\n\t\t\t\t\t\t\t\tsetTimeout(function() { loadRsvpList(); }, 500);\n\t\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\t\ttitle: 'Gagal!',\n\t\t\t\t\t\t\t\t\ttext: data.message || 'Terjadi kesalahan',\n\t\t\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\t\t\tconfirmButtonColor: '#c9a03d',\n\t\t\t\t\t\t\t\t\tbackground: '#1a1a1a',\n\t\t\t\t\t\t\t\t\tcolor: '#e8d5b7'\n\t\t\t\t\t\t\t\t});\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t})\n\t\t\t\t\t\t.catch(function() {\n\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\ttitle: 'Error!',\n\t\t\t\t\t\t\t\ttext: 'Terjadi kesalahan, silakan coba lagi',\n\t\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\t\tconfirmButtonColor: '#c9a03d',\n\t\t\t\t\t\t\t\tbackground: '#1a1a1a',\n\t\t\t\t\t\t\t\tcolor: '#e8d5b7'\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t})\n\t\t\t\t\t\t.finally(function() {\n\t\t\t\t\t\t\tbtn.disabled = false;\n\t\t\t\t\t\t\tbtn.innerHTML = originalText;\n\t\t\t\t\t\t});\n\t\t\t\t});\n\t\t\t\tloadRsvpList();\n\t\t\t});\n\t\t</script></body></html>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 166, " ")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var90 string
+		templ_7745c5c3_Var90, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "footer_copyright", "Wedding SaaS. Platform Undangan Digital. All rights reserved."))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/elegant_gold/index.templ`, Line: 1764, Col: 144}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var90))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 167, "</p></div></div></footer><!-- ============================================ --><!-- SCRIPTS --><!-- ============================================ --><script src=\"https://unpkg.com/aos@2.3.1/dist/aos.js\"></script><script src=\"https://cdn.jsdelivr.net/npm/sweetalert2@11\"></script><script>\n\t\t\t// AOS\n\t\t\tAOS.init({\n\t\t\t\tduration: 800,\n\t\t\t\teasing: 'ease-in-out',\n\t\t\t\tonce: true,\n\t\t\t\tmirror: false,\n\t\t\t\toffset: 50,\n\t\t\t\tdisable: function() { return window.innerWidth < 480; }\n\t\t\t});\n\t\t\twindow.addEventListener('resize', function() { AOS.refresh(); });\n\n\t\t\t// MUSIC PLAYER — baca dari data-attribute\n\t\t\tvar musicUrl = document.body.dataset.musicUrl || '';\n\t\t\tvar projectID = document.body.dataset.projectId || '';\n\t\t\tvar projectSlug = document.body.dataset.projectSlug || '';\n\t\t\tvar audio = null;\n\t\t\tvar isPlaying = false;\n\t\t\tvar hasStarted = false;\n\t\t\tvar MUSIC_KEY = 'wedding_music_state_' + projectID;\n\n\t\t\tfunction initAudio() {\n\t\t\t\tif (!musicUrl) return false;\n\t\t\t\tif (audio) return true;\n\t\t\t\taudio = new Audio(musicUrl);\n\t\t\t\taudio.loop = true;\n\t\t\t\taudio.volume = 0.5;\n\t\t\t\treturn true;\n\t\t\t}\n\n\t\t\twindow.startMusic = function() {\n\t\t\t\tif (!initAudio()) {\n\t\t\t\t\tshowToast('info', 'Belum ada musik untuk undangan ini');\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\taudio.play().then(function() {\n\t\t\t\t\tisPlaying = true;\n\t\t\t\t\thasStarted = true;\n\t\t\t\t\tvar btn = document.getElementById('musicToggle');\n\t\t\t\t\tif (btn) {\n\t\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-pause-fill\"></i>';\n\t\t\t\t\t\tbtn.classList.add('playing');\n\t\t\t\t\t}\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'playing');\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t}).catch(function(e) {\n\t\t\t\t\tconsole.log('Play failed:', e);\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t\tdocument.addEventListener('click', function retry() {\n\t\t\t\t\t\taudio.play().catch(function(){});\n\t\t\t\t\t\tdocument.removeEventListener('click', retry);\n\t\t\t\t\t}, { once: true });\n\t\t\t\t});\n\t\t\t};\n\n\t\t\tfunction closeOverlay() {\n\t\t\t\tvar overlay = document.getElementById('startOverlay');\n\t\t\t\tif (overlay) {\n\t\t\t\t\toverlay.style.opacity = '0';\n\t\t\t\t\tsetTimeout(function() {\n\t\t\t\t\t\toverlay.style.display = 'none';\n\t\t\t\t\t\tdocument.body.style.overflow = '';\n\t\t\t\t\t}, 800);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\twindow.toggleMusic = function() {\n\t\t\t\tif (!audio && musicUrl) initAudio();\n\t\t\t\tif (!audio) {\n\t\t\t\t\tshowToast('info', 'Belum ada musik untuk undangan ini');\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\tvar btn = document.getElementById('musicToggle');\n\t\t\t\tif (isPlaying) {\n\t\t\t\t\taudio.pause();\n\t\t\t\t\tisPlaying = false;\n\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-music-note\"></i>';\n\t\t\t\t\tbtn.classList.remove('playing');\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'paused');\n\t\t\t\t} else {\n\t\t\t\t\taudio.play().catch(function(e) { console.log('Play blocked'); });\n\t\t\t\t\tisPlaying = true;\n\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-pause-fill\"></i>';\n\t\t\t\t\tbtn.classList.add('playing');\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'playing');\n\t\t\t\t}\n\t\t\t};\n\n\t\t\tdocument.getElementById('startOverlay')?.addEventListener('click', function(e) {\n\t\t\t\tstartMusic();\n\t\t\t});\n\t\t\tdocument.getElementById('musicToggle')?.addEventListener('click', function(e) {\n\t\t\t\tif (!hasStarted) startMusic();\n\t\t\t});\n\t\t\tdocument.addEventListener('keydown', function(e) {\n\t\t\t\tif (e.key === ' ' && !hasStarted) { e.preventDefault(); startMusic(); }\n\t\t\t});\n\n\t\t\twindow.scrollToCouple = function() {\n\t\t\t\tvar el = document.getElementById('section-couple');\n\t\t\t\tif (el) el.scrollIntoView({ behavior: 'smooth' });\n\t\t\t};\n\n\t\t\tfunction showToast(type, message) {\n\t\t\t\tvar container = document.querySelector('.toast-container');\n\t\t\t\tif (!container) {\n\t\t\t\t\tcontainer = document.createElement('div');\n\t\t\t\t\tcontainer.className = 'toast-container';\n\t\t\t\t\tdocument.body.appendChild(container);\n\t\t\t\t}\n\t\t\t\tvar toast = document.createElement('div');\n\t\t\t\ttoast.className = 'toast';\n\t\t\t\tvar icons = { success: 'bi-check-circle-fill', error: 'bi-x-circle-fill', info: 'bi-info-circle-fill' };\n\t\t\t\ttoast.innerHTML = '<i class=\"bi ' + (icons[type] || icons.info) + '\"></i><span>' + message + '</span>';\n\t\t\t\tcontainer.appendChild(toast);\n\t\t\t\tsetTimeout(function() {\n\t\t\t\t\ttoast.style.opacity = '0';\n\t\t\t\t\ttoast.style.transform = 'translateX(100px)';\n\t\t\t\t\tsetTimeout(function() { toast.remove(); }, 400);\n\t\t\t\t}, 3000);\n\t\t\t}\n\n\t\t\tfunction escapeHtml(text) {\n\t\t\t\tif (!text) return '';\n\t\t\t\tvar div = document.createElement('div');\n\t\t\t\tdiv.textContent = text;\n\t\t\t\treturn div.innerHTML;\n\t\t\t}\n\n\t\t\t// COPY BANK NUMBER\n\t\t\twindow.copyBankNumberFromEl = function(el) {\n\t\t\t\tvar number = el.getAttribute('data-number');\n\t\t\t\tif (!number) return;\n\t\t\t\tcopyText(number, el);\n\t\t\t};\n\n\t\t\tfunction copyText(number, element) {\n\t\t\t\tvar doSuccess = function() {\n\t\t\t\t\tshowToast('success', 'Nomor rekening dicopy!');\n\t\t\t\t\tif (element) {\n\t\t\t\t\t\tvar icon = element.querySelector('.copy-icon');\n\t\t\t\t\t\tif (icon) {\n\t\t\t\t\t\t\tvar original = icon.className;\n\t\t\t\t\t\t\ticon.className = 'bi bi-check-circle-fill copy-icon';\n\t\t\t\t\t\t\ticon.style.color = '#10b981';\n\t\t\t\t\t\t\ticon.style.opacity = '1';\n\t\t\t\t\t\t\tsetTimeout(function() {\n\t\t\t\t\t\t\t\ticon.className = original;\n\t\t\t\t\t\t\t\ticon.style.color = '';\n\t\t\t\t\t\t\t\ticon.style.opacity = '';\n\t\t\t\t\t\t\t}, 1500);\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t};\n\t\t\t\tif (navigator.clipboard) {\n\t\t\t\t\tnavigator.clipboard.writeText(number).then(doSuccess).catch(function() {\n\t\t\t\t\t\tfallbackCopy(number, element);\n\t\t\t\t\t});\n\t\t\t\t} else {\n\t\t\t\t\tfallbackCopy(number, element);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tfunction fallbackCopy(text, element) {\n\t\t\t\tvar textarea = document.createElement('textarea');\n\t\t\t\ttextarea.value = text;\n\t\t\t\ttextarea.style.position = 'fixed';\n\t\t\t\ttextarea.style.opacity = '0';\n\t\t\t\tdocument.body.appendChild(textarea);\n\t\t\t\ttextarea.select();\n\t\t\t\ttry {\n\t\t\t\t\tdocument.execCommand('copy');\n\t\t\t\t\tshowToast('success', 'Nomor rekening dicopy!');\n\t\t\t\t} catch (err) {\n\t\t\t\t\tshowToast('error', 'Gagal copy nomor');\n\t\t\t\t}\n\t\t\t\tdocument.body.removeChild(textarea);\n\t\t\t}\n\n\t\t\t// LIGHTBOX\n\t\t\tdocument.addEventListener('DOMContentLoaded', function() {\n\t\t\t\tdocument.querySelectorAll('.gallery-item').forEach(function(item) {\n\t\t\t\t\titem.addEventListener('click', function() {\n\t\t\t\t\t\tvar img = this.querySelector('img');\n\t\t\t\t\t\tif (img) {\n\t\t\t\t\t\t\tvar lightbox = document.createElement('div');\n\t\t\t\t\t\t\tlightbox.className = 'lightbox';\n\t\t\t\t\t\t\tlightbox.innerHTML = '<span class=\"lightbox-close\">&times;</span><img src=\"' + img.src + '\" alt=\"' + (img.alt || 'Foto') + '\">';\n\t\t\t\t\t\t\tdocument.body.appendChild(lightbox);\n\t\t\t\t\t\t\tlightbox.addEventListener('click', function(e) {\n\t\t\t\t\t\t\t\tif (e.target === this || e.target.classList.contains('lightbox-close')) {\n\t\t\t\t\t\t\t\t\tthis.remove();\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t}\n\t\t\t\t\t});\n\t\t\t\t});\n\t\t\t});\n\n\t\t\t// LOAD RSVP LIST\n\t\t\tfunction loadRsvpList() {\n\t\t\t\tvar listContainer = document.getElementById('rsvpList');\n\t\t\t\tvar countContainer = document.getElementById('rsvpCount');\n\t\t\t\tif (!listContainer) return;\n\n\t\t\t\tfetch('/invitation/' + projectSlug + '/rsvp-list')\n\t\t\t\t\t.then(function(r) { return r.json(); })\n\t\t\t\t\t.then(function(data) {\n\t\t\t\t\t\tif (!data || data.length === 0) {\n\t\t\t\t\t\t\tlistContainer.innerHTML = '<div class=\"rsvp-empty\"><i class=\"bi bi-envelope\"></i>Belum ada konfirmasi kehadiran</div>';\n\t\t\t\t\t\t\tif (countContainer) countContainer.textContent = '0 tamu';\n\t\t\t\t\t\t\treturn;\n\t\t\t\t\t\t}\n\t\t\t\t\t\tvar totalGuests = 0;\n\t\t\t\t\t\tvar html = '';\n\t\t\t\t\t\tdata.forEach(function(item) {\n\t\t\t\t\t\t\tvar statusText = item.attendance === 'hadir' ? '✅ Hadir' : (item.attendance === 'tidak_hadir' ? '❌ Tidak Hadir' : '❓ Ragu-ragu');\n\t\t\t\t\t\t\ttotalGuests += parseInt(item.total_guests || 1);\n\t\t\t\t\t\t\tvar time = new Date(item.created_at);\n\t\t\t\t\t\t\tvar timeStr = time.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + time.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });\n\t\t\t\t\t\t\tvar messageHtml = item.message ? '<div class=\"message\">' + escapeHtml(item.message) + '</div>' : '';\n\t\t\t\t\t\t\thtml += '<div class=\"rsvp-item\"><div class=\"row-main\"><span class=\"guest-name\">' + escapeHtml(item.guest_name) + '</span><span class=\"status-badge ' + item.attendance + '\">' + statusText + '</span></div><div class=\"row-detail\"><div class=\"meta-left\"><span class=\"time\"><i class=\"bi bi-clock\"></i> ' + timeStr + '</span><span class=\"guests\"><i class=\"bi bi-person\"></i> ' + (item.total_guests || 1) + ' org</span></div></div>' + messageHtml + '</div>';\n\t\t\t\t\t\t});\n\t\t\t\t\t\tlistContainer.innerHTML = html;\n\t\t\t\t\t\tif (countContainer) countContainer.textContent = totalGuests + ' tamu';\n\t\t\t\t\t})\n\t\t\t\t\t.catch(function() {\n\t\t\t\t\t\tlistContainer.innerHTML = '<div class=\"rsvp-empty\"><i class=\"bi bi-exclamation-triangle\"></i>Gagal memuat daftar konfirmasi<br><button onclick=\"loadRsvpList()\" style=\"margin-top:10px; padding:8px 20px; background:var(--gold); color:var(--dark); border:none; border-radius:8px; cursor:pointer; font-weight:600;\"><i class=\"bi bi-arrow-clockwise\"></i> Coba Lagi</button></div>';\n\t\t\t\t\t});\n\t\t\t}\n\n\t\t\t// SUBMIT RSVP\n\t\t\tdocument.addEventListener('DOMContentLoaded', function() {\n\t\t\t\tvar form = document.getElementById('rsvpForm');\n\t\t\t\tif (!form) return;\n\t\t\t\tform.addEventListener('submit', function(e) {\n\t\t\t\t\te.preventDefault();\n\t\t\t\t\tvar formData = new FormData(form);\n\t\t\t\t\tvar btn = form.querySelector('button[type=\"submit\"]');\n\t\t\t\t\tvar originalText = btn.innerHTML;\n\t\t\t\t\tbtn.disabled = true;\n\t\t\t\t\tbtn.innerHTML = '<span class=\"spinner-border spinner-border-sm me-2\"></span>Mengirim...';\n\t\t\t\t\tfetch(form.action, { method: 'POST', body: formData })\n\t\t\t\t\t\t.then(function(r) { return r.json(); })\n\t\t\t\t\t\t.then(function(data) {\n\t\t\t\t\t\t\tif (data.success) {\n\t\t\t\t\t\t\t\tvar isUpdate = data.updated === true;\n\t\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\t\ttitle: isUpdate ? 'Konfirmasi Diperbarui!' : 'Berhasil!',\n\t\t\t\t\t\t\t\t\ttext: data.message,\n\t\t\t\t\t\t\t\t\ticon: 'success',\n\t\t\t\t\t\t\t\t\tconfirmButtonColor: '#c9a03d',\n\t\t\t\t\t\t\t\t\tbackground: '#1a1a1a',\n\t\t\t\t\t\t\t\t\tcolor: '#e8d5b7',\n\t\t\t\t\t\t\t\t\ttimer: 2000,\n\t\t\t\t\t\t\t\t\ttimerProgressBar: true,\n\t\t\t\t\t\t\t\t\tshowConfirmButton: false\n\t\t\t\t\t\t\t\t});\n\t\t\t\t\t\t\t\tif (!isUpdate) form.reset();\n\t\t\t\t\t\t\t\tsetTimeout(function() { loadRsvpList(); }, 500);\n\t\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\t\ttitle: 'Gagal!',\n\t\t\t\t\t\t\t\t\ttext: data.message || 'Terjadi kesalahan',\n\t\t\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\t\t\tconfirmButtonColor: '#c9a03d',\n\t\t\t\t\t\t\t\t\tbackground: '#1a1a1a',\n\t\t\t\t\t\t\t\t\tcolor: '#e8d5b7'\n\t\t\t\t\t\t\t\t});\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t})\n\t\t\t\t\t\t.catch(function() {\n\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\ttitle: 'Error!',\n\t\t\t\t\t\t\t\ttext: 'Terjadi kesalahan, silakan coba lagi',\n\t\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\t\tconfirmButtonColor: '#c9a03d',\n\t\t\t\t\t\t\t\tbackground: '#1a1a1a',\n\t\t\t\t\t\t\t\tcolor: '#e8d5b7'\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t})\n\t\t\t\t\t\t.finally(function() {\n\t\t\t\t\t\t\tbtn.disabled = false;\n\t\t\t\t\t\t\tbtn.innerHTML = originalText;\n\t\t\t\t\t\t});\n\t\t\t\t});\n\t\t\t\tloadRsvpList();\n\t\t\t});\n\t\t</script></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

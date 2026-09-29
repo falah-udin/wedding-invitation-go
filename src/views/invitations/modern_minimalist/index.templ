@@ -369,17 +369,20 @@ templ modernMinimalistPage(
 			/* HERO — FULLSCREEN PHOTO */
 			/* ============================================ */
 			.hero-editorial {
-                position: relative;
-                min-height: 100vh;
-                min-height: 100svh;
-                display: flex;
-                align-items: flex-end;
-                justify-content: center;
-                padding: 80px 24px 80px;
-                color: var(--white);
-                overflow: hidden;
-                background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
-            }
+				position: relative;
+				min-height: 100vh;
+				min-height: 100svh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding-top: 140px;
+				padding-bottom: 80px;
+				padding-left: 24px;
+				padding-right: 24px;
+				color: var(--white);
+				overflow: hidden;
+				background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+			}
             .hero-editorial .hero-bg-img {
                 position: absolute;
                 top: 0;
@@ -415,14 +418,12 @@ templ modernMinimalistPage(
                 z-index: 1;
                 pointer-events: none;
             }
-            .hero-editorial .hero-inner {
-                position: relative;
-                z-index: 2;
-                text-align: center;
-                max-width: 720px;
-                width: 100%;
-                padding-bottom: 20px;
-            }
+			.hero-editorial .hero-inner {
+				position: relative;
+				z-index: 2;
+				text-align: center;
+				max-width: 720px;
+				width: 100%;
 			}
 			.hero-editorial .hero-eyebrow {
                 font-size: 0.65rem;
@@ -516,7 +517,12 @@ templ modernMinimalistPage(
 				50% { transform: translateX(-50%) translateY(8px); }
 			}
 			@media (max-width: 700px) {
-				.hero-editorial { padding: 60px 20px 60px; }
+				.hero-editorial { 
+					padding-top: 100px; 
+					padding-bottom: 60px;
+					padding-left: 20px;
+					padding-right: 20px;
+				}
 				.hero-editorial .hero-names { font-size: 3rem; }
 				.hero-editorial .hero-names .amp { font-size: 1.5rem; margin: 10px 0; }
 				.hero-editorial .hero-eyebrow { letter-spacing: 5px; margin-bottom: 20px; }

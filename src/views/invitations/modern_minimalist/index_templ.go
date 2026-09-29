@@ -108,14 +108,14 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, " - Modern Minimalist</title><link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap\" rel=\"stylesheet\"><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css\"><link href=\"https://unpkg.com/aos@2.3.1/dist/aos.css\" rel=\"stylesheet\"><style>\n\t\t\t/* ============================================ */\n\t\t\t/* ROOT VARIABLES */\n\t\t\t/* ============================================ */\n\t\t\t:root {\n\t\t\t\t--bg: #fafaf9;\n\t\t\t\t--bg-alt: #f5f5f4;\n\t\t\t\t--bg-dark: #1c1917;\n\t\t\t\t--card: #ffffff;\n\t\t\t\t--text: #1c1917;\n\t\t\t\t--text-muted: #78716c;\n\t\t\t\t--text-light: #a8a29e;\n\t\t\t\t--accent: #4a5d4a;\n\t\t\t\t--accent-light: #7d8c7d;\n\t\t\t\t--accent-soft: rgba(74, 93, 74, 0.08);\n\t\t\t\t--line: #e7e5e4;\n\t\t\t\t--line-strong: #d6d3d1;\n\t\t\t\t--white: #ffffff;\n\t\t\t\t--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);\n\t\t\t\t--shadow-md: 0 8px 32px rgba(0, 0, 0, 0.08);\n\t\t\t\t--shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.12);\n\t\t\t}\n\n\t\t\t* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }\n\t\t\thtml { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }\n\t\t\tbody {\n\t\t\t\tfont-family: 'Inter', sans-serif;\n\t\t\t\tbackground: var(--bg);\n\t\t\t\tcolor: var(--text);\n\t\t\t\tline-height: 1.7;\n\t\t\t\toverflow-x: hidden;\n\t\t\t\tmin-height: 100vh;\n\t\t\t\tmin-height: 100svh;\n\t\t\t\tfont-weight: 400;\n\t\t\t\t-webkit-font-smoothing: antialiased;\n\t\t\t}\n\t\t\timg { max-width: 100%; height: auto; display: block; }\n\n\t\t\t.container { max-width: 720px; margin: 0 auto; padding: 0 24px; }\n\t\t\t.container-wide { max-width: 1200px; margin: 0 auto; padding: 0 24px; }\n\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.container, .container-wide { padding: 0 20px; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* TYPOGRAPHY */\n\t\t\t/* ============================================ */\n\t\t\t.section-label {\n\t\t\t\tfont-size: 0.68rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 6px;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\ttext-align: center;\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.section-label::before {\n\t\t\t\tcontent: '';\n\t\t\t\tdisplay: inline-block;\n\t\t\t\twidth: 20px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: var(--text-light);\n\t\t\t\tvertical-align: middle;\n\t\t\t\tmargin-right: 12px;\n\t\t\t\topacity: 0.5;\n\t\t\t}\n\t\t\t.section-label::after {\n\t\t\t\tcontent: '';\n\t\t\t\tdisplay: inline-block;\n\t\t\t\twidth: 20px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: var(--text-light);\n\t\t\t\tvertical-align: middle;\n\t\t\t\tmargin-left: 12px;\n\t\t\t\topacity: 0.5;\n\t\t\t}\n\t\t\t.section-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 3rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\ttext-align: center;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tline-height: 1.15;\n\t\t\t\tletter-spacing: -0.02em;\n\t\t\t}\n\t\t\t.section-title em {\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--accent);\n\t\t\t}\n\t\t\t.section-subtitle {\n\t\t\t\ttext-align: center;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tmax-width: 500px;\n\t\t\t\tmargin: 0 auto 60px;\n\t\t\t\tfont-weight: 300;\n\t\t\t\tline-height: 1.8;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.section-title { font-size: 2rem; }\n\t\t\t\t.section-subtitle { font-size: 0.85rem; margin-bottom: 40px; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* TOAST */\n\t\t\t/* ============================================ */\n\t\t\t.toast-container {\n\t\t\t\tposition: fixed; top: 20px; right: 20px; z-index: 9999;\n\t\t\t\tdisplay: flex; flex-direction: column; gap: 8px;\n\t\t\t}\n\t\t\t.toast {\n\t\t\t\tbackground: var(--text); color: var(--white);\n\t\t\t\tpadding: 12px 20px; border-radius: 8px;\n\t\t\t\tbox-shadow: var(--shadow-lg);\n\t\t\t\tanimation: slideInToast 0.4s ease;\n\t\t\t\tmin-width: 200px;\n\t\t\t\tdisplay: flex; align-items: center; gap: 10px;\n\t\t\t\tfont-size: 0.85rem;\n\t\t\t}\n\t\t\t.toast i { font-size: 1.1rem; }\n\t\t\t.toast.success i { color: #10b981; }\n\t\t\t.toast.error i { color: #ef4444; }\n\t\t\t.toast.info i { color: var(--accent-light); }\n\t\t\t@keyframes slideInToast {\n\t\t\t\tfrom { transform: translateX(100%); opacity: 0; }\n\t\t\t\tto { transform: translateX(0); opacity: 1; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* OVERLAY */\n\t\t\t/* ============================================ */\n\t\t\t#startOverlay {\n                position: fixed; top: 0; left: 0; right: 0; bottom: 0;\n                width: 100vw; height: 100vh; height: 100svh;\n                background-color: #1a1a1a;\n                z-index: 9999;\n                display: flex; align-items: center; justify-content: center;\n                transition: opacity 0.8s ease;\n                cursor: pointer;\n                padding: 24px;\n                overflow-y: auto;\n            }\n            #startOverlay .overlay-bg-img {\n                position: absolute;\n                inset: 0;\n                width: 100%;\n                height: 100%;\n                object-fit: cover;\n                object-position: center;\n                opacity: 0.22;\n                filter: blur(1px) saturate(0.6);\n                z-index: 0;\n                pointer-events: none;\n            }\n            #startOverlay::before {\n                content: '';\n                position: absolute;\n                inset: 0;\n                background: \n                    radial-gradient(ellipse at 50% 40%, rgba(28,25,23,0.3) 0%, transparent 70%),\n                    linear-gradient(180deg, \n                        rgba(28,25,23,0.85) 0%, \n                        rgba(28,25,23,0.78) 40%, \n                        rgba(28,25,23,0.88) 70%, \n                        rgba(28,25,23,0.95) 100%);\n                z-index: 1;\n                pointer-events: none;\n            }\n\t\t\t#startOverlay .overlay-inner {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 2;\n\t\t\t\ttext-align: center;\n\t\t\t\tmax-width: 480px;\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding: 20px;\n\t\t\t\tmargin: auto;\n\t\t\t\tanimation: fadeIn 1.2s ease;\n\t\t\t}\n\t\t\t#startOverlay .overlay-eyebrow {\n\t\t\t\tfont-size: 0.65rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 8px;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.7);\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t\tfont-weight: 400;\n\t\t\t}\n\t\t\t#startOverlay .overlay-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 2.4rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--white);\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t\tline-height: 1.25;\n\t\t\t}\n\t\t\t#startOverlay .overlay-title span { display: block; }\n\t\t\t#startOverlay .overlay-title .amp {\n\t\t\t\tfont-size: 1.3rem;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.6);\n\t\t\t\tmargin: 10px 0;\n\t\t\t\tfont-style: italic;\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t#startOverlay .overlay-divider {\n\t\t\t\twidth: 60px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: rgba(255, 255, 255, 0.3);\n\t\t\t\tmargin: 32px auto;\n\t\t\t}\n\t\t\t#startOverlay .overlay-guest-label {\n\t\t\t\tfont-size: 0.62rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 5px;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.5);\n\t\t\t\tmargin-bottom: 10px;\n\t\t\t}\n\t\t\t#startOverlay .overlay-guest-name {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.6rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--white);\n\t\t\t\tmargin-bottom: 40px;\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t#startOverlay .btn-start {\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 10px;\n\t\t\t\tbackground: var(--white);\n\t\t\t\tcolor: var(--text);\n\t\t\t\tpadding: 16px 44px;\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tborder: none;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbox-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t\t#startOverlay .btn-start:hover {\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t\tbackground: var(--accent);\n\t\t\t\tcolor: var(--white);\n\t\t\t}\n\t\t\t#startOverlay .hint {\n\t\t\t\tfont-size: 0.6rem;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.4);\n\t\t\t\tmargin-top: 28px;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t\t@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }\n\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t#startOverlay { padding: 20px; }\n\t\t\t\t#startOverlay .overlay-title { font-size: 1.9rem; }\n\t\t\t\t#startOverlay .overlay-guest-name { font-size: 1.3rem; margin-bottom: 32px; }\n\t\t\t\t#startOverlay .btn-start { padding: 14px 32px; font-size: 0.75rem; width: 100%; max-width: 260px; justify-content: center; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* MUSIC PLAYER */\n\t\t\t/* ============================================ */\n\t\t\t.music-player {\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 24px;\n\t\t\t\tright: 24px;\n\t\t\t\tz-index: 1000;\n\t\t\t}\n\t\t\t.music-btn {\n\t\t\t\twidth: 48px;\n\t\t\t\theight: 48px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tbackground: rgba(28, 25, 23, 0.9);\n\t\t\t\tbackdrop-filter: blur(10px);\n\t\t\t\tborder: none;\n\t\t\t\tcolor: var(--white);\n\t\t\t\tfont-size: 1.15rem;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\t\t\t.music-btn:hover {\n\t\t\t\ttransform: scale(1.08);\n\t\t\t\tbackground: var(--accent);\n\t\t\t}\n\t\t\t.music-btn.playing { animation: pulseMinimal 2s infinite; }\n\t\t\t@keyframes pulseMinimal {\n\t\t\t\t0% { box-shadow: 0 0 0 0 rgba(74, 93, 74, 0.4); }\n\t\t\t\t70% { box-shadow: 0 0 0 16px rgba(74, 93, 74, 0); }\n\t\t\t\t100% { box-shadow: 0 0 0 0 rgba(74, 93, 74, 0); }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* HERO — FULLSCREEN PHOTO */\n\t\t\t/* ============================================ */\n\t\t\t.hero-editorial {\n                position: relative;\n                min-height: 100vh;\n                min-height: 100svh;\n                display: flex;\n                align-items: flex-end;\n                justify-content: center;\n                padding: 80px 24px 80px;\n                color: var(--white);\n                overflow: hidden;\n                background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);\n            }\n            .hero-editorial .hero-bg-img {\n                position: absolute;\n                top: 0;\n                left: 0;\n                width: 100%;\n                height: 100%;\n                object-fit: cover;\n                object-position: center;\n                z-index: 0;\n                pointer-events: none;\n                opacity: 0.25;                    /* ← foto jadi samar */\n                filter: blur(1.5px) saturate(0.7); /* ← efek dreamy */\n            }\n            .hero-editorial::before {\n                content: '';\n                position: absolute;\n                inset: 0;\n                background: \n                    radial-gradient(ellipse at 50% 30%, rgba(28,25,23,0.55) 0%, transparent 60%),\n                    linear-gradient(180deg, \n                        rgba(28,25,23,0.72) 0%, \n                        rgba(28,25,23,0.55) 30%, \n                        rgba(28,25,23,0.75) 65%, \n                        rgba(28,25,23,0.95) 100%);\n                z-index: 1;\n                pointer-events: none;\n            }\n            .hero-editorial::after {\n                content: '';\n                position: absolute;\n                inset: 0;\n                background: radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.3) 0%, transparent 70%);\n                z-index: 1;\n                pointer-events: none;\n            }\n            .hero-editorial .hero-inner {\n                position: relative;\n                z-index: 2;\n                text-align: center;\n                max-width: 720px;\n                width: 100%;\n                padding-bottom: 20px;\n            }\n\t\t\t}\n\t\t\t.hero-editorial .hero-eyebrow {\n                font-size: 0.65rem;\n                text-transform: uppercase;\n                letter-spacing: 8px;\n                color: rgba(255, 255, 255, 0.85);\n                margin-bottom: 28px;\n                font-weight: 400;\n                text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);\n            }\n\t\t\t.hero-editorial .hero-names {\n                font-family: 'Playfair Display', serif;\n                font-size: 5.5rem;\n                font-weight: 400;\n                line-height: 0.95;\n                letter-spacing: -0.03em;\n                margin-bottom: 24px;\n                display: flex;\n                flex-direction: column;\n                align-items: center;\n                color: var(--white);\n                text-shadow: \n                    0 4px 32px rgba(0, 0, 0, 0.55),\n                    0 2px 12px rgba(0, 0, 0, 0.4),\n                    0 1px 4px rgba(0, 0, 0, 0.3);\n            }\n\t\t\t.hero-editorial .hero-names .amp {\n\t\t\t\tfont-style: italic;\n\t\t\t\tfont-size: 2.2rem;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.75);\n\t\t\t\tmargin: 14px 0;\n\t\t\t\tline-height: 1;\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t.hero-editorial .hero-divider {\n                width: 60px;\n                height: 1px;\n                background: rgba(255, 255, 255, 0.55);\n                margin: 32px auto;\n                box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);\n            }\n\t\t\t.hero-editorial .hero-dates {\n                font-size: 0.85rem;\n                color: rgba(255, 255, 255, 0.92);\n                letter-spacing: 4px;\n                text-transform: uppercase;\n                margin-bottom: 40px;\n                font-weight: 400;\n                text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);\n            }\n\t\t\t.hero-editorial .btn-scroll {\n                display: inline-flex;\n                align-items: center;\n                gap: 10px;\n                background: rgba(255, 255, 255, 0.08);\n                color: var(--white);\n                padding: 14px 32px;\n                border: 1px solid rgba(255, 255, 255, 0.55);\n                border-radius: 2px;\n                text-decoration: none;\n                font-size: 0.75rem;\n                font-weight: 500;\n                letter-spacing: 3px;\n                text-transform: uppercase;\n                transition: all 0.3s;\n                cursor: pointer;\n                backdrop-filter: blur(8px);\n                -webkit-backdrop-filter: blur(8px);\n                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);\n            }\n\t\t\t.hero-editorial .btn-scroll:hover {\n\t\t\t\tbackground: var(--white);\n\t\t\t\tcolor: var(--text);\n\t\t\t\tborder-color: var(--white);\n\t\t\t}\n\t\t\t.hero-editorial .scroll-down {\n\t\t\t\tposition: absolute;\n\t\t\t\tbottom: 24px;\n\t\t\t\tleft: 50%;\n\t\t\t\ttransform: translateX(-50%);\n\t\t\t\tcolor: rgba(255, 255, 255, 0.6);\n\t\t\t\tfont-size: 1.3rem;\n\t\t\t\tanimation: bounceMinimal 2s infinite;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbackground: none;\n\t\t\t\tborder: none;\n\t\t\t\tz-index: 3;\n\t\t\t}\n\t\t\t@keyframes bounceMinimal {\n\t\t\t\t0%, 100% { transform: translateX(-50%) translateY(0); }\n\t\t\t\t50% { transform: translateX(-50%) translateY(8px); }\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.hero-editorial { padding: 60px 20px 60px; }\n\t\t\t\t.hero-editorial .hero-names { font-size: 3rem; }\n\t\t\t\t.hero-editorial .hero-names .amp { font-size: 1.5rem; margin: 10px 0; }\n\t\t\t\t.hero-editorial .hero-eyebrow { letter-spacing: 5px; margin-bottom: 20px; }\n\t\t\t\t.hero-editorial .hero-dates { font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 32px; }\n\t\t\t}\n\t\t\t@media (max-width: 400px) {\n\t\t\t\t.hero-editorial .hero-names { font-size: 2.4rem; }\n\t\t\t}\n\n    \t\t\t/* ============================================ */\n\t\t\t/* OPENING STATEMENT */\n\t\t\t/* ============================================ */\n\t\t\t.opening-mini {\n\t\t\t\tpadding: 120px 24px;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\ttext-align: center;\n\t\t\t\tposition: relative;\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.opening-mini::before {\n\t\t\t\tcontent: '\"';\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 40px;\n\t\t\t\tleft: 50%;\n\t\t\t\ttransform: translateX(-50%);\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 12rem;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\topacity: 0.06;\n\t\t\t\tline-height: 1;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.opening-mini-inner {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 2;\n\t\t\t\tmax-width: 640px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t\t.opening-mini-quote {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.6rem;\n\t\t\t\tfont-style: italic;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tline-height: 1.6;\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t}\n\t\t\t.opening-mini-source {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.opening-mini-source::before {\n\t\t\t\tcontent: '— ';\n\t\t\t\tcolor: var(--accent);\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.opening-mini { padding: 80px 20px; }\n\t\t\t\t.opening-mini::before { font-size: 8rem; top: 20px; }\n\t\t\t\t.opening-mini-quote { font-size: 1.15rem; line-height: 1.6; margin-bottom: 24px; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* SECTION BASE */\n\t\t\t/* ============================================ */\n\t\t\t.section-mini {\n\t\t\t\tpadding: 120px 0;\n\t\t\t\tbackground: var(--bg);\n\t\t\t}\n\t\t\t.section-mini-alt {\n\t\t\t\tpadding: 120px 0;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.section-mini, .section-mini-alt { padding: 80px 0; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* COUPLE — EDITORIAL PORTRAIT */\n\t\t\t/* ============================================ */\n\t\t\t.couple-editorial {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tgap: 80px;\n\t\t\t}\n\t\t\t.couple-editorial-row {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: 1fr 1fr;\n\t\t\t\tgap: 48px;\n\t\t\t\talign-items: center;\n\t\t\t}\n\t\t\t.couple-editorial-row.reverse {\n\t\t\t\tdirection: rtl;\n\t\t\t}\n\t\t\t.couple-editorial-row.reverse > * {\n\t\t\t\tdirection: ltr;\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.couple-editorial-row,\n\t\t\t\t.couple-editorial-row.reverse {\n\t\t\t\t\tgrid-template-columns: 1fr;\n\t\t\t\t\tgap: 24px;\n\t\t\t\t\tdirection: ltr;\n\t\t\t\t}\n\t\t\t\t.couple-editorial { gap: 60px; }\n\t\t\t}\n\t\t\t.couple-editorial-photo {\n\t\t\t\tposition: relative;\n\t\t\t\taspect-ratio: 3 / 4;\n\t\t\t\toverflow: hidden;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\tborder-radius: 2px;\n\t\t\t}\n\t\t\t.couple-editorial-photo img {\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tobject-fit: cover;\n\t\t\t\ttransition: transform 0.7s ease;\n\t\t\t}\n\t\t\t.couple-editorial-photo:hover img { transform: scale(1.04); }\n\t\t\t.couple-editorial-photo::after {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\tbackground: linear-gradient(180deg, transparent 60%, rgba(28,25,23,0.15));\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.couple-editorial-info {\n\t\t\t\tpadding: 20px 0;\n\t\t\t}\n\t\t\t.couple-editorial-role {\n\t\t\t\tfont-size: 0.65rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 6px;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.couple-editorial-info h3 {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 2.4rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tline-height: 1.15;\n\t\t\t\tletter-spacing: -0.02em;\n\t\t\t}\n\t\t\t.couple-editorial-divider {\n\t\t\t\twidth: 40px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: var(--text);\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t}\n\t\t\t.couple-editorial-parents-label {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\tmargin-bottom: 8px;\n\t\t\t}\n\t\t\t.couple-editorial-parents {\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-style: italic;\n\t\t\t\tline-height: 1.7;\n\t\t\t\tfont-weight: 300;\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t}\n\t\t\t.couple-editorial-social {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 12px;\n\t\t\t}\n\t\t\t.couple-editorial-social a {\n\t\t\t\twidth: 36px;\n\t\t\t\theight: 36px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid var(--line-strong);\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\ttext-decoration: none;\n\t\t\t}\n\t\t\t.couple-editorial-social a:hover {\n\t\t\t\tbackground: var(--accent);\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\tcolor: var(--white);\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.couple-editorial-info h3 { font-size: 1.8rem; }\n\t\t\t\t.couple-editorial-photo { aspect-ratio: 1; }\n\t\t\t}\n\t\t\t/* Reverse mode: photo on right */\n\t\t\t.couple-editorial-row.reverse .couple-editorial-photo { order: 2; }\n\t\t\t.couple-editorial-row.reverse .couple-editorial-info { order: 1; }\n\n\t\t\t/* ============================================ */\n\t\t\t/* LOVE STORY — EDITORIAL NUMBERS */\n\t\t\t/* ============================================ */\n\t\t\t.story-editorial {\n\t\t\t\tmax-width: 640px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t\tcounter-reset: story-counter;\n\t\t\t}\n\t\t\t.story-editorial-item {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: 80px 1fr;\n\t\t\t\tgap: 32px;\n\t\t\t\tpadding: 40px 0;\n\t\t\t\tborder-bottom: 1px solid var(--line);\n\t\t\t\talign-items: start;\n\t\t\t}\n\t\t\t.story-editorial-item:last-child { border-bottom: none; padding-bottom: 0; }\n\t\t\t.story-editorial-item:first-child { padding-top: 0; }\n\t\t\t.story-editorial-num {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 3rem;\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tfont-weight: 400;\n\t\t\t\tline-height: 1;\n\t\t\t\topacity: 0.4;\n\t\t\t}\n\t\t\t.story-editorial-content h4 {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.4rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 12px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t}\n\t\t\t.story-editorial-content p {\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tline-height: 1.8;\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.story-editorial-item { grid-template-columns: 50px 1fr; gap: 20px; padding: 28px 0; }\n\t\t\t\t.story-editorial-num { font-size: 2rem; }\n\t\t\t\t.story-editorial-content h4 { font-size: 1.15rem; margin-bottom: 8px; }\n\t\t\t\t.story-editorial-content p { font-size: 0.88rem; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* EVENT — BIG CARD */\n\t\t\t/* ============================================ */\n\t\t\t.event-editorial-grid {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: 1fr 1fr;\n\t\t\t\tgap: 32px;\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.event-editorial-grid { grid-template-columns: 1fr; gap: 24px; }\n\t\t\t}\n\t\t\t.event-editorial-card {\n\t\t\t\tbackground: var(--card);\n\t\t\t\tborder: 1px solid var(--line);\n\t\t\t\tpadding: 56px 40px;\n\t\t\t\ttext-align: center;\n\t\t\t\ttransition: all 0.4s ease;\n\t\t\t\tposition: relative;\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.event-editorial-card::before {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 0; left: 0; right: 0;\n\t\t\t\theight: 3px;\n\t\t\t\tbackground: var(--accent);\n\t\t\t\ttransform: scaleX(0);\n\t\t\t\ttransform-origin: left;\n\t\t\t\ttransition: transform 0.5s ease;\n\t\t\t}\n\t\t\t.event-editorial-card:hover::before { transform: scaleX(1); }\n\t\t\t.event-editorial-card:hover {\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\ttransform: translateY(-4px);\n\t\t\t}\n\t\t\t.event-editorial-icon {\n\t\t\t\twidth: 56px;\n\t\t\t\theight: 56px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tbackground: var(--accent-soft);\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tfont-size: 1.4rem;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tmargin: 0 auto 28px;\n\t\t\t}\n\t\t\t.event-editorial-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.6rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 8px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t}\n\t\t\t.event-editorial-arabic {\n\t\t\t\tfont-family: 'Amiri', serif;\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tmargin-bottom: 28px;\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t.event-editorial-detail {\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tline-height: 2;\n\t\t\t\tfont-weight: 300;\n\t\t\t\tmargin-bottom: 28px;\n\t\t\t}\n\t\t\t.event-editorial-detail .row {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t}\n\t\t\t.event-editorial-detail .row:last-child { margin-bottom: 0; }\n\t\t\t.event-editorial-detail .label {\n\t\t\t\tfont-size: 0.65rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tmargin-bottom: 6px;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.event-editorial-detail .value {\n\t\t\t\tcolor: var(--text);\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t}\n\t\t\t.event-editorial-btn {\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 8px;\n\t\t\t\tcolor: var(--text);\n\t\t\t\ttext-decoration: none;\n\t\t\t\tfont-size: 0.75rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tborder-bottom: 1px solid var(--text);\n\t\t\t\tpadding-bottom: 6px;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t}\n\t\t\t.event-editorial-btn:hover {\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tborder-bottom-color: var(--accent);\n\t\t\t\tgap: 14px;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.event-editorial-card { padding: 40px 28px; }\n\t\t\t\t.event-editorial-title { font-size: 1.3rem; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* GALLERY — MASONRY */\n\t\t\t/* ============================================ */\n\t\t\t.gallery-masonry {\n\t\t\t\tcolumns: 3;\n\t\t\t\tcolumn-gap: 16px;\n\t\t\t}\n\t\t\t@media (max-width: 900px) {\n\t\t\t\t.gallery-masonry { columns: 2; column-gap: 12px; }\n\t\t\t}\n\t\t\t@media (max-width: 500px) {\n\t\t\t\t.gallery-masonry { columns: 2; column-gap: 8px; }\n\t\t\t}\n\t\t\t.gallery-masonry-item {\n\t\t\t\tbreak-inside: avoid;\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t\tposition: relative;\n\t\t\t\toverflow: hidden;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\tborder-radius: 2px;\n\t\t\t\ttransition: transform 0.4s ease;\n\t\t\t}\n\t\t\t@media (max-width: 900px) {\n\t\t\t\t.gallery-masonry-item { margin-bottom: 12px; }\n\t\t\t}\n\t\t\t@media (max-width: 500px) {\n\t\t\t\t.gallery-masonry-item { margin-bottom: 8px; }\n\t\t\t}\n\t\t\t.gallery-masonry-item img {\n\t\t\t\twidth: 100%;\n\t\t\t\theight: auto;\n\t\t\t\tdisplay: block;\n\t\t\t\ttransition: transform 0.7s ease;\n\t\t\t}\n\t\t\t.gallery-masonry-item:hover img { transform: scale(1.05); }\n\t\t\t.gallery-masonry-item::after {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\tbackground: rgba(28, 25, 23, 0);\n\t\t\t\ttransition: background 0.3s;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.gallery-masonry-item:hover::after { background: rgba(28, 25, 23, 0.15); }\n\t\t\t.gallery-masonry-item i {\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 50%;\n\t\t\t\tleft: 50%;\n\t\t\t\ttransform: translate(-50%, -50%) scale(0.7);\n\t\t\t\tcolor: var(--white);\n\t\t\t\tfont-size: 1.5rem;\n\t\t\t\topacity: 0;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tpointer-events: none;\n\t\t\t\tz-index: 2;\n\t\t\t}\n\t\t\t.gallery-masonry-item:hover i { opacity: 1; transform: translate(-50%, -50%) scale(1); }\n\n\t\t\t/* ============================================ */\n\t\t\t/* RSVP */\n\t\t\t/* ============================================ */\n\t\t\t.rsvp-mini-form {\n\t\t\t\tmax-width: 480px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t\t.form-group-mini {\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t\ttext-align: left;\n\t\t\t}\n\t\t\t.form-group-mini label {\n\t\t\t\tdisplay: block;\n\t\t\t\tfont-size: 0.68rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tmargin-bottom: 10px;\n\t\t\t}\n\t\t\t.form-group-mini .required { color: #dc2626; }\n\t\t\t.form-group-mini input,\n\t\t\t.form-group-mini select,\n\t\t\t.form-group-mini textarea {\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding: 16px 0;\n\t\t\t\tborder: none;\n\t\t\t\tborder-bottom: 1px solid var(--line-strong);\n\t\t\t\tbackground: transparent;\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tfont-family: 'Inter', sans-serif;\n\t\t\t\tcolor: var(--text);\n\t\t\t\ttransition: border-color 0.3s;\n\t\t\t\tborder-radius: 0;\n\t\t\t}\n\t\t\t.form-group-mini input:focus,\n\t\t\t.form-group-mini select:focus,\n\t\t\t.form-group-mini textarea:focus {\n\t\t\t\toutline: none;\n\t\t\t\tborder-bottom-color: var(--accent);\n\t\t\t}\n\t\t\t.form-group-mini input::placeholder,\n\t\t\t.form-group-mini textarea::placeholder { color: var(--text-light); }\n\t\t\t.form-group-mini input[readonly] {\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tcursor: not-allowed;\n\t\t\t\tbackground: transparent;\n\t\t\t}\n\t\t\t.form-group-mini textarea { resize: vertical; min-height: 90px; }\n\t\t\t.btn-submit-mini {\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding: 18px;\n\t\t\t\tbackground: var(--text);\n\t\t\t\tcolor: var(--white);\n\t\t\t\tborder: none;\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tfont-size: 0.78rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tcursor: pointer;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tmargin-top: 16px;\n\t\t\t}\n\t\t\t.btn-submit-mini:hover {\n\t\t\t\tbackground: var(--accent);\n\t\t\t\ttransform: translateY(-1px);\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t}\n\t\t\t.btn-submit-mini:disabled { opacity: 0.6; cursor: not-allowed; }\n\n\t\t\t.rsvp-mini-list-wrap {\n\t\t\t\tmax-width: 480px;\n\t\t\t\tmargin: 80px auto 0;\n\t\t\t\tpadding-top: 40px;\n\t\t\t\tborder-top: 1px solid var(--line);\n\t\t\t}\n\t\t\t.rsvp-mini-list-head {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: baseline;\n\t\t\t\tmargin-bottom: 28px;\n\t\t\t}\n\t\t\t.rsvp-mini-list-head h4 {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.2rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t}\n\t\t\t.rsvp-mini-count {\n\t\t\t\tfont-size: 0.72rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tletter-spacing: 2px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t\t#rsvpList {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tgap: 0;\n\t\t\t\tmax-height: 440px;\n\t\t\t\toverflow-y: auto;\n\t\t\t}\n\t\t\t.rsvp-mini-item {\n\t\t\t\tpadding: 24px 0;\n\t\t\t\tborder-bottom: 1px solid var(--line);\n\t\t\t}\n\t\t\t.rsvp-mini-item:last-child { border-bottom: none; }\n\t\t\t.rsvp-mini-item .row-main {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: baseline;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\tgap: 8px;\n\t\t\t\tmargin-bottom: 8px;\n\t\t\t}\n\t\t\t.rsvp-mini-item .guest-name {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.05rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t}\n\t\t\t.rsvp-mini-item .status-badge {\n\t\t\t\tfont-size: 0.62rem;\n\t\t\t\tpadding: 3px 12px;\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tletter-spacing: 2px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.rsvp-mini-item .status-badge.hadir {\n\t\t\t\tbackground: rgba(16, 185, 129, 0.1);\n\t\t\t\tcolor: #059669;\n\t\t\t}\n\t\t\t.rsvp-mini-item .status-badge.tidak_hadir {\n\t\t\t\tbackground: rgba(220, 38, 38, 0.08);\n\t\t\t\tcolor: #dc2626;\n\t\t\t}\n\t\t\t.rsvp-mini-item .status-badge.ragu {\n\t\t\t\tbackground: rgba(245, 158, 11, 0.1);\n\t\t\t\tcolor: #d97706;\n\t\t\t}\n\t\t\t.rsvp-mini-item .row-detail {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: center;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\tgap: 8px;\n\t\t\t}\n\t\t\t.rsvp-mini-item .meta {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 16px;\n\t\t\t\tfont-size: 0.72rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t}\n\t\t\t.rsvp-mini-item .meta span { display: flex; align-items: center; gap: 5px; }\n\t\t\t.rsvp-mini-item .message {\n\t\t\t\tmargin-top: 12px;\n\t\t\t\tpadding: 14px 18px;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\tborder-left: 2px solid var(--accent);\n\t\t\t\tfont-size: 0.85rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-style: italic;\n\t\t\t\tline-height: 1.7;\n\t\t\t\tborder-radius: 2px;\n\t\t\t}\n\t\t\t.rsvp-mini-empty {\n\t\t\t\ttext-align: center;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tfont-size: 0.85rem;\n\t\t\t\tpadding: 40px 0;\n\t\t\t}\n\t\t\t.rsvp-mini-empty i { display: block; font-size: 1.6rem; margin-bottom: 12px; opacity: 0.5; }\n\n\t\t\t/* ============================================ */\n\t\t\t/* BANK / AMPLOP DIGITAL */\n\t\t\t/* ============================================ */\n\t\t\t.bank-mini-grid {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: repeat(auto-fit, minmax(280px, 1fr));\n\t\t\t\tgap: 24px;\n\t\t\t\tmax-width: 720px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t\t.bank-mini-card {\n\t\t\t\tbackground: var(--card);\n\t\t\t\tborder: 1px solid var(--line);\n\t\t\t\tpadding: 40px 28px;\n\t\t\t\ttext-align: center;\n\t\t\t\ttransition: all 0.4s ease;\n\t\t\t\tposition: relative;\n\t\t\t}\n\t\t\t.bank-mini-card::before {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 0; left: 0; right: 0;\n\t\t\t\theight: 2px;\n\t\t\t\tbackground: var(--accent);\n\t\t\t\ttransform: scaleX(0);\n\t\t\t\ttransform-origin: left;\n\t\t\t\ttransition: transform 0.5s ease;\n\t\t\t}\n\t\t\t.bank-mini-card:hover::before { transform: scaleX(1); }\n\t\t\t.bank-mini-card:hover {\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\ttransform: translateY(-4px);\n\t\t\t}\n\t\t\t.bank-mini-logo {\n\t\t\t\twidth: 60px;\n\t\t\t\theight: 60px;\n\t\t\t\tmargin: 0 auto 24px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tbackground: var(--accent-soft);\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.bank-mini-logo img {\n\t\t\t\twidth: 55%;\n\t\t\t\theight: 55%;\n\t\t\t\tobject-fit: contain;\n\t\t\t}\n\t\t\t.bank-mini-logo .initial {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.3rem;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tfont-weight: 400;\n\t\t\t}\n\t\t\t.bank-mini-name {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.1rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tletter-spacing: 0.5px;\n\t\t\t}\n\t\t\t.bank-mini-number {\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 10px;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\tpadding: 14px 22px;\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tcursor: pointer;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tmargin-bottom: 14px;\n\t\t\t\twidth: 100%;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\t\t\t.bank-mini-number:hover {\n\t\t\t\tbackground: var(--accent-soft);\n\t\t\t\ttransform: translateY(-1px);\n\t\t\t}\n\t\t\t.bank-mini-number span {\n\t\t\t\tfont-family: 'Courier New', monospace;\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tletter-spacing: 2px;\n\t\t\t}\n\t\t\t.bank-mini-number i {\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\ttransition: color 0.3s;\n\t\t\t}\n\t\t\t.bank-mini-number:hover i { color: var(--accent); }\n\t\t\t.bank-mini-holder {\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t.bank-mini-holder strong {\n\t\t\t\tcolor: var(--text);\n\t\t\t\tfont-style: normal;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.bank-mini-note {\n\t\t\t\ttext-align: center;\n\t\t\t\tmargin-top: 40px;\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* FOOTER */\n\t\t\t/* ============================================ */\n\t\t\t.footer-mini {\n\t\t\t\tpadding: 100px 24px 48px;\n\t\t\t\tbackground: var(--bg);\n\t\t\t\ttext-align: center;\n\t\t\t\tborder-top: 1px solid var(--line);\n\t\t\t\tposition: relative;\n\t\t\t}\n\t\t\t.footer-mini-couple {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 2rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 12px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t}\n\t\t\t.footer-mini-couple .amp {\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tmargin: 0 12px;\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t.footer-mini-divider {\n\t\t\t\twidth: 60px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: var(--line-strong);\n\t\t\t\tmargin: 28px auto;\n\t\t\t}\n\t\t\t.footer-mini-date {\n\t\t\t\tfont-size: 0.75rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tletter-spacing: 5px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t}\n\t\t\t.footer-mini-social {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: center;\n\t\t\t\tgap: 16px;\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t}\n\t\t\t.footer-mini-social a {\n\t\t\t\twidth: 40px;\n\t\t\t\theight: 40px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid var(--line-strong);\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-size: 1rem;\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\ttext-decoration: none;\n\t\t\t}\n\t\t\t.footer-mini-social a:hover {\n\t\t\t\tbackground: var(--accent);\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\tcolor: var(--white);\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t}\n\t\t\t.footer-mini-prayer {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tmax-width: 500px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t\tline-height: 1.7;\n\t\t\t}\n\n\t\t\t/* Web footer */\n\t\t\t.web-footer-mini {\n\t\t\t\tpadding: 56px 0 32px;\n\t\t\t\tbackground: var(--bg-dark);\n\t\t\t\tcolor: rgba(255, 255, 255, 0.6);\n\t\t\t}\n\t\t\t.web-footer-mini-grid {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n\t\t\t\tgap: 40px;\n\t\t\t\tmargin-bottom: 40px;\n\t\t\t}\n\t\t\t.web-footer-mini-brand {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.4rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\ttext-decoration: none;\n\t\t\t\tdisplay: inline-block;\n\t\t\t}\n\t\t\t.web-footer-mini-brand .wedding { color: rgba(255, 255, 255, 0.9); }\n\t\t\t.web-footer-mini-brand .saas {\n\t\t\t\tcolor: var(--accent-light);\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t.web-footer-mini-desc {\n\t\t\t\tfont-size: 0.82rem;\n\t\t\t\tline-height: 1.8;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tfont-weight: 300;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.5);\n\t\t\t}\n\t\t\t.web-footer-mini-heading {\n\t\t\t\tfont-size: 0.68rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.85);\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t}\n\t\t\t.web-footer-mini-list {\n\t\t\t\tlist-style: none;\n\t\t\t\tpadding: 0;\n\t\t\t\tmargin: 0;\n\t\t\t}\n\t\t\t.web-footer-mini-list li {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: flex-start;\n\t\t\t\tgap: 10px;\n\t\t\t\tmargin-bottom: 14px;\n\t\t\t\tfont-size: 0.82rem;\n\t\t\t\tline-height: 1.6;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.5);\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t.web-footer-mini-list li i {\n\t\t\t\tcolor: var(--accent-light);\n\t\t\t\tmargin-top: 3px;\n\t\t\t\tflex-shrink: 0;\n\t\t\t\topacity: 0.7;\n\t\t\t}\n\t\t\t.web-footer-mini-list a, .web-footer-mini-link {\n\t\t\t\tcolor: rgba(255, 255, 255, 0.5);\n\t\t\t\ttext-decoration: none;\n\t\t\t\ttransition: color 0.2s;\n\t\t\t}\n\t\t\t.web-footer-mini-list a:hover, .web-footer-mini-link:hover { color: var(--white); }\n\t\t\t.web-footer-mini-socials {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 12px;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\tmargin-top: 20px;\n\t\t\t}\n\t\t\t.web-footer-mini-socials a {\n\t\t\t\twidth: 38px;\n\t\t\t\theight: 38px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tbackground: rgba(255, 255, 255, 0.05);\n\t\t\t\tborder: 1px solid rgba(255, 255, 255, 0.1);\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.6);\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\ttext-decoration: none;\n\t\t\t}\n\t\t\t.web-footer-mini-socials a:hover {\n\t\t\t\tbackground: var(--accent);\n\t\t\t\tcolor: var(--white);\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t}\n\t\t\t.web-footer-mini-version {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\tpadding: 5px 12px;\n\t\t\t\tbackground: rgba(255, 255, 255, 0.05);\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tdisplay: inline-block;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.4);\n\t\t\t\tletter-spacing: 1px;\n\t\t\t}\n\t\t\t.web-footer-mini-bottom {\n\t\t\t\tborder-top: 1px solid rgba(255, 255, 255, 0.08);\n\t\t\t\tpadding-top: 28px;\n\t\t\t\ttext-align: center;\n\t\t\t\tfont-size: 0.75rem;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.35);\n\t\t\t\tfont-weight: 300;\n\t\t\t\tletter-spacing: 1px;\n\t\t\t}\n\t\t\t@media (max-width: 768px) {\n\t\t\t\t.web-footer-mini { padding: 48px 0 28px; text-align: center; }\n\t\t\t\t.web-footer-mini-list li { justify-content: center; }\n\t\t\t\t.web-footer-mini-socials { justify-content: center; }\n\t\t\t}\n\t\t</style></head><body data-music-url=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, " - Modern Minimalist</title><link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap\" rel=\"stylesheet\"><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css\"><link href=\"https://unpkg.com/aos@2.3.1/dist/aos.css\" rel=\"stylesheet\"><style>\n\t\t\t/* ============================================ */\n\t\t\t/* ROOT VARIABLES */\n\t\t\t/* ============================================ */\n\t\t\t:root {\n\t\t\t\t--bg: #fafaf9;\n\t\t\t\t--bg-alt: #f5f5f4;\n\t\t\t\t--bg-dark: #1c1917;\n\t\t\t\t--card: #ffffff;\n\t\t\t\t--text: #1c1917;\n\t\t\t\t--text-muted: #78716c;\n\t\t\t\t--text-light: #a8a29e;\n\t\t\t\t--accent: #4a5d4a;\n\t\t\t\t--accent-light: #7d8c7d;\n\t\t\t\t--accent-soft: rgba(74, 93, 74, 0.08);\n\t\t\t\t--line: #e7e5e4;\n\t\t\t\t--line-strong: #d6d3d1;\n\t\t\t\t--white: #ffffff;\n\t\t\t\t--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);\n\t\t\t\t--shadow-md: 0 8px 32px rgba(0, 0, 0, 0.08);\n\t\t\t\t--shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.12);\n\t\t\t}\n\n\t\t\t* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }\n\t\t\thtml { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }\n\t\t\tbody {\n\t\t\t\tfont-family: 'Inter', sans-serif;\n\t\t\t\tbackground: var(--bg);\n\t\t\t\tcolor: var(--text);\n\t\t\t\tline-height: 1.7;\n\t\t\t\toverflow-x: hidden;\n\t\t\t\tmin-height: 100vh;\n\t\t\t\tmin-height: 100svh;\n\t\t\t\tfont-weight: 400;\n\t\t\t\t-webkit-font-smoothing: antialiased;\n\t\t\t}\n\t\t\timg { max-width: 100%; height: auto; display: block; }\n\n\t\t\t.container { max-width: 720px; margin: 0 auto; padding: 0 24px; }\n\t\t\t.container-wide { max-width: 1200px; margin: 0 auto; padding: 0 24px; }\n\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.container, .container-wide { padding: 0 20px; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* TYPOGRAPHY */\n\t\t\t/* ============================================ */\n\t\t\t.section-label {\n\t\t\t\tfont-size: 0.68rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 6px;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\ttext-align: center;\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.section-label::before {\n\t\t\t\tcontent: '';\n\t\t\t\tdisplay: inline-block;\n\t\t\t\twidth: 20px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: var(--text-light);\n\t\t\t\tvertical-align: middle;\n\t\t\t\tmargin-right: 12px;\n\t\t\t\topacity: 0.5;\n\t\t\t}\n\t\t\t.section-label::after {\n\t\t\t\tcontent: '';\n\t\t\t\tdisplay: inline-block;\n\t\t\t\twidth: 20px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: var(--text-light);\n\t\t\t\tvertical-align: middle;\n\t\t\t\tmargin-left: 12px;\n\t\t\t\topacity: 0.5;\n\t\t\t}\n\t\t\t.section-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 3rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\ttext-align: center;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tline-height: 1.15;\n\t\t\t\tletter-spacing: -0.02em;\n\t\t\t}\n\t\t\t.section-title em {\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--accent);\n\t\t\t}\n\t\t\t.section-subtitle {\n\t\t\t\ttext-align: center;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tmax-width: 500px;\n\t\t\t\tmargin: 0 auto 60px;\n\t\t\t\tfont-weight: 300;\n\t\t\t\tline-height: 1.8;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.section-title { font-size: 2rem; }\n\t\t\t\t.section-subtitle { font-size: 0.85rem; margin-bottom: 40px; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* TOAST */\n\t\t\t/* ============================================ */\n\t\t\t.toast-container {\n\t\t\t\tposition: fixed; top: 20px; right: 20px; z-index: 9999;\n\t\t\t\tdisplay: flex; flex-direction: column; gap: 8px;\n\t\t\t}\n\t\t\t.toast {\n\t\t\t\tbackground: var(--text); color: var(--white);\n\t\t\t\tpadding: 12px 20px; border-radius: 8px;\n\t\t\t\tbox-shadow: var(--shadow-lg);\n\t\t\t\tanimation: slideInToast 0.4s ease;\n\t\t\t\tmin-width: 200px;\n\t\t\t\tdisplay: flex; align-items: center; gap: 10px;\n\t\t\t\tfont-size: 0.85rem;\n\t\t\t}\n\t\t\t.toast i { font-size: 1.1rem; }\n\t\t\t.toast.success i { color: #10b981; }\n\t\t\t.toast.error i { color: #ef4444; }\n\t\t\t.toast.info i { color: var(--accent-light); }\n\t\t\t@keyframes slideInToast {\n\t\t\t\tfrom { transform: translateX(100%); opacity: 0; }\n\t\t\t\tto { transform: translateX(0); opacity: 1; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* OVERLAY */\n\t\t\t/* ============================================ */\n\t\t\t#startOverlay {\n                position: fixed; top: 0; left: 0; right: 0; bottom: 0;\n                width: 100vw; height: 100vh; height: 100svh;\n                background-color: #1a1a1a;\n                z-index: 9999;\n                display: flex; align-items: center; justify-content: center;\n                transition: opacity 0.8s ease;\n                cursor: pointer;\n                padding: 24px;\n                overflow-y: auto;\n            }\n            #startOverlay .overlay-bg-img {\n                position: absolute;\n                inset: 0;\n                width: 100%;\n                height: 100%;\n                object-fit: cover;\n                object-position: center;\n                opacity: 0.22;\n                filter: blur(1px) saturate(0.6);\n                z-index: 0;\n                pointer-events: none;\n            }\n            #startOverlay::before {\n                content: '';\n                position: absolute;\n                inset: 0;\n                background: \n                    radial-gradient(ellipse at 50% 40%, rgba(28,25,23,0.3) 0%, transparent 70%),\n                    linear-gradient(180deg, \n                        rgba(28,25,23,0.85) 0%, \n                        rgba(28,25,23,0.78) 40%, \n                        rgba(28,25,23,0.88) 70%, \n                        rgba(28,25,23,0.95) 100%);\n                z-index: 1;\n                pointer-events: none;\n            }\n\t\t\t#startOverlay .overlay-inner {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 2;\n\t\t\t\ttext-align: center;\n\t\t\t\tmax-width: 480px;\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding: 20px;\n\t\t\t\tmargin: auto;\n\t\t\t\tanimation: fadeIn 1.2s ease;\n\t\t\t}\n\t\t\t#startOverlay .overlay-eyebrow {\n\t\t\t\tfont-size: 0.65rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 8px;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.7);\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t\tfont-weight: 400;\n\t\t\t}\n\t\t\t#startOverlay .overlay-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 2.4rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--white);\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t\tline-height: 1.25;\n\t\t\t}\n\t\t\t#startOverlay .overlay-title span { display: block; }\n\t\t\t#startOverlay .overlay-title .amp {\n\t\t\t\tfont-size: 1.3rem;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.6);\n\t\t\t\tmargin: 10px 0;\n\t\t\t\tfont-style: italic;\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t#startOverlay .overlay-divider {\n\t\t\t\twidth: 60px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: rgba(255, 255, 255, 0.3);\n\t\t\t\tmargin: 32px auto;\n\t\t\t}\n\t\t\t#startOverlay .overlay-guest-label {\n\t\t\t\tfont-size: 0.62rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 5px;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.5);\n\t\t\t\tmargin-bottom: 10px;\n\t\t\t}\n\t\t\t#startOverlay .overlay-guest-name {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.6rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--white);\n\t\t\t\tmargin-bottom: 40px;\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t#startOverlay .btn-start {\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 10px;\n\t\t\t\tbackground: var(--white);\n\t\t\t\tcolor: var(--text);\n\t\t\t\tpadding: 16px 44px;\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tborder: none;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbox-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t\t#startOverlay .btn-start:hover {\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t\tbackground: var(--accent);\n\t\t\t\tcolor: var(--white);\n\t\t\t}\n\t\t\t#startOverlay .hint {\n\t\t\t\tfont-size: 0.6rem;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.4);\n\t\t\t\tmargin-top: 28px;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t\t@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }\n\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t#startOverlay { padding: 20px; }\n\t\t\t\t#startOverlay .overlay-title { font-size: 1.9rem; }\n\t\t\t\t#startOverlay .overlay-guest-name { font-size: 1.3rem; margin-bottom: 32px; }\n\t\t\t\t#startOverlay .btn-start { padding: 14px 32px; font-size: 0.75rem; width: 100%; max-width: 260px; justify-content: center; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* MUSIC PLAYER */\n\t\t\t/* ============================================ */\n\t\t\t.music-player {\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 24px;\n\t\t\t\tright: 24px;\n\t\t\t\tz-index: 1000;\n\t\t\t}\n\t\t\t.music-btn {\n\t\t\t\twidth: 48px;\n\t\t\t\theight: 48px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tbackground: rgba(28, 25, 23, 0.9);\n\t\t\t\tbackdrop-filter: blur(10px);\n\t\t\t\tborder: none;\n\t\t\t\tcolor: var(--white);\n\t\t\t\tfont-size: 1.15rem;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\t\t\t.music-btn:hover {\n\t\t\t\ttransform: scale(1.08);\n\t\t\t\tbackground: var(--accent);\n\t\t\t}\n\t\t\t.music-btn.playing { animation: pulseMinimal 2s infinite; }\n\t\t\t@keyframes pulseMinimal {\n\t\t\t\t0% { box-shadow: 0 0 0 0 rgba(74, 93, 74, 0.4); }\n\t\t\t\t70% { box-shadow: 0 0 0 16px rgba(74, 93, 74, 0); }\n\t\t\t\t100% { box-shadow: 0 0 0 0 rgba(74, 93, 74, 0); }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* HERO — FULLSCREEN PHOTO */\n\t\t\t/* ============================================ */\n\t\t\t.hero-editorial {\n\t\t\t\tposition: relative;\n\t\t\t\tmin-height: 100vh;\n\t\t\t\tmin-height: 100svh;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tpadding-top: 140px;\n\t\t\t\tpadding-bottom: 80px;\n\t\t\t\tpadding-left: 24px;\n\t\t\t\tpadding-right: 24px;\n\t\t\t\tcolor: var(--white);\n\t\t\t\toverflow: hidden;\n\t\t\t\tbackground: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);\n\t\t\t}\n            .hero-editorial .hero-bg-img {\n                position: absolute;\n                top: 0;\n                left: 0;\n                width: 100%;\n                height: 100%;\n                object-fit: cover;\n                object-position: center;\n                z-index: 0;\n                pointer-events: none;\n                opacity: 0.25;                    /* ← foto jadi samar */\n                filter: blur(1.5px) saturate(0.7); /* ← efek dreamy */\n            }\n            .hero-editorial::before {\n                content: '';\n                position: absolute;\n                inset: 0;\n                background: \n                    radial-gradient(ellipse at 50% 30%, rgba(28,25,23,0.55) 0%, transparent 60%),\n                    linear-gradient(180deg, \n                        rgba(28,25,23,0.72) 0%, \n                        rgba(28,25,23,0.55) 30%, \n                        rgba(28,25,23,0.75) 65%, \n                        rgba(28,25,23,0.95) 100%);\n                z-index: 1;\n                pointer-events: none;\n            }\n            .hero-editorial::after {\n                content: '';\n                position: absolute;\n                inset: 0;\n                background: radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.3) 0%, transparent 70%);\n                z-index: 1;\n                pointer-events: none;\n            }\n\t\t\t.hero-editorial .hero-inner {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 2;\n\t\t\t\ttext-align: center;\n\t\t\t\tmax-width: 720px;\n\t\t\t\twidth: 100%;\n\t\t\t}\n\t\t\t.hero-editorial .hero-eyebrow {\n                font-size: 0.65rem;\n                text-transform: uppercase;\n                letter-spacing: 8px;\n                color: rgba(255, 255, 255, 0.85);\n                margin-bottom: 28px;\n                font-weight: 400;\n                text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);\n            }\n\t\t\t.hero-editorial .hero-names {\n                font-family: 'Playfair Display', serif;\n                font-size: 5.5rem;\n                font-weight: 400;\n                line-height: 0.95;\n                letter-spacing: -0.03em;\n                margin-bottom: 24px;\n                display: flex;\n                flex-direction: column;\n                align-items: center;\n                color: var(--white);\n                text-shadow: \n                    0 4px 32px rgba(0, 0, 0, 0.55),\n                    0 2px 12px rgba(0, 0, 0, 0.4),\n                    0 1px 4px rgba(0, 0, 0, 0.3);\n            }\n\t\t\t.hero-editorial .hero-names .amp {\n\t\t\t\tfont-style: italic;\n\t\t\t\tfont-size: 2.2rem;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.75);\n\t\t\t\tmargin: 14px 0;\n\t\t\t\tline-height: 1;\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t.hero-editorial .hero-divider {\n                width: 60px;\n                height: 1px;\n                background: rgba(255, 255, 255, 0.55);\n                margin: 32px auto;\n                box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);\n            }\n\t\t\t.hero-editorial .hero-dates {\n                font-size: 0.85rem;\n                color: rgba(255, 255, 255, 0.92);\n                letter-spacing: 4px;\n                text-transform: uppercase;\n                margin-bottom: 40px;\n                font-weight: 400;\n                text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);\n            }\n\t\t\t.hero-editorial .btn-scroll {\n                display: inline-flex;\n                align-items: center;\n                gap: 10px;\n                background: rgba(255, 255, 255, 0.08);\n                color: var(--white);\n                padding: 14px 32px;\n                border: 1px solid rgba(255, 255, 255, 0.55);\n                border-radius: 2px;\n                text-decoration: none;\n                font-size: 0.75rem;\n                font-weight: 500;\n                letter-spacing: 3px;\n                text-transform: uppercase;\n                transition: all 0.3s;\n                cursor: pointer;\n                backdrop-filter: blur(8px);\n                -webkit-backdrop-filter: blur(8px);\n                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);\n            }\n\t\t\t.hero-editorial .btn-scroll:hover {\n\t\t\t\tbackground: var(--white);\n\t\t\t\tcolor: var(--text);\n\t\t\t\tborder-color: var(--white);\n\t\t\t}\n\t\t\t.hero-editorial .scroll-down {\n\t\t\t\tposition: absolute;\n\t\t\t\tbottom: 24px;\n\t\t\t\tleft: 50%;\n\t\t\t\ttransform: translateX(-50%);\n\t\t\t\tcolor: rgba(255, 255, 255, 0.6);\n\t\t\t\tfont-size: 1.3rem;\n\t\t\t\tanimation: bounceMinimal 2s infinite;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbackground: none;\n\t\t\t\tborder: none;\n\t\t\t\tz-index: 3;\n\t\t\t}\n\t\t\t@keyframes bounceMinimal {\n\t\t\t\t0%, 100% { transform: translateX(-50%) translateY(0); }\n\t\t\t\t50% { transform: translateX(-50%) translateY(8px); }\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.hero-editorial { \n\t\t\t\t\tpadding-top: 100px; \n\t\t\t\t\tpadding-bottom: 60px;\n\t\t\t\t\tpadding-left: 20px;\n\t\t\t\t\tpadding-right: 20px;\n\t\t\t\t}\n\t\t\t\t.hero-editorial .hero-names { font-size: 3rem; }\n\t\t\t\t.hero-editorial .hero-names .amp { font-size: 1.5rem; margin: 10px 0; }\n\t\t\t\t.hero-editorial .hero-eyebrow { letter-spacing: 5px; margin-bottom: 20px; }\n\t\t\t\t.hero-editorial .hero-dates { font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 32px; }\n\t\t\t}\n\t\t\t@media (max-width: 400px) {\n\t\t\t\t.hero-editorial .hero-names { font-size: 2.4rem; }\n\t\t\t}\n\n    \t\t\t/* ============================================ */\n\t\t\t/* OPENING STATEMENT */\n\t\t\t/* ============================================ */\n\t\t\t.opening-mini {\n\t\t\t\tpadding: 120px 24px;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\ttext-align: center;\n\t\t\t\tposition: relative;\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.opening-mini::before {\n\t\t\t\tcontent: '\"';\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 40px;\n\t\t\t\tleft: 50%;\n\t\t\t\ttransform: translateX(-50%);\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 12rem;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\topacity: 0.06;\n\t\t\t\tline-height: 1;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.opening-mini-inner {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 2;\n\t\t\t\tmax-width: 640px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t\t.opening-mini-quote {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.6rem;\n\t\t\t\tfont-style: italic;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tline-height: 1.6;\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t}\n\t\t\t.opening-mini-source {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.opening-mini-source::before {\n\t\t\t\tcontent: '— ';\n\t\t\t\tcolor: var(--accent);\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.opening-mini { padding: 80px 20px; }\n\t\t\t\t.opening-mini::before { font-size: 8rem; top: 20px; }\n\t\t\t\t.opening-mini-quote { font-size: 1.15rem; line-height: 1.6; margin-bottom: 24px; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* SECTION BASE */\n\t\t\t/* ============================================ */\n\t\t\t.section-mini {\n\t\t\t\tpadding: 120px 0;\n\t\t\t\tbackground: var(--bg);\n\t\t\t}\n\t\t\t.section-mini-alt {\n\t\t\t\tpadding: 120px 0;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.section-mini, .section-mini-alt { padding: 80px 0; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* COUPLE — EDITORIAL PORTRAIT */\n\t\t\t/* ============================================ */\n\t\t\t.couple-editorial {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tgap: 80px;\n\t\t\t}\n\t\t\t.couple-editorial-row {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: 1fr 1fr;\n\t\t\t\tgap: 48px;\n\t\t\t\talign-items: center;\n\t\t\t}\n\t\t\t.couple-editorial-row.reverse {\n\t\t\t\tdirection: rtl;\n\t\t\t}\n\t\t\t.couple-editorial-row.reverse > * {\n\t\t\t\tdirection: ltr;\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.couple-editorial-row,\n\t\t\t\t.couple-editorial-row.reverse {\n\t\t\t\t\tgrid-template-columns: 1fr;\n\t\t\t\t\tgap: 24px;\n\t\t\t\t\tdirection: ltr;\n\t\t\t\t}\n\t\t\t\t.couple-editorial { gap: 60px; }\n\t\t\t}\n\t\t\t.couple-editorial-photo {\n\t\t\t\tposition: relative;\n\t\t\t\taspect-ratio: 3 / 4;\n\t\t\t\toverflow: hidden;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\tborder-radius: 2px;\n\t\t\t}\n\t\t\t.couple-editorial-photo img {\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tobject-fit: cover;\n\t\t\t\ttransition: transform 0.7s ease;\n\t\t\t}\n\t\t\t.couple-editorial-photo:hover img { transform: scale(1.04); }\n\t\t\t.couple-editorial-photo::after {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\tbackground: linear-gradient(180deg, transparent 60%, rgba(28,25,23,0.15));\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.couple-editorial-info {\n\t\t\t\tpadding: 20px 0;\n\t\t\t}\n\t\t\t.couple-editorial-role {\n\t\t\t\tfont-size: 0.65rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 6px;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.couple-editorial-info h3 {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 2.4rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tline-height: 1.15;\n\t\t\t\tletter-spacing: -0.02em;\n\t\t\t}\n\t\t\t.couple-editorial-divider {\n\t\t\t\twidth: 40px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: var(--text);\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t}\n\t\t\t.couple-editorial-parents-label {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\tmargin-bottom: 8px;\n\t\t\t}\n\t\t\t.couple-editorial-parents {\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-style: italic;\n\t\t\t\tline-height: 1.7;\n\t\t\t\tfont-weight: 300;\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t}\n\t\t\t.couple-editorial-social {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 12px;\n\t\t\t}\n\t\t\t.couple-editorial-social a {\n\t\t\t\twidth: 36px;\n\t\t\t\theight: 36px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid var(--line-strong);\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\ttext-decoration: none;\n\t\t\t}\n\t\t\t.couple-editorial-social a:hover {\n\t\t\t\tbackground: var(--accent);\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\tcolor: var(--white);\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.couple-editorial-info h3 { font-size: 1.8rem; }\n\t\t\t\t.couple-editorial-photo { aspect-ratio: 1; }\n\t\t\t}\n\t\t\t/* Reverse mode: photo on right */\n\t\t\t.couple-editorial-row.reverse .couple-editorial-photo { order: 2; }\n\t\t\t.couple-editorial-row.reverse .couple-editorial-info { order: 1; }\n\n\t\t\t/* ============================================ */\n\t\t\t/* LOVE STORY — EDITORIAL NUMBERS */\n\t\t\t/* ============================================ */\n\t\t\t.story-editorial {\n\t\t\t\tmax-width: 640px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t\tcounter-reset: story-counter;\n\t\t\t}\n\t\t\t.story-editorial-item {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: 80px 1fr;\n\t\t\t\tgap: 32px;\n\t\t\t\tpadding: 40px 0;\n\t\t\t\tborder-bottom: 1px solid var(--line);\n\t\t\t\talign-items: start;\n\t\t\t}\n\t\t\t.story-editorial-item:last-child { border-bottom: none; padding-bottom: 0; }\n\t\t\t.story-editorial-item:first-child { padding-top: 0; }\n\t\t\t.story-editorial-num {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 3rem;\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tfont-weight: 400;\n\t\t\t\tline-height: 1;\n\t\t\t\topacity: 0.4;\n\t\t\t}\n\t\t\t.story-editorial-content h4 {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.4rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 12px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t}\n\t\t\t.story-editorial-content p {\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tline-height: 1.8;\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.story-editorial-item { grid-template-columns: 50px 1fr; gap: 20px; padding: 28px 0; }\n\t\t\t\t.story-editorial-num { font-size: 2rem; }\n\t\t\t\t.story-editorial-content h4 { font-size: 1.15rem; margin-bottom: 8px; }\n\t\t\t\t.story-editorial-content p { font-size: 0.88rem; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* EVENT — BIG CARD */\n\t\t\t/* ============================================ */\n\t\t\t.event-editorial-grid {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: 1fr 1fr;\n\t\t\t\tgap: 32px;\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.event-editorial-grid { grid-template-columns: 1fr; gap: 24px; }\n\t\t\t}\n\t\t\t.event-editorial-card {\n\t\t\t\tbackground: var(--card);\n\t\t\t\tborder: 1px solid var(--line);\n\t\t\t\tpadding: 56px 40px;\n\t\t\t\ttext-align: center;\n\t\t\t\ttransition: all 0.4s ease;\n\t\t\t\tposition: relative;\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.event-editorial-card::before {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 0; left: 0; right: 0;\n\t\t\t\theight: 3px;\n\t\t\t\tbackground: var(--accent);\n\t\t\t\ttransform: scaleX(0);\n\t\t\t\ttransform-origin: left;\n\t\t\t\ttransition: transform 0.5s ease;\n\t\t\t}\n\t\t\t.event-editorial-card:hover::before { transform: scaleX(1); }\n\t\t\t.event-editorial-card:hover {\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\ttransform: translateY(-4px);\n\t\t\t}\n\t\t\t.event-editorial-icon {\n\t\t\t\twidth: 56px;\n\t\t\t\theight: 56px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tbackground: var(--accent-soft);\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tfont-size: 1.4rem;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tmargin: 0 auto 28px;\n\t\t\t}\n\t\t\t.event-editorial-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.6rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 8px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t}\n\t\t\t.event-editorial-arabic {\n\t\t\t\tfont-family: 'Amiri', serif;\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tmargin-bottom: 28px;\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t.event-editorial-detail {\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tline-height: 2;\n\t\t\t\tfont-weight: 300;\n\t\t\t\tmargin-bottom: 28px;\n\t\t\t}\n\t\t\t.event-editorial-detail .row {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t}\n\t\t\t.event-editorial-detail .row:last-child { margin-bottom: 0; }\n\t\t\t.event-editorial-detail .label {\n\t\t\t\tfont-size: 0.65rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tmargin-bottom: 6px;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.event-editorial-detail .value {\n\t\t\t\tcolor: var(--text);\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t}\n\t\t\t.event-editorial-btn {\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 8px;\n\t\t\t\tcolor: var(--text);\n\t\t\t\ttext-decoration: none;\n\t\t\t\tfont-size: 0.75rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tborder-bottom: 1px solid var(--text);\n\t\t\t\tpadding-bottom: 6px;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t}\n\t\t\t.event-editorial-btn:hover {\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tborder-bottom-color: var(--accent);\n\t\t\t\tgap: 14px;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.event-editorial-card { padding: 40px 28px; }\n\t\t\t\t.event-editorial-title { font-size: 1.3rem; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* GALLERY — MASONRY */\n\t\t\t/* ============================================ */\n\t\t\t.gallery-masonry {\n\t\t\t\tcolumns: 3;\n\t\t\t\tcolumn-gap: 16px;\n\t\t\t}\n\t\t\t@media (max-width: 900px) {\n\t\t\t\t.gallery-masonry { columns: 2; column-gap: 12px; }\n\t\t\t}\n\t\t\t@media (max-width: 500px) {\n\t\t\t\t.gallery-masonry { columns: 2; column-gap: 8px; }\n\t\t\t}\n\t\t\t.gallery-masonry-item {\n\t\t\t\tbreak-inside: avoid;\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t\tposition: relative;\n\t\t\t\toverflow: hidden;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\tborder-radius: 2px;\n\t\t\t\ttransition: transform 0.4s ease;\n\t\t\t}\n\t\t\t@media (max-width: 900px) {\n\t\t\t\t.gallery-masonry-item { margin-bottom: 12px; }\n\t\t\t}\n\t\t\t@media (max-width: 500px) {\n\t\t\t\t.gallery-masonry-item { margin-bottom: 8px; }\n\t\t\t}\n\t\t\t.gallery-masonry-item img {\n\t\t\t\twidth: 100%;\n\t\t\t\theight: auto;\n\t\t\t\tdisplay: block;\n\t\t\t\ttransition: transform 0.7s ease;\n\t\t\t}\n\t\t\t.gallery-masonry-item:hover img { transform: scale(1.05); }\n\t\t\t.gallery-masonry-item::after {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\tbackground: rgba(28, 25, 23, 0);\n\t\t\t\ttransition: background 0.3s;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.gallery-masonry-item:hover::after { background: rgba(28, 25, 23, 0.15); }\n\t\t\t.gallery-masonry-item i {\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 50%;\n\t\t\t\tleft: 50%;\n\t\t\t\ttransform: translate(-50%, -50%) scale(0.7);\n\t\t\t\tcolor: var(--white);\n\t\t\t\tfont-size: 1.5rem;\n\t\t\t\topacity: 0;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tpointer-events: none;\n\t\t\t\tz-index: 2;\n\t\t\t}\n\t\t\t.gallery-masonry-item:hover i { opacity: 1; transform: translate(-50%, -50%) scale(1); }\n\n\t\t\t/* ============================================ */\n\t\t\t/* RSVP */\n\t\t\t/* ============================================ */\n\t\t\t.rsvp-mini-form {\n\t\t\t\tmax-width: 480px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t\t.form-group-mini {\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t\ttext-align: left;\n\t\t\t}\n\t\t\t.form-group-mini label {\n\t\t\t\tdisplay: block;\n\t\t\t\tfont-size: 0.68rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tmargin-bottom: 10px;\n\t\t\t}\n\t\t\t.form-group-mini .required { color: #dc2626; }\n\t\t\t.form-group-mini input,\n\t\t\t.form-group-mini select,\n\t\t\t.form-group-mini textarea {\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding: 16px 0;\n\t\t\t\tborder: none;\n\t\t\t\tborder-bottom: 1px solid var(--line-strong);\n\t\t\t\tbackground: transparent;\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tfont-family: 'Inter', sans-serif;\n\t\t\t\tcolor: var(--text);\n\t\t\t\ttransition: border-color 0.3s;\n\t\t\t\tborder-radius: 0;\n\t\t\t}\n\t\t\t.form-group-mini input:focus,\n\t\t\t.form-group-mini select:focus,\n\t\t\t.form-group-mini textarea:focus {\n\t\t\t\toutline: none;\n\t\t\t\tborder-bottom-color: var(--accent);\n\t\t\t}\n\t\t\t.form-group-mini input::placeholder,\n\t\t\t.form-group-mini textarea::placeholder { color: var(--text-light); }\n\t\t\t.form-group-mini input[readonly] {\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tcursor: not-allowed;\n\t\t\t\tbackground: transparent;\n\t\t\t}\n\t\t\t.form-group-mini textarea { resize: vertical; min-height: 90px; }\n\t\t\t.btn-submit-mini {\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding: 18px;\n\t\t\t\tbackground: var(--text);\n\t\t\t\tcolor: var(--white);\n\t\t\t\tborder: none;\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tfont-size: 0.78rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tcursor: pointer;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tmargin-top: 16px;\n\t\t\t}\n\t\t\t.btn-submit-mini:hover {\n\t\t\t\tbackground: var(--accent);\n\t\t\t\ttransform: translateY(-1px);\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t}\n\t\t\t.btn-submit-mini:disabled { opacity: 0.6; cursor: not-allowed; }\n\n\t\t\t.rsvp-mini-list-wrap {\n\t\t\t\tmax-width: 480px;\n\t\t\t\tmargin: 80px auto 0;\n\t\t\t\tpadding-top: 40px;\n\t\t\t\tborder-top: 1px solid var(--line);\n\t\t\t}\n\t\t\t.rsvp-mini-list-head {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: baseline;\n\t\t\t\tmargin-bottom: 28px;\n\t\t\t}\n\t\t\t.rsvp-mini-list-head h4 {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.2rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t}\n\t\t\t.rsvp-mini-count {\n\t\t\t\tfont-size: 0.72rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tletter-spacing: 2px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t\t#rsvpList {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tgap: 0;\n\t\t\t\tmax-height: 440px;\n\t\t\t\toverflow-y: auto;\n\t\t\t}\n\t\t\t.rsvp-mini-item {\n\t\t\t\tpadding: 24px 0;\n\t\t\t\tborder-bottom: 1px solid var(--line);\n\t\t\t}\n\t\t\t.rsvp-mini-item:last-child { border-bottom: none; }\n\t\t\t.rsvp-mini-item .row-main {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: baseline;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\tgap: 8px;\n\t\t\t\tmargin-bottom: 8px;\n\t\t\t}\n\t\t\t.rsvp-mini-item .guest-name {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.05rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t}\n\t\t\t.rsvp-mini-item .status-badge {\n\t\t\t\tfont-size: 0.62rem;\n\t\t\t\tpadding: 3px 12px;\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tletter-spacing: 2px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.rsvp-mini-item .status-badge.hadir {\n\t\t\t\tbackground: rgba(16, 185, 129, 0.1);\n\t\t\t\tcolor: #059669;\n\t\t\t}\n\t\t\t.rsvp-mini-item .status-badge.tidak_hadir {\n\t\t\t\tbackground: rgba(220, 38, 38, 0.08);\n\t\t\t\tcolor: #dc2626;\n\t\t\t}\n\t\t\t.rsvp-mini-item .status-badge.ragu {\n\t\t\t\tbackground: rgba(245, 158, 11, 0.1);\n\t\t\t\tcolor: #d97706;\n\t\t\t}\n\t\t\t.rsvp-mini-item .row-detail {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: center;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\tgap: 8px;\n\t\t\t}\n\t\t\t.rsvp-mini-item .meta {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 16px;\n\t\t\t\tfont-size: 0.72rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t}\n\t\t\t.rsvp-mini-item .meta span { display: flex; align-items: center; gap: 5px; }\n\t\t\t.rsvp-mini-item .message {\n\t\t\t\tmargin-top: 12px;\n\t\t\t\tpadding: 14px 18px;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\tborder-left: 2px solid var(--accent);\n\t\t\t\tfont-size: 0.85rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-style: italic;\n\t\t\t\tline-height: 1.7;\n\t\t\t\tborder-radius: 2px;\n\t\t\t}\n\t\t\t.rsvp-mini-empty {\n\t\t\t\ttext-align: center;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tfont-size: 0.85rem;\n\t\t\t\tpadding: 40px 0;\n\t\t\t}\n\t\t\t.rsvp-mini-empty i { display: block; font-size: 1.6rem; margin-bottom: 12px; opacity: 0.5; }\n\n\t\t\t/* ============================================ */\n\t\t\t/* BANK / AMPLOP DIGITAL */\n\t\t\t/* ============================================ */\n\t\t\t.bank-mini-grid {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: repeat(auto-fit, minmax(280px, 1fr));\n\t\t\t\tgap: 24px;\n\t\t\t\tmax-width: 720px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t\t.bank-mini-card {\n\t\t\t\tbackground: var(--card);\n\t\t\t\tborder: 1px solid var(--line);\n\t\t\t\tpadding: 40px 28px;\n\t\t\t\ttext-align: center;\n\t\t\t\ttransition: all 0.4s ease;\n\t\t\t\tposition: relative;\n\t\t\t}\n\t\t\t.bank-mini-card::before {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 0; left: 0; right: 0;\n\t\t\t\theight: 2px;\n\t\t\t\tbackground: var(--accent);\n\t\t\t\ttransform: scaleX(0);\n\t\t\t\ttransform-origin: left;\n\t\t\t\ttransition: transform 0.5s ease;\n\t\t\t}\n\t\t\t.bank-mini-card:hover::before { transform: scaleX(1); }\n\t\t\t.bank-mini-card:hover {\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\ttransform: translateY(-4px);\n\t\t\t}\n\t\t\t.bank-mini-logo {\n\t\t\t\twidth: 60px;\n\t\t\t\theight: 60px;\n\t\t\t\tmargin: 0 auto 24px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tbackground: var(--accent-soft);\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.bank-mini-logo img {\n\t\t\t\twidth: 55%;\n\t\t\t\theight: 55%;\n\t\t\t\tobject-fit: contain;\n\t\t\t}\n\t\t\t.bank-mini-logo .initial {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.3rem;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tfont-weight: 400;\n\t\t\t}\n\t\t\t.bank-mini-name {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.1rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tletter-spacing: 0.5px;\n\t\t\t}\n\t\t\t.bank-mini-number {\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 10px;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\tpadding: 14px 22px;\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tcursor: pointer;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tmargin-bottom: 14px;\n\t\t\t\twidth: 100%;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\t\t\t.bank-mini-number:hover {\n\t\t\t\tbackground: var(--accent-soft);\n\t\t\t\ttransform: translateY(-1px);\n\t\t\t}\n\t\t\t.bank-mini-number span {\n\t\t\t\tfont-family: 'Courier New', monospace;\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tletter-spacing: 2px;\n\t\t\t}\n\t\t\t.bank-mini-number i {\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\ttransition: color 0.3s;\n\t\t\t}\n\t\t\t.bank-mini-number:hover i { color: var(--accent); }\n\t\t\t.bank-mini-holder {\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t.bank-mini-holder strong {\n\t\t\t\tcolor: var(--text);\n\t\t\t\tfont-style: normal;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.bank-mini-note {\n\t\t\t\ttext-align: center;\n\t\t\t\tmargin-top: 40px;\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* FOOTER */\n\t\t\t/* ============================================ */\n\t\t\t.footer-mini {\n\t\t\t\tpadding: 100px 24px 48px;\n\t\t\t\tbackground: var(--bg);\n\t\t\t\ttext-align: center;\n\t\t\t\tborder-top: 1px solid var(--line);\n\t\t\t\tposition: relative;\n\t\t\t}\n\t\t\t.footer-mini-couple {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 2rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 12px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t}\n\t\t\t.footer-mini-couple .amp {\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tmargin: 0 12px;\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t.footer-mini-divider {\n\t\t\t\twidth: 60px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: var(--line-strong);\n\t\t\t\tmargin: 28px auto;\n\t\t\t}\n\t\t\t.footer-mini-date {\n\t\t\t\tfont-size: 0.75rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tletter-spacing: 5px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t}\n\t\t\t.footer-mini-social {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: center;\n\t\t\t\tgap: 16px;\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t}\n\t\t\t.footer-mini-social a {\n\t\t\t\twidth: 40px;\n\t\t\t\theight: 40px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid var(--line-strong);\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-size: 1rem;\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\ttext-decoration: none;\n\t\t\t}\n\t\t\t.footer-mini-social a:hover {\n\t\t\t\tbackground: var(--accent);\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\tcolor: var(--white);\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t}\n\t\t\t.footer-mini-prayer {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tmax-width: 500px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t\tline-height: 1.7;\n\t\t\t}\n\n\t\t\t/* Web footer */\n\t\t\t.web-footer-mini {\n\t\t\t\tpadding: 56px 0 32px;\n\t\t\t\tbackground: var(--bg-dark);\n\t\t\t\tcolor: rgba(255, 255, 255, 0.6);\n\t\t\t}\n\t\t\t.web-footer-mini-grid {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n\t\t\t\tgap: 40px;\n\t\t\t\tmargin-bottom: 40px;\n\t\t\t}\n\t\t\t.web-footer-mini-brand {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.4rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\ttext-decoration: none;\n\t\t\t\tdisplay: inline-block;\n\t\t\t}\n\t\t\t.web-footer-mini-brand .wedding { color: rgba(255, 255, 255, 0.9); }\n\t\t\t.web-footer-mini-brand .saas {\n\t\t\t\tcolor: var(--accent-light);\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t.web-footer-mini-desc {\n\t\t\t\tfont-size: 0.82rem;\n\t\t\t\tline-height: 1.8;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tfont-weight: 300;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.5);\n\t\t\t}\n\t\t\t.web-footer-mini-heading {\n\t\t\t\tfont-size: 0.68rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.85);\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t}\n\t\t\t.web-footer-mini-list {\n\t\t\t\tlist-style: none;\n\t\t\t\tpadding: 0;\n\t\t\t\tmargin: 0;\n\t\t\t}\n\t\t\t.web-footer-mini-list li {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: flex-start;\n\t\t\t\tgap: 10px;\n\t\t\t\tmargin-bottom: 14px;\n\t\t\t\tfont-size: 0.82rem;\n\t\t\t\tline-height: 1.6;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.5);\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t.web-footer-mini-list li i {\n\t\t\t\tcolor: var(--accent-light);\n\t\t\t\tmargin-top: 3px;\n\t\t\t\tflex-shrink: 0;\n\t\t\t\topacity: 0.7;\n\t\t\t}\n\t\t\t.web-footer-mini-list a, .web-footer-mini-link {\n\t\t\t\tcolor: rgba(255, 255, 255, 0.5);\n\t\t\t\ttext-decoration: none;\n\t\t\t\ttransition: color 0.2s;\n\t\t\t}\n\t\t\t.web-footer-mini-list a:hover, .web-footer-mini-link:hover { color: var(--white); }\n\t\t\t.web-footer-mini-socials {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 12px;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\tmargin-top: 20px;\n\t\t\t}\n\t\t\t.web-footer-mini-socials a {\n\t\t\t\twidth: 38px;\n\t\t\t\theight: 38px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tbackground: rgba(255, 255, 255, 0.05);\n\t\t\t\tborder: 1px solid rgba(255, 255, 255, 0.1);\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.6);\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\ttext-decoration: none;\n\t\t\t}\n\t\t\t.web-footer-mini-socials a:hover {\n\t\t\t\tbackground: var(--accent);\n\t\t\t\tcolor: var(--white);\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t}\n\t\t\t.web-footer-mini-version {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\tpadding: 5px 12px;\n\t\t\t\tbackground: rgba(255, 255, 255, 0.05);\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tdisplay: inline-block;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.4);\n\t\t\t\tletter-spacing: 1px;\n\t\t\t}\n\t\t\t.web-footer-mini-bottom {\n\t\t\t\tborder-top: 1px solid rgba(255, 255, 255, 0.08);\n\t\t\t\tpadding-top: 28px;\n\t\t\t\ttext-align: center;\n\t\t\t\tfont-size: 0.75rem;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.35);\n\t\t\t\tfont-weight: 300;\n\t\t\t\tletter-spacing: 1px;\n\t\t\t}\n\t\t\t@media (max-width: 768px) {\n\t\t\t\t.web-footer-mini { padding: 48px 0 28px; text-align: center; }\n\t\t\t\t.web-footer-mini-list li { justify-content: center; }\n\t\t\t\t.web-footer-mini-socials { justify-content: center; }\n\t\t\t}\n\t\t</style></head><body data-music-url=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.ResolveAttributeValue(musicURL)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1417, Col: 32}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1423, Col: 32}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var4)
 		if templ_7745c5c3_Err != nil {
@@ -128,7 +128,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatUint(project.ID))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1417, Col: 75}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1423, Col: 75}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var5)
 		if templ_7745c5c3_Err != nil {
@@ -141,7 +141,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var6 string
 		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.ResolveAttributeValue(project.Slug)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1417, Col: 110}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1423, Col: 110}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var6)
 		if templ_7745c5c3_Err != nil {
@@ -159,7 +159,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var7 string
 			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.ResolveAttributeValue(heroImage)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1424, Col: 36}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1430, Col: 36}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var7)
 			if templ_7745c5c3_Err != nil {
@@ -177,7 +177,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var8 string
 		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(groomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1430, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1436, Col: 22}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 		if templ_7745c5c3_Err != nil {
@@ -190,7 +190,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var9 string
 		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(brideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1432, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1438, Col: 22}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 		if templ_7745c5c3_Err != nil {
@@ -218,7 +218,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var10 string
 		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(guestName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1444, Col: 47}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1450, Col: 47}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 		if templ_7745c5c3_Err != nil {
@@ -265,7 +265,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var13 string
 		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.ResolveAttributeValue(heroImage)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1468, Col: 32}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1474, Col: 32}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var13)
 		if templ_7745c5c3_Err != nil {
@@ -278,7 +278,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var14 string
 		templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(groomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1473, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1479, Col: 22}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 		if templ_7745c5c3_Err != nil {
@@ -291,7 +291,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var15 string
 		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(brideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1475, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1481, Col: 22}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 		if templ_7745c5c3_Err != nil {
@@ -305,7 +305,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var16 string
 			templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_date"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1482, Col: 33}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1488, Col: 33}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 			if templ_7745c5c3_Err != nil {
@@ -326,7 +326,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var17 string
 			templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_date"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1488, Col: 36}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1494, Col: 36}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 			if templ_7745c5c3_Err != nil {
@@ -357,7 +357,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var19 string
 		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(groomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1511, Col: 63}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1517, Col: 63}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 		if templ_7745c5c3_Err != nil {
@@ -370,7 +370,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var20 string
 		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(brideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1511, Col: 83}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1517, Col: 83}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
 		if templ_7745c5c3_Err != nil {
@@ -383,7 +383,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var21 string
 		templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.ResolveAttributeValue(groomPhoto)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1532, Col: 28}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1538, Col: 28}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var21)
 		if templ_7745c5c3_Err != nil {
@@ -396,7 +396,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var22 string
 		templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.ResolveAttributeValue(groomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1532, Col: 46}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1538, Col: 46}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var22)
 		if templ_7745c5c3_Err != nil {
@@ -409,7 +409,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var23 string
 		templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs(groomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1536, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1542, Col: 22}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
 		if templ_7745c5c3_Err != nil {
@@ -422,7 +422,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var24 string
 		templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(getParentsNameSplit(fatherGroomName, motherGroomName))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1540, Col: 63}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1546, Col: 63}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
 		if templ_7745c5c3_Err != nil {
@@ -440,7 +440,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var25 templ.SafeURL
 			templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getStr(data, "groom_instagram")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1544, Col: 68}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1550, Col: 68}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
 			if templ_7745c5c3_Err != nil {
@@ -458,7 +458,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var26 string
 		templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.ResolveAttributeValue(bridePhoto)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1555, Col: 28}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1561, Col: 28}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var26)
 		if templ_7745c5c3_Err != nil {
@@ -471,7 +471,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var27 string
 		templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.ResolveAttributeValue(brideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1555, Col: 46}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1561, Col: 46}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var27)
 		if templ_7745c5c3_Err != nil {
@@ -484,7 +484,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var28 string
 		templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.JoinStringErrs(brideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1559, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1565, Col: 22}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var28))
 		if templ_7745c5c3_Err != nil {
@@ -497,7 +497,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var29 string
 		templ_7745c5c3_Var29, templ_7745c5c3_Err = templ.JoinStringErrs(getParentsNameSplit(fatherBrideName, motherBrideName))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1563, Col: 63}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1569, Col: 63}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var29))
 		if templ_7745c5c3_Err != nil {
@@ -515,7 +515,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var30 templ.SafeURL
 			templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getStr(data, "bride_instagram")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1567, Col: 68}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1573, Col: 68}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var30))
 			if templ_7745c5c3_Err != nil {
@@ -543,7 +543,7 @@ func modernMinimalistPage(
 				var templ_7745c5c3_Var31 string
 				templ_7745c5c3_Var31, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(80 * (index + 1)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1594, Col: 104}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1600, Col: 104}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var31)
 				if templ_7745c5c3_Err != nil {
@@ -556,7 +556,7 @@ func modernMinimalistPage(
 				var templ_7745c5c3_Var32 string
 				templ_7745c5c3_Var32, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(index + 1))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1595, Col: 64}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1601, Col: 64}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var32))
 				if templ_7745c5c3_Err != nil {
@@ -569,7 +569,7 @@ func modernMinimalistPage(
 				var templ_7745c5c3_Var33 string
 				templ_7745c5c3_Var33, templ_7745c5c3_Err = templ.JoinStringErrs(story["title"])
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1597, Col: 29}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1603, Col: 29}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var33))
 				if templ_7745c5c3_Err != nil {
@@ -582,7 +582,7 @@ func modernMinimalistPage(
 				var templ_7745c5c3_Var34 string
 				templ_7745c5c3_Var34, templ_7745c5c3_Err = templ.JoinStringErrs(story["desc"])
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1598, Col: 27}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1604, Col: 27}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var34))
 				if templ_7745c5c3_Err != nil {
@@ -605,7 +605,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var35 string
 		templ_7745c5c3_Var35, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_date"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1630, Col: 55}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1636, Col: 55}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var35))
 		if templ_7745c5c3_Err != nil {
@@ -618,7 +618,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var36 string
 		templ_7745c5c3_Var36, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_time"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1634, Col: 55}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1640, Col: 55}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var36))
 		if templ_7745c5c3_Err != nil {
@@ -631,7 +631,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var37 string
 		templ_7745c5c3_Var37, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_venue"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1638, Col: 56}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1644, Col: 56}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var37))
 		if templ_7745c5c3_Err != nil {
@@ -649,7 +649,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var38 templ.SafeURL
 			templ_7745c5c3_Var38, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getStr(data, "maps_url_akad")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1642, Col: 64}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1648, Col: 64}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var38))
 			if templ_7745c5c3_Err != nil {
@@ -667,7 +667,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var39 string
 		templ_7745c5c3_Var39, templ_7745c5c3_Err = templ.JoinStringErrs(getResepsiLabel(data))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1653, Col: 63}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1659, Col: 63}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var39))
 		if templ_7745c5c3_Err != nil {
@@ -685,7 +685,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var40 string
 			templ_7745c5c3_Var40, templ_7745c5c3_Err = templ.JoinStringErrs(getResepsiArabic(data))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1655, Col: 67}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1661, Col: 67}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var40))
 			if templ_7745c5c3_Err != nil {
@@ -703,7 +703,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var41 string
 		templ_7745c5c3_Var41, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_date"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1660, Col: 58}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1666, Col: 58}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var41))
 		if templ_7745c5c3_Err != nil {
@@ -716,7 +716,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var42 string
 		templ_7745c5c3_Var42, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_time"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1664, Col: 58}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1670, Col: 58}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var42))
 		if templ_7745c5c3_Err != nil {
@@ -729,7 +729,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var43 string
 		templ_7745c5c3_Var43, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_venue"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1668, Col: 59}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1674, Col: 59}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var43))
 		if templ_7745c5c3_Err != nil {
@@ -747,7 +747,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var44 templ.SafeURL
 			templ_7745c5c3_Var44, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getStr(data, "maps_url_resepsi")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1672, Col: 67}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1678, Col: 67}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var44))
 			if templ_7745c5c3_Err != nil {
@@ -775,7 +775,7 @@ func modernMinimalistPage(
 				var templ_7745c5c3_Var45 string
 				templ_7745c5c3_Var45, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(60 * ((index % 6) + 1)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1697, Col: 110}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1703, Col: 110}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var45)
 				if templ_7745c5c3_Err != nil {
@@ -788,7 +788,7 @@ func modernMinimalistPage(
 				var templ_7745c5c3_Var46 string
 				templ_7745c5c3_Var46, templ_7745c5c3_Err = templ.ResolveAttributeValue(img)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1698, Col: 22}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1704, Col: 22}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var46)
 				if templ_7745c5c3_Err != nil {
@@ -801,7 +801,7 @@ func modernMinimalistPage(
 				var templ_7745c5c3_Var47 string
 				templ_7745c5c3_Var47, templ_7745c5c3_Err = templ.ResolveAttributeValue("Foto " + formatInt(index+1))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1698, Col: 59}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1704, Col: 59}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var47)
 				if templ_7745c5c3_Err != nil {
@@ -824,7 +824,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var48 templ.SafeURL
 		templ_7745c5c3_Var48, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("/invitation/" + project.Slug + "/rsvp"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1720, Col: 113}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1726, Col: 113}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var48))
 		if templ_7745c5c3_Err != nil {
@@ -837,7 +837,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var49 string
 		templ_7745c5c3_Var49, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatUint(project.ID))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1721, Col: 74}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1727, Col: 74}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var49)
 		if templ_7745c5c3_Err != nil {
@@ -865,7 +865,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var50 string
 			templ_7745c5c3_Var50, templ_7745c5c3_Err = templ.ResolveAttributeValue(guestName)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1738, Col: 76}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1744, Col: 76}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var50)
 			if templ_7745c5c3_Err != nil {
@@ -936,7 +936,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var51 string
 		templ_7745c5c3_Var51, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(getExistingRsvpGuests(data)))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1772, Col: 110}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1778, Col: 110}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var51)
 		if templ_7745c5c3_Err != nil {
@@ -949,7 +949,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var52 string
 		templ_7745c5c3_Var52, templ_7745c5c3_Err = templ.JoinStringErrs(getExistingRsvpField(data, "message", ""))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1777, Col: 158}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1783, Col: 158}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var52))
 		if templ_7745c5c3_Err != nil {
@@ -972,7 +972,7 @@ func modernMinimalistPage(
 				var templ_7745c5c3_Var53 string
 				templ_7745c5c3_Var53, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(80 * (index + 1)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1816, Col: 98}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1822, Col: 98}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var53)
 				if templ_7745c5c3_Err != nil {
@@ -990,7 +990,7 @@ func modernMinimalistPage(
 					var templ_7745c5c3_Var54 string
 					templ_7745c5c3_Var54, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + getAccountIconPath(account))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1819, Col: 62}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1825, Col: 62}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var54)
 					if templ_7745c5c3_Err != nil {
@@ -1003,7 +1003,7 @@ func modernMinimalistPage(
 					var templ_7745c5c3_Var55 string
 					templ_7745c5c3_Var55, templ_7745c5c3_Err = templ.ResolveAttributeValue(getAccountBankName(account, data))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1819, Col: 104}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1825, Col: 104}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var55)
 					if templ_7745c5c3_Err != nil {
@@ -1021,7 +1021,7 @@ func modernMinimalistPage(
 					var templ_7745c5c3_Var56 string
 					templ_7745c5c3_Var56, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountInitial(account, data))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1821, Col: 66}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1827, Col: 66}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var56))
 					if templ_7745c5c3_Err != nil {
@@ -1039,7 +1039,7 @@ func modernMinimalistPage(
 				var templ_7745c5c3_Var57 string
 				templ_7745c5c3_Var57, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountBankName(account, data))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1824, Col: 71}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1830, Col: 71}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var57))
 				if templ_7745c5c3_Err != nil {
@@ -1060,7 +1060,7 @@ func modernMinimalistPage(
 				var templ_7745c5c3_Var58 string
 				templ_7745c5c3_Var58, templ_7745c5c3_Err = templ.ResolveAttributeValue(getAccountNumber(account))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1826, Col: 77}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1832, Col: 77}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var58)
 				if templ_7745c5c3_Err != nil {
@@ -1082,7 +1082,7 @@ func modernMinimalistPage(
 				var templ_7745c5c3_Var60 string
 				templ_7745c5c3_Var60, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountNumber(account))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1827, Col: 42}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1833, Col: 42}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var60))
 				if templ_7745c5c3_Err != nil {
@@ -1095,7 +1095,7 @@ func modernMinimalistPage(
 				var templ_7745c5c3_Var61 string
 				templ_7745c5c3_Var61, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountName(account))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1832, Col: 47}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1838, Col: 47}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var61))
 				if templ_7745c5c3_Err != nil {
@@ -1118,7 +1118,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var62 string
 		templ_7745c5c3_Var62, templ_7745c5c3_Err = templ.JoinStringErrs(groomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1851, Col: 14}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1857, Col: 14}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var62))
 		if templ_7745c5c3_Err != nil {
@@ -1131,7 +1131,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var63 string
 		templ_7745c5c3_Var63, templ_7745c5c3_Err = templ.JoinStringErrs(brideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1851, Col: 55}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1857, Col: 55}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var63))
 		if templ_7745c5c3_Err != nil {
@@ -1144,7 +1144,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var64 string
 		templ_7745c5c3_Var64, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_date"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1854, Col: 60}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1860, Col: 60}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var64))
 		if templ_7745c5c3_Err != nil {
@@ -1162,7 +1162,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var65 templ.SafeURL
 			templ_7745c5c3_Var65, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(eventInstagram))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1858, Col: 47}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1864, Col: 47}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var65))
 			if templ_7745c5c3_Err != nil {
@@ -1181,7 +1181,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var66 templ.SafeURL
 			templ_7745c5c3_Var66, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("https://wa.me/" + getStr(data, "whatsapp")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1863, Col: 76}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1869, Col: 76}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var66))
 			if templ_7745c5c3_Err != nil {
@@ -1200,7 +1200,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var67 templ.SafeURL
 			templ_7745c5c3_Var67, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(youtubeURL))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1868, Col: 43}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1874, Col: 43}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var67))
 			if templ_7745c5c3_Err != nil {
@@ -1223,7 +1223,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var68 string
 			templ_7745c5c3_Var68, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + getSiteConfig(data, "site_favicon", ""))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1886, Col: 72}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1892, Col: 72}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var68)
 			if templ_7745c5c3_Err != nil {
@@ -1241,7 +1241,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var69 string
 		templ_7745c5c3_Var69, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "footer_description", "Platform undangan pernikahan digital dengan template elegan, RSVP online, guest book, dan galeri foto."))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1891, Col: 156}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1897, Col: 156}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var69))
 		if templ_7745c5c3_Err != nil {
@@ -1259,7 +1259,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var70 templ.SafeURL
 			templ_7745c5c3_Var70, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_instagram", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1901, Col: 79}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1907, Col: 79}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var70))
 			if templ_7745c5c3_Err != nil {
@@ -1278,7 +1278,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var71 templ.SafeURL
 			templ_7745c5c3_Var71, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_facebook", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1906, Col: 78}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1912, Col: 78}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var71))
 			if templ_7745c5c3_Err != nil {
@@ -1297,7 +1297,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var72 templ.SafeURL
 			templ_7745c5c3_Var72, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_tiktok", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1911, Col: 76}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1917, Col: 76}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var72))
 			if templ_7745c5c3_Err != nil {
@@ -1316,7 +1316,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var73 templ.SafeURL
 			templ_7745c5c3_Var73, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_youtube", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1916, Col: 77}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1922, Col: 77}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var73))
 			if templ_7745c5c3_Err != nil {
@@ -1335,7 +1335,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var74 templ.SafeURL
 			templ_7745c5c3_Var74, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_twitter", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1921, Col: 77}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1927, Col: 77}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var74))
 			if templ_7745c5c3_Err != nil {
@@ -1358,7 +1358,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var75 templ.SafeURL
 			templ_7745c5c3_Var75, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("mailto:" + getSiteConfig(data, "contact_email", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1934, Col: 89}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1940, Col: 89}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var75))
 			if templ_7745c5c3_Err != nil {
@@ -1371,7 +1371,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var76 string
 			templ_7745c5c3_Var76, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "contact_email", ""))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1934, Col: 134}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1940, Col: 134}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var76))
 			if templ_7745c5c3_Err != nil {
@@ -1390,7 +1390,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var77 string
 			templ_7745c5c3_Var77, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "contact_phone", ""))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1940, Col: 57}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1946, Col: 57}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var77))
 			if templ_7745c5c3_Err != nil {
@@ -1409,7 +1409,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var78 templ.SafeURL
 			templ_7745c5c3_Var78, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("https://wa.me/" + getSiteConfig(data, "contact_whatsapp", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1946, Col: 99}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1952, Col: 99}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var78))
 			if templ_7745c5c3_Err != nil {
@@ -1428,7 +1428,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var79 string
 			templ_7745c5c3_Var79, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "contact_address", ""))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1952, Col: 59}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1958, Col: 59}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var79))
 			if templ_7745c5c3_Err != nil {
@@ -1451,7 +1451,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var80 templ.SafeURL
 			templ_7745c5c3_Var80, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "developer_url", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1964, Col: 77}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1970, Col: 77}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var80))
 			if templ_7745c5c3_Err != nil {
@@ -1464,7 +1464,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var81 string
 			templ_7745c5c3_Var81, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "developer_name", "Tim Developer"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1964, Col: 167}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1970, Col: 167}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var81))
 			if templ_7745c5c3_Err != nil {
@@ -1482,7 +1482,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var82 string
 			templ_7745c5c3_Var82, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "developer_name", "Tim Developer"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1966, Col: 71}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1972, Col: 71}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var82))
 			if templ_7745c5c3_Err != nil {
@@ -1505,7 +1505,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var83 templ.SafeURL
 			templ_7745c5c3_Var83, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("mailto:" + getSiteConfig(data, "developer_email", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1972, Col: 91}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1978, Col: 91}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var83))
 			if templ_7745c5c3_Err != nil {
@@ -1518,7 +1518,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var84 string
 			templ_7745c5c3_Var84, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "developer_email", ""))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1972, Col: 138}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1978, Col: 138}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var84))
 			if templ_7745c5c3_Err != nil {
@@ -1541,7 +1541,7 @@ func modernMinimalistPage(
 			var templ_7745c5c3_Var85 string
 			templ_7745c5c3_Var85, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "footer_version", ""))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1977, Col: 85}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1983, Col: 85}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var85))
 			if templ_7745c5c3_Err != nil {
@@ -1559,7 +1559,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var86 string
 		templ_7745c5c3_Var86, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(currentYear()))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1983, Col: 34}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1989, Col: 34}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var86))
 		if templ_7745c5c3_Err != nil {
@@ -1572,7 +1572,7 @@ func modernMinimalistPage(
 		var templ_7745c5c3_Var87 string
 		templ_7745c5c3_Var87, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "footer_copyright", "Wedding SaaS. All rights reserved."))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1983, Col: 116}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1989, Col: 116}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var87))
 		if templ_7745c5c3_Err != nil {

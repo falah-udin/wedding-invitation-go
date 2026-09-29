@@ -13,6 +13,7 @@ func Register(r *gin.Engine) {
 	// PUBLIC
 	r.GET("/", handlers.ShowHome)
 	r.GET("/health", handlers.ShowHealth)
+	r.GET("/preview/template/:slug", handlers.PreviewTemplate)
 
 	// INVITATION PUBLIC (tamu akses)
 	r.GET("/invitation/:slug", invitationHandlers.ShowInvitation)

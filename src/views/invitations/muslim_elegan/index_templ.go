@@ -347,7 +347,7 @@ func muslimEleganPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "</div><a href=\"#section-rsvp\" class=\"btn-rsvp\"><i class=\"bi bi-envelope-check me-2\"></i>Konfirmasi Kehadiran</a></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -355,7 +355,7 @@ func muslimEleganPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "<div class=\"scroll-indicator\" onclick=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "<button class=\"btn-rsvp\" onclick=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -364,760 +364,777 @@ func muslimEleganPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "\"><span>Scroll</span> <i class=\"bi bi-chevron-double-down\"></i></div></section><!-- ============================================ --><!-- QURAN VERSE --><!-- ============================================ --><section class=\"section-quran\" id=\"section-quran\" style=\"padding:70px 0; background:var(--islamic-cream); text-align:center;\"><div class=\"container\"><div class=\"quran-verse\" data-aos=\"fade-up\"><div style=\"font-family:'Amiri',serif; font-size:2rem; color:var(--islamic-green); line-height:1.8; max-width:700px; margin:0 auto;\">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</div><div style=\"font-size:0.85rem; color:var(--islamic-muted); margin-top:12px; font-style:italic; max-width:600px; margin:12px auto 0;\">\"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang.\"</div><div style=\"font-size:0.75rem; color:var(--islamic-gold); margin-top:4px;\">— QS. Ar-Rum: 21</div></div></div></section><!-- ============================================ --><!-- COUPLE --><!-- ============================================ --><section class=\"section-couple-islam\" id=\"section-couple\" style=\"padding:70px 0; background:var(--white);\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">PASANGAN</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Mempelai &amp; Keluarga</h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Dua hati yang dipertemukan dalam ikatan suci, dengan restu orang tua</p><div class=\"couple-islam-grid\"><!-- GROOM --><div class=\"couple-islam-card\" data-aos=\"fade-right\" data-aos-delay=\"100\"><div class=\"photo\" style=\"width:150px; height:150px; margin:0 auto 10px; border-radius:50%; border:3px solid var(--islamic-gold); box-shadow:0 4px 20px rgba(0,0,0,0.06); overflow:hidden;\"><img src=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "\"><i class=\"bi bi-arrow-down me-2\"></i>Buka Undangan</button></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var19 string
-		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.ResolveAttributeValue(groomPhoto)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1056, Col: 28}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var19)
+		templ_7745c5c3_Err = templ.RenderScriptItems(ctx, templ_7745c5c3_Buffer, templpkg.JSFuncCall("scrollToQuran"))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "\" alt=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "<div class=\"scroll-indicator\" onclick=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var19 templ.ComponentScript = templpkg.JSFuncCall("scrollToQuran")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var19.Call)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "\"><span>Scroll</span> <i class=\"bi bi-chevron-double-down\"></i></div></section><!-- ============================================ --><!-- QURAN VERSE --><!-- ============================================ --><section class=\"section-quran\" id=\"section-quran\" style=\"padding:70px 0; background:var(--islamic-cream); text-align:center;\"><div class=\"container\"><div class=\"quran-verse\" data-aos=\"fade-up\"><div style=\"font-family:'Amiri',serif; font-size:2rem; color:var(--islamic-green); line-height:1.8; max-width:700px; margin:0 auto;\">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</div><div style=\"font-size:0.85rem; color:var(--islamic-muted); margin-top:12px; font-style:italic; max-width:600px; margin:12px auto 0;\">\"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang.\"</div><div style=\"font-size:0.75rem; color:var(--islamic-gold); margin-top:4px;\">— QS. Ar-Rum: 21</div></div></div></section><!-- ============================================ --><!-- COUPLE --><!-- ============================================ --><section class=\"section-couple-islam\" id=\"section-couple\" style=\"padding:70px 0; background:var(--white);\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">PASANGAN</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Mempelai &amp; Keluarga</h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Dua hati yang dipertemukan dalam ikatan suci, dengan restu orang tua</p><div class=\"couple-islam-grid\"><!-- GROOM --><div class=\"couple-islam-card\" data-aos=\"fade-right\" data-aos-delay=\"100\"><div class=\"photo\" style=\"width:150px; height:150px; margin:0 auto 10px; border-radius:50%; border:3px solid var(--islamic-gold); box-shadow:0 4px 20px rgba(0,0,0,0.06); overflow:hidden;\"><img src=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var20 string
-		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.ResolveAttributeValue(groomName)
+		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.ResolveAttributeValue(groomPhoto)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1056, Col: 46}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1056, Col: 28}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var20)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "\" style=\"width:100%; height:100%; object-fit:cover;\"></div><h3 style=\"font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--islamic-green); margin-bottom:2px;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "\" alt=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var21 string
-		templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs(groomName)
+		templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.ResolveAttributeValue(groomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1060, Col: 18}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1056, Col: 46}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var21)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "</h3><div style=\"width:40px; height:1px; background:var(--islamic-gold); margin:10px auto; opacity:0.2;\"></div><div style=\"display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px;\"><div><div style=\"width:60px; height:60px; border-radius:50%; margin:0 auto 6px; border:2px solid var(--islamic-gold); overflow:hidden; background:#e8e0d8;\"><img src=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "\" style=\"width:100%; height:100%; object-fit:cover;\"></div><h3 style=\"font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--islamic-green); margin-bottom:2px;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var22 string
-		templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.ResolveAttributeValue(fatherGroomPhoto)
+		templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.JoinStringErrs(groomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1068, Col: 36}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1060, Col: 18}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var22)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var22))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "\" alt=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "</h3><div style=\"width:40px; height:1px; background:var(--islamic-gold); margin:10px auto; opacity:0.2;\"></div><div style=\"display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px;\"><div><div style=\"width:60px; height:60px; border-radius:50%; margin:0 auto 6px; border:2px solid var(--islamic-gold); overflow:hidden; background:#e8e0d8;\"><img src=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var23 string
-		templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.ResolveAttributeValue(fatherGroomName)
+		templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.ResolveAttributeValue(fatherGroomPhoto)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1068, Col: 60}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1068, Col: 36}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var23)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "\" style=\"width:100%; height:100%; object-fit:cover;\"></div><div style=\"font-size:0.7rem; color:var(--islamic-text); font-weight:500;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "\" alt=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var24 string
-		templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(fatherGroomName)
+		templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.ResolveAttributeValue(fatherGroomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1071, Col: 26}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1068, Col: 60}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var24)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "</div><div style=\"font-size:0.55rem; color:var(--islamic-muted);\">Ayah</div></div><div><div style=\"width:60px; height:60px; border-radius:50%; margin:0 auto 6px; border:2px solid var(--islamic-gold); overflow:hidden; background:#e8e0d8;\"><img src=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "\" style=\"width:100%; height:100%; object-fit:cover;\"></div><div style=\"font-size:0.7rem; color:var(--islamic-text); font-weight:500;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var25 string
-		templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.ResolveAttributeValue(motherGroomPhoto)
+		templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinStringErrs(fatherGroomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1077, Col: 36}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1071, Col: 26}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var25)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "\" alt=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "</div><div style=\"font-size:0.55rem; color:var(--islamic-muted);\">Ayah</div></div><div><div style=\"width:60px; height:60px; border-radius:50%; margin:0 auto 6px; border:2px solid var(--islamic-gold); overflow:hidden; background:#e8e0d8;\"><img src=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var26 string
-		templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.ResolveAttributeValue(motherGroomName)
+		templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.ResolveAttributeValue(motherGroomPhoto)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1077, Col: 60}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1077, Col: 36}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var26)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "\" style=\"width:100%; height:100%; object-fit:cover;\"></div><div style=\"font-size:0.7rem; color:var(--islamic-text); font-weight:500;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "\" alt=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var27 string
-		templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.JoinStringErrs(motherGroomName)
+		templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.ResolveAttributeValue(motherGroomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1080, Col: 26}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1077, Col: 60}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var27))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var27)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "</div><div style=\"font-size:0.55rem; color:var(--islamic-muted);\">Ibu</div></div></div></div><!-- BRIDE --><div class=\"couple-islam-card\" data-aos=\"fade-left\" data-aos-delay=\"150\"><div class=\"photo\" style=\"width:150px; height:150px; margin:0 auto 10px; border-radius:50%; border:3px solid var(--islamic-gold); box-shadow:0 4px 20px rgba(0,0,0,0.06); overflow:hidden;\"><img src=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "\" style=\"width:100%; height:100%; object-fit:cover;\"></div><div style=\"font-size:0.7rem; color:var(--islamic-text); font-weight:500;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var28 string
-		templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.ResolveAttributeValue(bridePhoto)
+		templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.JoinStringErrs(motherGroomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1090, Col: 28}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1080, Col: 26}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var28)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var28))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "\" alt=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "</div><div style=\"font-size:0.55rem; color:var(--islamic-muted);\">Ibu</div></div></div></div><!-- BRIDE --><div class=\"couple-islam-card\" data-aos=\"fade-left\" data-aos-delay=\"150\"><div class=\"photo\" style=\"width:150px; height:150px; margin:0 auto 10px; border-radius:50%; border:3px solid var(--islamic-gold); box-shadow:0 4px 20px rgba(0,0,0,0.06); overflow:hidden;\"><img src=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var29 string
-		templ_7745c5c3_Var29, templ_7745c5c3_Err = templ.ResolveAttributeValue(brideName)
+		templ_7745c5c3_Var29, templ_7745c5c3_Err = templ.ResolveAttributeValue(bridePhoto)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1090, Col: 46}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1090, Col: 28}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var29)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "\" style=\"width:100%; height:100%; object-fit:cover;\"></div><h3 style=\"font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--islamic-green); margin-bottom:2px;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "\" alt=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var30 string
-		templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.JoinStringErrs(brideName)
+		templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.ResolveAttributeValue(brideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1094, Col: 18}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1090, Col: 46}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var30))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var30)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "</h3><div style=\"width:40px; height:1px; background:var(--islamic-gold); margin:10px auto; opacity:0.2;\"></div><div style=\"display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px;\"><div><div style=\"width:60px; height:60px; border-radius:50%; margin:0 auto 6px; border:2px solid var(--islamic-gold); overflow:hidden; background:#e8e0d8;\"><img src=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "\" style=\"width:100%; height:100%; object-fit:cover;\"></div><h3 style=\"font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--islamic-green); margin-bottom:2px;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var31 string
-		templ_7745c5c3_Var31, templ_7745c5c3_Err = templ.ResolveAttributeValue(fatherBridePhoto)
+		templ_7745c5c3_Var31, templ_7745c5c3_Err = templ.JoinStringErrs(brideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1102, Col: 36}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1094, Col: 18}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var31)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var31))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "\" alt=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "</h3><div style=\"width:40px; height:1px; background:var(--islamic-gold); margin:10px auto; opacity:0.2;\"></div><div style=\"display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px;\"><div><div style=\"width:60px; height:60px; border-radius:50%; margin:0 auto 6px; border:2px solid var(--islamic-gold); overflow:hidden; background:#e8e0d8;\"><img src=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var32 string
-		templ_7745c5c3_Var32, templ_7745c5c3_Err = templ.ResolveAttributeValue(fatherBrideName)
+		templ_7745c5c3_Var32, templ_7745c5c3_Err = templ.ResolveAttributeValue(fatherBridePhoto)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1102, Col: 60}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1102, Col: 36}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var32)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "\" style=\"width:100%; height:100%; object-fit:cover;\"></div><div style=\"font-size:0.7rem; color:var(--islamic-text); font-weight:500;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "\" alt=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var33 string
-		templ_7745c5c3_Var33, templ_7745c5c3_Err = templ.JoinStringErrs(fatherBrideName)
+		templ_7745c5c3_Var33, templ_7745c5c3_Err = templ.ResolveAttributeValue(fatherBrideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1105, Col: 26}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1102, Col: 60}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var33))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var33)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "</div><div style=\"font-size:0.55rem; color:var(--islamic-muted);\">Ayah</div></div><div><div style=\"width:60px; height:60px; border-radius:50%; margin:0 auto 6px; border:2px solid var(--islamic-gold); overflow:hidden; background:#e8e0d8;\"><img src=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, "\" style=\"width:100%; height:100%; object-fit:cover;\"></div><div style=\"font-size:0.7rem; color:var(--islamic-text); font-weight:500;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var34 string
-		templ_7745c5c3_Var34, templ_7745c5c3_Err = templ.ResolveAttributeValue(motherBridePhoto)
+		templ_7745c5c3_Var34, templ_7745c5c3_Err = templ.JoinStringErrs(fatherBrideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1111, Col: 36}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1105, Col: 26}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var34)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var34))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, "\" alt=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 46, "</div><div style=\"font-size:0.55rem; color:var(--islamic-muted);\">Ayah</div></div><div><div style=\"width:60px; height:60px; border-radius:50%; margin:0 auto 6px; border:2px solid var(--islamic-gold); overflow:hidden; background:#e8e0d8;\"><img src=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var35 string
-		templ_7745c5c3_Var35, templ_7745c5c3_Err = templ.ResolveAttributeValue(motherBrideName)
+		templ_7745c5c3_Var35, templ_7745c5c3_Err = templ.ResolveAttributeValue(motherBridePhoto)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1111, Col: 60}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1111, Col: 36}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var35)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 46, "\" style=\"width:100%; height:100%; object-fit:cover;\"></div><div style=\"font-size:0.7rem; color:var(--islamic-text); font-weight:500;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 47, "\" alt=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var36 string
-		templ_7745c5c3_Var36, templ_7745c5c3_Err = templ.JoinStringErrs(motherBrideName)
+		templ_7745c5c3_Var36, templ_7745c5c3_Err = templ.ResolveAttributeValue(motherBrideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1114, Col: 26}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1111, Col: 60}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var36))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var36)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 47, "</div><div style=\"font-size:0.55rem; color:var(--islamic-muted);\">Ibu</div></div></div></div></div><div style=\"text-align:center; margin-top:40px;\"><span style=\"font-family:'Amiri',serif; color:var(--islamic-gold); opacity:0.3; font-size:2rem;\">❦</span></div></div></section><!-- ============================================ --><!-- LOVE STORY --><!-- ============================================ -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 48, "\" style=\"width:100%; height:100%; object-fit:cover;\"></div><div style=\"font-size:0.7rem; color:var(--islamic-text); font-weight:500;\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var37 string
+		templ_7745c5c3_Var37, templ_7745c5c3_Err = templ.JoinStringErrs(motherBrideName)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1114, Col: 26}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var37))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 49, "</div><div style=\"font-size:0.55rem; color:var(--islamic-muted);\">Ibu</div></div></div></div></div><div style=\"text-align:center; margin-top:40px;\"><span style=\"font-family:'Amiri',serif; color:var(--islamic-gold); opacity:0.3; font-size:2rem;\">❦</span></div></div></section><!-- ============================================ --><!-- LOVE STORY --><!-- ============================================ -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if stories := getLoveStories(data); len(stories) > 0 {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 48, "<section class=\"section-love\" id=\"section-love\" style=\"padding:70px 0; background:var(--islamic-cream);\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">CERITA</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Perjalanan Cinta</h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Setiap pertemuan adalah takdir yang indah</p><div class=\"love-timeline\"><div style=\"position:absolute; left:8px; top:0; bottom:0; width:2px; background:var(--islamic-gold); opacity:0.2;\"></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 50, "<section class=\"section-love\" id=\"section-love\" style=\"padding:70px 0; background:var(--islamic-cream);\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">CERITA</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Perjalanan Cinta</h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Setiap pertemuan adalah takdir yang indah</p><div class=\"love-timeline\"><div style=\"position:absolute; left:8px; top:0; bottom:0; width:2px; background:var(--islamic-gold); opacity:0.2;\"></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			for index, story := range stories {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 49, "<div class=\"timeline-item\" data-aos=\"fade-up\" data-aos-delay=\"")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var37 string
-				templ_7745c5c3_Var37, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(80 * (index + 1)))
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1144, Col: 97}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var37)
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 50, "\"><div style=\"position:absolute; left:-22px; top:4px; width:20px; height:20px; background:var(--islamic-gold); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.5rem; color:var(--white); border:2px solid var(--white); box-shadow:0 2px 8px rgba(0,0,0,0.06);\"><i class=\"bi bi-heart-fill\" style=\"font-size:0.4rem;\"></i></div><div><h4 style=\"font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:600; color:var(--islamic-green); margin-bottom:2px;\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 51, "<div class=\"timeline-item\" data-aos=\"fade-up\" data-aos-delay=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var38 string
-				templ_7745c5c3_Var38, templ_7745c5c3_Err = templ.JoinStringErrs(story["title"])
+				templ_7745c5c3_Var38, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(80 * (index + 1)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1150, Col: 26}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1144, Col: 97}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var38))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var38)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 51, "</h4><p style=\"color:var(--islamic-muted); font-size:0.9rem; margin:0;\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 52, "\"><div style=\"position:absolute; left:-22px; top:4px; width:20px; height:20px; background:var(--islamic-gold); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.5rem; color:var(--white); border:2px solid var(--white); box-shadow:0 2px 8px rgba(0,0,0,0.06);\"><i class=\"bi bi-heart-fill\" style=\"font-size:0.4rem;\"></i></div><div><h4 style=\"font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:600; color:var(--islamic-green); margin-bottom:2px;\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var39 string
-				templ_7745c5c3_Var39, templ_7745c5c3_Err = templ.JoinStringErrs(story["desc"])
+				templ_7745c5c3_Var39, templ_7745c5c3_Err = templ.JoinStringErrs(story["title"])
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1153, Col: 25}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1150, Col: 26}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var39))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 52, "</p></div></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 53, "</h4><p style=\"color:var(--islamic-muted); font-size:0.9rem; margin:0;\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var40 string
+				templ_7745c5c3_Var40, templ_7745c5c3_Err = templ.JoinStringErrs(story["desc"])
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1153, Col: 25}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var40))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 54, "</p></div></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 53, "</div><div style=\"text-align:center; margin-top:40px;\"><span style=\"font-family:'Amiri',serif; color:var(--islamic-gold); opacity:0.2; font-size:2rem;\">❦</span></div></div></section>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 55, "</div><div style=\"text-align:center; margin-top:40px;\"><span style=\"font-family:'Amiri',serif; color:var(--islamic-gold); opacity:0.2; font-size:2rem;\">❦</span></div></div></section>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 54, "<!-- ============================================ --><!-- EVENT --><!-- ============================================ --><section class=\"section-event-islam\" id=\"section-event\" style=\"padding:70px 0; background:var(--white);\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\"><span style=\"font-family:'Amiri',serif; font-size:1.2rem; color:var(--islamic-gold); display:block; margin-bottom:4px;\">وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً</span> ACARA</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Detail Acara</h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Dengan mengharap ridha Allah, kami mengundang kehadiran Bapak/Ibu/Saudara/i</p><div class=\"event-islam-grid\"><!-- AKAD --><div class=\"event-islam-card\" data-aos=\"fade-up\" data-aos-delay=\"100\"><div style=\"position:absolute; top:-20px; right:-20px; font-size:6rem; opacity:0.04; font-family:'Amiri',serif; color:var(--islamic-green); pointer-events:none;\">ﷲ</div><div style=\"width:64px; height:64px; background:rgba(201,160,61,0.12); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 14px; font-size:1.8rem; color:var(--islamic-gold); border:2px solid var(--islamic-gold); box-shadow:0 0 30px rgba(201,160,61,0.08); transition:all 0.3s;\"><i class=\"bi bi-gem\"></i></div><h3 style=\"font-family:'Playfair Display',serif; color:var(--islamic-green); margin-bottom:2px; font-size:1.2rem;\">Akad Nikah</h3><div style=\"font-family:'Amiri',serif; font-size:0.85rem; color:var(--islamic-gold); margin-bottom:10px; font-style:italic;\">عَقْدُ النِّكَاحِ</div><div style=\"color:var(--islamic-text); font-size:0.9rem; line-height:1.8;\"><div style=\"display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;\"><i class=\"bi bi-calendar3\" style=\"color:var(--islamic-gold); width:18px;\"></i> <span>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var40 string
-		templ_7745c5c3_Var40, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_date"))
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1206, Col: 41}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var40))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 55, "</span></div><div style=\"display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;\"><i class=\"bi bi-clock\" style=\"color:var(--islamic-gold); width:18px;\"></i> <span>Pukul ")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 56, "<!-- ============================================ --><!-- EVENT --><!-- ============================================ --><section class=\"section-event-islam\" id=\"section-event\" style=\"padding:70px 0; background:var(--white);\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\"><span style=\"font-family:'Amiri',serif; font-size:1.2rem; color:var(--islamic-gold); display:block; margin-bottom:4px;\">وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً</span> ACARA</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Detail Acara</h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Dengan mengharap ridha Allah, kami mengundang kehadiran Bapak/Ibu/Saudara/i</p><div class=\"event-islam-grid\"><!-- AKAD --><div class=\"event-islam-card\" data-aos=\"fade-up\" data-aos-delay=\"100\"><div style=\"position:absolute; top:-20px; right:-20px; font-size:6rem; opacity:0.04; font-family:'Amiri',serif; color:var(--islamic-green); pointer-events:none;\">ﷲ</div><div style=\"width:64px; height:64px; background:rgba(201,160,61,0.12); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 14px; font-size:1.8rem; color:var(--islamic-gold); border:2px solid var(--islamic-gold); box-shadow:0 0 30px rgba(201,160,61,0.08); transition:all 0.3s;\"><i class=\"bi bi-gem\"></i></div><h3 style=\"font-family:'Playfair Display',serif; color:var(--islamic-green); margin-bottom:2px; font-size:1.2rem;\">Akad Nikah</h3><div style=\"font-family:'Amiri',serif; font-size:0.85rem; color:var(--islamic-gold); margin-bottom:10px; font-style:italic;\">عَقْدُ النِّكَاحِ</div><div style=\"color:var(--islamic-text); font-size:0.9rem; line-height:1.8;\"><div style=\"display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;\"><i class=\"bi bi-calendar3\" style=\"color:var(--islamic-gold); width:18px;\"></i> <span>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var41 string
-		templ_7745c5c3_Var41, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_time"))
+		templ_7745c5c3_Var41, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_date"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1210, Col: 47}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1206, Col: 41}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var41))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 56, "</span></div><div style=\"display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;\"><i class=\"bi bi-geo-alt\" style=\"color:var(--islamic-gold); width:18px;\"></i> <span>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 57, "</span></div><div style=\"display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;\"><i class=\"bi bi-clock\" style=\"color:var(--islamic-gold); width:18px;\"></i> <span>Pukul ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var42 string
-		templ_7745c5c3_Var42, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_venue"))
+		templ_7745c5c3_Var42, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_time"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1214, Col: 42}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1210, Col: 47}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var42))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 57, "</span></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 58, "</span></div><div style=\"display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;\"><i class=\"bi bi-geo-alt\" style=\"color:var(--islamic-gold); width:18px;\"></i> <span>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var43 string
+		templ_7745c5c3_Var43, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_venue"))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1214, Col: 42}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var43))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 59, "</span></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if getStr(data, "maps_url_akad") != "-" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 58, "<div style=\"margin-top:14px;\"><a href=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 60, "<div style=\"margin-top:14px;\"><a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var43 templ.SafeURL
-			templ_7745c5c3_Var43, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(getStr(data, "maps_url_akad")))
+			var templ_7745c5c3_Var44 templ.SafeURL
+			templ_7745c5c3_Var44, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(getStr(data, "maps_url_akad")))
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1220, Col: 62}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var43))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var44))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 59, "\" target=\"_blank\" style=\"display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg, var(--islamic-green), #0d4a2a); color:white; padding:8px 20px; border-radius:50px; text-decoration:none; font-size:0.75rem; font-weight:500; transition:all 0.3s; border:1px solid rgba(255,255,255,0.05); box-shadow:0 4px 15px rgba(26,95,58,0.2);\"><i class=\"bi bi-geo-alt-fill\" style=\"color:var(--islamic-gold);\"></i> <span>Buka Lokasi Akad</span> <i class=\"bi bi-box-arrow-up-right\" style=\"font-size:0.6rem; opacity:0.6;\"></i></a></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 61, "\" target=\"_blank\" style=\"display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg, var(--islamic-green), #0d4a2a); color:white; padding:8px 20px; border-radius:50px; text-decoration:none; font-size:0.75rem; font-weight:500; transition:all 0.3s; border:1px solid rgba(255,255,255,0.05); box-shadow:0 4px 15px rgba(26,95,58,0.2);\"><i class=\"bi bi-geo-alt-fill\" style=\"color:var(--islamic-gold);\"></i> <span>Buka Lokasi Akad</span> <i class=\"bi bi-box-arrow-up-right\" style=\"font-size:0.6rem; opacity:0.6;\"></i></a></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 60, "<div style=\"margin-top:12px; padding-top:12px; border-top:1px solid rgba(201,160,61,0.08); font-family:'Amiri',serif; font-size:0.7rem; color:var(--islamic-muted);\">وَأَنْكِحُوا الْأَيَامَى مِنْكُمْ</div></div><!-- RESEPSI --><div class=\"event-islam-card\" data-aos=\"fade-up\" data-aos-delay=\"150\"><div style=\"position:absolute; bottom:-20px; left:-20px; font-size:6rem; opacity:0.04; font-family:'Amiri',serif; color:var(--islamic-green); pointer-events:none;\">ﷻ</div><div style=\"width:64px; height:64px; background:rgba(201,160,61,0.12); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 14px; font-size:1.8rem; color:var(--islamic-gold); border:2px solid var(--islamic-gold); box-shadow:0 0 30px rgba(201,160,61,0.08); transition:all 0.3s;\"><i class=\"bi bi-balloon\"></i></div><h3 style=\"font-family:'Playfair Display',serif; color:var(--islamic-green); margin-bottom:2px; font-size:1.2rem;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 62, "<div style=\"margin-top:12px; padding-top:12px; border-top:1px solid rgba(201,160,61,0.08); font-family:'Amiri',serif; font-size:0.7rem; color:var(--islamic-muted);\">وَأَنْكِحُوا الْأَيَامَى مِنْكُمْ</div></div><!-- RESEPSI --><div class=\"event-islam-card\" data-aos=\"fade-up\" data-aos-delay=\"150\"><div style=\"position:absolute; bottom:-20px; left:-20px; font-size:6rem; opacity:0.04; font-family:'Amiri',serif; color:var(--islamic-green); pointer-events:none;\">ﷻ</div><div style=\"width:64px; height:64px; background:rgba(201,160,61,0.12); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 14px; font-size:1.8rem; color:var(--islamic-gold); border:2px solid var(--islamic-gold); box-shadow:0 0 30px rgba(201,160,61,0.08); transition:all 0.3s;\"><i class=\"bi bi-balloon\"></i></div><h3 style=\"font-family:'Playfair Display',serif; color:var(--islamic-green); margin-bottom:2px; font-size:1.2rem;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var44 string
-		templ_7745c5c3_Var44, templ_7745c5c3_Err = templ.JoinStringErrs(getResepsiLabel(data))
+		var templ_7745c5c3_Var45 string
+		templ_7745c5c3_Var45, templ_7745c5c3_Err = templ.JoinStringErrs(getResepsiLabel(data))
 		if templ_7745c5c3_Err != nil {
 			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1245, Col: 30}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var44))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var45))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 61, "</h3>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 63, "</h3>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if isIslamicLabel(data) && getResepsiArabic(data) != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 62, "<div style=\"font-family:'Amiri',serif; font-size:0.85rem; color:var(--islamic-gold); margin-bottom:10px; font-style:italic;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 64, "<div style=\"font-family:'Amiri',serif; font-size:0.85rem; color:var(--islamic-gold); margin-bottom:10px; font-style:italic;\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var45 string
-			templ_7745c5c3_Var45, templ_7745c5c3_Err = templ.JoinStringErrs(getResepsiArabic(data))
+			var templ_7745c5c3_Var46 string
+			templ_7745c5c3_Var46, templ_7745c5c3_Err = templ.JoinStringErrs(getResepsiArabic(data))
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1250, Col: 32}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var45))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var46))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 63, "</div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 65, "</div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 64, "<div style=\"color:var(--islamic-text); font-size:0.9rem; line-height:1.8;\"><div style=\"display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;\"><i class=\"bi bi-calendar3\" style=\"color:var(--islamic-gold); width:18px;\"></i> <span>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var46 string
-		templ_7745c5c3_Var46, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_date"))
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1257, Col: 44}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var46))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 65, "</span></div><div style=\"display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;\"><i class=\"bi bi-clock\" style=\"color:var(--islamic-gold); width:18px;\"></i> <span>Pukul ")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 66, "<div style=\"color:var(--islamic-text); font-size:0.9rem; line-height:1.8;\"><div style=\"display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;\"><i class=\"bi bi-calendar3\" style=\"color:var(--islamic-gold); width:18px;\"></i> <span>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var47 string
-		templ_7745c5c3_Var47, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_time"))
+		templ_7745c5c3_Var47, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_date"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1261, Col: 50}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1257, Col: 44}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var47))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 66, "</span></div><div style=\"display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;\"><i class=\"bi bi-geo-alt\" style=\"color:var(--islamic-gold); width:18px;\"></i> <span>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 67, "</span></div><div style=\"display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;\"><i class=\"bi bi-clock\" style=\"color:var(--islamic-gold); width:18px;\"></i> <span>Pukul ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var48 string
-		templ_7745c5c3_Var48, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_venue"))
+		templ_7745c5c3_Var48, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_time"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1265, Col: 45}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1261, Col: 50}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var48))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 67, "</span></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 68, "</span></div><div style=\"display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;\"><i class=\"bi bi-geo-alt\" style=\"color:var(--islamic-gold); width:18px;\"></i> <span>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var49 string
+		templ_7745c5c3_Var49, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_venue"))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1265, Col: 45}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var49))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 69, "</span></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if getStr(data, "maps_url_resepsi") != "-" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 68, "<div style=\"margin-top:14px;\"><a href=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 70, "<div style=\"margin-top:14px;\"><a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var49 templ.SafeURL
-			templ_7745c5c3_Var49, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(getStr(data, "maps_url_resepsi")))
+			var templ_7745c5c3_Var50 templ.SafeURL
+			templ_7745c5c3_Var50, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(getStr(data, "maps_url_resepsi")))
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1271, Col: 65}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var49))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 69, "\" target=\"_blank\" style=\"display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg, var(--islamic-gold), #b8922f); color:var(--islamic-dark); padding:8px 20px; border-radius:50px; text-decoration:none; font-size:0.75rem; font-weight:500; transition:all 0.3s; border:1px solid rgba(255,255,255,0.05); box-shadow:0 4px 15px rgba(201,160,61,0.2);\"><i class=\"bi bi-geo-alt-fill\" style=\"color:var(--islamic-dark);\"></i> <span>Buka Lokasi ")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var50 string
-			templ_7745c5c3_Var50, templ_7745c5c3_Err = templ.JoinStringErrs(getResepsiLabel(data))
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1274, Col: 50}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var50))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 70, "</span> <i class=\"bi bi-box-arrow-up-right\" style=\"font-size:0.6rem; opacity:0.6;\"></i></a></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 71, "\" target=\"_blank\" style=\"display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg, var(--islamic-gold), #b8922f); color:var(--islamic-dark); padding:8px 20px; border-radius:50px; text-decoration:none; font-size:0.75rem; font-weight:500; transition:all 0.3s; border:1px solid rgba(255,255,255,0.05); box-shadow:0 4px 15px rgba(201,160,61,0.2);\"><i class=\"bi bi-geo-alt-fill\" style=\"color:var(--islamic-dark);\"></i> <span>Buka Lokasi ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var51 string
+			templ_7745c5c3_Var51, templ_7745c5c3_Err = templ.JoinStringErrs(getResepsiLabel(data))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1274, Col: 50}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var51))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 72, "</span> <i class=\"bi bi-box-arrow-up-right\" style=\"font-size:0.6rem; opacity:0.6;\"></i></a></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 71, "<div style=\"margin-top:12px; padding-top:12px; border-top:1px solid rgba(201,160,61,0.08); font-family:'Amiri',serif; font-size:0.7rem; color:var(--islamic-muted);\">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ أَزْوَاجًا</div></div></div><div style=\"text-align:center; margin-top:40px; padding:20px 0; border-top:1px solid rgba(201,160,61,0.06); border-bottom:1px solid rgba(201,160,61,0.06);\"><div style=\"font-family:'Amiri',serif; font-size:1.2rem; color:var(--islamic-green); line-height:1.8;\">اللَّهُمَّ بَارِكْ لَهُمَا وَبَارِكْ عَلَيْهِمَا وَاجْمَعْ بَيْنَهُمَا فِي خَيْرٍ</div><div style=\"font-size:0.85rem; color:var(--islamic-muted); margin-top:4px; font-style:italic;\">\"Ya Allah, berkatilah mereka berdua, limpahkanlah keberkahan atas mereka, dan kumpulkanlah mereka dalam kebaikan.\"</div><div style=\"font-size:0.7rem; color:var(--islamic-gold); margin-top:4px; opacity:0.6;\">— Doa untuk Pengantin</div></div><div style=\"text-align:center; margin-top:20px;\"><span style=\"font-family:'Amiri',serif; color:var(--islamic-gold); opacity:0.2; font-size:2rem;\">❦</span></div></div></section><!-- ============================================ --><!-- GALLERY --><!-- ============================================ -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 73, "<div style=\"margin-top:12px; padding-top:12px; border-top:1px solid rgba(201,160,61,0.08); font-family:'Amiri',serif; font-size:0.7rem; color:var(--islamic-muted);\">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ أَزْوَاجًا</div></div></div><div style=\"text-align:center; margin-top:40px; padding:20px 0; border-top:1px solid rgba(201,160,61,0.06); border-bottom:1px solid rgba(201,160,61,0.06);\"><div style=\"font-family:'Amiri',serif; font-size:1.2rem; color:var(--islamic-green); line-height:1.8;\">اللَّهُمَّ بَارِكْ لَهُمَا وَبَارِكْ عَلَيْهِمَا وَاجْمَعْ بَيْنَهُمَا فِي خَيْرٍ</div><div style=\"font-size:0.85rem; color:var(--islamic-muted); margin-top:4px; font-style:italic;\">\"Ya Allah, berkatilah mereka berdua, limpahkanlah keberkahan atas mereka, dan kumpulkanlah mereka dalam kebaikan.\"</div><div style=\"font-size:0.7rem; color:var(--islamic-gold); margin-top:4px; opacity:0.6;\">— Doa untuk Pengantin</div></div><div style=\"text-align:center; margin-top:20px;\"><span style=\"font-family:'Amiri',serif; color:var(--islamic-gold); opacity:0.2; font-size:2rem;\">❦</span></div></div></section><!-- ============================================ --><!-- GALLERY --><!-- ============================================ -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if gallery := getGallery(data); len(gallery) > 0 {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 72, "<section class=\"section-gallery\" id=\"section-gallery\" style=\"padding:70px 0; background:var(--islamic-cream);\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">GALERI</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Momen Terindah</h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Kebahagiaan yang terabadikan dalam setiap momen</p><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css\"><div class=\"gallery-container\"><div class=\"swiper gallery-swiper\"><div class=\"swiper-wrapper\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 74, "<section class=\"section-gallery\" id=\"section-gallery\" style=\"padding:70px 0; background:var(--islamic-cream);\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">GALERI</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Momen Terindah</h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Kebahagiaan yang terabadikan dalam setiap momen</p><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css\"><div class=\"gallery-container\"><div class=\"swiper gallery-swiper\"><div class=\"swiper-wrapper\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			for index, img := range gallery {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 73, "<div class=\"swiper-slide\"><img src=\"")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var51 string
-				templ_7745c5c3_Var51, templ_7745c5c3_Err = templ.ResolveAttributeValue(img)
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1323, Col: 24}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var51)
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 74, "\" alt=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 75, "<div class=\"swiper-slide\"><img src=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var52 string
-				templ_7745c5c3_Var52, templ_7745c5c3_Err = templ.ResolveAttributeValue("Foto " + formatInt(index+1))
+				templ_7745c5c3_Var52, templ_7745c5c3_Err = templ.ResolveAttributeValue(img)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1323, Col: 61}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1323, Col: 24}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var52)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 75, "\" class=\"swiper-image\" loading=\"lazy\"></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 76, "\" alt=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var53 string
+				templ_7745c5c3_Var53, templ_7745c5c3_Err = templ.ResolveAttributeValue("Foto " + formatInt(index+1))
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1323, Col: 61}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var53)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 77, "\" class=\"swiper-image\" loading=\"lazy\"></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 76, "</div><div class=\"swiper-button-next\"></div><div class=\"swiper-button-prev\"></div><div class=\"swiper-pagination\"></div></div></div><script src=\"https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js\"></script></div></section>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 78, "</div><div class=\"swiper-button-next\"></div><div class=\"swiper-button-prev\"></div><div class=\"swiper-pagination\"></div></div></div><script src=\"https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js\"></script></div></section>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 77, "<!-- ============================================ --><!-- RSVP --><!-- ============================================ --><section class=\"section-rsvp-islam\" id=\"section-rsvp\" style=\"padding:70px 0; background:var(--white);\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">KONFIRMASI</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Kehadiran</h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Kami sangat berbahagia jika Anda bisa hadir di hari bahagia kami.</p><form class=\"rsvp-form\" method=\"POST\" action=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 79, "<!-- ============================================ --><!-- RSVP --><!-- ============================================ --><section class=\"section-rsvp-islam\" id=\"section-rsvp\" style=\"padding:70px 0; background:var(--white);\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">KONFIRMASI</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Kehadiran</h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Kami sangat berbahagia jika Anda bisa hadir di hari bahagia kami.</p><form class=\"rsvp-form\" method=\"POST\" action=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var53 templ.SafeURL
-		templ_7745c5c3_Var53, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL("/invitation/" + project.Slug + "/rsvp"))
+		var templ_7745c5c3_Var54 templ.SafeURL
+		templ_7745c5c3_Var54, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL("/invitation/" + project.Slug + "/rsvp"))
 		if templ_7745c5c3_Err != nil {
 			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1350, Col: 105}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var53))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var54))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 78, "\" data-aos=\"fade-up\" data-aos-delay=\"150\" id=\"rsvpForm\" style=\"max-width:500px; margin:0 auto;\"><input type=\"hidden\" name=\"project_id\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 80, "\" data-aos=\"fade-up\" data-aos-delay=\"150\" id=\"rsvpForm\" style=\"max-width:500px; margin:0 auto;\"><input type=\"hidden\" name=\"project_id\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var54 string
-		templ_7745c5c3_Var54, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatUint(project.ID))
+		var templ_7745c5c3_Var55 string
+		templ_7745c5c3_Var55, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatUint(project.ID))
 		if templ_7745c5c3_Err != nil {
 			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1351, Col: 74}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var54)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var55)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 79, "\"> ")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 81, "\"> ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if hasExistingRsvp(data) {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 80, "<div style=\"background: rgba(16,185,129,0.08); border: 1px solid #10b981; border-radius: 12px; padding: 14px 18px; margin-bottom: 20px;\"><div style=\"display: flex; align-items: center; gap: 8px; margin-bottom: 6px;\"><i class=\"bi bi-check-circle-fill\" style=\"color: #10b981; font-size: 1.2rem;\"></i> <strong style=\"color: var(--islamic-green);\">Anda sudah RSVP</strong></div><p style=\"margin: 0; font-size: 0.85rem; color: var(--islamic-muted); line-height: 1.6;\">Data di bawah sudah terisi otomatis. Anda bisa edit jika ada perubahan.</p></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 82, "<div style=\"background: rgba(16,185,129,0.08); border: 1px solid #10b981; border-radius: 12px; padding: 14px 18px; margin-bottom: 20px;\"><div style=\"display: flex; align-items: center; gap: 8px; margin-bottom: 6px;\"><i class=\"bi bi-check-circle-fill\" style=\"color: #10b981; font-size: 1.2rem;\"></i> <strong style=\"color: var(--islamic-green);\">Anda sudah RSVP</strong></div><p style=\"margin: 0; font-size: 0.85rem; color: var(--islamic-muted); line-height: 1.6;\">Data di bawah sudah terisi otomatis. Anda bisa edit jika ada perubahan.</p></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 81, "<div class=\"form-group\" style=\"margin-bottom:16px;\"><label for=\"rsvp-name\" style=\"display:block; font-size:0.85rem; font-weight:500; margin-bottom:4px; color:var(--islamic-green);\">Nama Anda <span style=\"color:#c0392b;\">*</span></label> ")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 83, "<div class=\"form-group\" style=\"margin-bottom:16px;\"><label for=\"rsvp-name\" style=\"display:block; font-size:0.85rem; font-weight:500; margin-bottom:4px; color:var(--islamic-green);\">Nama Anda <span style=\"color:#c0392b;\">*</span></label> ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if isNamedGuest {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 82, "<input type=\"text\" id=\"rsvp-name\" name=\"guest_name\" value=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 84, "<input type=\"text\" id=\"rsvp-name\" name=\"guest_name\" value=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var55 string
-			templ_7745c5c3_Var55, templ_7745c5c3_Err = templ.ResolveAttributeValue(guestName)
+			var templ_7745c5c3_Var56 string
+			templ_7745c5c3_Var56, templ_7745c5c3_Err = templ.ResolveAttributeValue(guestName)
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1371, Col: 76}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var55)
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var56)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 83, "\" readonly style=\"width:100%; padding:12px 16px; border:1px solid #c9a03d; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:rgba(201,160,61,0.05); color:var(--islamic-green); font-weight:600; cursor:not-allowed;\"> <small style=\"display:block; margin-top:6px; font-size:0.7rem; color:var(--islamic-muted); font-style:italic;\"><i class=\"bi bi-info-circle me-1\"></i>Nama otomatis terisi dari undangan yang Anda terima</small>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 85, "\" readonly style=\"width:100%; padding:12px 16px; border:1px solid #c9a03d; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:rgba(201,160,61,0.05); color:var(--islamic-green); font-weight:600; cursor:not-allowed;\"> <small style=\"display:block; margin-top:6px; font-size:0.7rem; color:var(--islamic-muted); font-style:italic;\"><i class=\"bi bi-info-circle me-1\"></i>Nama otomatis terisi dari undangan yang Anda terima</small>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		} else {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 84, "<input type=\"text\" id=\"rsvp-name\" name=\"guest_name\" placeholder=\"Nama lengkap\" required style=\"width:100%; padding:12px 16px; border:1px solid #e0ddd8; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:var(--white); transition:all 0.3s;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 86, "<input type=\"text\" id=\"rsvp-name\" name=\"guest_name\" placeholder=\"Nama lengkap\" required style=\"width:100%; padding:12px 16px; border:1px solid #e0ddd8; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:var(--white); transition:all 0.3s;\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 85, "</div><div class=\"form-group\" style=\"margin-bottom:16px;\"><label for=\"rsvp-attendance\" style=\"display:block; font-size:0.85rem; font-weight:500; margin-bottom:4px; color:var(--islamic-green);\">Kehadiran <span style=\"color:#c0392b;\">*</span></label> <select id=\"rsvp-attendance\" name=\"attendance\" required style=\"width:100%; padding:12px 16px; border:1px solid #e0ddd8; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:var(--white); transition:all 0.3s;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 87, "</div><div class=\"form-group\" style=\"margin-bottom:16px;\"><label for=\"rsvp-attendance\" style=\"display:block; font-size:0.85rem; font-weight:500; margin-bottom:4px; color:var(--islamic-green);\">Kehadiran <span style=\"color:#c0392b;\">*</span></label> <select id=\"rsvp-attendance\" name=\"attendance\" required style=\"width:100%; padding:12px 16px; border:1px solid #e0ddd8; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:var(--white); transition:all 0.3s;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if getExistingRsvpField(data, "attendance", "") == "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 86, "<option value=\"\" selected>Pilih konfirmasi</option> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 88, "<option value=\"\" selected>Pilih konfirmasi</option> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		} else {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 87, "<option value=\"\">Pilih konfirmasi</option> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 89, "<option value=\"\">Pilih konfirmasi</option> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
 		if getExistingRsvpField(data, "attendance", "") == "hadir" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 88, "<option value=\"hadir\" selected>Hadir</option> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 90, "<option value=\"hadir\" selected>Hadir</option> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		} else {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 89, "<option value=\"hadir\">Hadir</option> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 91, "<option value=\"hadir\">Hadir</option> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
 		if getExistingRsvpField(data, "attendance", "") == "tidak_hadir" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 90, "<option value=\"tidak_hadir\" selected>Tidak Hadir</option> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 92, "<option value=\"tidak_hadir\" selected>Tidak Hadir</option> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		} else {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 91, "<option value=\"tidak_hadir\">Tidak Hadir</option> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 93, "<option value=\"tidak_hadir\">Tidak Hadir</option> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
 		if getExistingRsvpField(data, "attendance", "") == "ragu" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 92, "<option value=\"ragu\" selected>Ragu-ragu</option>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 94, "<option value=\"ragu\" selected>Ragu-ragu</option>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		} else {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 93, "<option value=\"ragu\">Ragu-ragu</option>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 95, "<option value=\"ragu\">Ragu-ragu</option>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 94, "</select></div><div class=\"form-group\" style=\"margin-bottom:16px;\"><label for=\"rsvp-guests\" style=\"display:block; font-size:0.85rem; font-weight:500; margin-bottom:4px; color:var(--islamic-green);\">Jumlah Tamu</label> <input type=\"number\" id=\"rsvp-guests\" name=\"total_guests\" value=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var56 string
-		templ_7745c5c3_Var56, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(getExistingRsvpGuests(data)))
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1415, Col: 110}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var56)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 95, "\" min=\"1\" max=\"10\" style=\"width:100%; padding:12px 16px; border:1px solid #e0ddd8; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:var(--white); transition:all 0.3s;\"></div><div class=\"form-group\" style=\"margin-bottom:20px;\"><label for=\"rsvp-message\" style=\"display:block; font-size:0.85rem; font-weight:500; margin-bottom:4px; color:var(--islamic-green);\">Ucapan &amp; Doa</label> <textarea id=\"rsvp-message\" name=\"message\" rows=\"3\" placeholder=\"Tuliskan ucapan dan doa untuk pengantin...\" style=\"width:100%; padding:12px 16px; border:1px solid #e0ddd8; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:var(--white); transition:all 0.3s; resize:vertical; min-height:80px;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 96, "</select></div><div class=\"form-group\" style=\"margin-bottom:16px;\"><label for=\"rsvp-guests\" style=\"display:block; font-size:0.85rem; font-weight:500; margin-bottom:4px; color:var(--islamic-green);\">Jumlah Tamu</label> <input type=\"number\" id=\"rsvp-guests\" name=\"total_guests\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var57 string
-		templ_7745c5c3_Var57, templ_7745c5c3_Err = templ.JoinStringErrs(getExistingRsvpField(data, "message", ""))
+		templ_7745c5c3_Var57, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(getExistingRsvpGuests(data)))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1424, Col: 263}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1415, Col: 110}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var57))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var57)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 96, "</textarea></div><button type=\"submit\" class=\"btn-submit-islam\"><i class=\"bi bi-send me-2\"></i> Kirim Konfirmasi</button></form><div style=\"max-width:500px; margin:30px auto 0; padding-top:20px; border-top:1px solid rgba(201,160,61,0.08);\"><div style=\"display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;\"><h4 style=\"font-size:0.95rem; color:var(--islamic-green); font-weight:600; margin:0;\"><i class=\"bi bi-people me-2\"></i>Konfirmasi Kehadiran</h4><span id=\"rsvpCount\" style=\"font-size:0.7rem; color:var(--islamic-muted); background:rgba(201,160,61,0.08); padding:2px 12px; border-radius:12px;\">0 tamu</span></div><div id=\"rsvpList\" style=\"max-height:400px; overflow-y:auto; padding-right:4px;\"><div style=\"text-align:center; color:var(--islamic-muted); font-size:0.8rem; padding:20px 0;\"><i class=\"bi bi-hourglass-split me-2\"></i>Memuat daftar konfirmasi...</div></div></div></div></section><!-- ============================================ --><!-- AMPLOP DIGITAL --><!-- ============================================ -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 97, "\" min=\"1\" max=\"10\" style=\"width:100%; padding:12px 16px; border:1px solid #e0ddd8; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:var(--white); transition:all 0.3s;\"></div><div class=\"form-group\" style=\"margin-bottom:20px;\"><label for=\"rsvp-message\" style=\"display:block; font-size:0.85rem; font-weight:500; margin-bottom:4px; color:var(--islamic-green);\">Ucapan &amp; Doa</label> <textarea id=\"rsvp-message\" name=\"message\" rows=\"3\" placeholder=\"Tuliskan ucapan dan doa untuk pengantin...\" style=\"width:100%; padding:12px 16px; border:1px solid #e0ddd8; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:var(--white); transition:all 0.3s; resize:vertical; min-height:80px;\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var58 string
+		templ_7745c5c3_Var58, templ_7745c5c3_Err = templ.JoinStringErrs(getExistingRsvpField(data, "message", ""))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1424, Col: 263}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var58))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 98, "</textarea></div><button type=\"submit\" class=\"btn-submit-islam\"><i class=\"bi bi-send me-2\"></i> Kirim Konfirmasi</button></form><div style=\"max-width:500px; margin:30px auto 0; padding-top:20px; border-top:1px solid rgba(201,160,61,0.08);\"><div style=\"display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;\"><h4 style=\"font-size:0.95rem; color:var(--islamic-green); font-weight:600; margin:0;\"><i class=\"bi bi-people me-2\"></i>Konfirmasi Kehadiran</h4><span id=\"rsvpCount\" style=\"font-size:0.7rem; color:var(--islamic-muted); background:rgba(201,160,61,0.08); padding:2px 12px; border-radius:12px;\">0 tamu</span></div><div id=\"rsvpList\" style=\"max-height:400px; overflow-y:auto; padding-right:4px;\"><div style=\"text-align:center; color:var(--islamic-muted); font-size:0.8rem; padding:20px 0;\"><i class=\"bi bi-hourglass-split me-2\"></i>Memuat daftar konfirmasi...</div></div></div></div></section><!-- ============================================ --><!-- AMPLOP DIGITAL --><!-- ============================================ -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if showBankAccounts(data) && len(getBankAccounts(data)) > 0 {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 97, "<section class=\"section-bank-islam\" id=\"section-bank\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\"><span style=\"font-family:'Amiri',serif; font-size:1.1rem; color:var(--islamic-gold); display:block; margin-bottom:4px;\">إِنَّ اللَّهَ يُحِبُّ الْمُحْسِنِينَ</span> AMPLOP DIGITAL</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Kirim Hadiah</h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Doa restu Anda adalah hadiah terindah. Namun jika ingin memberi, kami sediakan:</p><div class=\"bank-grid-islam\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 99, "<section class=\"section-bank-islam\" id=\"section-bank\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\"><span style=\"font-family:'Amiri',serif; font-size:1.1rem; color:var(--islamic-gold); display:block; margin-bottom:4px;\">إِنَّ اللَّهَ يُحِبُّ الْمُحْسِنِينَ</span> AMPLOP DIGITAL</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Kirim Hadiah</h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Doa restu Anda adalah hadiah terindah. Namun jika ingin memberi, kami sediakan:</p><div class=\"bank-grid-islam\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			for index, account := range getBankAccounts(data) {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 98, "<div class=\"bank-card-islam\" data-aos=\"fade-up\" data-aos-delay=\"")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var58 string
-				templ_7745c5c3_Var58, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(80 * (index + 1)))
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1471, Col: 99}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var58)
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 99, "\"><span class=\"bank-type-badge-islam\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 100, "<div class=\"bank-card-islam\" data-aos=\"fade-up\" data-aos-delay=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var59 string
-				templ_7745c5c3_Var59, templ_7745c5c3_Err = templ.JoinStringErrs(getBankTypeBadge(account))
+				templ_7745c5c3_Var59, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(80 * (index + 1)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1472, Col: 71}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1471, Col: 99}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var59))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var59)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 100, "</span><div class=\"bank-logo-islam\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 101, "\"><span class=\"bank-type-badge-islam\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var60 string
+				templ_7745c5c3_Var60, templ_7745c5c3_Err = templ.JoinStringErrs(getBankTypeBadge(account))
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1472, Col: 71}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var60))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 102, "</span><div class=\"bank-logo-islam\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				if hasCustomIcon(account) {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 101, "<img src=\"")
-					if templ_7745c5c3_Err != nil {
-						return templ_7745c5c3_Err
-					}
-					var templ_7745c5c3_Var60 string
-					templ_7745c5c3_Var60, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + getAccountIconPath(account))
-					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1476, Col: 62}
-					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var60)
-					if templ_7745c5c3_Err != nil {
-						return templ_7745c5c3_Err
-					}
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 102, "\" alt=\"")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 103, "<img src=\"")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 					var templ_7745c5c3_Var61 string
-					templ_7745c5c3_Var61, templ_7745c5c3_Err = templ.ResolveAttributeValue(getAccountBankName(account, data))
+					templ_7745c5c3_Var61, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + getAccountIconPath(account))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1476, Col: 104}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1476, Col: 62}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var61)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 103, "\">")
-					if templ_7745c5c3_Err != nil {
-						return templ_7745c5c3_Err
-					}
-				} else {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 104, "<span class=\"bank-logo-icon\">")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 104, "\" alt=\"")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 					var templ_7745c5c3_Var62 string
-					templ_7745c5c3_Var62, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountInitial(account, data))
+					templ_7745c5c3_Var62, templ_7745c5c3_Err = templ.ResolveAttributeValue(getAccountBankName(account, data))
+					if templ_7745c5c3_Err != nil {
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1476, Col: 104}
+					}
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var62)
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 105, "\">")
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+				} else {
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 106, "<span class=\"bank-logo-icon\">")
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+					var templ_7745c5c3_Var63 string
+					templ_7745c5c3_Var63, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountInitial(account, data))
 					if templ_7745c5c3_Err != nil {
 						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1478, Col: 73}
 					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var62))
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var63))
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 105, "</span>")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 107, "</span>")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 106, "</div><div class=\"bank-name-islam\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 108, "</div><div class=\"bank-name-islam\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var63 string
-				templ_7745c5c3_Var63, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountBankName(account, data))
+				var templ_7745c5c3_Var64 string
+				templ_7745c5c3_Var64, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountBankName(account, data))
 				if templ_7745c5c3_Err != nil {
 					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1482, Col: 72}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var63))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var64))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 107, "</div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 109, "</div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -1125,501 +1142,501 @@ func muslimEleganPage(
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 108, "<div class=\"bank-number-wrapper-islam\" data-number=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 110, "<div class=\"bank-number-wrapper-islam\" data-number=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var64 string
-				templ_7745c5c3_Var64, templ_7745c5c3_Err = templ.ResolveAttributeValue(getAccountNumber(account))
+				var templ_7745c5c3_Var65 string
+				templ_7745c5c3_Var65, templ_7745c5c3_Err = templ.ResolveAttributeValue(getAccountNumber(account))
 				if templ_7745c5c3_Err != nil {
 					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1484, Col: 86}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var64)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var65)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 109, "\" onclick=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 111, "\" onclick=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var65 templ.ComponentScript = templpkg.JSFuncCall("copyBankNumberFromEl", templpkg.JSExpression("this"))
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var65.Call)
+				var templ_7745c5c3_Var66 templ.ComponentScript = templpkg.JSFuncCall("copyBankNumberFromEl", templpkg.JSExpression("this"))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var66.Call)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 110, "\"><span class=\"bank-number-islam\">")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var66 string
-				templ_7745c5c3_Var66, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountNumber(account))
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1485, Col: 68}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var66))
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 111, "</span> <i class=\"bi bi-clipboard copy-icon-islam\"></i></div><div class=\"bank-holder-islam\">a.n. <strong>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 112, "\"><span class=\"bank-number-islam\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var67 string
-				templ_7745c5c3_Var67, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountName(account))
+				templ_7745c5c3_Var67, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountNumber(account))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1490, Col: 47}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1485, Col: 68}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var67))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 112, "</strong></div></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 113, "</span> <i class=\"bi bi-clipboard copy-icon-islam\"></i></div><div class=\"bank-holder-islam\">a.n. <strong>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var68 string
+				templ_7745c5c3_Var68, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountName(account))
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1490, Col: 47}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var68))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 114, "</strong></div></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 113, "</div><p class=\"bank-note-islam\" data-aos=\"fade-up\"><i class=\"bi bi-info-circle me-1\"></i> Klik nomor rekening untuk menyalin</p></div></section>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 115, "</div><p class=\"bank-note-islam\" data-aos=\"fade-up\"><i class=\"bi bi-info-circle me-1\"></i> Klik nomor rekening untuk menyalin</p></div></section>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 114, "<!-- ============================================ --><!-- FOOTER TAHAP 1 - INFO MEMPELAI --><!-- ============================================ --><footer class=\"section-footer-islam\"><div class=\"footer-inner\"><div class=\"footer-couple\"><span>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var68 string
-		templ_7745c5c3_Var68, templ_7745c5c3_Err = templ.JoinStringErrs(groomName)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1510, Col: 22}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var68))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 115, "</span> <span class=\"amp\">&amp;</span> <span>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 116, "<!-- ============================================ --><!-- FOOTER TAHAP 1 - INFO MEMPELAI --><!-- ============================================ --><footer class=\"section-footer-islam\"><div class=\"footer-inner\"><div class=\"footer-couple\"><span>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var69 string
-		templ_7745c5c3_Var69, templ_7745c5c3_Err = templ.JoinStringErrs(brideName)
+		templ_7745c5c3_Var69, templ_7745c5c3_Err = templ.JoinStringErrs(groomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1512, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1510, Col: 22}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var69))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 116, "</span></div><div style=\"width:50px; height:1px; background:rgba(201,160,61,0.3); margin:14px auto;\"></div><p style=\"font-size:0.85rem; margin-bottom:14px; opacity:0.7; font-family:'Amiri',serif;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 117, "</span> <span class=\"amp\">&amp;</span> <span>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var70 string
-		templ_7745c5c3_Var70, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_date"))
+		templ_7745c5c3_Var70, templ_7745c5c3_Err = templ.JoinStringErrs(brideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1518, Col: 32}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1512, Col: 22}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var70))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 117, "</p><div class=\"footer-social\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 118, "</span></div><div style=\"width:50px; height:1px; background:rgba(201,160,61,0.3); margin:14px auto;\"></div><p style=\"font-size:0.85rem; margin-bottom:14px; opacity:0.7; font-family:'Amiri',serif;\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var71 string
+		templ_7745c5c3_Var71, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_date"))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1518, Col: 32}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var71))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 119, "</p><div class=\"footer-social\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if eventInstagram != "-" && eventInstagram != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 118, "<a href=\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var71 templ.SafeURL
-			templ_7745c5c3_Var71, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(eventInstagram))
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1523, Col: 45}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var71))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 119, "\" target=\"_blank\" rel=\"noopener\"><i class=\"bi bi-instagram\"></i></a> ")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		}
-		if getStr(data, "whatsapp") != "-" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 120, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var72 templ.SafeURL
-			templ_7745c5c3_Var72, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL("https://wa.me/" + getStr(data, "whatsapp")))
+			templ_7745c5c3_Var72, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(eventInstagram))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1528, Col: 74}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1523, Col: 45}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var72))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 121, "\" target=\"_blank\" rel=\"noopener\"><i class=\"bi bi-whatsapp\"></i></a>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 121, "\" target=\"_blank\" rel=\"noopener\"><i class=\"bi bi-instagram\"></i></a> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 122, "</div><p style=\"font-size:0.75rem; opacity:0.4; font-style:italic;\">\"Barakallahu lakuma wa baraka 'alaikuma wa jama'a bainakuma fii khairin\"</p></div></footer><!-- ============================================ --><!-- FOOTER TAHAP 2 - WEB FOOTER --><!-- ============================================ --><footer class=\"web-footer\"><div class=\"container\"><div class=\"row\"><div><a href=\"/\" class=\"web-footer-brand-link\" style=\"text-decoration:none;\"><h5 class=\"web-footer-brand\">")
+		if getStr(data, "whatsapp") != "-" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 122, "<a href=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var73 templ.SafeURL
+			templ_7745c5c3_Var73, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL("https://wa.me/" + getStr(data, "whatsapp")))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1528, Col: 74}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var73))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 123, "\" target=\"_blank\" rel=\"noopener\"><i class=\"bi bi-whatsapp\"></i></a>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 124, "</div><p style=\"font-size:0.75rem; opacity:0.4; font-style:italic;\">\"Barakallahu lakuma wa baraka 'alaikuma wa jama'a bainakuma fii khairin\"</p></div></footer><!-- ============================================ --><!-- FOOTER TAHAP 2 - WEB FOOTER --><!-- ============================================ --><footer class=\"web-footer\"><div class=\"container\"><div class=\"row\"><div><a href=\"/\" class=\"web-footer-brand-link\" style=\"text-decoration:none;\"><h5 class=\"web-footer-brand\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if getSiteConfig(data, "site_favicon", "") != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 123, "<img src=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 125, "<img src=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var73 string
-			templ_7745c5c3_Var73, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + getSiteConfig(data, "site_favicon", ""))
+			var templ_7745c5c3_Var74 string
+			templ_7745c5c3_Var74, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + getSiteConfig(data, "site_favicon", ""))
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1550, Col: 73}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var73)
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var74)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 124, "\" alt=\"Logo\" style=\"width: 32px; height: 32px; object-fit: contain; margin-right: 8px; vertical-align: middle;\"> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 126, "\" alt=\"Logo\" style=\"width: 32px; height: 32px; object-fit: contain; margin-right: 8px; vertical-align: middle;\"> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 125, "<span class=\"wedding\">Wedding</span><span class=\"saas\">SaaS</span></h5></a><p class=\"web-footer-desc\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 127, "<span class=\"wedding\">Wedding</span><span class=\"saas\">SaaS</span></h5></a><p class=\"web-footer-desc\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var74 string
-		templ_7745c5c3_Var74, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "footer_description", "Platform undangan pernikahan digital dengan template elegan, RSVP online, guest book, dan galeri foto."))
+		var templ_7745c5c3_Var75 string
+		templ_7745c5c3_Var75, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "footer_description", "Platform undangan pernikahan digital dengan template elegan, RSVP online, guest book, dan galeri foto."))
 		if templ_7745c5c3_Err != nil {
 			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1556, Col: 156}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var74))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var75))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 126, "</p><p class=\"web-footer-desc mb-2\" style=\"margin-top: 8px;\"><i class=\"bi bi-globe me-1\" style=\"color:var(--islamic-gold);\"></i> <a href=\"https://wedding.litebox.my.id\" target=\"_blank\" rel=\"noopener\" class=\"web-footer-link\">wedding.litebox.my.id</a></p><div class=\"web-footer-socials\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 128, "</p><p class=\"web-footer-desc mb-2\" style=\"margin-top: 8px;\"><i class=\"bi bi-globe me-1\" style=\"color:var(--islamic-gold);\"></i> <a href=\"https://wedding.litebox.my.id\" target=\"_blank\" rel=\"noopener\" class=\"web-footer-link\">wedding.litebox.my.id</a></p><div class=\"web-footer-socials\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if getSiteConfig(data, "social_instagram", "") != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 127, "<a href=\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var75 templ.SafeURL
-			templ_7745c5c3_Var75, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(getSiteConfig(data, "social_instagram", "")))
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1568, Col: 76}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var75))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 128, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"Instagram\"><i class=\"bi bi-instagram\"></i></a> ")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		}
-		if getSiteConfig(data, "social_facebook", "") != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 129, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var76 templ.SafeURL
-			templ_7745c5c3_Var76, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(getSiteConfig(data, "social_facebook", "")))
+			templ_7745c5c3_Var76, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(getSiteConfig(data, "social_instagram", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1573, Col: 75}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1568, Col: 76}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var76))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 130, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"Facebook\"><i class=\"bi bi-facebook\"></i></a> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 130, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"Instagram\"><i class=\"bi bi-instagram\"></i></a> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		if getSiteConfig(data, "social_tiktok", "") != "" {
+		if getSiteConfig(data, "social_facebook", "") != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 131, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var77 templ.SafeURL
-			templ_7745c5c3_Var77, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(getSiteConfig(data, "social_tiktok", "")))
+			templ_7745c5c3_Var77, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(getSiteConfig(data, "social_facebook", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1578, Col: 73}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1573, Col: 75}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var77))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 132, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"TikTok\"><i class=\"bi bi-tiktok\"></i></a> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 132, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"Facebook\"><i class=\"bi bi-facebook\"></i></a> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		if getSiteConfig(data, "social_youtube", "") != "" {
+		if getSiteConfig(data, "social_tiktok", "") != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 133, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var78 templ.SafeURL
-			templ_7745c5c3_Var78, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(getSiteConfig(data, "social_youtube", "")))
+			templ_7745c5c3_Var78, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(getSiteConfig(data, "social_tiktok", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1583, Col: 74}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1578, Col: 73}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var78))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 134, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"YouTube\"><i class=\"bi bi-youtube\"></i></a> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 134, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"TikTok\"><i class=\"bi bi-tiktok\"></i></a> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		if getSiteConfig(data, "social_twitter", "") != "" {
+		if getSiteConfig(data, "social_youtube", "") != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 135, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var79 templ.SafeURL
-			templ_7745c5c3_Var79, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(getSiteConfig(data, "social_twitter", "")))
+			templ_7745c5c3_Var79, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(getSiteConfig(data, "social_youtube", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1588, Col: 74}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1583, Col: 74}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var79))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 136, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"Twitter\"><i class=\"bi bi-twitter-x\"></i></a>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 136, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"YouTube\"><i class=\"bi bi-youtube\"></i></a> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 137, "</div></div><div><h6 class=\"web-footer-heading\">Kontak Kami</h6><ul class=\"web-footer-list\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		if getSiteConfig(data, "contact_email", "") != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 138, "<li><i class=\"bi bi-envelope\"></i> <a href=\"")
+		if getSiteConfig(data, "social_twitter", "") != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 137, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var80 templ.SafeURL
-			templ_7745c5c3_Var80, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL("mailto:" + getSiteConfig(data, "contact_email", "")))
+			templ_7745c5c3_Var80, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(getSiteConfig(data, "social_twitter", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1601, Col: 86}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1588, Col: 74}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var80))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 139, "\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 138, "\" target=\"_blank\" rel=\"noopener\" class=\"web-social-link\" title=\"Twitter\"><i class=\"bi bi-twitter-x\"></i></a>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var81 string
-			templ_7745c5c3_Var81, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "contact_email", ""))
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 139, "</div></div><div><h6 class=\"web-footer-heading\">Kontak Kami</h6><ul class=\"web-footer-list\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if getSiteConfig(data, "contact_email", "") != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 140, "<li><i class=\"bi bi-envelope\"></i> <a href=\"")
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1601, Col: 131}
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var81 templ.SafeURL
+			templ_7745c5c3_Var81, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL("mailto:" + getSiteConfig(data, "contact_email", "")))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1601, Col: 86}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var81))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 140, "</a></li>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		}
-		if getSiteConfig(data, "contact_phone", "") != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 141, "<li><i class=\"bi bi-telephone\"></i> <span>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 141, "\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var82 string
-			templ_7745c5c3_Var82, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "contact_phone", ""))
+			templ_7745c5c3_Var82, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "contact_email", ""))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1607, Col: 57}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1601, Col: 131}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var82))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 142, "</span></li>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 142, "</a></li>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		if getSiteConfig(data, "contact_whatsapp", "") != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 143, "<li><i class=\"bi bi-whatsapp\"></i> <a href=\"")
+		if getSiteConfig(data, "contact_phone", "") != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 143, "<li><i class=\"bi bi-telephone\"></i> <span>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var83 templ.SafeURL
-			templ_7745c5c3_Var83, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL("https://wa.me/" + getSiteConfig(data, "contact_whatsapp", "")))
+			var templ_7745c5c3_Var83 string
+			templ_7745c5c3_Var83, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "contact_phone", ""))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1613, Col: 96}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1607, Col: 57}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var83))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 144, "\" target=\"_blank\" rel=\"noopener\">WhatsApp Chat</a></li>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 144, "</span></li>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		if getSiteConfig(data, "contact_address", "") != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 145, "<li><i class=\"bi bi-geo-alt\"></i> <span>")
+		if getSiteConfig(data, "contact_whatsapp", "") != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 145, "<li><i class=\"bi bi-whatsapp\"></i> <a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var84 string
-			templ_7745c5c3_Var84, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "contact_address", ""))
+			var templ_7745c5c3_Var84 templ.SafeURL
+			templ_7745c5c3_Var84, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL("https://wa.me/" + getSiteConfig(data, "contact_whatsapp", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1619, Col: 59}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1613, Col: 96}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var84))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 146, "</span></li>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 146, "\" target=\"_blank\" rel=\"noopener\">WhatsApp Chat</a></li>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 147, "</ul></div><div><h6 class=\"web-footer-heading\">Dikembangkan Oleh</h6><p class=\"web-footer-desc mb-2\"><i class=\"bi bi-code-slash me-1\" style=\"color:var(--islamic-gold);\"></i> ")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		if getSiteConfig(data, "developer_url", "") != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 148, "<a href=\"")
+		if getSiteConfig(data, "contact_address", "") != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 147, "<li><i class=\"bi bi-geo-alt\"></i> <span>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var85 templ.SafeURL
-			templ_7745c5c3_Var85, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(getSiteConfig(data, "developer_url", "")))
+			var templ_7745c5c3_Var85 string
+			templ_7745c5c3_Var85, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "contact_address", ""))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1630, Col: 73}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1619, Col: 59}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var85))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 149, "\" target=\"_blank\" rel=\"noopener\" class=\"web-footer-link\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 148, "</span></li>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var86 string
-			templ_7745c5c3_Var86, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "developer_name", "Tim Developer"))
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 149, "</ul></div><div><h6 class=\"web-footer-heading\">Dikembangkan Oleh</h6><p class=\"web-footer-desc mb-2\"><i class=\"bi bi-code-slash me-1\" style=\"color:var(--islamic-gold);\"></i> ")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if getSiteConfig(data, "developer_url", "") != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 150, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1630, Col: 187}
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var86 templ.SafeURL
+			templ_7745c5c3_Var86, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(getSiteConfig(data, "developer_url", "")))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1630, Col: 73}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var86))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 150, "</a>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 151, "\" target=\"_blank\" rel=\"noopener\" class=\"web-footer-link\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-		} else {
 			var templ_7745c5c3_Var87 string
 			templ_7745c5c3_Var87, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "developer_name", "Tim Developer"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1632, Col: 64}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1630, Col: 187}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var87))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 151, "</p>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		if getSiteConfig(data, "developer_email", "") != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 152, "<p class=\"web-footer-desc mb-2\"><i class=\"bi bi-envelope-at me-1\"></i> <a href=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 152, "</a>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var88 templ.SafeURL
-			templ_7745c5c3_Var88, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL("mailto:" + getSiteConfig(data, "developer_email", "")))
+		} else {
+			var templ_7745c5c3_Var88 string
+			templ_7745c5c3_Var88, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "developer_name", "Tim Developer"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1638, Col: 87}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1632, Col: 64}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var88))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 153, "\" class=\"web-footer-link\">")
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 153, "</p>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if getSiteConfig(data, "developer_email", "") != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 154, "<p class=\"web-footer-desc mb-2\"><i class=\"bi bi-envelope-at me-1\"></i> <a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var89 string
-			templ_7745c5c3_Var89, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "developer_email", ""))
+			var templ_7745c5c3_Var89 templ.SafeURL
+			templ_7745c5c3_Var89, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL("mailto:" + getSiteConfig(data, "developer_email", "")))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1638, Col: 158}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1638, Col: 87}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var89))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 154, "</a></p>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		}
-		if getSiteConfig(data, "footer_version", "") != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 155, "<p class=\"web-footer-version\"><i class=\"bi bi-tag me-1\"></i>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 155, "\" class=\"web-footer-link\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var90 string
-			templ_7745c5c3_Var90, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "footer_version", ""))
+			templ_7745c5c3_Var90, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "developer_email", ""))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1643, Col: 81}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1638, Col: 158}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var90))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 156, "</p>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 156, "</a></p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 157, "</div></div><hr class=\"web-footer-divider\"><div class=\"text-center\"><p class=\"web-footer-text\">© ")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
+		if getSiteConfig(data, "footer_version", "") != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 157, "<p class=\"web-footer-version\"><i class=\"bi bi-tag me-1\"></i>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var91 string
+			templ_7745c5c3_Var91, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "footer_version", ""))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1643, Col: 81}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var91))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 158, "</p>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 		}
-		var templ_7745c5c3_Var91 string
-		templ_7745c5c3_Var91, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(currentYear()))
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1653, Col: 35}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var91))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 158, " ")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 159, "</div></div><hr class=\"web-footer-divider\"><div class=\"text-center\"><p class=\"web-footer-text\">© ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var92 string
-		templ_7745c5c3_Var92, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "footer_copyright", "Wedding SaaS. Platform Undangan Digital. All rights reserved."))
+		templ_7745c5c3_Var92, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(currentYear()))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1653, Col: 144}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1653, Col: 35}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var92))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 159, "</p></div></div></footer><!-- ============================================ --><!-- SCRIPTS --><!-- ============================================ --><script src=\"https://unpkg.com/aos@2.3.1/dist/aos.js\"></script><script src=\"https://cdn.jsdelivr.net/npm/sweetalert2@11\"></script><script>\n\t\t\t// AOS\n\t\t\tAOS.init({\n\t\t\t\tduration: 800,\n\t\t\t\teasing: 'ease-in-out',\n\t\t\t\tonce: false,\n\t\t\t\tmirror: true,\n\t\t\t\toffset: 50\n\t\t\t});\n\n\t\t\t// MUSIC PLAYER\n\t\t\tvar audio = null;\n\t\t\tvar isPlaying = false;\n\t\t\tvar hasStarted = false;\n\t\t\tvar musicUrl = document.body.dataset.musicUrl || '';\n\t\t\tvar projectID = document.body.dataset.projectId || '';\n\t\t\tvar projectSlug = document.body.dataset.projectSlug || '';\n\t\t\tvar MUSIC_KEY = 'wedding_music_state_' + projectID;\n\n\t\t\tfunction initAudio() {\n\t\t\t\tif (!musicUrl) return false;\n\t\t\t\tif (audio) return true;\n\t\t\t\taudio = new Audio(musicUrl);\n\t\t\t\taudio.loop = true;\n\t\t\t\taudio.volume = 0.5;\n\t\t\t\treturn true;\n\t\t\t}\n\n\t\t\twindow.startMusic = function() {\n\t\t\t\tif (!initAudio()) {\n\t\t\t\t\tshowToast('info', 'Belum ada musik untuk undangan ini');\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\taudio.play().then(function() {\n\t\t\t\t\tisPlaying = true;\n\t\t\t\t\thasStarted = true;\n\t\t\t\t\tvar btn = document.getElementById('musicToggle');\n\t\t\t\t\tif (btn) {\n\t\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-pause-fill\"></i>';\n\t\t\t\t\t\tbtn.classList.add('playing');\n\t\t\t\t\t}\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'playing');\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t}).catch(function(e) {\n\t\t\t\t\tconsole.log('Play failed:', e);\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t\tdocument.addEventListener('click', function retry() {\n\t\t\t\t\t\taudio.play().catch(function(){});\n\t\t\t\t\t\tdocument.removeEventListener('click', retry);\n\t\t\t\t\t}, { once: true });\n\t\t\t\t});\n\t\t\t};\n\n\t\t\tfunction closeOverlay() {\n\t\t\t\tvar overlay = document.getElementById('startOverlay');\n\t\t\t\tif (overlay) {\n\t\t\t\t\toverlay.style.opacity = '0';\n\t\t\t\t\tsetTimeout(function() {\n\t\t\t\t\t\toverlay.style.display = 'none';\n\t\t\t\t\t}, 800);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\twindow.toggleMusic = function() {\n\t\t\t\tif (!audio && musicUrl) initAudio();\n\t\t\t\tif (!audio) {\n\t\t\t\t\tshowToast('info', 'Belum ada musik untuk undangan ini');\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\tvar btn = document.getElementById('musicToggle');\n\t\t\t\tif (isPlaying) {\n\t\t\t\t\taudio.pause();\n\t\t\t\t\tisPlaying = false;\n\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-music-note\"></i>';\n\t\t\t\t\tbtn.classList.remove('playing');\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'paused');\n\t\t\t\t} else {\n\t\t\t\t\taudio.play().catch(function(e) { console.log('Play blocked'); });\n\t\t\t\t\tisPlaying = true;\n\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-pause-fill\"></i>';\n\t\t\t\t\tbtn.classList.add('playing');\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'playing');\n\t\t\t\t}\n\t\t\t};\n\n\t\t\tdocument.getElementById('startOverlay')?.addEventListener('click', function(e) {\n\t\t\t\tstartMusic();\n\t\t\t});\n\t\t\tdocument.getElementById('musicToggle')?.addEventListener('click', function(e) {\n\t\t\t\tif (!hasStarted) startMusic();\n\t\t\t});\n\t\t\tdocument.addEventListener('keydown', function(e) {\n\t\t\t\tif (e.key === ' ' && !hasStarted) { e.preventDefault(); startMusic(); }\n\t\t\t});\n\n\t\t\twindow.scrollToQuran = function() {\n\t\t\t\tvar el = document.getElementById('section-quran');\n\t\t\t\tif (el) el.scrollIntoView({ behavior: 'smooth' });\n\t\t\t};\n\n\t\t\tfunction showToast(type, message) {\n\t\t\t\tvar container = document.querySelector('.toast-container');\n\t\t\t\tif (!container) {\n\t\t\t\t\tcontainer = document.createElement('div');\n\t\t\t\t\tcontainer.className = 'toast-container';\n\t\t\t\t\tdocument.body.appendChild(container);\n\t\t\t\t}\n\t\t\t\tvar toast = document.createElement('div');\n\t\t\t\ttoast.className = 'toast';\n\t\t\t\tvar icons = { success: 'bi-check-circle-fill', error: 'bi-x-circle-fill', info: 'bi-info-circle-fill' };\n\t\t\t\ttoast.innerHTML = '<i class=\"bi ' + (icons[type] || icons.info) + '\"></i><span>' + message + '</span>';\n\t\t\t\tcontainer.appendChild(toast);\n\t\t\t\tsetTimeout(function() {\n\t\t\t\t\ttoast.style.opacity = '0';\n\t\t\t\t\ttoast.style.transform = 'translateX(100px)';\n\t\t\t\t\tsetTimeout(function() { toast.remove(); }, 400);\n\t\t\t\t}, 3000);\n\t\t\t}\n\n\t\t\tfunction escapeHtml(text) {\n\t\t\t\tif (!text) return '';\n\t\t\t\tvar div = document.createElement('div');\n\t\t\t\tdiv.textContent = text;\n\t\t\t\treturn div.innerHTML;\n\t\t\t}\n\n\t\t\t// COPY BANK NUMBER\n\t\t\twindow.copyBankNumberFromEl = function(el) {\n\t\t\t\tvar number = el.getAttribute('data-number');\n\t\t\t\tif (!number) return;\n\t\t\t\tcopyText(number, el);\n\t\t\t};\n\n\t\t\tfunction copyText(number, element) {\n\t\t\t\tvar doSuccess = function() {\n\t\t\t\t\tshowToast('success', 'Nomor rekening dicopy!');\n\t\t\t\t\tif (element) {\n\t\t\t\t\t\tvar icon = element.querySelector('.copy-icon-islam');\n\t\t\t\t\t\tif (icon) {\n\t\t\t\t\t\t\tvar original = icon.className;\n\t\t\t\t\t\t\ticon.className = 'bi bi-check-circle-fill copy-icon-islam';\n\t\t\t\t\t\t\ticon.style.color = '#10b981';\n\t\t\t\t\t\t\ticon.style.opacity = '1';\n\t\t\t\t\t\t\tsetTimeout(function() {\n\t\t\t\t\t\t\t\ticon.className = original;\n\t\t\t\t\t\t\t\ticon.style.color = '';\n\t\t\t\t\t\t\t\ticon.style.opacity = '';\n\t\t\t\t\t\t\t}, 1500);\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t};\n\t\t\t\tif (navigator.clipboard) {\n\t\t\t\t\tnavigator.clipboard.writeText(number).then(doSuccess).catch(function() {\n\t\t\t\t\t\tfallbackCopy(number, element);\n\t\t\t\t\t});\n\t\t\t\t} else {\n\t\t\t\t\tfallbackCopy(number, element);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tfunction fallbackCopy(text, element) {\n\t\t\t\tvar textarea = document.createElement('textarea');\n\t\t\t\ttextarea.value = text;\n\t\t\t\ttextarea.style.position = 'fixed';\n\t\t\t\ttextarea.style.opacity = '0';\n\t\t\t\tdocument.body.appendChild(textarea);\n\t\t\t\ttextarea.select();\n\t\t\t\ttry {\n\t\t\t\t\tdocument.execCommand('copy');\n\t\t\t\t\tshowToast('success', 'Nomor rekening dicopy!');\n\t\t\t\t} catch (err) {\n\t\t\t\t\tshowToast('error', 'Gagal copy nomor');\n\t\t\t\t}\n\t\t\t\tdocument.body.removeChild(textarea);\n\t\t\t}\n\n\t\t\t// SWIPER GALLERY\n\t\t\tdocument.addEventListener('DOMContentLoaded', function() {\n\t\t\t\tif (typeof Swiper !== 'undefined') {\n\t\t\t\t\tnew Swiper('.gallery-swiper', {\n\t\t\t\t\t\teffect: 'coverflow',\n\t\t\t\t\t\tgrabCursor: true,\n\t\t\t\t\t\tcenteredSlides: true,\n\t\t\t\t\t\tslidesPerView: 'auto',\n\t\t\t\t\t\tcoverflowEffect: {\n\t\t\t\t\t\t\trotate: 15,\n\t\t\t\t\t\t\tstretch: 0,\n\t\t\t\t\t\t\tdepth: 100,\n\t\t\t\t\t\t\tmodifier: 1,\n\t\t\t\t\t\t\tslideShadows: true,\n\t\t\t\t\t\t},\n\t\t\t\t\t\tloop: true,\n\t\t\t\t\t\tautoplay: {\n\t\t\t\t\t\t\tdelay: 4000,\n\t\t\t\t\t\t\tdisableOnInteraction: true,\n\t\t\t\t\t\t\tpauseOnMouseEnter: true,\n\t\t\t\t\t\t},\n\t\t\t\t\t\tspeed: 800,\n\t\t\t\t\t\tbreakpoints: {\n\t\t\t\t\t\t\t320: {\n\t\t\t\t\t\t\t\tslidesPerView: 1,\n\t\t\t\t\t\t\t\tspaceBetween: 0,\n\t\t\t\t\t\t\t\tcoverflowEffect: { rotate: 0, stretch: 0, depth: 50, modifier: 0.5, slideShadows: false },\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t768: {\n\t\t\t\t\t\t\t\tslidesPerView: 1.2,\n\t\t\t\t\t\t\t\tspaceBetween: 16,\n\t\t\t\t\t\t\t\tcoverflowEffect: { rotate: 5, stretch: 0, depth: 80, modifier: 1, slideShadows: true },\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t1024: {\n\t\t\t\t\t\t\t\tslidesPerView: 1.5,\n\t\t\t\t\t\t\t\tspaceBetween: 24,\n\t\t\t\t\t\t\t\tcoverflowEffect: { rotate: 8, stretch: 0, depth: 100, modifier: 1, slideShadows: true },\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t1400: {\n\t\t\t\t\t\t\t\tslidesPerView: 2,\n\t\t\t\t\t\t\t\tspaceBetween: 30,\n\t\t\t\t\t\t\t\tcoverflowEffect: { rotate: 10, stretch: 0, depth: 120, modifier: 1, slideShadows: true },\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t},\n\t\t\t\t\t\tpagination: {\n\t\t\t\t\t\t\tel: '.swiper-pagination',\n\t\t\t\t\t\t\tclickable: true,\n\t\t\t\t\t\t\tdynamicBullets: true,\n\t\t\t\t\t\t},\n\t\t\t\t\t\tnavigation: {\n\t\t\t\t\t\t\tnextEl: '.swiper-button-next',\n\t\t\t\t\t\t\tprevEl: '.swiper-button-prev',\n\t\t\t\t\t\t},\n\t\t\t\t\t\tkeyboard: { enabled: true },\n\t\t\t\t\t\tautoHeight: true,\n\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t});\n\n\t\t\t// LOAD RSVP LIST\n\t\t\tfunction loadRsvpList() {\n\t\t\t\tvar listContainer = document.getElementById('rsvpList');\n\t\t\t\tvar countContainer = document.getElementById('rsvpCount');\n\t\t\t\tif (!listContainer) return;\n\n\t\t\t\tfetch('/invitation/' + projectSlug + '/rsvp-list')\n\t\t\t\t\t.then(function(r) { return r.json(); })\n\t\t\t\t\t.then(function(data) {\n\t\t\t\t\t\tif (!data || data.length === 0) {\n\t\t\t\t\t\t\tlistContainer.innerHTML = '<div class=\"rsvp-empty\"><i class=\"bi bi-envelope\"></i>Belum ada konfirmasi kehadiran</div>';\n\t\t\t\t\t\t\tif (countContainer) countContainer.textContent = '0 tamu';\n\t\t\t\t\t\t\treturn;\n\t\t\t\t\t\t}\n\t\t\t\t\t\tvar totalGuests = 0;\n\t\t\t\t\t\tvar html = '';\n\t\t\t\t\t\tdata.forEach(function(item) {\n\t\t\t\t\t\t\tvar statusText = item.attendance === 'hadir' ? '✅ Hadir' : (item.attendance === 'tidak_hadir' ? '❌ Tidak Hadir' : '❓ Ragu-ragu');\n\t\t\t\t\t\t\ttotalGuests += parseInt(item.total_guests || 1);\n\t\t\t\t\t\t\tvar time = new Date(item.created_at);\n\t\t\t\t\t\t\tvar timeStr = time.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + time.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });\n\t\t\t\t\t\t\tvar messageHtml = item.message ? '<div class=\"message\">' + escapeHtml(item.message) + '</div>' : '';\n\t\t\t\t\t\t\thtml += '<div class=\"rsvp-item\"><div class=\"row-main\"><span class=\"guest-name\">' + escapeHtml(item.guest_name) + '</span><span class=\"status-badge ' + item.attendance + '\">' + statusText + '</span></div><div class=\"row-detail\"><div class=\"meta-left\"><span class=\"time\"><i class=\"bi bi-clock\"></i> ' + timeStr + '</span><span class=\"guests\"><i class=\"bi bi-person\"></i> ' + (item.total_guests || 1) + ' org</span></div></div>' + messageHtml + '</div>';\n\t\t\t\t\t\t});\n\t\t\t\t\t\tlistContainer.innerHTML = html;\n\t\t\t\t\t\tif (countContainer) countContainer.textContent = totalGuests + ' tamu';\n\t\t\t\t\t})\n\t\t\t\t\t.catch(function() {\n\t\t\t\t\t\tlistContainer.innerHTML = '<div class=\"rsvp-empty\"><i class=\"bi bi-exclamation-triangle\"></i>Gagal memuat daftar konfirmasi<br><button onclick=\"loadRsvpList()\" style=\"margin-top:10px; padding:8px 20px; background:var(--islamic-green); color:white; border:none; border-radius:8px; cursor:pointer;\"><i class=\"bi bi-arrow-clockwise\"></i> Coba Lagi</button></div>';\n\t\t\t\t\t});\n\t\t\t}\n\n\t\t\t// SUBMIT RSVP\n\t\t\tdocument.addEventListener('DOMContentLoaded', function() {\n\t\t\t\tvar form = document.getElementById('rsvpForm');\n\t\t\t\tif (!form) return;\n\t\t\t\tform.addEventListener('submit', function(e) {\n\t\t\t\t\te.preventDefault();\n\t\t\t\t\tvar formData = new FormData(form);\n\t\t\t\t\tvar btn = form.querySelector('button[type=\"submit\"]');\n\t\t\t\t\tvar originalText = btn.innerHTML;\n\t\t\t\t\tbtn.disabled = true;\n\t\t\t\t\tbtn.innerHTML = '<span class=\"spinner-border spinner-border-sm me-2\"></span>Mengirim...';\n\t\t\t\t\tfetch(form.action, { method: 'POST', body: formData })\n\t\t\t\t\t\t.then(function(r) { return r.json(); })\n\t\t\t\t\t\t.then(function(data) {\n\t\t\t\t\t\t\tif (data.success) {\n\t\t\t\t\t\t\t\tvar isUpdate = data.updated === true;\n\t\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\t\ttitle: isUpdate ? 'Konfirmasi Diperbarui!' : 'Berhasil!',\n\t\t\t\t\t\t\t\t\ttext: data.message,\n\t\t\t\t\t\t\t\t\ticon: 'success',\n\t\t\t\t\t\t\t\t\tconfirmButtonColor: '#1a5f3a',\n\t\t\t\t\t\t\t\t\tbackground: '#ffffff',\n\t\t\t\t\t\t\t\t\tcolor: '#1a1a1a',\n\t\t\t\t\t\t\t\t\ttimer: 2000,\n\t\t\t\t\t\t\t\t\ttimerProgressBar: true,\n\t\t\t\t\t\t\t\t\tshowConfirmButton: false\n\t\t\t\t\t\t\t\t});\n\t\t\t\t\t\t\t\tif (!isUpdate) form.reset();\n\t\t\t\t\t\t\t\tsetTimeout(function() { loadRsvpList(); }, 500);\n\t\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\t\ttitle: 'Gagal!',\n\t\t\t\t\t\t\t\t\ttext: data.message || 'Terjadi kesalahan',\n\t\t\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\t\t\tconfirmButtonColor: '#1a5f3a',\n\t\t\t\t\t\t\t\t\tbackground: '#ffffff',\n\t\t\t\t\t\t\t\t\tcolor: '#1a1a1a'\n\t\t\t\t\t\t\t\t});\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t})\n\t\t\t\t\t\t.catch(function() {\n\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\ttitle: 'Error!',\n\t\t\t\t\t\t\t\ttext: 'Terjadi kesalahan, silakan coba lagi',\n\t\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\t\tconfirmButtonColor: '#1a5f3a',\n\t\t\t\t\t\t\t\tbackground: '#ffffff',\n\t\t\t\t\t\t\t\tcolor: '#1a1a1a'\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t})\n\t\t\t\t\t\t.finally(function() {\n\t\t\t\t\t\t\tbtn.disabled = false;\n\t\t\t\t\t\t\tbtn.innerHTML = originalText;\n\t\t\t\t\t\t});\n\t\t\t\t});\n\t\t\t\tloadRsvpList();\n\t\t\t});\n\t\t</script></body></html>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 160, " ")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var93 string
+		templ_7745c5c3_Var93, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "footer_copyright", "Wedding SaaS. Platform Undangan Digital. All rights reserved."))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1653, Col: 144}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var93))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 161, "</p></div></div></footer><!-- ============================================ --><!-- SCRIPTS --><!-- ============================================ --><script src=\"https://unpkg.com/aos@2.3.1/dist/aos.js\"></script><script src=\"https://cdn.jsdelivr.net/npm/sweetalert2@11\"></script><script>\n\t\t\t// AOS\n\t\t\tAOS.init({\n\t\t\t\tduration: 800,\n\t\t\t\teasing: 'ease-in-out',\n\t\t\t\tonce: false,\n\t\t\t\tmirror: true,\n\t\t\t\toffset: 50\n\t\t\t});\n\n\t\t\t// MUSIC PLAYER\n\t\t\tvar audio = null;\n\t\t\tvar isPlaying = false;\n\t\t\tvar hasStarted = false;\n\t\t\tvar musicUrl = document.body.dataset.musicUrl || '';\n\t\t\tvar projectID = document.body.dataset.projectId || '';\n\t\t\tvar projectSlug = document.body.dataset.projectSlug || '';\n\t\t\tvar MUSIC_KEY = 'wedding_music_state_' + projectID;\n\n\t\t\tfunction initAudio() {\n\t\t\t\tif (!musicUrl) return false;\n\t\t\t\tif (audio) return true;\n\t\t\t\taudio = new Audio(musicUrl);\n\t\t\t\taudio.loop = true;\n\t\t\t\taudio.volume = 0.5;\n\t\t\t\treturn true;\n\t\t\t}\n\n\t\t\twindow.startMusic = function() {\n\t\t\t\tif (!initAudio()) {\n\t\t\t\t\tshowToast('info', 'Belum ada musik untuk undangan ini');\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\taudio.play().then(function() {\n\t\t\t\t\tisPlaying = true;\n\t\t\t\t\thasStarted = true;\n\t\t\t\t\tvar btn = document.getElementById('musicToggle');\n\t\t\t\t\tif (btn) {\n\t\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-pause-fill\"></i>';\n\t\t\t\t\t\tbtn.classList.add('playing');\n\t\t\t\t\t}\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'playing');\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t}).catch(function(e) {\n\t\t\t\t\tconsole.log('Play failed:', e);\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t\tdocument.addEventListener('click', function retry() {\n\t\t\t\t\t\taudio.play().catch(function(){});\n\t\t\t\t\t\tdocument.removeEventListener('click', retry);\n\t\t\t\t\t}, { once: true });\n\t\t\t\t});\n\t\t\t};\n\n\t\t\tfunction closeOverlay() {\n\t\t\t\tvar overlay = document.getElementById('startOverlay');\n\t\t\t\tif (overlay) {\n\t\t\t\t\toverlay.style.opacity = '0';\n\t\t\t\t\tsetTimeout(function() {\n\t\t\t\t\t\toverlay.style.display = 'none';\n\t\t\t\t\t}, 800);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\twindow.toggleMusic = function() {\n\t\t\t\tif (!audio && musicUrl) initAudio();\n\t\t\t\tif (!audio) {\n\t\t\t\t\tshowToast('info', 'Belum ada musik untuk undangan ini');\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\tvar btn = document.getElementById('musicToggle');\n\t\t\t\tif (isPlaying) {\n\t\t\t\t\taudio.pause();\n\t\t\t\t\tisPlaying = false;\n\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-music-note\"></i>';\n\t\t\t\t\tbtn.classList.remove('playing');\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'paused');\n\t\t\t\t} else {\n\t\t\t\t\taudio.play().catch(function(e) { console.log('Play blocked'); });\n\t\t\t\t\tisPlaying = true;\n\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-pause-fill\"></i>';\n\t\t\t\t\tbtn.classList.add('playing');\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'playing');\n\t\t\t\t}\n\t\t\t};\n\n\t\t\tdocument.getElementById('startOverlay')?.addEventListener('click', function(e) {\n\t\t\t\tstartMusic();\n\t\t\t});\n\t\t\tdocument.getElementById('musicToggle')?.addEventListener('click', function(e) {\n\t\t\t\tif (!hasStarted) startMusic();\n\t\t\t});\n\t\t\tdocument.addEventListener('keydown', function(e) {\n\t\t\t\tif (e.key === ' ' && !hasStarted) { e.preventDefault(); startMusic(); }\n\t\t\t});\n\n\t\t\twindow.scrollToQuran = function() {\n\t\t\t\tvar el = document.getElementById('section-quran');\n\t\t\t\tif (el) el.scrollIntoView({ behavior: 'smooth' });\n\t\t\t};\n\n\t\t\tfunction showToast(type, message) {\n\t\t\t\tvar container = document.querySelector('.toast-container');\n\t\t\t\tif (!container) {\n\t\t\t\t\tcontainer = document.createElement('div');\n\t\t\t\t\tcontainer.className = 'toast-container';\n\t\t\t\t\tdocument.body.appendChild(container);\n\t\t\t\t}\n\t\t\t\tvar toast = document.createElement('div');\n\t\t\t\ttoast.className = 'toast';\n\t\t\t\tvar icons = { success: 'bi-check-circle-fill', error: 'bi-x-circle-fill', info: 'bi-info-circle-fill' };\n\t\t\t\ttoast.innerHTML = '<i class=\"bi ' + (icons[type] || icons.info) + '\"></i><span>' + message + '</span>';\n\t\t\t\tcontainer.appendChild(toast);\n\t\t\t\tsetTimeout(function() {\n\t\t\t\t\ttoast.style.opacity = '0';\n\t\t\t\t\ttoast.style.transform = 'translateX(100px)';\n\t\t\t\t\tsetTimeout(function() { toast.remove(); }, 400);\n\t\t\t\t}, 3000);\n\t\t\t}\n\n\t\t\tfunction escapeHtml(text) {\n\t\t\t\tif (!text) return '';\n\t\t\t\tvar div = document.createElement('div');\n\t\t\t\tdiv.textContent = text;\n\t\t\t\treturn div.innerHTML;\n\t\t\t}\n\n\t\t\t// COPY BANK NUMBER\n\t\t\twindow.copyBankNumberFromEl = function(el) {\n\t\t\t\tvar number = el.getAttribute('data-number');\n\t\t\t\tif (!number) return;\n\t\t\t\tcopyText(number, el);\n\t\t\t};\n\n\t\t\tfunction copyText(number, element) {\n\t\t\t\tvar doSuccess = function() {\n\t\t\t\t\tshowToast('success', 'Nomor rekening dicopy!');\n\t\t\t\t\tif (element) {\n\t\t\t\t\t\tvar icon = element.querySelector('.copy-icon-islam');\n\t\t\t\t\t\tif (icon) {\n\t\t\t\t\t\t\tvar original = icon.className;\n\t\t\t\t\t\t\ticon.className = 'bi bi-check-circle-fill copy-icon-islam';\n\t\t\t\t\t\t\ticon.style.color = '#10b981';\n\t\t\t\t\t\t\ticon.style.opacity = '1';\n\t\t\t\t\t\t\tsetTimeout(function() {\n\t\t\t\t\t\t\t\ticon.className = original;\n\t\t\t\t\t\t\t\ticon.style.color = '';\n\t\t\t\t\t\t\t\ticon.style.opacity = '';\n\t\t\t\t\t\t\t}, 1500);\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t};\n\t\t\t\tif (navigator.clipboard) {\n\t\t\t\t\tnavigator.clipboard.writeText(number).then(doSuccess).catch(function() {\n\t\t\t\t\t\tfallbackCopy(number, element);\n\t\t\t\t\t});\n\t\t\t\t} else {\n\t\t\t\t\tfallbackCopy(number, element);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tfunction fallbackCopy(text, element) {\n\t\t\t\tvar textarea = document.createElement('textarea');\n\t\t\t\ttextarea.value = text;\n\t\t\t\ttextarea.style.position = 'fixed';\n\t\t\t\ttextarea.style.opacity = '0';\n\t\t\t\tdocument.body.appendChild(textarea);\n\t\t\t\ttextarea.select();\n\t\t\t\ttry {\n\t\t\t\t\tdocument.execCommand('copy');\n\t\t\t\t\tshowToast('success', 'Nomor rekening dicopy!');\n\t\t\t\t} catch (err) {\n\t\t\t\t\tshowToast('error', 'Gagal copy nomor');\n\t\t\t\t}\n\t\t\t\tdocument.body.removeChild(textarea);\n\t\t\t}\n\n\t\t\t// SWIPER GALLERY\n\t\t\tdocument.addEventListener('DOMContentLoaded', function() {\n\t\t\t\tif (typeof Swiper !== 'undefined') {\n\t\t\t\t\tnew Swiper('.gallery-swiper', {\n\t\t\t\t\t\teffect: 'coverflow',\n\t\t\t\t\t\tgrabCursor: true,\n\t\t\t\t\t\tcenteredSlides: true,\n\t\t\t\t\t\tslidesPerView: 'auto',\n\t\t\t\t\t\tcoverflowEffect: {\n\t\t\t\t\t\t\trotate: 15,\n\t\t\t\t\t\t\tstretch: 0,\n\t\t\t\t\t\t\tdepth: 100,\n\t\t\t\t\t\t\tmodifier: 1,\n\t\t\t\t\t\t\tslideShadows: true,\n\t\t\t\t\t\t},\n\t\t\t\t\t\tloop: true,\n\t\t\t\t\t\tautoplay: {\n\t\t\t\t\t\t\tdelay: 4000,\n\t\t\t\t\t\t\tdisableOnInteraction: true,\n\t\t\t\t\t\t\tpauseOnMouseEnter: true,\n\t\t\t\t\t\t},\n\t\t\t\t\t\tspeed: 800,\n\t\t\t\t\t\tbreakpoints: {\n\t\t\t\t\t\t\t320: {\n\t\t\t\t\t\t\t\tslidesPerView: 1,\n\t\t\t\t\t\t\t\tspaceBetween: 0,\n\t\t\t\t\t\t\t\tcoverflowEffect: { rotate: 0, stretch: 0, depth: 50, modifier: 0.5, slideShadows: false },\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t768: {\n\t\t\t\t\t\t\t\tslidesPerView: 1.2,\n\t\t\t\t\t\t\t\tspaceBetween: 16,\n\t\t\t\t\t\t\t\tcoverflowEffect: { rotate: 5, stretch: 0, depth: 80, modifier: 1, slideShadows: true },\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t1024: {\n\t\t\t\t\t\t\t\tslidesPerView: 1.5,\n\t\t\t\t\t\t\t\tspaceBetween: 24,\n\t\t\t\t\t\t\t\tcoverflowEffect: { rotate: 8, stretch: 0, depth: 100, modifier: 1, slideShadows: true },\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t1400: {\n\t\t\t\t\t\t\t\tslidesPerView: 2,\n\t\t\t\t\t\t\t\tspaceBetween: 30,\n\t\t\t\t\t\t\t\tcoverflowEffect: { rotate: 10, stretch: 0, depth: 120, modifier: 1, slideShadows: true },\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t},\n\t\t\t\t\t\tpagination: {\n\t\t\t\t\t\t\tel: '.swiper-pagination',\n\t\t\t\t\t\t\tclickable: true,\n\t\t\t\t\t\t\tdynamicBullets: true,\n\t\t\t\t\t\t},\n\t\t\t\t\t\tnavigation: {\n\t\t\t\t\t\t\tnextEl: '.swiper-button-next',\n\t\t\t\t\t\t\tprevEl: '.swiper-button-prev',\n\t\t\t\t\t\t},\n\t\t\t\t\t\tkeyboard: { enabled: true },\n\t\t\t\t\t\tautoHeight: true,\n\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t});\n\n\t\t\t// LOAD RSVP LIST\n\t\t\tfunction loadRsvpList() {\n\t\t\t\tvar listContainer = document.getElementById('rsvpList');\n\t\t\t\tvar countContainer = document.getElementById('rsvpCount');\n\t\t\t\tif (!listContainer) return;\n\n\t\t\t\tfetch('/invitation/' + projectSlug + '/rsvp-list')\n\t\t\t\t\t.then(function(r) { return r.json(); })\n\t\t\t\t\t.then(function(data) {\n\t\t\t\t\t\tif (!data || data.length === 0) {\n\t\t\t\t\t\t\tlistContainer.innerHTML = '<div class=\"rsvp-empty\"><i class=\"bi bi-envelope\"></i>Belum ada konfirmasi kehadiran</div>';\n\t\t\t\t\t\t\tif (countContainer) countContainer.textContent = '0 tamu';\n\t\t\t\t\t\t\treturn;\n\t\t\t\t\t\t}\n\t\t\t\t\t\tvar totalGuests = 0;\n\t\t\t\t\t\tvar html = '';\n\t\t\t\t\t\tdata.forEach(function(item) {\n\t\t\t\t\t\t\tvar statusText = item.attendance === 'hadir' ? '✅ Hadir' : (item.attendance === 'tidak_hadir' ? '❌ Tidak Hadir' : '❓ Ragu-ragu');\n\t\t\t\t\t\t\ttotalGuests += parseInt(item.total_guests || 1);\n\t\t\t\t\t\t\tvar time = new Date(item.created_at);\n\t\t\t\t\t\t\tvar timeStr = time.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + time.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });\n\t\t\t\t\t\t\tvar messageHtml = item.message ? '<div class=\"message\">' + escapeHtml(item.message) + '</div>' : '';\n\t\t\t\t\t\t\thtml += '<div class=\"rsvp-item\"><div class=\"row-main\"><span class=\"guest-name\">' + escapeHtml(item.guest_name) + '</span><span class=\"status-badge ' + item.attendance + '\">' + statusText + '</span></div><div class=\"row-detail\"><div class=\"meta-left\"><span class=\"time\"><i class=\"bi bi-clock\"></i> ' + timeStr + '</span><span class=\"guests\"><i class=\"bi bi-person\"></i> ' + (item.total_guests || 1) + ' org</span></div></div>' + messageHtml + '</div>';\n\t\t\t\t\t\t});\n\t\t\t\t\t\tlistContainer.innerHTML = html;\n\t\t\t\t\t\tif (countContainer) countContainer.textContent = totalGuests + ' tamu';\n\t\t\t\t\t})\n\t\t\t\t\t.catch(function() {\n\t\t\t\t\t\tlistContainer.innerHTML = '<div class=\"rsvp-empty\"><i class=\"bi bi-exclamation-triangle\"></i>Gagal memuat daftar konfirmasi<br><button onclick=\"loadRsvpList()\" style=\"margin-top:10px; padding:8px 20px; background:var(--islamic-green); color:white; border:none; border-radius:8px; cursor:pointer;\"><i class=\"bi bi-arrow-clockwise\"></i> Coba Lagi</button></div>';\n\t\t\t\t\t});\n\t\t\t}\n\n\t\t\t// SUBMIT RSVP\n\t\t\tdocument.addEventListener('DOMContentLoaded', function() {\n\t\t\t\tvar form = document.getElementById('rsvpForm');\n\t\t\t\tif (!form) return;\n\t\t\t\tform.addEventListener('submit', function(e) {\n\t\t\t\t\te.preventDefault();\n\t\t\t\t\tvar formData = new FormData(form);\n\t\t\t\t\tvar btn = form.querySelector('button[type=\"submit\"]');\n\t\t\t\t\tvar originalText = btn.innerHTML;\n\t\t\t\t\tbtn.disabled = true;\n\t\t\t\t\tbtn.innerHTML = '<span class=\"spinner-border spinner-border-sm me-2\"></span>Mengirim...';\n\t\t\t\t\tfetch(form.action, { method: 'POST', body: formData })\n\t\t\t\t\t\t.then(function(r) { return r.json(); })\n\t\t\t\t\t\t.then(function(data) {\n\t\t\t\t\t\t\tif (data.success) {\n\t\t\t\t\t\t\t\tvar isUpdate = data.updated === true;\n\t\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\t\ttitle: isUpdate ? 'Konfirmasi Diperbarui!' : 'Berhasil!',\n\t\t\t\t\t\t\t\t\ttext: data.message,\n\t\t\t\t\t\t\t\t\ticon: 'success',\n\t\t\t\t\t\t\t\t\tconfirmButtonColor: '#1a5f3a',\n\t\t\t\t\t\t\t\t\tbackground: '#ffffff',\n\t\t\t\t\t\t\t\t\tcolor: '#1a1a1a',\n\t\t\t\t\t\t\t\t\ttimer: 2000,\n\t\t\t\t\t\t\t\t\ttimerProgressBar: true,\n\t\t\t\t\t\t\t\t\tshowConfirmButton: false\n\t\t\t\t\t\t\t\t});\n\t\t\t\t\t\t\t\tif (!isUpdate) form.reset();\n\t\t\t\t\t\t\t\tsetTimeout(function() { loadRsvpList(); }, 500);\n\t\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\t\ttitle: 'Gagal!',\n\t\t\t\t\t\t\t\t\ttext: data.message || 'Terjadi kesalahan',\n\t\t\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\t\t\tconfirmButtonColor: '#1a5f3a',\n\t\t\t\t\t\t\t\t\tbackground: '#ffffff',\n\t\t\t\t\t\t\t\t\tcolor: '#1a1a1a'\n\t\t\t\t\t\t\t\t});\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t})\n\t\t\t\t\t\t.catch(function() {\n\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\ttitle: 'Error!',\n\t\t\t\t\t\t\t\ttext: 'Terjadi kesalahan, silakan coba lagi',\n\t\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\t\tconfirmButtonColor: '#1a5f3a',\n\t\t\t\t\t\t\t\tbackground: '#ffffff',\n\t\t\t\t\t\t\t\tcolor: '#1a1a1a'\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t})\n\t\t\t\t\t\t.finally(function() {\n\t\t\t\t\t\t\tbtn.disabled = false;\n\t\t\t\t\t\t\tbtn.innerHTML = originalText;\n\t\t\t\t\t\t});\n\t\t\t\t});\n\t\t\t\tloadRsvpList();\n\t\t\t});\n\t\t</script></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
