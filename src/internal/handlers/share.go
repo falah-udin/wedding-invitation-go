@@ -368,6 +368,8 @@ func backURLForRole(user *models.User) string {
 	switch user.Role {
 	case "client":
 		return "/client/wedding"
+	case "staff":
+		return "/staff/projects"
 	default:
 		return "/admin/projects"
 	}

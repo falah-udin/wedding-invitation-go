@@ -21,7 +21,9 @@ func renderWithLayout(c *gin.Context, user *models.User, setting models.Config, 
 	switch user.Role {
 	case "client":
 		err = layouts.ClientLayout(*user, setting, "client.create", content).Render(c.Request.Context(), &buf)
-	default: // admin, staff
+	case "staff":
+		err = layouts.StaffLayout(*user, setting, "staff.create", content).Render(c.Request.Context(), &buf)
+	default: // admin
 		err = layouts.AdminLayout(*user, setting, "invitation.create", content).Render(c.Request.Context(), &buf)
 	}
 
@@ -31,7 +33,6 @@ func renderWithLayout(c *gin.Context, user *models.User, setting models.Config, 
 	}
 	c.Data(http.StatusOK, "text/html; charset=utf-8", buf.Bytes())
 }
-
 // isClient — cek apakah user client
 func isClient(user *models.User) bool {
 	return user.Role == "client"

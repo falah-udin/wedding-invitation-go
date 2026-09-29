@@ -1,0 +1,294 @@
+package rsvp
+
+import (
+	"fmt"
+	"wedding-invitation-go/internal/models"
+)
+
+type ProjectRsvpStats struct {
+	RsvpCount       int
+	HadirCount      int
+	TidakHadirCount int
+	RaguCount       int
+}
+
+type RsvpListData struct {
+	User            models.User
+	Setting         models.Config
+	Projects        []models.Project
+	StatsMap        map[uint]ProjectRsvpStats
+	TotalRsvp       int
+	TotalHadir      int
+	TotalTidakHadir int
+	TotalRagu       int
+	TotalGuests     int
+	Search          string
+	SortBy          string
+}
+
+templ RsvpListPage(data RsvpListData) {
+	<style>
+		.stat-card {
+			background: #1e1e1e;
+			border-radius: 16px;
+			border: 1px solid #2a2a2a;
+			padding: 16px;
+			text-align: center;
+			transition: all 0.2s;
+		}
+		.stat-card:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 8px 25px rgba(236,72,153,0.08);
+		}
+		.form-control-dark {
+			background: #0f0f0f !important;
+			border: 1px solid #2a2a2a !important;
+			border-radius: 10px !important;
+			padding: 10px 14px !important;
+			color: #fff !important;
+			width: 100%;
+			transition: all 0.2s;
+		}
+		.form-control-dark:focus {
+			border-color: #ec489a !important;
+			box-shadow: 0 0 0 2px rgba(236,72,153,0.15);
+			outline: none;
+		}
+		.form-control-dark option {
+			background: #1a1a1a;
+			color: white;
+		}
+		.project-card {
+			background: #1e1e1e;
+			border-radius: 16px;
+			border: 1px solid #2a2a2a;
+			padding: 20px;
+			transition: all 0.2s;
+		}
+		.project-card:hover {
+			border-color: #ec489a;
+		}
+		.mini-stat {
+			background: #0f0f0f;
+			border-radius: 10px;
+			padding: 8px;
+			text-align: center;
+		}
+		.mini-stat .num {
+			font-weight: 700;
+			font-size: 1.3rem;
+		}
+		.mini-stat .lbl {
+			color: #6b7280;
+			font-size: 0.65rem;
+		}
+	</style>
+
+	<!-- HEADER -->
+	<div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3">
+		<div>
+			<h2 class="fw-bold mb-1" style="color:#ec489a;">
+				<i class="bi bi-envelope-check me-2"></i>Kelola RSVP
+			</h2>
+			<p class="text-secondary m-0">Semua reservasi dari project Anda</p>
+		</div>
+		<a href="/staff/projects" class="btn"
+		   style="background:#2a2a2a; color:white; border:none; border-radius:12px; padding:10px 24px;">
+			<i class="bi bi-envelope-paper me-2"></i>Lihat Project
+		</a>
+	</div>
+
+	<!-- STATS GLOBAL -->
+	<div class="row g-3 mb-4">
+		<div class="col-6 col-md-3">
+			<div class="stat-card" style="border-top: 4px solid #ec489a;">
+				<i class="bi bi-envelope-check fs-3 mb-2" style="color:#ec489a;"></i>
+				<h6 class="mb-1" style="color:#9ca3af; font-size:0.75rem;">Total RSVP</h6>
+				<h2 class="fw-bold mb-0" style="color:white; font-size:2rem;">{ fmt.Sprintf("%d", data.TotalRsvp) }</h2>
+				<small style="color:#6b7280; font-size:0.7rem;">{ fmt.Sprintf("%d", data.TotalGuests) } total tamu</small>
+			</div>
+		</div>
+		<div class="col-6 col-md-3">
+			<div class="stat-card" style="border-top: 4px solid #10b981;">
+				<i class="bi bi-check-circle fs-3 mb-2" style="color:#10b981;"></i>
+				<h6 class="mb-1" style="color:#9ca3af; font-size:0.75rem;">Hadir</h6>
+				<h2 class="fw-bold mb-0" style="color:white; font-size:2rem;">{ fmt.Sprintf("%d", data.TotalHadir) }</h2>
+				<small style="color:#10b981; font-size:0.7rem;">
+					{ fmt.Sprintf("%d", percent(data.TotalHadir, data.TotalRsvp)) }% konfirmasi
+				</small>
+			</div>
+		</div>
+		<div class="col-6 col-md-3">
+			<div class="stat-card" style="border-top: 4px solid #ef4444;">
+				<i class="bi bi-x-circle fs-3 mb-2" style="color:#ef4444;"></i>
+				<h6 class="mb-1" style="color:#9ca3af; font-size:0.75rem;">Tidak Hadir</h6>
+				<h2 class="fw-bold mb-0" style="color:white; font-size:2rem;">{ fmt.Sprintf("%d", data.TotalTidakHadir) }</h2>
+				<small style="color:#ef4444; font-size:0.7rem;">
+					{ fmt.Sprintf("%d", percent(data.TotalTidakHadir, data.TotalRsvp)) }% dari total
+				</small>
+			</div>
+		</div>
+		<div class="col-6 col-md-3">
+			<div class="stat-card" style="border-top: 4px solid #f59e0b;">
+				<i class="bi bi-question-circle fs-3 mb-2" style="color:#f59e0b;"></i>
+				<h6 class="mb-1" style="color:#9ca3af; font-size:0.75rem;">Ragu-ragu</h6>
+				<h2 class="fw-bold mb-0" style="color:white; font-size:2rem;">{ fmt.Sprintf("%d", data.TotalRagu) }</h2>
+				<small style="color:#f59e0b; font-size:0.7rem;">
+					{ fmt.Sprintf("%d", percent(data.TotalRagu, data.TotalRsvp)) }% dari total
+				</small>
+			</div>
+		</div>
+	</div>
+
+	<!-- FILTER -->
+	<div class="mb-4 p-3" style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a;">
+		<form method="GET" action="/staff/rsvp" class="row g-3 align-items-end">
+			<div class="col-12 col-md-6">
+				<label class="form-label small text-secondary">Cari Project / Client</label>
+				<input type="text" name="search" value={ data.Search }
+				       placeholder="Nama project atau client..."
+				       class="form-control-dark"/>
+			</div>
+			<div class="col-12 col-md-3">
+				<label class="form-label small text-secondary">Urutkan</label>
+				<select name="sort" class="form-control-dark">
+					if data.SortBy == "rsvp_desc" {
+						<option value="rsvp_desc" selected>RSVP Terbanyak</option>
+					} else {
+						<option value="rsvp_desc">RSVP Terbanyak</option>
+					}
+					if data.SortBy == "rsvp_asc" {
+						<option value="rsvp_asc" selected>RSVP Tersedikit</option>
+					} else {
+						<option value="rsvp_asc">RSVP Tersedikit</option>
+					}
+					if data.SortBy == "title_asc" {
+						<option value="title_asc" selected>Judul A-Z</option>
+					} else {
+						<option value="title_asc">Judul A-Z</option>
+					}
+					if data.SortBy == "latest" {
+						<option value="latest" selected>Terbaru</option>
+					} else {
+						<option value="latest">Terbaru</option>
+					}
+				</select>
+			</div>
+			<div class="col-6 col-md-1">
+				<button type="submit" class="btn w-100" style="background:#ec489a; color:white; border:none; border-radius:10px; padding:10px;">
+					<i class="bi bi-search"></i>
+				</button>
+			</div>
+			<div class="col-6 col-md-2">
+				<a href="/staff/rsvp" class="btn w-100" style="background:#2a2a2a; color:white; border:none; border-radius:10px; padding:10px;">
+					<i class="bi bi-arrow-repeat me-1"></i>Reset
+				</a>
+			</div>
+		</form>
+	</div>
+
+	<!-- LIST PROJECT -->
+	if len(data.Projects) > 0 {
+		<div class="d-flex flex-column gap-3">
+			for _, p := range data.Projects {
+				<div class="project-card">
+					<div class="row align-items-center g-3">
+						<!-- Info Project -->
+						<div class="col-12 col-md-5">
+							<h5 class="mb-1" style="color:white; font-weight:700; word-break:break-word;">
+								{ p.Title }
+							</h5>
+							<div style="color:#9ca3af; font-size:0.85rem;">
+								<i class="bi bi-person me-1"></i>
+								if p.User != nil {
+									{ p.User.Name }
+								} else {
+									Unknown
+								}
+							</div>
+							<div class="mt-1">
+								if p.Template != nil {
+									<span class="badge" style="background:#3b82f6; font-size:0.65rem;">
+										{ p.Template.Name }
+									</span>
+								}
+								if p.Status == "published" {
+									<span class="badge ms-1" style="background:#10b981; font-size:0.65rem;">
+										<i class="bi bi-check-circle me-1"></i>Published
+									</span>
+								} else {
+									<span class="badge ms-1" style="background:#f59e0b; color:#1a1a1a; font-size:0.65rem;">
+										<i class="bi bi-pencil me-1"></i>Draft
+									</span>
+								}
+							</div>
+						</div>
+
+						<!-- Stats -->
+						<div class="col-12 col-md-4">
+							<div class="row g-2">
+								<div class="col-3">
+									<div class="mini-stat">
+										<div class="num" style="color:#ec489a;">{ fmt.Sprintf("%d", data.StatsMap[p.ID].RsvpCount) }</div>
+										<div class="lbl">RSVP</div>
+									</div>
+								</div>
+								<div class="col-3">
+									<div class="mini-stat">
+										<div class="num" style="color:#10b981;">{ fmt.Sprintf("%d", data.StatsMap[p.ID].HadirCount) }</div>
+										<div class="lbl">Hadir</div>
+									</div>
+								</div>
+								<div class="col-3">
+									<div class="mini-stat">
+										<div class="num" style="color:#ef4444;">{ fmt.Sprintf("%d", data.StatsMap[p.ID].TidakHadirCount) }</div>
+										<div class="lbl">Tidak</div>
+									</div>
+								</div>
+								<div class="col-3">
+									<div class="mini-stat">
+										<div class="num" style="color:#f59e0b;">{ fmt.Sprintf("%d", data.StatsMap[p.ID].RaguCount) }</div>
+										<div class="lbl">Ragu</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Aksi -->
+						<div class="col-12 col-md-3">
+							<a href={ templ.URL(fmt.Sprintf("/staff/projects/%d/rsvp", p.ID)) }
+							   class="btn w-100"
+							   style="background:#ec489a; color:white; border:none; border-radius:12px; padding:12px; font-weight:600;">
+								<i class="bi bi-eye me-2"></i>Kelola RSVP
+							</a>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	} else {
+		<div class="p-5 text-center" style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a;">
+			<i class="bi bi-inbox" style="font-size:4rem; color:#4b5563;"></i>
+			<h5 class="mt-3" style="color:white;">Belum Ada RSVP</h5>
+			<p style="color:#9ca3af;">
+				if data.Search != "" {
+					Tidak ada project dengan nama "{ data.Search }" yang memiliki RSVP.
+				} else {
+					Belum ada reservasi dari tamu. Bagikan undangan Anda untuk mulai mendapatkan RSVP.
+				}
+			</p>
+			<div class="mt-3">
+				<a href="/staff/projects" class="btn" style="background:#3b82f6; color:white; border:none; padding:10px 24px; border-radius:12px; font-weight:600;">
+					<i class="bi bi-envelope-paper me-2"></i>Lihat Semua Project
+				</a>
+			</div>
+		</div>
+	}
+}
+
+func percent(part, total int) int {
+	if total == 0 {
+		return 0
+	}
+	return (part * 100) / total
+}

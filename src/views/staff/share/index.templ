@@ -1,0 +1,278 @@
+package share
+
+import (
+	"fmt"
+	"wedding-invitation-go/internal/models"
+)
+
+type ProjectStats struct {
+	GuestsCount    int
+	SharedCount    int
+	WithPhoneCount int
+}
+
+type ShareListData struct {
+	User           models.User
+	Setting        models.Config
+	Projects       []models.Project
+	StatsMap       map[uint]ProjectStats
+	TotalPublished int
+	TotalGuests    int
+	TotalShared    int
+	TotalWithPhone int
+	Search         string
+	SortBy         string
+}
+
+templ ShareListPage(data ShareListData) {
+	<style>
+		.stat-card {
+			background: #1e1e1e;
+			border-radius: 16px;
+			border: 1px solid #2a2a2a;
+			padding: 16px;
+			text-align: center;
+			transition: all 0.2s;
+		}
+		.stat-card:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 8px 25px rgba(37,211,102,0.08);
+		}
+		.form-control-dark {
+			background: #0f0f0f !important;
+			border: 1px solid #2a2a2a !important;
+			border-radius: 10px !important;
+			padding: 10px 14px !important;
+			color: #fff !important;
+			width: 100%;
+			transition: all 0.2s;
+		}
+		.form-control-dark:focus {
+			border-color: #25D366 !important;
+			box-shadow: 0 0 0 2px rgba(37,211,102,0.15);
+			outline: none;
+		}
+		.project-card {
+			background: #1e1e1e;
+			border-radius: 16px;
+			border: 1px solid #2a2a2a;
+			padding: 20px;
+			transition: all 0.2s;
+		}
+		.project-card:hover {
+			border-color: #25D366;
+		}
+		.mini-stat {
+			background: #0f0f0f;
+			border-radius: 10px;
+			padding: 8px;
+			text-align: center;
+		}
+		.mini-stat .num {
+			font-weight: 700;
+			font-size: 1.3rem;
+		}
+		.mini-stat .lbl {
+			color: #6b7280;
+			font-size: 0.65rem;
+		}
+		.btn-share-primary {
+			background: #25D366;
+			color: white;
+			border: none;
+			border-radius: 12px;
+			padding: 12px;
+			font-weight: 600;
+			text-decoration: none;
+			display: block;
+			text-align: center;
+			transition: all 0.2s;
+		}
+		.btn-share-primary:hover {
+			background: #128C7E;
+			color: white;
+		}
+	</style>
+
+	<!-- HEADER -->
+	<div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3">
+		<div>
+			<h2 class="fw-bold mb-1" style="color:#25D366;">
+				<i class="bi bi-whatsapp me-2"></i>Share WhatsApp
+			</h2>
+			<p class="text-secondary m-0">Bagikan undangan ke tamu via WhatsApp</p>
+		</div>
+		<a href="/staff/projects" class="btn"
+		   style="background:#2a2a2a; color:white; border:none; border-radius:12px; padding:10px 24px;">
+			<i class="bi bi-envelope-paper me-2"></i>Lihat Project
+		</a>
+	</div>
+
+	<!-- STATS GLOBAL -->
+	<div class="row g-3 mb-4">
+		<div class="col-6 col-md-3">
+			<div class="stat-card" style="border-top: 4px solid #10b981;">
+				<i class="bi bi-check-circle fs-3 mb-2" style="color:#10b981;"></i>
+				<h6 class="mb-1" style="color:#9ca3af; font-size:0.75rem;">Project Published</h6>
+				<h2 class="fw-bold mb-0" style="color:white; font-size:2rem;">{ fmt.Sprintf("%d", data.TotalPublished) }</h2>
+			</div>
+		</div>
+		<div class="col-6 col-md-3">
+			<div class="stat-card" style="border-top: 4px solid #8b5cf6;">
+				<i class="bi bi-people fs-3 mb-2" style="color:#8b5cf6;"></i>
+				<h6 class="mb-1" style="color:#9ca3af; font-size:0.75rem;">Total Tamu</h6>
+				<h2 class="fw-bold mb-0" style="color:white; font-size:2rem;">{ fmt.Sprintf("%d", data.TotalGuests) }</h2>
+			</div>
+		</div>
+		<div class="col-6 col-md-3">
+			<div class="stat-card" style="border-top: 4px solid #25D366;">
+				<i class="bi bi-whatsapp fs-3 mb-2" style="color:#25D366;"></i>
+				<h6 class="mb-1" style="color:#9ca3af; font-size:0.75rem;">Sudah Share</h6>
+				<h2 class="fw-bold mb-0" style="color:white; font-size:2rem;">{ fmt.Sprintf("%d", data.TotalShared) }</h2>
+				<small style="color:#25D366; font-size:0.7rem;">
+					{ percent(data.TotalShared, data.TotalGuests) }% dari total
+				</small>
+			</div>
+		</div>
+		<div class="col-6 col-md-3">
+			<div class="stat-card" style="border-top: 4px solid #f59e0b;">
+				<i class="bi bi-telephone fs-3 mb-2" style="color:#f59e0b;"></i>
+				<h6 class="mb-1" style="color:#9ca3af; font-size:0.75rem;">Punya No. WA</h6>
+				<h2 class="fw-bold mb-0" style="color:white; font-size:2rem;">{ fmt.Sprintf("%d", data.TotalWithPhone) }</h2>
+			</div>
+		</div>
+	</div>
+
+	<!-- INFO ALERT -->
+	<div class="mb-4 p-3" style="background:rgba(37,211,102,0.08); border-left:4px solid #25D366; border-radius:12px;">
+		<div class="d-flex align-items-start gap-2">
+			<i class="bi bi-info-circle-fill" style="color:#25D366; font-size:1.2rem;"></i>
+			<div style="color:#d1d5db; font-size:0.85rem;">
+				<strong style="color:#25D366;">Cara Share:</strong>
+				Klik tombol <strong>"Buka Halaman Share"</strong> di bawah project untuk melihat daftar tamu, tambah nomor WA, dan kirim undangan secara massal.
+			</div>
+		</div>
+	</div>
+
+	<!-- FILTER -->
+	<div class="mb-4 p-3" style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a;">
+		<form method="GET" action="/staff/share" class="row g-3 align-items-end">
+			<div class="col-12 col-md-6">
+				<label class="form-label small text-secondary">Cari Project / Client</label>
+				<input type="text" name="search" value={ data.Search }
+				       placeholder="Nama project atau client..."
+				       class="form-control-dark"/>
+			</div>
+			<div class="col-12 col-md-3">
+				<label class="form-label small text-secondary">Urutkan</label>
+				<select name="sort" class="form-control-dark">
+					<option value="latest" selected?={ data.SortBy == "latest" }>Terbaru</option>
+					<option value="title_asc" selected?={ data.SortBy == "title_asc" }>Judul A-Z</option>
+					<option value="guests_desc" selected?={ data.SortBy == "guests_desc" }>Tamu Terbanyak</option>
+				</select>
+			</div>
+			<div class="col-6 col-md-1">
+				<button type="submit" class="btn w-100" style="background:#25D366; color:white; border:none; border-radius:10px; padding:10px;">
+					<i class="bi bi-search"></i>
+				</button>
+			</div>
+			<div class="col-6 col-md-2">
+				<a href="/staff/share" class="btn w-100" style="background:#2a2a2a; color:white; border:none; border-radius:10px; padding:10px;">
+					<i class="bi bi-arrow-repeat me-1"></i>Reset
+				</a>
+			</div>
+		</form>
+	</div>
+
+	<!-- LIST PROJECT -->
+	if len(data.Projects) > 0 {
+		<div class="d-flex flex-column gap-3">
+			for _, p := range data.Projects {
+				<div class="project-card">
+					<div class="row align-items-center g-3">
+						<!-- Info Project -->
+						<div class="col-12 col-md-4">
+							<h5 class="mb-1" style="color:white; font-weight:700;">
+								{ p.Title }
+							</h5>
+							<div style="color:#9ca3af; font-size:0.85rem;">
+								<i class="bi bi-person me-1"></i>
+								if p.User != nil {
+									{ p.User.Name }
+								} else {
+									Unknown
+								}
+							</div>
+							<div class="mt-1">
+								if p.Template != nil {
+									<span class="badge" style="background:#3b82f6; font-size:0.65rem;">
+										{ p.Template.Name }
+									</span>
+								}
+								<span class="badge ms-1" style="background:#10b981; font-size:0.65rem;">
+									<i class="bi bi-check-circle me-1"></i>Published
+								</span>
+							</div>
+						</div>
+
+						<!-- Stats -->
+						<div class="col-12 col-md-5">
+							<div class="row g-2">
+								<div class="col-4">
+									<div class="mini-stat">
+										<div class="num" style="color:#8b5cf6;">{ fmt.Sprintf("%d", data.StatsMap[p.ID].GuestsCount) }</div>
+										<div class="lbl">Total Tamu</div>
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="mini-stat">
+										<div class="num" style="color:#25D366;">{ fmt.Sprintf("%d", data.StatsMap[p.ID].SharedCount) }</div>
+										<div class="lbl">Sudah Share</div>
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="mini-stat">
+										<div class="num" style="color:#f59e0b;">{ fmt.Sprintf("%d", data.StatsMap[p.ID].WithPhoneCount) }</div>
+										<div class="lbl">Punya WA</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Aksi -->
+						<div class="col-12 col-md-3">
+							<a href={ templ.URL(fmt.Sprintf("/share/invitation/%d", p.ID)) } class="btn-share-primary">
+								<i class="bi bi-whatsapp me-2"></i>Buka Halaman Share
+							</a>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	} else {
+		<div class="p-5 text-center" style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a;">
+			<i class="bi bi-whatsapp" style="font-size:4rem; color:#4b5563;"></i>
+			<h5 class="mt-3" style="color:white;">Belum Ada Project Published</h5>
+			<p style="color:#9ca3af;">
+				if data.Search != "" {
+					Tidak ada project dengan nama "{ data.Search }" yang published.
+				} else {
+					Publish project undangan dulu untuk bisa share ke tamu via WhatsApp.
+				}
+			</p>
+			<div class="mt-3">
+				<a href="/staff/projects" class="btn" style="background:#3b82f6; color:white; border:none; padding:10px 24px; border-radius:12px; font-weight:600;">
+					<i class="bi bi-envelope-paper me-2"></i>Lihat Semua Project
+				</a>
+			</div>
+		</div>
+	}
+}
+
+// percent — hitung persentase
+func percent(part, total int) int {
+	if total == 0 {
+		return 0
+	}
+	return (part * 100) / total
+}

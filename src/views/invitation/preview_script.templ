@@ -37,7 +37,11 @@ templ previewScript(project models.Project) {
 			return;
 		}
 
-		var audioUrl = '/storage/' + filePath;
+		var audioUrl = filePath;
+		if (audioUrl.indexOf('/storage/') !== 0 && audioUrl.indexOf('http') !== 0) {
+			audioUrl = '/storage/' + audioUrl;
+		}
+
 		var title = selectedOption.dataset.title || 'Musik';
 		var artist = selectedOption.dataset.artist || '';
 		var infoDiv = document.getElementById('musicInfo');

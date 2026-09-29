@@ -21,6 +21,8 @@ func renderWithRoleLayout(c *gin.Context, user *models.User, setting models.Conf
 	switch user.Role {
 	case "client":
 		err = layouts.ClientLayout(*user, setting, activePage, content).Render(c.Request.Context(), &buf)
+	case "staff":
+		err = layouts.StaffLayout(*user, setting, activePage, content).Render(c.Request.Context(), &buf)
 	default:
 		err = layouts.AdminLayout(*user, setting, activePage, content).Render(c.Request.Context(), &buf)
 	}

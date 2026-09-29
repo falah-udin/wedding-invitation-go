@@ -225,14 +225,12 @@ func saveProjectFile(c *gin.Context, file *multipart.FileHeader, projectID uint,
 		return "", err
 	}
 
-	ext := filepath.Ext(file.Filename)
-	cleanName := strings.ReplaceAll(filepath.Base(file.Filename), " ", "_")
-	filename := fmt.Sprintf("%d_%s", time.Now().UnixNano()/1e6, cleanName)
-	if len(filename) > 100 {
-		filename = filename[:100] + ext
-	}
+	ext := strings.ToLower(filepath.Ext(file.Filename))
+	baseName := strings.TrimSuffix(filepath.Base(file.Filename), filepath.Ext(file.Filename))
+	baseName = strings.ReplaceAll(baseName, " ", "_")
+	filename := fmt.Sprintf("%d_%s%s", time.Now().Unix(), baseName, ext)
+	fullPath := filepath.Join(uploadDir, filename)   // ← FIX: uploadDir, bukan musicUploadDir
 
-	fullPath := filepath.Join(uploadDir, filename)
 	if err := c.SaveUploadedFile(file, fullPath); err != nil {
 		return "", err
 	}

@@ -37,12 +37,20 @@ func Register(r *gin.Engine) {
 	r.GET("/auth/google", handlers.GoogleLogin)
 	r.GET("/auth/google/callback", handlers.GoogleCallback)
 
-		// STAFF AREA
+	// STAFF AREA
 	staff := r.Group("/staff")
 	staff.Use(middleware.RequireAuth())
 	staff.Use(middleware.RequireRole("staff"))
 	{
 		staff.GET("/dashboard", staffHandlers.Dashboard)
+		staff.GET("/share", staffHandlers.ShareIndex)
+		staff.GET("/projects", staffHandlers.ProjectIndex)
+		staff.GET("/projects/:id", staffHandlers.ProjectShow)
+		staff.GET("/rsvp", staffHandlers.RsvpListIndex)
+		staff.GET("/projects/:id/rsvp", staffHandlers.RsvpProjectIndex)
+		staff.DELETE("/projects/:id/rsvp/:rsvpId", staffHandlers.RsvpDelete)
+		staff.POST("/projects/:id/rsvp/bulk-delete", staffHandlers.RsvpBulkDelete)
+		staff.GET("/projects/:id/rsvp/export", staffHandlers.RsvpExport)
 	}
 
 	// CLIENT AREA

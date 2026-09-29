@@ -1,7 +1,6 @@
 package invitation
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -14,7 +13,6 @@ import (
 	"wedding-invitation-go/internal/models"
 	"wedding-invitation-go/internal/services"
 	"wedding-invitation-go/views/invitation"
-	"wedding-invitation-go/views/layouts"
 )
 
 // ============================================
@@ -34,18 +32,9 @@ func SelectClient(c *gin.Context) {
 	db := database.GetDB()
 	db.Where("role = ?", "client").Order("name ASC").Find(&clients)
 
-	var buf bytes.Buffer
-	err := layouts.AdminLayout(
-		*user, setting, "invitation.create",
-		invitation.SelectClientContent(clients, c.Query("error")),
-	).Render(c.Request.Context(), &buf)
-
-	if err != nil {
-		c.String(http.StatusInternalServerError, "Render error: %v", err)
-		return
-	}
-
-	c.Data(http.StatusOK, "text/html; charset=utf-8", buf.Bytes())
+	renderWithLayout(c, user, setting,
+		invitation.SelectClientContent(clients, c.Query("error"), backURLForRole(user)),
+	)
 }
 
 // ============================================
@@ -424,4 +413,16 @@ func getBankListAsInterface() []map[string]string {
 		})
 	}
 	return result
+}
+
+// backURLForRole — URL "kembali" sesuai role user
+func backURLForRole(user *models.User) string {
+	switch user.Role {
+	case "client":
+		return "/client/dashboard"
+	case "staff":
+		return "/staff/dashboard"
+	default: // admin
+		return "/admin/projects"
+	}
 }

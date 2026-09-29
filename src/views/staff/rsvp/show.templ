@@ -1,0 +1,462 @@
+package rsvp
+
+import (
+	"fmt"
+	"wedding-invitation-go/internal/models"
+)
+
+type RsvpProjectData struct {
+	User    models.User
+	Setting models.Config
+	Project models.Project
+	Rsvps   []models.Rsvp
+	Stats   map[string]int
+}
+
+templ RsvpProjectPage(data RsvpProjectData) {
+	<style>
+		.card-table {
+			background: #1e1e1e;
+			border-radius: 16px;
+			border: 1px solid #2a2a2a;
+			overflow: visible;
+		}
+		.table-rsvp {
+			color: #ffffff !important;
+			background: transparent !important;
+			width: 100%;
+			min-width: 700px;
+		}
+		.table-rsvp thead th {
+			color: #ec489a !important;
+			background: transparent !important;
+			border-bottom: 1px solid #2a2a2a !important;
+			font-weight: 500 !important;
+			padding: 14px 12px !important;
+			font-size: 0.8rem !important;
+			text-align: left;
+		}
+		.table-rsvp tbody td {
+			color: #d1d5db !important;
+			background: transparent !important;
+			border-bottom: 1px solid #2a2a2a !important;
+			padding: 12px !important;
+			font-size: 0.85rem !important;
+			vertical-align: middle;
+		}
+		.table-rsvp tbody tr:hover {
+			background: rgba(236,72,153,0.05) !important;
+		}
+		.table-rsvp tbody tr:last-child td {
+			border-bottom: none !important;
+		}
+		.badge-status {
+			font-size: 0.65rem !important;
+			padding: 3px 10px !important;
+			border-radius: 10px !important;
+			font-weight: 600 !important;
+		}
+		.badge-status.hadir { background: #10b981 !important; color: white !important; }
+		.badge-status.tidak { background: #ef4444 !important; color: white !important; }
+		.badge-status.ragu { background: #f59e0b !important; color: #1a1a1a !important; }
+		.badge-jumlah {
+			background: #2a2a2a !important;
+			color: white !important;
+			font-size: 0.7rem !important;
+			padding: 3px 10px !important;
+			border-radius: 8px !important;
+		}
+		.btn-delete-rsvp {
+			background: transparent !important;
+			border: none !important;
+			color: #6b7280 !important;
+			font-size: 0.85rem !important;
+			padding: 4px 8px !important;
+			border-radius: 6px !important;
+			transition: all 0.2s ease !important;
+			cursor: pointer !important;
+		}
+		.btn-delete-rsvp:hover {
+			color: #ef4444 !important;
+			background: rgba(239, 68, 68, 0.1) !important;
+		}
+		.stat-box {
+			background: #1e1e1e !important;
+			border: 1px solid #2a2a2a !important;
+			border-radius: 12px !important;
+			padding: 12px !important;
+			text-align: center !important;
+		}
+		.stat-box .number { font-size: 1.5rem !important; font-weight: 700 !important; }
+		.stat-box .label { color: #9ca3af !important; font-size: 0.75rem !important; }
+		.stat-box.total .number { color: #ec489a !important; }
+		.stat-box.hadir .number { color: #34d399 !important; }
+		.stat-box.tidak .number { color: #f87171 !important; }
+		.stat-box.ragu .number { color: #fbbf24 !important; }
+		.ucapan-text {
+			color: #9ca3af !important;
+			font-style: italic !important;
+			font-size: 0.8rem !important;
+			max-width: 200px !important;
+			display: inline-block !important;
+			white-space: nowrap !important;
+			overflow: hidden !important;
+			text-overflow: ellipsis !important;
+		}
+		.guest-name { color: white !important; font-weight: 600 !important; }
+
+		/* Mobile card */
+		.rsvp-card {
+			background: #1e1e1e;
+			border-radius: 14px;
+			border: 1px solid #2a2a2a;
+			padding: 16px;
+		}
+	</style>
+
+	<input type="hidden" id="projectIdData" value={ fmt.Sprintf("%d", data.Project.ID) }/>
+
+	<!-- HEADER -->
+	<div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3">
+		<div style="flex:1; min-width:0;">
+			<h2 class="fw-bold mb-1" style="color:#ec489a; word-break:break-word;">
+				<i class="bi bi-envelope-check me-2"></i>Manajemen RSVP
+			</h2>
+			<p class="text-secondary m-0" style="font-size:0.9rem;">
+				<a href="/staff/rsvp" style="color:#3b82f6; text-decoration:none;">
+					<i class="bi bi-arrow-left"></i> Kembali
+				</a>
+				&nbsp;•&nbsp;
+				<strong style="color:white;">{ data.Project.Title }</strong>
+				<span class="badge ms-2" style="background:#10b981;">{ fmt.Sprintf("%d", data.Stats["total"]) } RSVP</span>
+			</p>
+		</div>
+		<a href={ templ.URL("/invitation/" + data.Project.Slug) } target="_blank"
+		   class="btn" style="background:#3b82f6; color:white; border:none; border-radius:12px; padding:8px 20px; font-weight:600;">
+			<i class="bi bi-box-arrow-up-right me-2"></i>Lihat Undangan
+		</a>
+	</div>
+
+	<!-- STATS -->
+	<div class="row g-3 mb-4">
+		<div class="col-6 col-md-3">
+			<div class="stat-box total">
+				<div class="number">{ fmt.Sprintf("%d", data.Stats["total"]) }</div>
+				<div class="label">Total</div>
+			</div>
+		</div>
+		<div class="col-6 col-md-3">
+			<div class="stat-box hadir">
+				<div class="number">{ fmt.Sprintf("%d", data.Stats["hadir"]) }</div>
+				<div class="label">Hadir</div>
+			</div>
+		</div>
+		<div class="col-6 col-md-3">
+			<div class="stat-box tidak">
+				<div class="number">{ fmt.Sprintf("%d", data.Stats["tidak_hadir"]) }</div>
+				<div class="label">Tidak Hadir</div>
+			</div>
+		</div>
+		<div class="col-6 col-md-3">
+			<div class="stat-box ragu">
+				<div class="number">{ fmt.Sprintf("%d", data.Stats["ragu"]) }</div>
+				<div class="label">Ragu-ragu</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- DESKTOP: TABLE -->
+	<div class="d-none d-md-block card-table">
+		<div style="overflow-x:auto;">
+			<table class="table-rsvp mb-0">
+				<thead>
+					<tr>
+						<th style="width:40px;">
+							<input type="checkbox" id="selectAll" onchange="toggleAll()" style="width:18px; height:18px; accent-color:#ec489a; cursor:pointer;"/>
+						</th>
+						<th style="width:40px;">#</th>
+						<th>Nama</th>
+						<th>Kehadiran</th>
+						<th>Jumlah</th>
+						<th>Ucapan</th>
+						<th>Tanggal</th>
+						<th style="text-align:center; width:60px;">Aksi</th>
+					</tr>
+				</thead>
+				<tbody>
+					if len(data.Rsvps) > 0 {
+						for i, r := range data.Rsvps {
+							<tr>
+								<td style="text-align:center;">
+									<input type="checkbox" class="row-checkbox" data-id={ fmt.Sprintf("%d", r.ID) } onchange="updateDeleteBtn()" style="width:18px; height:18px; accent-color:#ec489a; cursor:pointer;"/>
+								</td>
+								<td style="color:#6b7280;">{ fmt.Sprintf("%d", i+1) }</td>
+								<td><span class="guest-name">{ r.GuestName }</span></td>
+								<td>
+									if r.Attendance == "hadir" {
+										<span class="badge-status hadir">✅ Hadir</span>
+									} else if r.Attendance == "tidak_hadir" {
+										<span class="badge-status tidak">❌ Tidak</span>
+									} else {
+										<span class="badge-status ragu">❓ Ragu</span>
+									}
+								</td>
+								<td><span class="badge-jumlah"><i class="bi bi-person me-1"></i>{ fmt.Sprintf("%d", r.TotalGuests) } org</span></td>
+								<td>
+									if r.GetMessage() != "" {
+										<span class="ucapan-text">"{ truncate(r.GetMessage(), 40) }"</span>
+									} else {
+										<span style="color:#4a4a4a;">-</span>
+									}
+								</td>
+								<td style="color:#6b7280; font-size:0.75rem;">{ r.CreatedAt.Format("02/01/2006 15:04") }</td>
+								<td style="text-align:center;">
+									<button type="button"
+									        class="btn-delete-rsvp"
+									        data-id={ fmt.Sprintf("%d", r.ID) }
+									        data-name={ r.GuestName }
+									        onclick="deleteRsvpSingle(this)"
+									        title="Hapus">
+										<i class="bi bi-trash"></i>
+									</button>
+								</td>
+							</tr>
+						}
+					} else {
+						<tr>
+							<td colspan="8" style="text-align:center; padding:40px; color:#6b7280;">
+								<i class="bi bi-inbox fs-3 d-block mb-2"></i>
+								Belum ada RSVP
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<!-- MOBILE: CARD LIST -->
+	<div class="d-md-none">
+		if len(data.Rsvps) > 0 {
+			<div class="d-flex flex-column gap-3">
+				for i, r := range data.Rsvps {
+					<div class="rsvp-card">
+						<div class="d-flex justify-content-between align-items-start mb-2">
+							<div style="flex:1; min-width:0;">
+								<div style="color:white; font-weight:700; font-size:0.95rem; word-break:break-word;">
+									{ fmt.Sprintf("%d. ", i+1) }{ r.GuestName }
+								</div>
+								<small style="color:#6b7280; font-size:0.7rem;">
+									<i class="bi bi-calendar me-1"></i>{ r.CreatedAt.Format("02/01/2006 15:04") }
+								</small>
+							</div>
+							if r.Attendance == "hadir" {
+								<span class="badge-status hadir flex-shrink-0">✅ Hadir</span>
+							} else if r.Attendance == "tidak_hadir" {
+								<span class="badge-status tidak flex-shrink-0">❌ Tidak</span>
+							} else {
+								<span class="badge-status ragu flex-shrink-0">❓ Ragu</span>
+							}
+						</div>
+						<div class="d-flex justify-content-between mb-2" style="font-size:0.8rem;">
+							<span style="color:#9ca3af;">Jumlah</span>
+							<span class="badge-jumlah"><i class="bi bi-person me-1"></i>{ fmt.Sprintf("%d", r.TotalGuests) } orang</span>
+						</div>
+						if r.GetMessage() != "" {
+							<div style="background:#0f0f0f; border-radius:8px; padding:10px; font-size:0.8rem; color:#9ca3af; font-style:italic; margin-bottom:10px;">
+								"{ r.GetMessage() }"
+							</div>
+						}
+						<div class="d-flex gap-2">
+							<button type="button"
+							        class="btn w-100"
+							        style="background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.3); border-radius:8px; padding:8px; font-size:0.78rem; font-weight:600;"
+							        data-id={ fmt.Sprintf("%d", r.ID) }
+							        data-name={ r.GuestName }
+							        onclick="deleteRsvpSingle(this)">
+								<i class="bi bi-trash me-1"></i> Hapus
+							</button>
+						</div>
+					</div>
+				}
+			</div>
+		} else {
+			<div class="p-4 text-center" style="background:#1e1e1e; border-radius:14px; border:1px solid #2a2a2a;">
+				<i class="bi bi-inbox fs-2 d-block mb-2" style="color:#4b5563;"></i>
+				<div style="color:#6b7280;">Belum ada RSVP</div>
+			</div>
+		}
+	</div>
+
+	<!-- BULK ACTION (desktop only) -->
+	<div class="d-none d-md-flex mt-3 flex-wrap justify-content-between align-items-center gap-3">
+		<div style="color:#9ca3af; font-size:0.85rem;">
+			<i class="bi bi-info-circle me-1"></i>Menampilkan { fmt.Sprintf("%d", len(data.Rsvps)) } reservasi
+			<span id="selectedCount" style="display:none; color:#ec489a; font-weight:600; margin-left:10px;">
+				<i class="bi bi-check-circle-fill"></i> <span id="selectedNumber">0</span> dipilih
+			</span>
+		</div>
+		<div class="d-flex gap-2">
+			<button id="deleteSelectedBtn" type="button" onclick="confirmDeleteSelected()"
+			        style="display:none; background:#ef4444; color:white; border:none; padding:8px 20px; border-radius:10px; font-weight:600; cursor:pointer;">
+				<i class="bi bi-trash3 me-2"></i>Hapus (<span id="deleteCount">0</span>)
+			</button>
+			<a href={ templ.URL(fmt.Sprintf("/staff/projects/%d/rsvp/export", data.Project.ID)) }
+			   class="btn" style="background:#2a2a2a; color:white; border:none; padding:8px 20px; border-radius:10px;">
+				<i class="bi bi-download me-2"></i>Export CSV
+			</a>
+		</div>
+	</div>
+
+	<!-- EXPORT (mobile) -->
+	<div class="d-md-none mt-3">
+		<a href={ templ.URL(fmt.Sprintf("/staff/projects/%d/rsvp/export", data.Project.ID)) }
+		   class="btn w-100" style="background:#2a2a2a; color:white; border:none; padding:10px; border-radius:10px;">
+			<i class="bi bi-download me-2"></i>Export CSV
+		</a>
+	</div>
+
+	<script>
+		function toggleAll() {
+			const all = document.getElementById('selectAll').checked;
+			document.querySelectorAll('.row-checkbox').forEach(function(cb) { cb.checked = all; });
+			updateDeleteBtn();
+		}
+
+		function updateDeleteBtn() {
+			const checked = document.querySelectorAll('.row-checkbox:checked');
+			const count = checked.length;
+			const btn = document.getElementById('deleteSelectedBtn');
+			const delCount = document.getElementById('deleteCount');
+			const selCount = document.getElementById('selectedCount');
+			const selNum = document.getElementById('selectedNumber');
+
+			if (btn && count > 0) {
+				btn.style.display = 'inline-block';
+				delCount.textContent = count;
+				selCount.style.display = 'inline';
+				selNum.textContent = count;
+			} else if (btn) {
+				btn.style.display = 'none';
+				selCount.style.display = 'none';
+			}
+		}
+
+		function deleteRsvpSingle(btn) {
+			const id = btn.dataset.id;
+			const name = btn.dataset.name;
+			const projectId = document.getElementById('projectIdData').value;
+
+			Swal.fire({
+				title: 'Hapus RSVP?',
+				html: 'Yakin hapus RSVP dari <strong style="color:#ef4444;">' + name + '</strong>?',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#ef4444',
+				cancelButtonColor: '#6b7280',
+				confirmButtonText: 'Ya, Hapus!',
+				cancelButtonText: 'Batal',
+				background: '#1e1e1e',
+				color: '#ffffff'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					performDelete([id], projectId);
+				}
+			});
+		}
+
+		function confirmDeleteSelected() {
+			const checked = document.querySelectorAll('.row-checkbox:checked');
+			const ids = Array.from(checked).map(function(cb) { return parseInt(cb.dataset.id); });
+			if (ids.length === 0) return;
+			const projectId = document.getElementById('projectIdData').value;
+
+			Swal.fire({
+				title: 'Hapus ' + ids.length + ' RSVP?',
+				text: 'Data yang dihapus tidak dapat dikembalikan!',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#ef4444',
+				cancelButtonColor: '#6b7280',
+				confirmButtonText: 'Ya, Hapus Semua!',
+				cancelButtonText: 'Batal',
+				background: '#1e1e1e',
+				color: '#ffffff'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					performDelete(ids, projectId);
+				}
+			});
+		}
+
+		function performDelete(ids, projectId) {
+			Swal.fire({
+				title: 'Menghapus...',
+				allowOutsideClick: false,
+				didOpen: function() { Swal.showLoading(); },
+				background: '#1e1e1e',
+				color: '#ffffff'
+			});
+
+			var url = ids.length === 1
+				? '/staff/projects/' + projectId + '/rsvp/' + ids[0]
+				: '/staff/projects/' + projectId + '/rsvp/bulk-delete';
+
+			var options = {
+				method: ids.length === 1 ? 'DELETE' : 'POST',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				}
+			};
+
+			if (ids.length > 1) {
+				options.body = JSON.stringify({ ids: ids });
+			}
+
+			fetch(url, options)
+				.then(function(r) { return r.json(); })
+				.then(function(data) {
+					if (data.success) {
+						Swal.fire({
+							title: 'Berhasil!',
+							text: data.message,
+							icon: 'success',
+							confirmButtonColor: '#ec489a',
+							background: '#1e1e1e',
+							color: '#ffffff',
+							timer: 1500,
+							showConfirmButton: false
+						}).then(function() { window.location.reload(); });
+					} else {
+						Swal.fire({
+							title: 'Gagal!',
+							text: data.message,
+							icon: 'error',
+							confirmButtonColor: '#ec489a',
+							background: '#1e1e1e',
+							color: '#ffffff'
+						});
+					}
+				})
+				.catch(function(err) {
+					Swal.fire({
+						title: 'Error!',
+						text: err.message,
+						icon: 'error',
+						confirmButtonColor: '#ec489a',
+						background: '#1e1e1e',
+						color: '#ffffff'
+					});
+				});
+		}
+	</script>
+}
+
+func truncate(s string, n int) string {
+	runes := []rune(s)
+	if len(runes) <= n {
+		return s
+	}
+	return string(runes[:n]) + "..."
+}

@@ -3,7 +3,7 @@ package invitation
 import "wedding-invitation-go/internal/models"
 
 // SelectClientContent — Step 0: Pilih client
-templ SelectClientContent(clients []models.User, errorMsg string) {
+templ SelectClientContent(clients []models.User, errorMsg string, backURL string) {
 	<!-- HEADER -->
 	<div class="d-flex justify-content-between align-items-center mb-4">
 		<div>
@@ -12,7 +12,7 @@ templ SelectClientContent(clients []models.User, errorMsg string) {
 			</h2>
 			<p class="text-secondary m-0">Pilih client yang akan dibuatkan undangan</p>
 		</div>
-		<a href="/admin/projects" class="btn" style="background:#2a2a2a; border:none; border-radius:12px; padding:8px 20px; color:white; text-decoration:none;">
+		<a href={ templ.URL(backURL) } class="btn" style="background:#2a2a2a; border:none; border-radius:12px; padding:8px 20px; color:white; text-decoration:none;">
 			<i class="bi bi-arrow-left me-2"></i>Kembali
 		</a>
 	</div>
@@ -72,7 +72,7 @@ templ SelectClientContent(clients []models.User, errorMsg string) {
 					<button type="submit" class="btn" style="background:#8b5cf6; border:none; border-radius:12px; padding:12px 32px; color:white; font-weight:600;">
 						<i class="bi bi-arrow-right me-2"></i>Lanjut ke Data Undangan
 					</button>
-					<a href="/admin/projects" class="btn" style="background:#2a2a2a; border:none; border-radius:12px; padding:12px 32px; color:white; text-decoration:none;">
+					<a href={ templ.URL(backURL) } class="btn" style="background:#2a2a2a; border:none; border-radius:12px; padding:12px 32px; color:white; text-decoration:none;">
 						<i class="bi bi-x-circle me-2"></i>Batal
 					</a>
 				</div>

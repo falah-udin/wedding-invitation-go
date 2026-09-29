@@ -1,0 +1,165 @@
+package projects
+
+import (
+	"fmt"
+	"wedding-invitation-go/internal/models"
+)
+
+type ProjectShowData struct {
+	User    models.User
+	Setting models.Config
+	Project models.Project
+	AllData map[string]interface{}
+}
+
+templ ProjectShowPage(data ProjectShowData) {
+	<div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3">
+		<div>
+			<h2 class="fw-bold mb-1" style="color:#3b82f6;">
+				<i class="bi bi-info-circle me-2"></i>Detail Project
+			</h2>
+			<p class="text-secondary m-0">{ data.Project.Title }</p>
+		</div>
+		<div class="d-flex gap-2">
+			<a href="/staff/projects" class="btn" style="background:#2a2a2a; color:white; border:none; border-radius:12px; padding:8px 20px;">
+				<i class="bi bi-arrow-left me-2"></i>Kembali
+			</a>
+			<a href={ templ.URL("/invitation/" + data.Project.Slug) } target="_blank"
+			   class="btn" style="background:#3b82f6; color:white; border:none; border-radius:12px; padding:8px 20px; font-weight:600;">
+				<i class="bi bi-eye me-2"></i>Lihat Undangan
+			</a>
+		</div>
+	</div>
+
+	<div class="row g-4">
+		<!-- INFO PROJECT -->
+		<div class="col-12 col-md-6">
+			<div class="p-4" style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a;">
+				<h5 class="mb-3" style="color:#3b82f6; font-size:1rem;">
+					<i class="bi bi-info-circle me-2"></i>Informasi Project
+				</h5>
+				<div class="mb-3">
+					<label class="text-secondary small">ID Project</label>
+					<p class="mb-0" style="color:white;">#{ fmt.Sprintf("%d", data.Project.ID) }</p>
+				</div>
+				<div class="mb-3">
+					<label class="text-secondary small">Judul</label>
+					<p class="mb-0" style="color:white;">{ data.Project.Title }</p>
+				</div>
+				<div class="mb-3">
+					<label class="text-secondary small">Status</label>
+					<div>
+						<span class={ "badge", statusBadgeClass(data.Project.Status) }>{ data.Project.Status }</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<label class="text-secondary small">Total Views</label>
+						<p class="mb-0 fs-3 fw-bold" style="color:#3b82f6;">{ fmt.Sprintf("%d", data.Project.TotalViews) }</p>
+					</div>
+					<div class="col-6">
+						<label class="text-secondary small">Total RSVP</label>
+						<p class="mb-0 fs-3 fw-bold" style="color:#ec489a;">{ fmt.Sprintf("%d", data.Project.TotalRsvp) }</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- CLIENT & TEMPLATE -->
+		<div class="col-12 col-md-6">
+			<div class="p-4" style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a;">
+				<h5 class="mb-3" style="color:#3b82f6; font-size:1rem;">
+					<i class="bi bi-person me-2"></i>Client & Template
+				</h5>
+				if data.Project.User != nil {
+					<div class="mb-3">
+						<label class="text-secondary small">Nama Client</label>
+						<p class="mb-0" style="color:white;">{ data.Project.User.Name }</p>
+					</div>
+					<div class="mb-3">
+						<label class="text-secondary small">Email Client</label>
+						<p class="mb-0" style="color:white;">{ data.Project.User.Email }</p>
+					</div>
+				}
+				<div class="mb-3">
+					<label class="text-secondary small">Template</label>
+					<p class="mb-0">
+						if data.Project.Template != nil {
+							<span class="badge" style="background:#3b82f6;">{ data.Project.Template.Name }</span>
+						} else {
+							<span style="color:#6b7280;">-</span>
+						}
+					</p>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<label class="text-secondary small">Dibuat</label>
+						<p class="mb-0" style="color:white;">{ data.Project.CreatedAt.Format("02/01/2006 15:04") }</p>
+					</div>
+					<div class="col-6">
+						<label class="text-secondary small">Update</label>
+						<p class="mb-0" style="color:white;">{ data.Project.UpdatedAt.Format("02/01/2006 15:04") }</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- DATA UNDANGAN -->
+		<div class="col-12">
+			<div class="p-4" style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a;">
+				<h5 class="mb-3" style="color:#3b82f6; font-size:1rem;">
+					<i class="bi bi-envelope-paper me-2"></i>Data Undangan
+				</h5>
+				<div class="row g-3">
+					<div class="col-12 col-md-6">
+						<label class="text-secondary small">Nama Mempelai Pria</label>
+						<p class="mb-0" style="color:white;">{ getStr(data.AllData, "groom_name") }</p>
+					</div>
+					<div class="col-12 col-md-6">
+						<label class="text-secondary small">Nama Mempelai Wanita</label>
+						<p class="mb-0" style="color:white;">{ getStr(data.AllData, "bride_name") }</p>
+					</div>
+					<div class="col-12 col-md-6">
+						<label class="text-secondary small">Tanggal Akad</label>
+						<p class="mb-0" style="color:white;">{ getStr(data.AllData, "akad_date") }</p>
+						<small class="text-secondary">Waktu: { getStr(data.AllData, "akad_time") }</small>
+					</div>
+					<div class="col-12 col-md-6">
+						<label class="text-secondary small">Tempat Akad</label>
+						<p class="mb-0" style="color:white;">{ getStr(data.AllData, "akad_venue") }</p>
+					</div>
+					<div class="col-12 col-md-6">
+						<label class="text-secondary small">Tanggal Resepsi</label>
+						<p class="mb-0" style="color:white;">{ getStr(data.AllData, "resepsi_date") }</p>
+						<small class="text-secondary">Waktu: { getStr(data.AllData, "resepsi_time") }</small>
+					</div>
+					<div class="col-12 col-md-6">
+						<label class="text-secondary small">Tempat Resepsi</label>
+						<p class="mb-0" style="color:white;">{ getStr(data.AllData, "resepsi_venue") }</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+func statusBadgeClass(status string) string {
+	switch status {
+	case "published":
+		return "bg-success"
+	case "draft":
+		return "bg-warning text-dark"
+	default:
+		return "bg-secondary"
+	}
+}
+
+// getStr — ambil string dari map, default "-"
+func getStr(m map[string]interface{}, key string) string {
+	if v, ok := m[key]; ok {
+		if s, ok := v.(string); ok && s != "" {
+			return s
+		}
+	}
+	return "-"
+}

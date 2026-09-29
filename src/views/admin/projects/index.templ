@@ -109,9 +109,9 @@ templ IndexContent(
 		</form>
 	</div>
 
-	<!-- TABLE -->
-	<div style="background: #1e1e1e; border-radius: 20px; border: 1px solid #2a2a2a; overflow: hidden;">
-		<div class="table-responsive">
+	<!-- TABLE (Desktop) -->
+	<div class="d-none d-md-block" style="background: #1e1e1e; border-radius: 20px; border: 1px solid #2a2a2a; overflow: visible;">
+		<div class="table-responsive" style="border-radius: 20px;">
 			<table class="table table-hover mb-0" style="min-width: 900px;">
 				<thead>
 					<tr>
@@ -202,6 +202,117 @@ templ IndexContent(
 		</div>
 	</div>
 
+	<!-- CARD LIST (Mobile) -->
+	<div class="d-md-none">
+		if len(projects) > 0 {
+			<div class="d-flex flex-column gap-3">
+				for _, project := range projects {
+					<div style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a; padding:16px;">
+						<!-- Header -->
+						<div class="d-flex justify-content-between align-items-start mb-3">
+							<div style="flex:1; min-width:0;">
+								<div style="color:white; font-weight:700; font-size:1rem; word-break:break-word;">
+									{ project.Title }
+								</div>
+								<small style="color:#6b7280; font-size:0.7rem; word-break:break-all;">
+									#{ formatUint(project.ID) } • { project.Slug }
+								</small>
+							</div>
+							<span class="ms-2 flex-shrink-0">
+								if project.Status == "published" {
+									<span class="badge" style="background:#10b981; font-size:0.65rem;">Published</span>
+								} else if project.Status == "draft" {
+									<span class="badge" style="background:#f59e0b; color:#1a1a1a; font-size:0.65rem;">Draft</span>
+								} else {
+									<span class="badge" style="background:#6b7280; font-size:0.65rem;">Archived</span>
+								}
+							</span>
+						</div>
+
+						<!-- Info -->
+						<div class="d-flex flex-column gap-2 mb-3" style="font-size:0.8rem;">
+							<div class="d-flex justify-content-between">
+								<span style="color:#9ca3af;">Client</span>
+								<span style="color:white; text-align:right; margin-left:8px; word-break:break-word;">
+									if project.User != nil {
+										{ project.User.Name }
+									} else {
+										Unknown
+									}
+								</span>
+							</div>
+							<div class="d-flex justify-content-between">
+								<span style="color:#9ca3af;">Template</span>
+								<span style="text-align:right; margin-left:8px;">
+									if project.Template != nil {
+										<span class="badge" style="background:#3b82f6; font-size:0.65rem;">{ project.Template.Name }</span>
+									} else {
+										<span style="color:#6b7280;">-</span>
+									}
+								</span>
+							</div>
+							<div class="d-flex justify-content-between">
+								<span style="color:#9ca3af;">Views</span>
+								<span style="color:white;">
+									<i class="bi bi-eye me-1" style="color:#8b5cf6;"></i>{ formatInt(project.TotalViews) }
+								</span>
+							</div>
+							<div class="d-flex justify-content-between">
+								<span style="color:#9ca3af;">RSVP</span>
+								<span style="color:white;">
+									<i class="bi bi-envelope-check me-1" style="color:#ec489a;"></i>{ formatInt(project.TotalRsvp) }
+								</span>
+							</div>
+							<div class="d-flex justify-content-between">
+								<span style="color:#9ca3af;">Dibuat</span>
+								<span style="color:white;">{ formatDate(project.CreatedAt) }</span>
+							</div>
+						</div>
+
+						<!-- Aksi -->
+						<div class="row g-2">
+							<div class="col-6">
+								if project.Status == "published" {
+									<button type="button"
+									        onclick={ templpkg.JSFuncCall("copyInvitationLink", "/invitation/"+project.Slug, project.Title) }
+									        class="btn w-100"
+									        style="background:rgba(16,185,129,0.1); color:#10b981; border:1px solid rgba(16,185,129,0.3); border-radius:8px; padding:8px; font-size:0.78rem; font-weight:600;">
+										<i class="bi bi-clipboard me-1"></i> Salin
+									</button>
+								} else {
+									<button type="button" disabled
+									        class="btn w-100"
+									        style="background:#1a1a1a; color:#4b5563; border:1px solid #2a2a2a; border-radius:8px; padding:8px; font-size:0.78rem; font-weight:600;">
+										<i class="bi bi-clipboard me-1"></i> Salin
+									</button>
+								}
+							</div>
+							<div class="col-6">
+								<button type="button"
+								        onclick={ templpkg.JSFuncCall("openActionModal",
+								            formatUint(project.ID),
+								            project.Title,
+								            project.Slug,
+								            project.Status,
+								            formatInt(int(project.TotalRsvp)),
+								        ) }
+								        class="btn w-100"
+								        style="background:#8b5cf6; color:white; border:none; border-radius:8px; padding:8px; font-size:0.78rem; font-weight:600;">
+									<i class="bi bi-lightning-charge-fill me-1"></i> Aksi
+								</button>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+		} else {
+			<div style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a; padding:40px 20px; text-align:center; color:#6b7280;">
+				<i class="bi bi-inbox fs-2 d-block mb-2"></i>
+				Belum ada project
+			</div>
+		}
+	</div>
+	
 	<!-- MODAL AKSI -->
 	<div class="modal fade" id="actionModal" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">

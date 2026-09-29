@@ -1,0 +1,439 @@
+package projects
+
+import (
+	"fmt"
+	"wedding-invitation-go/internal/models"
+)
+
+type ProjectListData struct {
+	User       models.User
+	Setting    models.Config
+	Projects   []models.Project
+	Templates  []models.Template
+	Search     string
+	Status     string
+	TemplateID string
+	Page       int
+	TotalPages int
+	Total      int
+	PerPage    int
+}
+
+templ ProjectListPage(data ProjectListData) {
+	<style>
+		.form-control-dark {
+			background: #0f0f0f !important;
+			border: 1px solid #2a2a2a !important;
+			border-radius: 10px !important;
+			padding: 10px 14px !important;
+			color: #fff !important;
+			width: 100%;
+			transition: all 0.2s;
+		}
+		.form-control-dark:focus {
+			border-color: #3b82f6 !important;
+			box-shadow: 0 0 0 2px rgba(59,130,246,0.15);
+			outline: none;
+		}
+		.form-control-dark option {
+			background: #1a1a1a;
+			color: white;
+		}
+		.table-custom {
+			color: #ffffff !important;
+			background: transparent !important;
+			width: 100%;
+			min-width: 900px;
+		}
+		.table-custom thead th {
+			color: #3b82f6 !important;
+			background: transparent !important;
+			border-bottom: 1px solid #2a2a2a !important;
+			font-weight: 500 !important;
+			font-size: 0.8rem !important;
+			padding: 14px 12px !important;
+			text-align: left !important;
+		}
+		.table-custom tbody td {
+			color: #d1d5db !important;
+			background: transparent !important;
+			border-bottom: 1px solid #2a2a2a !important;
+			padding: 12px !important;
+			font-size: 0.85rem !important;
+			vertical-align: middle !important;
+		}
+		.table-custom tbody tr:hover {
+			background: rgba(59,130,246,0.05) !important;
+		}
+		.badge-status {
+			font-size: 0.65rem;
+			padding: 3px 10px;
+			border-radius: 8px;
+			font-weight: 600;
+		}
+		.badge-status.published { background: #10b981; color: white; }
+		.badge-status.draft { background: #f59e0b; color: #1a1a1a; }
+		.badge-status.archived { background: #6b7280; color: white; }
+
+		.dropdown-menu-custom {
+			background: #1e1e1e !important;
+			border: 1px solid #2a2a2a !important;
+			border-radius: 10px !important;
+			padding: 6px !important;
+			min-width: 200px;
+		}
+		.dropdown-menu-custom .dropdown-item {
+			color: #d1d5db !important;
+			border-radius: 6px !important;
+			padding: 8px 12px !important;
+			font-size: 0.85rem !important;
+			transition: all 0.15s;
+		}
+		.dropdown-menu-custom .dropdown-item:hover {
+			background: rgba(59,130,246,0.1) !important;
+			color: #3b82f6 !important;
+		}
+		.btn-filter {
+			background: #3b82f6;
+			color: white;
+			border: none;
+			border-radius: 10px;
+			padding: 10px;
+			font-weight: 600;
+			transition: all 0.2s;
+		}
+		.btn-filter:hover { background: #2563eb; color: white; }
+		.btn-reset {
+			background: #2a2a2a;
+			color: white;
+			border: none;
+			border-radius: 10px;
+			padding: 10px;
+			transition: all 0.2s;
+			text-decoration: none;
+			display: block;
+			text-align: center;
+		}
+		.btn-reset:hover { background: #404040; color: white; }
+	</style>
+
+	<div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3">
+		<div>
+			<h2 class="fw-bold mb-1" style="color:#3b82f6;">
+				<i class="bi bi-envelope-paper me-2"></i>Proyek Undangan
+			</h2>
+			<p class="text-secondary m-0">Kelola semua proyek undangan</p>
+		</div>
+		<a href="/invitation/create/select-client"
+		   class="btn"
+		   style="background:#3b82f6; color:white; border:none; border-radius:12px; padding:10px 24px; font-weight:600;">
+			<i class="bi bi-plus-circle me-2"></i>Buat Undangan
+		</a>
+	</div>
+
+	<div class="mb-4 p-3" style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a;">
+		<form method="GET" action="/staff/projects" class="row g-3 align-items-end">
+			<div class="col-12 col-md-4">
+				<label class="form-label small text-secondary">Cari</label>
+				<input type="text" name="search" value={ data.Search }
+				       placeholder="Judul atau nama client..."
+				       class="form-control-dark"/>
+			</div>
+			<div class="col-6 col-md-2">
+				<label class="form-label small text-secondary">Status</label>
+				<select name="status" class="form-control-dark">
+					if data.Status == "" {
+						<option value="" selected>Semua</option>
+					} else {
+						<option value="">Semua</option>
+					}
+					if data.Status == "draft" {
+						<option value="draft" selected>Draft</option>
+					} else {
+						<option value="draft">Draft</option>
+					}
+					if data.Status == "published" {
+						<option value="published" selected>Published</option>
+					} else {
+						<option value="published">Published</option>
+					}
+					if data.Status == "archived" {
+						<option value="archived" selected>Archived</option>
+					} else {
+						<option value="archived">Archived</option>
+					}
+				</select>
+			</div>
+			<div class="col-6 col-md-2">
+				<label class="form-label small text-secondary">Template</label>
+				<select name="template_id" class="form-control-dark">
+					if data.TemplateID == "" {
+						<option value="" selected>Semua</option>
+					} else {
+						<option value="">Semua</option>
+					}
+					for _, t := range data.Templates {
+						if data.TemplateID == fmt.Sprintf("%d", t.ID) {
+							<option value={ fmt.Sprintf("%d", t.ID) } selected>{ t.Name }</option>
+						} else {
+							<option value={ fmt.Sprintf("%d", t.ID) }>{ t.Name }</option>
+						}
+					}
+				</select>
+			</div>
+			<div class="col-6 col-md-2">
+				<button type="submit" class="btn-filter w-100">
+					<i class="bi bi-search me-1"></i>Filter
+				</button>
+			</div>
+			<div class="col-6 col-md-2">
+				<a href="/staff/projects" class="btn-reset">
+					<i class="bi bi-arrow-repeat me-1"></i>Reset
+				</a>
+			</div>
+		</form>
+	</div>
+
+	<!-- DESKTOP: TABLE (hidden di mobile) -->
+	<div class="d-none d-md-block" style="background:#1e1e1e; border-radius:16px; border:1px solid #2a2a2a; overflow:visible;">
+		<div style="overflow:visible;">
+			<table class="table-custom mb-0">
+				<thead>
+					<tr>
+						<th style="width:70px;">ID</th>
+						<th>Judul</th>
+						<th>Client</th>
+						<th>Template</th>
+						<th>Status</th>
+						<th style="text-align:center;">Views</th>
+						<th style="text-align:center;">RSVP</th>
+						<th style="text-align:center; width:120px;">Aksi</th>
+					</tr>
+				</thead>
+				<tbody>
+					if len(data.Projects) > 0 {
+						for _, p := range data.Projects {
+							<tr>
+								<td style="color:#6b7280;">#{ fmt.Sprintf("%d", p.ID) }</td>
+								<td>
+									<div style="color:white; font-weight:600;">{ p.Title }</div>
+									<small style="color:#6b7280; font-size:0.7rem;">{ p.Slug }</small>
+								</td>
+								<td>
+									if p.User != nil {
+										<div style="color:white;">{ p.User.Name }</div>
+										<small style="color:#6b7280; font-size:0.7rem;">{ p.User.Email }</small>
+									} else {
+										<span style="color:#6b7280;">Unknown</span>
+									}
+								</td>
+								<td>
+									if p.Template != nil {
+										<span class="badge" style="background:#3b82f6; font-size:0.7rem;">{ p.Template.Name }</span>
+									} else {
+										<span style="color:#6b7280;">-</span>
+									}
+								</td>
+								<td>
+									<span class={ "badge-status", p.Status }>{ p.Status }</span>
+								</td>
+								<td style="text-align:center;">
+									<i class="bi bi-eye me-1" style="color:#8b5cf6;"></i>
+									{ fmt.Sprintf("%d", p.TotalViews) }
+								</td>
+								<td style="text-align:center;">
+									<i class="bi bi-envelope-check me-1" style="color:#ec489a;"></i>
+									{ fmt.Sprintf("%d", p.TotalRsvp) }
+								</td>
+								<td style="text-align:center;">
+									<div class="dropdown">
+										<button class="btn btn-sm dropdown-toggle"
+												style="background:#2a2a2a; color:white; border:none;"
+												type="button"
+												data-bs-toggle="dropdown"
+												data-bs-strategy="fixed"
+												data-bs-boundary="viewport">
+											<i class="bi bi-grid-3x3-gap-fill"></i>
+										</button>
+										<ul class="dropdown-menu dropdown-menu-end dropdown-menu-custom">
+											<li>
+												<a class="dropdown-item" href={ templ.URL(fmt.Sprintf("/staff/projects/%d", p.ID)) }>
+													<i class="bi bi-eye me-2" style="color:#3b82f6;"></i> Detail
+												</a>
+											</li>
+											<li>
+												<a class="dropdown-item" href={ templ.URL(fmt.Sprintf("/invitation/create/edit/%d", p.ID)) }>
+													<i class="bi bi-pencil me-2" style="color:#f59e0b;"></i> Edit
+												</a>
+											</li>
+											<li>
+												<a class="dropdown-item" href={ templ.URL(fmt.Sprintf("/staff/projects/%d/rsvp", p.ID)) }>
+													<i class="bi bi-people me-2" style="color:#ec489a;"></i> RSVP
+												</a>
+											</li>
+											<li>
+												<a class="dropdown-item" href={ templ.URL(fmt.Sprintf("/share/invitation/%d", p.ID)) }>
+													<i class="bi bi-whatsapp me-2" style="color:#25D366;"></i> Share WhatsApp
+												</a>
+											</li>
+											<li>
+												<a class="dropdown-item" href={ templ.URL("/invitation/" + p.Slug) } target="_blank">
+													<i class="bi bi-box-arrow-up-right me-2" style="color:#8b5cf6;"></i> Lihat Undangan
+												</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+						}
+					} else {
+						<tr>
+							<td colspan="8" style="text-align:center; padding:50px; color:#6b7280;">
+								<i class="bi bi-inbox fs-2 d-block mb-2"></i>
+								Belum ada project
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<!-- MOBILE: CARD (hidden di desktop) -->
+	<div class="d-md-none">
+		if len(data.Projects) > 0 {
+			<div class="d-flex flex-column gap-3">
+				for _, p := range data.Projects {
+					<div style="background:#1e1e1e; border-radius:14px; border:1px solid #2a2a2a; padding:16px;">
+						<!-- Header -->
+						<div class="d-flex justify-content-between align-items-start mb-3">
+							<div style="flex:1; min-width:0;">
+								<div style="color:white; font-weight:700; font-size:1rem; word-break:break-word;">
+									{ p.Title }
+								</div>
+								<small style="color:#6b7280; font-size:0.7rem; word-break:break-all;">
+									#{ fmt.Sprintf("%d", p.ID) } • { p.Slug }
+								</small>
+							</div>
+							<span class={ "badge-status ms-2 flex-shrink-0", p.Status }>{ p.Status }</span>
+						</div>
+
+						<!-- Info -->
+						<div class="d-flex flex-column gap-2 mb-3" style="font-size:0.8rem;">
+							<div class="d-flex justify-content-between">
+								<span style="color:#9ca3af;">Client</span>
+								<span style="color:white; text-align:right; margin-left:8px; word-break:break-word;">
+									if p.User != nil {
+										{ p.User.Name }
+									} else {
+										Unknown
+									}
+								</span>
+							</div>
+							<div class="d-flex justify-content-between">
+								<span style="color:#9ca3af;">Template</span>
+								<span style="text-align:right; margin-left:8px;">
+									if p.Template != nil {
+										<span class="badge" style="background:#3b82f6; font-size:0.65rem;">{ p.Template.Name }</span>
+									} else {
+										<span style="color:#6b7280;">-</span>
+									}
+								</span>
+							</div>
+							<div class="d-flex justify-content-between">
+								<span style="color:#9ca3af;">Views</span>
+								<span style="color:white;">
+									<i class="bi bi-eye me-1" style="color:#8b5cf6;"></i>{ fmt.Sprintf("%d", p.TotalViews) }
+								</span>
+							</div>
+							<div class="d-flex justify-content-between">
+								<span style="color:#9ca3af;">RSVP</span>
+								<span style="color:white;">
+									<i class="bi bi-envelope-check me-1" style="color:#ec489a;"></i>{ fmt.Sprintf("%d", p.TotalRsvp) }
+								</span>
+							</div>
+						</div>
+
+						<!-- Aksi (grid 2 kolom) -->
+						<div class="row g-2">
+							<div class="col-6">
+								<a href={ templ.URL(fmt.Sprintf("/staff/projects/%d", p.ID)) }
+								   class="btn w-100"
+								   style="background:rgba(59,130,246,0.1); color:#3b82f6; border:1px solid rgba(59,130,246,0.3); border-radius:8px; padding:8px; font-size:0.78rem; font-weight:600;">
+									<i class="bi bi-eye me-1"></i> Detail
+								</a>
+							</div>
+							<div class="col-6">
+								<a href={ templ.URL(fmt.Sprintf("/invitation/create/edit/%d", p.ID)) }
+								   class="btn w-100"
+								   style="background:rgba(245,158,11,0.1); color:#f59e0b; border:1px solid rgba(245,158,11,0.3); border-radius:8px; padding:8px; font-size:0.78rem; font-weight:600;">
+									<i class="bi bi-pencil me-1"></i> Edit
+								</a>
+							</div>
+							<div class="col-6">
+								<a href={ templ.URL(fmt.Sprintf("/staff/projects/%d/rsvp", p.ID)) }
+								   class="btn w-100"
+								   style="background:rgba(236,72,153,0.1); color:#ec489a; border:1px solid rgba(236,72,153,0.3); border-radius:8px; padding:8px; font-size:0.78rem; font-weight:600;">
+									<i class="bi bi-people me-1"></i> RSVP
+								</a>
+							</div>
+							<div class="col-6">
+								<a href={ templ.URL(fmt.Sprintf("/share/invitation/%d", p.ID)) }
+								   class="btn w-100"
+								   style="background:rgba(37,211,102,0.1); color:#25D366; border:1px solid rgba(37,211,102,0.3); border-radius:8px; padding:8px; font-size:0.78rem; font-weight:600;">
+									<i class="bi bi-whatsapp me-1"></i> Share
+								</a>
+							</div>
+							<div class="col-12">
+								<a href={ templ.URL("/invitation/" + p.Slug) } target="_blank"
+								   class="btn w-100"
+								   style="background:rgba(139,92,246,0.1); color:#8b5cf6; border:1px solid rgba(139,92,246,0.3); border-radius:8px; padding:8px; font-size:0.78rem; font-weight:600;">
+									<i class="bi bi-box-arrow-up-right me-1"></i> Lihat Undangan
+								</a>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+		} else {
+			<div style="background:#1e1e1e; border-radius:14px; border:1px solid #2a2a2a; padding:40px 20px; text-align:center; color:#6b7280;">
+				<i class="bi bi-inbox fs-2 d-block mb-2"></i>
+				Belum ada project
+			</div>
+		}
+	</div>
+
+	if data.TotalPages > 1 {
+		<div class="mt-4 d-flex justify-content-center gap-2 flex-wrap">
+			if data.Page > 1 {
+				<a href={ templ.URL(paginationURL("/staff/projects", data.Search, data.Status, data.TemplateID, data.Page-1)) }
+				   class="btn" style="background:#2a2a2a; color:white; border:none; padding:8px 16px; border-radius:8px;">
+					<i class="bi bi-chevron-left"></i> Prev
+				</a>
+			}
+			<span class="btn" style="background:#3b82f6; color:white; border:none; padding:8px 16px; border-radius:8px; pointer-events:none;">
+				Page { fmt.Sprintf("%d", data.Page) } / { fmt.Sprintf("%d", data.TotalPages) }
+			</span>
+			if data.Page < data.TotalPages {
+				<a href={ templ.URL(paginationURL("/staff/projects", data.Search, data.Status, data.TemplateID, data.Page+1)) }
+				   class="btn" style="background:#2a2a2a; color:white; border:none; padding:8px 16px; border-radius:8px;">
+					Next <i class="bi bi-chevron-right"></i>
+				</a>
+			}
+		</div>
+	}
+}
+
+func paginationURL(base, search, status, templateID string, page int) string {
+	url := base + "?page=" + fmt.Sprintf("%d", page)
+	if search != "" {
+		url += "&search=" + search
+	}
+	if status != "" {
+		url += "&status=" + status
+	}
+	if templateID != "" {
+		url += "&template_id=" + templateID
+	}
+	return url
+}

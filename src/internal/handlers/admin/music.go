@@ -176,7 +176,7 @@ func MusicDelete(c *gin.Context) {
 		oldPath := strings.TrimPrefix(m.FilePath, "/storage/")
 		os.Remove(filepath.Join("/app/public/storage", oldPath))
 	}
-
+	
 	db.Delete(&m)
 	c.Redirect(http.StatusFound, "/admin/music")
 }
@@ -189,14 +189,15 @@ func saveMusicFile(c *gin.Context, file *multipart.FileHeader) (string, error) {
 		return "", err
 	}
 
-	ext := filepath.Ext(file.Filename)
-	cleanName := strings.ReplaceAll(filepath.Base(file.Filename), " ", "_")
-	filename := fmt.Sprintf("%d_%s%s", time.Now().Unix(), cleanName, ext)
+	ext := strings.ToLower(filepath.Ext(file.Filename))
+	baseName := strings.TrimSuffix(filepath.Base(file.Filename), filepath.Ext(file.Filename))
+	baseName = strings.ReplaceAll(baseName, " ", "_")
+	filename := fmt.Sprintf("%d_%s%s", time.Now().Unix(), baseName, ext)
 	fullPath := filepath.Join(musicUploadDir, filename)
 
 	if err := c.SaveUploadedFile(file, fullPath); err != nil {
 		return "", err
 	}
 
-	return "/storage/music/library/" + filename, nil
+	return "music/library/" + filename, nil
 }
