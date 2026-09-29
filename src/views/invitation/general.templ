@@ -11,6 +11,64 @@ templ GeneralContent(
 	clientID uint,
 	isClient bool,
 ) {
+	<style>
+		/* Submit actions - responsive */
+		.submit-actions {
+			display: flex;
+			flex-direction: column-reverse;
+			gap: 12px;
+			margin-top: 24px;
+		}
+		.submit-actions .btn-action-secondary,
+		.submit-actions .btn-action-primary {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border: none;
+			border-radius: 12px;
+			padding: 14px 24px;
+			font-weight: 600;
+			font-size: 0.9rem;
+			text-decoration: none;
+			transition: all 0.2s;
+			width: 100%;
+			touch-action: manipulation;
+			-webkit-tap-highlight-color: transparent;
+			cursor: pointer;
+		}
+		.submit-actions .btn-action-secondary {
+			background: #2a2a2a;
+			color: white;
+		}
+		.submit-actions .btn-action-secondary:hover,
+		.submit-actions .btn-action-secondary:active {
+			background: #3a3a3a;
+			color: white;
+		}
+		.submit-actions .btn-action-primary {
+			background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+			color: white;
+		}
+		.submit-actions .btn-action-primary:hover,
+		.submit-actions .btn-action-primary:active {
+			background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+			color: white;
+			transform: translateY(-1px);
+		}
+		@media (min-width: 768px) {
+			.submit-actions {
+				flex-direction: row;
+			}
+			.submit-actions .btn-action-secondary {
+				width: auto;
+				min-width: 200px;
+			}
+			.submit-actions .btn-action-primary {
+				flex: 1;
+			}
+		}
+	</style>
+
 	<div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3">
 		<div>
 			<h2 class="fw-bold mb-1" style="color: #8b5cf6; font-size: 1.5rem;">
@@ -64,7 +122,7 @@ templ GeneralContent(
 		<!-- CARD 1: DATA MEMPELAI -->
 		<div class="form-card" style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;">
 			<div class="d-flex align-items-center gap-3 mb-4 pb-3" style="border-bottom:1px solid #2a2a2a;">
-				<div style="width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;">
+				<div style="width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem; flex-shrink:0;">
 					<i class="bi bi-people-fill"></i>
 				</div>
 				<div>
@@ -94,8 +152,8 @@ templ GeneralContent(
 		<!-- CARD 2: AKAD NIKAH -->
 		<div class="form-card" style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;">
 			<div class="d-flex align-items-center gap-3 mb-4 pb-3" style="border-bottom:1px solid #2a2a2a;">
-				<div style="width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;">
-					<i class="bi bi-ring"></i>
+				<div style="width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem; flex-shrink:0;">
+					<i class="bi bi-gem"></i>
 				</div>
 				<div>
 					<h5 class="mb-0" style="color:#ffffff; font-weight:700; font-size:1.05rem;">Akad Nikah</h5>
@@ -131,7 +189,7 @@ templ GeneralContent(
 		<!-- CARD 3: RESEPSI -->
 		<div class="form-card" style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;">
 			<div class="d-flex align-items-center gap-3 mb-4 pb-3" style="border-bottom:1px solid #2a2a2a;">
-				<div style="width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;">
+				<div style="width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem; flex-shrink:0;">
 					<i class="bi bi-balloon"></i>
 				</div>
 				<div>
@@ -185,7 +243,7 @@ templ GeneralContent(
 		<!-- CARD 4: PENGATURAN TAMPILAN -->
 		<div class="form-card" style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;">
 			<div class="d-flex align-items-center gap-3 mb-4 pb-3" style="border-bottom:1px solid #2a2a2a;">
-				<div style="width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;">
+				<div style="width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem; flex-shrink:0;">
 					<i class="bi bi-eye"></i>
 				</div>
 				<div>
@@ -210,7 +268,7 @@ templ GeneralContent(
 		<!-- CARD 5: BANK ACCOUNTS -->
 		<div class="form-card" style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;">
 			<div class="d-flex align-items-center gap-3 mb-4 pb-3" style="border-bottom:1px solid #2a2a2a;">
-				<div style="width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;">
+				<div style="width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem; flex-shrink:0;">
 					<i class="bi bi-wallet2"></i>
 				</div>
 				<div>
@@ -234,7 +292,7 @@ templ GeneralContent(
 			<div id="bank_accounts_container" style="display:none; margin-top:20px;">
 				<div id="bank_accounts_list"></div>
 
-				<button type="button" onclick="addBankAccount()" class="btn" style="width:100%; background:transparent; border:1.5px dashed #8b5cf6; color:#8b5cf6; padding:14px; border-radius:12px; margin-top:10px;">
+				<button type="button" onclick="addBankAccount()" class="btn" style="width:100%; background:transparent; border:1.5px dashed #8b5cf6; color:#8b5cf6; padding:14px; border-radius:12px; margin-top:10px; touch-action:manipulation;">
 					<i class="bi bi-plus-circle me-2"></i>Tambah Rekening / E-Wallet
 				</button>
 				<small style="color:#6b7280; font-size:0.75rem; display:block; text-align:center; margin-top:8px;">
@@ -244,18 +302,18 @@ templ GeneralContent(
 		</div>
 
 		<!-- SUBMIT BUTTONS -->
-		<div class="d-flex gap-3 flex-wrap">
+		<div class="submit-actions">
 			if isClient {
-				<a href="/client/dashboard" class="btn" style="background:#2a2a2a; border:none; border-radius:12px; padding:14px 32px; color:white; text-decoration:none; font-weight:600;">
+				<a href="/client/dashboard" class="btn-action-secondary">
 					<i class="bi bi-arrow-left me-2"></i>Kembali ke Dashboard
 				</a>
 			} else {
-				<a href="/invitation/create/select-client" class="btn" style="background:#2a2a2a; border:none; border-radius:12px; padding:14px 32px; color:white; text-decoration:none; font-weight:600;">
+				<a href="/invitation/create/select-client" class="btn-action-secondary">
 					<i class="bi bi-arrow-left me-2"></i>Kembali
 				</a>
 			}
-			<button type="submit" class="btn" style="flex:1; min-width:240px; background:#8b5cf6; border:none; border-radius:12px; padding:14px 32px; color:white; font-weight:600;">
-				<i class="bi bi-save me-2"></i>Simpan & Lanjut ke Pemilihan Template
+			<button type="submit" class="btn-action-primary">
+				<i class="bi bi-save me-2"></i>Simpan & Lanjut
 			</button>
 		</div>
 	</form>
@@ -318,7 +376,7 @@ templ showBankAccountsOptions(current string) {
 // Sub-komponen: Radio Card (reusable)
 // ============================================
 templ radioCard(name string, value string, title string, desc string, icon string, current string) {
-	<label style="display:flex; align-items:flex-start; gap:10px; padding:14px 16px; background:#0f0f0f; border:1.5px solid #2a2a2a; border-radius:12px; cursor:pointer; transition:all 0.2s; height:100%; margin:0;">
+	<label style="display:flex; align-items:flex-start; gap:10px; padding:14px 16px; background:#0f0f0f; border:1.5px solid #2a2a2a; border-radius:12px; cursor:pointer; transition:all 0.2s; height:100%; margin:0; touch-action:manipulation; -webkit-tap-highlight-color:transparent;">
 		<input type="radio" name={ name } value={ value } checked?={ current == value } style="margin-top:4px; accent-color:#8b5cf6;" onchange="handleRadioChange(this)"/>
 		<div style="flex:1;">
 			<div style="display:flex; align-items:center; gap:8px; margin-bottom:2px;">

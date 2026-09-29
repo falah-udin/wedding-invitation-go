@@ -15,6 +15,135 @@ templ TemplateContent(
 	errorMsg string,
 	successMsg string,
 ) {
+	<style>
+		/* ============================================
+		   TEMPLATE CARD — Radio-based selection
+		   ============================================ */
+		.template-card-wrapper {
+			position: relative;
+			display: block;
+			height: 100%;
+		}
+		.template-card-wrapper input[type="radio"] {
+			position: absolute;
+			opacity: 0;
+			pointer-events: none;
+		}
+
+		.template-card-template {
+			background: #0f0f0f;
+			border: 2px solid #2a2a2a;
+			border-radius: 16px;
+			padding: 16px;
+			text-align: center;
+			transition: all 0.2s;
+			position: relative;
+			height: 100%;
+			cursor: pointer;
+			touch-action: manipulation;
+			-webkit-tap-highlight-color: transparent;
+			user-select: none;
+			display: block;
+			box-sizing: border-box;
+		}
+
+		/* Hover state */
+		.template-card-wrapper:hover .template-card-template {
+			border-color: #8b5cf6;
+			transform: translateY(-2px);
+			box-shadow: 0 8px 25px rgba(139,92,246,0.15);
+		}
+
+		/* Active (tap) state */
+		.template-card-wrapper:active .template-card-template {
+			transform: scale(0.98);
+		}
+
+		/* SELECTED state — radio checked */
+		.template-card-wrapper input[type="radio"]:checked ~ .template-card-template {
+			border-color: #8b5cf6 !important;
+			background: rgba(139,92,246,0.05) !important;
+			box-shadow: 0 0 0 1px #8b5cf6 !important;
+		}
+
+		/* Check badge — hanya muncul kalau selected */
+		.template-check-badge {
+			display: none;
+			position: absolute;
+			top: 8px;
+			right: 8px;
+			width: 24px;
+			height: 24px;
+			background: #8b5cf6;
+			border-radius: 50%;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 0.8rem;
+		}
+		.template-card-wrapper input[type="radio"]:checked ~ .template-card-template .template-check-badge {
+			display: flex;
+		}
+
+		/* ============================================
+		   SUBMIT ACTIONS
+		   ============================================ */
+		.submit-actions {
+			display: flex;
+			flex-direction: column-reverse;
+			gap: 12px;
+			margin-top: 24px;
+		}
+		.submit-actions .btn-action-secondary,
+		.submit-actions .btn-action-primary {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border: none;
+			border-radius: 12px;
+			padding: 14px 24px;
+			font-weight: 600;
+			font-size: 0.9rem;
+			text-decoration: none;
+			transition: all 0.2s;
+			width: 100%;
+			touch-action: manipulation;
+			-webkit-tap-highlight-color: transparent;
+			cursor: pointer;
+		}
+		.submit-actions .btn-action-secondary {
+			background: #2a2a2a;
+			color: white;
+		}
+		.submit-actions .btn-action-secondary:hover,
+		.submit-actions .btn-action-secondary:active {
+			background: #3a3a3a;
+			color: white;
+		}
+		.submit-actions .btn-action-primary {
+			background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+			color: white;
+		}
+		.submit-actions .btn-action-primary:hover,
+		.submit-actions .btn-action-primary:active {
+			background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+			color: white;
+			transform: translateY(-1px);
+		}
+		@media (min-width: 768px) {
+			.submit-actions {
+				flex-direction: row;
+			}
+			.submit-actions .btn-action-secondary {
+				width: auto;
+				min-width: 200px;
+			}
+			.submit-actions .btn-action-primary {
+				flex: 1;
+			}
+		}
+	</style>
+
 	<div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3">
 		<div>
 			<h2 class="fw-bold mb-1" style="color: #8b5cf6; font-size: 1.5rem;">
@@ -61,7 +190,7 @@ templ TemplateContent(
 	<!-- CARD 1: PILIH TEMPLATE -->
 	<div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;">
 		<div class="d-flex align-items-center gap-3 mb-4 pb-3" style="border-bottom:1px solid #2a2a2a;">
-			<div style="width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;">
+			<div style="width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem; flex-shrink:0;">
 				<i class="bi bi-brush"></i>
 			</div>
 			<div>
@@ -72,37 +201,38 @@ templ TemplateContent(
 			</div>
 		</div>
 
-		<div class="row g-3">
-			if len(templates) > 0 {
-				for _, tmpl := range templates {
-					<div class="col-6 col-md-4 col-lg-3">
-						<a href={ templ.URL("/invitation/create/template?template_id=" + formatUintV2(tmpl.ID)) } style="text-decoration:none;">
-							<div class="template-card" style={ "background:#0f0f0f; border:2px solid " + getBorderColor(tmpl.ID, selectedTemplate.ID) + "; border-radius:16px; padding:16px; text-align:center; transition:all 0.3s; position:relative; height:100%; cursor:pointer;" }>
-								if tmpl.ID == selectedTemplate.ID {
-									<div style="position:absolute; top:8px; right:8px; width:24px; height:24px; background:#8b5cf6; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:0.8rem;">
+		<form method="GET" action="/invitation/create/template" id="templateSelectForm">
+			<div class="row g-3">
+				if len(templates) > 0 {
+					for _, tmpl := range templates {
+						<div class="col-6 col-md-4 col-lg-3">
+							<label class="template-card-wrapper" style="display:block; cursor:pointer; height:100%; margin:0;">
+								<input type="radio" name="template_id" value={ formatUintV2(tmpl.ID) } checked?={ tmpl.ID == selectedTemplate.ID } onchange="document.getElementById('templateSelectForm').submit()" style="position:absolute; opacity:0; pointer-events:none;"/>
+								<div class="template-card-template">
+									<div class="template-check-badge">
 										<i class="bi bi-check"></i>
 									</div>
-								}
-								<i class="bi bi-brush" style="font-size:2rem; color:#8b5cf6; display:block; margin-bottom:10px;"></i>
-								<div style="color:white; font-weight:700; font-size:0.9rem; margin-bottom:4px;">{ tmpl.Name }</div>
-								if tmpl.Description != nil {
-									<div style="color:#9ca3af; font-size:0.72rem; line-height:1.4;">
-										{ truncateStr(*tmpl.Description, 60) }
-									</div>
-								}
-								if len(tmpl.GetFieldsSchema()) > 0 {
-									<div style="margin-top:10px;">
-										<span style="background:rgba(139,92,246,0.15); color:#a78bfa; border:1px solid rgba(139,92,246,0.3); font-size:0.6rem; padding:3px 10px; border-radius:10px; display:inline-flex; align-items:center; gap:4px;">
-											<i class="bi bi-puzzle"></i> Data Spesifik
-										</span>
-									</div>
-								}
-							</div>
-						</a>
-					</div>
+									<i class="bi bi-brush" style="font-size:2rem; color:#8b5cf6; display:block; margin-bottom:10px;"></i>
+									<div style="color:white; font-weight:700; font-size:0.9rem; margin-bottom:4px;">{ tmpl.Name }</div>
+									if tmpl.Description != nil {
+										<div style="color:#9ca3af; font-size:0.72rem; line-height:1.4;">
+											{ truncateStr(*tmpl.Description, 60) }
+										</div>
+									}
+									if len(tmpl.GetFieldsSchema()) > 0 {
+										<div style="margin-top:10px;">
+											<span style="background:rgba(139,92,246,0.15); color:#a78bfa; border:1px solid rgba(139,92,246,0.3); font-size:0.6rem; padding:3px 10px; border-radius:10px; display:inline-flex; align-items:center; gap:4px;">
+												<i class="bi bi-puzzle"></i> Data Spesifik
+											</span>
+										</div>
+									}
+								</div>
+							</label>
+						</div>
+					}
 				}
-			}
-		</div>
+			</div>
+		</form>
 
 		<div class="mt-3 p-3" style="background:rgba(59,130,246,0.08); border-left:3px solid #3b82f6; border-radius:10px; font-size:0.8rem; color:#93c5fd;">
 			<i class="bi bi-info-circle me-1"></i>
@@ -117,7 +247,7 @@ templ TemplateContent(
 
 			<div style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;">
 				<div class="d-flex align-items-center gap-3 mb-4 pb-3" style="border-bottom:1px solid #2a2a2a;">
-					<div style="width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;">
+					<div style="width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem; flex-shrink:0;">
 						<i class="bi bi-puzzle"></i>
 					</div>
 					<div>
@@ -132,11 +262,11 @@ templ TemplateContent(
 			</div>
 
 			<!-- SUBMIT -->
-			<div class="d-flex gap-3 flex-wrap">
-				<a href="/invitation/create/general" class="btn" style="background:#2a2a2a; border:none; border-radius:12px; padding:14px 32px; color:white; text-decoration:none; font-weight:600;">
+			<div class="submit-actions">
+				<a href="/invitation/create/general" class="btn-action-secondary">
 					<i class="bi bi-arrow-left me-2"></i>Kembali ke Data Umum
 				</a>
-				<button type="submit" class="btn" style="flex:1; min-width:240px; background:#8b5cf6; border:none; border-radius:12px; padding:14px 32px; color:white; font-weight:600;">
+				<button type="submit" class="btn-action-primary">
 					<i class="bi bi-save me-2"></i>Simpan & Lihat Preview
 				</button>
 			</div>
@@ -343,7 +473,6 @@ templ renderRepeaterField(field models.FieldSchema, items []map[string]string) {
 		<div class="repeater-wrapper" data-field={ field.Name }>
 			<div class="repeater-items" id={ "repeater-" + field.Name }>
 				if len(items) == 0 {
-					<!-- Default items -->
 					for i := 0; i < field.DefaultCount; i++ {
 						@repeaterItem(field.Name, i, "", "")
 					}
@@ -354,7 +483,7 @@ templ renderRepeaterField(field models.FieldSchema, items []map[string]string) {
 				}
 			</div>
 
-			<button type="button" onclick={ templpkg.JSFuncCall("addRepeaterItem", field.Name) } style="background:transparent; border:1.5px dashed #8b5cf6; color:#8b5cf6; border-radius:10px; padding:12px 20px; font-size:0.85rem; font-weight:600; cursor:pointer; margin-top:10px;">
+			<button type="button" onclick={ templpkg.JSFuncCall("addRepeaterItem", field.Name) } style="background:transparent; border:1.5px dashed #8b5cf6; color:#8b5cf6; border-radius:10px; padding:12px 20px; font-size:0.85rem; font-weight:600; cursor:pointer; margin-top:10px; touch-action:manipulation;">
 				<i class="bi bi-plus-circle me-2"></i>Tambah Cerita
 			</button>
 		</div>
