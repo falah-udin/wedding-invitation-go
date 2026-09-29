@@ -1,0 +1,141 @@
+package reservations
+
+import (
+	"fmt"
+	"wedding-invitation-go/internal/models"
+)
+
+type IndexData struct {
+	User       models.User
+	Setting    models.Config
+	Projects   []models.Project
+	RsvpCounts map[uint]int
+}
+
+templ IndexPage(data IndexData) {
+	<style>
+		.card-project {
+			background: #1a1a1a;
+			border: 1px solid #2a2a2a;
+			border-radius: 12px;
+			padding: 16px 20px;
+			transition: all 0.2s ease;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			flex-wrap: wrap;
+			gap: 10px;
+		}
+		.card-project:hover {
+			border-color: #10b981;
+			transform: translateY(-2px);
+			box-shadow: 0 8px 25px rgba(16, 185, 129, 0.08);
+		}
+		.card-project .title {
+			color: white;
+			font-weight: 600;
+			font-size: 1.05rem;
+		}
+		.card-project .info {
+			color: #9ca3af;
+			font-size: 0.8rem;
+		}
+		.card-project .badge-count {
+			background: #10b981;
+			color: white;
+			padding: 4px 14px;
+			border-radius: 20px;
+			font-size: 0.75rem;
+			font-weight: 600;
+		}
+		.card-project .btn-detail {
+			background: #2a2a2a;
+			color: white;
+			border: none;
+			padding: 6px 16px;
+			border-radius: 8px;
+			font-size: 0.8rem;
+			transition: all 0.2s;
+			text-decoration: none;
+		}
+		.card-project .btn-detail:hover {
+			background: #10b981;
+			color: white;
+		}
+		.empty-state {
+			text-align: center;
+			padding: 60px 0;
+		}
+		.empty-state i {
+			font-size: 3rem;
+			color: #2a2a2a;
+			margin-bottom: 16px;
+		}
+		.empty-state p {
+			color: #6b7280;
+		}
+	</style>
+
+	<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+		<div>
+			<h2 class="fw-bold" style="color: #10b981; font-size: 1.5rem;">
+				<i class="bi bi-people me-2"></i>Reservasi Kehadiran
+			</h2>
+			<p class="text-secondary m-0" style="font-size: 0.9rem;">
+				Pilih undangan untuk melihat daftar konfirmasi kehadiran
+			</p>
+		</div>
+		<a href="/invitation/create/select-client" class="btn" style="background: #10b981; color: white; border: none; padding: 8px 20px; border-radius: 10px; font-weight: 600; font-size: 0.85rem;">
+			<i class="bi bi-plus-circle me-2"></i>Buat Undangan
+		</a>
+	</div>
+
+	if len(data.Projects) == 0 {
+		<div class="empty-state">
+			<i class="bi bi-inbox"></i>
+			<p>Anda belum memiliki undangan</p>
+			<a href="/invitation/create/select-client" class="btn" style="background: #10b981; color: white; border: none; padding: 10px 28px; border-radius: 10px; font-weight: 600;">
+				<i class="bi bi-plus-circle me-2"></i>Buat Undangan Sekarang
+			</a>
+		</div>
+	} else {
+		<div class="row g-3">
+			for _, p := range data.Projects {
+				<div class="col-12">
+					<div class="card-project">
+						<div>
+							<div class="title">
+								<i class="bi bi-envelope-paper me-2" style="color: #10b981;"></i>
+								{ p.Title }
+							</div>
+							<div class="info mt-1">
+								<i class="bi bi-people me-1"></i>{ fmt.Sprintf("%d", data.RsvpCounts[p.ID]) } reservasi
+								&nbsp;•&nbsp;
+								<i class="bi bi-eye me-1"></i>{ fmt.Sprintf("%d", p.TotalViews) } views
+								&nbsp;•&nbsp;
+								<span class={ "badge", badgeClass(p.Status) }>{ p.Status }</span>
+							</div>
+						</div>
+						<div class="d-flex align-items-center gap-2">
+							<span class="badge-count">{ fmt.Sprintf("%d", data.RsvpCounts[p.ID]) } reservasi</span>
+							<a href={ templ.URL(fmt.Sprintf("/client/reservations/%d", p.ID)) } class="btn-detail">
+								<i class="bi bi-eye me-1"></i>Detail
+							</a>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	}
+}
+
+func badgeClass(status string) string {
+	switch status {
+	case "published":
+		return "bg-success"
+	case "draft":
+		return "bg-warning text-dark"
+	default:
+		return "bg-secondary"
+	}
+}

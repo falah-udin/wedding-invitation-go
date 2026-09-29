@@ -5,7 +5,9 @@ import (
 
 	"wedding-invitation-go/internal/handlers"
 	adminHandlers "wedding-invitation-go/internal/handlers/admin"
+	clientHandlers "wedding-invitation-go/internal/handlers/client"
 	invitationHandlers "wedding-invitation-go/internal/handlers/invitation"
+	staffHandlers "wedding-invitation-go/internal/handlers/staff"
 	"wedding-invitation-go/internal/middleware"
 )
 
@@ -35,6 +37,33 @@ func Register(r *gin.Engine) {
 	r.GET("/auth/google", handlers.GoogleLogin)
 	r.GET("/auth/google/callback", handlers.GoogleCallback)
 
+		// STAFF AREA
+	staff := r.Group("/staff")
+	staff.Use(middleware.RequireAuth())
+	staff.Use(middleware.RequireRole("staff"))
+	{
+		staff.GET("/dashboard", staffHandlers.Dashboard)
+	}
+
+	// CLIENT AREA
+	client := r.Group("/client")
+	client.Use(middleware.RequireAuth())
+	client.Use(middleware.RequireRole("client"))
+	{
+		client.GET("/dashboard", clientHandlers.Dashboard)
+		client.GET("/wedding", clientHandlers.WeddingIndex)
+		client.DELETE("/wedding/:id", clientHandlers.WeddingDestroy)
+
+		// Reservasi
+		client.GET("/reservations", clientHandlers.ReservationIndex)
+		client.GET("/reservations/:id", clientHandlers.ReservationShow)
+		client.DELETE("/reservations/:id/rsvp/:rsvpId", clientHandlers.ReservationDelete)
+
+		// Profile
+		client.GET("/profile/change-password", clientHandlers.ChangePasswordShow)
+		client.POST("/profile/change-password", clientHandlers.ChangePasswordUpdate)
+	}
+		
 	// ADMIN
 	admin := r.Group("/admin")
 	admin.Use(middleware.RequireAuth())

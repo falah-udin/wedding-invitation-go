@@ -160,24 +160,16 @@ func General(c *gin.Context) {
 
 	errorMsg := c.Query("error")
 
-	var buf bytes.Buffer
-	err := layouts.AdminLayout(
-		*user, setting, "invitation.create",
+	renderWithLayout(c, user, setting,
 		invitation.GeneralContent(
 			project,
 			dataUndangan,
 			getBankListAsInterface(),
 			errorMsg,
 			clientID,
+			isClient(user),
 		),
-	).Render(c.Request.Context(), &buf)
-
-	if err != nil {
-		c.String(http.StatusInternalServerError, "Render error: %v", err)
-		return
-	}
-
-	c.Data(http.StatusOK, "text/html; charset=utf-8", buf.Bytes())
+	)
 }
 
 // ============================================

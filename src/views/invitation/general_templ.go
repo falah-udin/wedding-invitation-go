@@ -17,6 +17,7 @@ func GeneralContent(
 	bankList []map[string]string,
 	errorMsg string,
 	clientID uint,
+	isClient bool,
 ) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
@@ -38,134 +39,159 @@ func GeneralContent(
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3\"><div><h2 class=\"fw-bold mb-1\" style=\"color: #8b5cf6; font-size: 1.5rem;\"><i class=\"bi bi-pencil-square me-2\"></i>Step 2: Data Umum</h2><p class=\"text-secondary m-0\" style=\"font-size: 0.9rem;\">Isi data utama yang akan muncul di semua template</p></div><a href=\"/invitation/create/select-client\" class=\"btn\" style=\"background:#2a2a2a; border:none; border-radius:12px; padding:8px 20px; color:white; text-decoration:none;\"><i class=\"bi bi-x-circle me-2\"></i>Batal</a></div><!-- PROGRESS BAR --><div class=\"mb-4\"><div class=\"d-flex justify-content-between mb-2 flex-wrap gap-2\"><span style=\"color: #10b981; font-weight: 600; font-size: 0.85rem;\"><i class=\"bi bi-check-circle-fill me-1\"></i> Step 1: Pilih Client</span> <span style=\"color: #8b5cf6; font-weight: 600; font-size: 0.85rem;\"><i class=\"bi bi-circle-fill me-1\" style=\"font-size: 0.5rem;\"></i> Step 2: Data Umum</span> <span style=\"color: #9ca3af; font-size: 0.85rem;\"><i class=\"bi bi-arrow-right me-1\"></i> Step 3: Pilih Template</span> <span style=\"color: #9ca3af; font-size: 0.85rem;\"><i class=\"bi bi-arrow-right me-1\"></i> Step 4: Preview</span></div><div class=\"progress\" style=\"height: 6px; background: #2a2a2a; border-radius: 10px;\"><div class=\"progress-bar\" role=\"progressbar\" style=\"width: 50%; background: #8b5cf6; border-radius: 10px;\"></div></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3\"><div><h2 class=\"fw-bold mb-1\" style=\"color: #8b5cf6; font-size: 1.5rem;\"><i class=\"bi bi-pencil-square me-2\"></i>Step 2: Data Umum</h2><p class=\"text-secondary m-0\" style=\"font-size: 0.9rem;\">Isi data utama yang akan muncul di semua template</p></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if isClient {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<a href=\"/client/dashboard\" class=\"btn\" style=\"background:#2a2a2a; border:none; border-radius:12px; padding:8px 20px; color:white; text-decoration:none;\"><i class=\"bi bi-x-circle me-2\"></i>Batal</a>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		} else {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<a href=\"/invitation/create/select-client\" class=\"btn\" style=\"background:#2a2a2a; border:none; border-radius:12px; padding:8px 20px; color:white; text-decoration:none;\"><i class=\"bi bi-x-circle me-2\"></i>Batal</a>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "</div><!-- PROGRESS BAR --><div class=\"mb-4\"><div class=\"d-flex justify-content-between mb-2 flex-wrap gap-2\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if !isClient {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<span style=\"color: #10b981; font-weight: 600; font-size: 0.85rem;\"><i class=\"bi bi-check-circle-fill me-1\"></i> Step 1: Pilih Client</span> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<span style=\"color: #8b5cf6; font-weight: 600; font-size: 0.85rem;\"><i class=\"bi bi-circle-fill me-1\" style=\"font-size: 0.5rem;\"></i> Step 2: Data Umum</span> <span style=\"color: #9ca3af; font-size: 0.85rem;\"><i class=\"bi bi-arrow-right me-1\"></i> Step 3: Pilih Template</span> <span style=\"color: #9ca3af; font-size: 0.85rem;\"><i class=\"bi bi-arrow-right me-1\"></i> Step 4: Preview</span></div><div class=\"progress\" style=\"height: 6px; background: #2a2a2a; border-radius: 10px;\"><div class=\"progress-bar\" role=\"progressbar\" style=\"width: 50%; background: #8b5cf6; border-radius: 10px;\"></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if errorMsg != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<div class=\"alert mb-3\" style=\"background: rgba(239,68,68,0.1); border-left: 4px solid #ef4444; color: #ef4444; border-radius: 12px; padding: 12px 16px;\"><i class=\"bi bi-exclamation-triangle me-2\"></i>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "<div class=\"alert mb-3\" style=\"background: rgba(239,68,68,0.1); border-left: 4px solid #ef4444; color: #ef4444; border-radius: 12px; padding: 12px 16px;\"><i class=\"bi bi-exclamation-triangle me-2\"></i>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(errorMsg)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 50, Col: 60}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 59, Col: 60}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "</div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "</div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<form method=\"POST\" action=\"/invitation/create/general\" enctype=\"multipart/form-data\" id=\"generalForm\"><!-- CARD 1: DATA MEMPELAI --><div class=\"form-card\" style=\"background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;\"><div class=\"d-flex align-items-center gap-3 mb-4 pb-3\" style=\"border-bottom:1px solid #2a2a2a;\"><div style=\"width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;\"><i class=\"bi bi-people-fill\"></i></div><div><h5 class=\"mb-0\" style=\"color:#ffffff; font-weight:700; font-size:1.05rem;\">Data Mempelai</h5><p class=\"m-0\" style=\"color:#9ca3af; font-size:0.8rem;\">Nama lengkap kedua mempelai</p></div></div><div class=\"row g-3\"><div class=\"col-12 col-md-6\"><label class=\"form-label\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-gender-male me-1\" style=\"color:#3b82f6;\"></i> Nama Mempelai Pria <span class=\"text-danger\">*</span></label> <input type=\"text\" name=\"groom_name\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<form method=\"POST\" action=\"/invitation/create/general\" enctype=\"multipart/form-data\" id=\"generalForm\"><!-- CARD 1: DATA MEMPELAI --><div class=\"form-card\" style=\"background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;\"><div class=\"d-flex align-items-center gap-3 mb-4 pb-3\" style=\"border-bottom:1px solid #2a2a2a;\"><div style=\"width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;\"><i class=\"bi bi-people-fill\"></i></div><div><h5 class=\"mb-0\" style=\"color:#ffffff; font-weight:700; font-size:1.05rem;\">Data Mempelai</h5><p class=\"m-0\" style=\"color:#9ca3af; font-size:0.8rem;\">Nama lengkap kedua mempelai</p></div></div><div class=\"row g-3\"><div class=\"col-12 col-md-6\"><label class=\"form-label\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-gender-male me-1\" style=\"color:#3b82f6;\"></i> Nama Mempelai Pria <span class=\"text-danger\">*</span></label> <input type=\"text\" name=\"groom_name\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.ResolveAttributeValue(getStr(data, "groom_name", ""))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 73, Col: 80}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 82, Col: 80}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var3)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "\" class=\"form-control-dark\" placeholder=\"Contoh: Budi Santoso\" required></div><div class=\"col-12 col-md-6\"><label class=\"form-label\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-gender-female me-1\" style=\"color:#ec4899;\"></i> Nama Mempelai Wanita <span class=\"text-danger\">*</span></label> <input type=\"text\" name=\"bride_name\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "\" class=\"form-control-dark\" placeholder=\"Contoh: Budi Santoso\" required></div><div class=\"col-12 col-md-6\"><label class=\"form-label\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-gender-female me-1\" style=\"color:#ec4899;\"></i> Nama Mempelai Wanita <span class=\"text-danger\">*</span></label> <input type=\"text\" name=\"bride_name\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.ResolveAttributeValue(getStr(data, "bride_name", ""))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 80, Col: 80}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 89, Col: 80}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var4)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "\" class=\"form-control-dark\" placeholder=\"Contoh: Siti Aisyah\" required></div></div></div><!-- CARD 2: AKAD NIKAH --><div class=\"form-card\" style=\"background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;\"><div class=\"d-flex align-items-center gap-3 mb-4 pb-3\" style=\"border-bottom:1px solid #2a2a2a;\"><div style=\"width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;\"><i class=\"bi bi-ring\"></i></div><div><h5 class=\"mb-0\" style=\"color:#ffffff; font-weight:700; font-size:1.05rem;\">Akad Nikah</h5><p class=\"m-0\" style=\"color:#9ca3af; font-size:0.8rem;\">Waktu dan tempat akad nikah</p></div></div><div class=\"row g-3\"><div class=\"col-12 col-md-4\"><label class=\"form-label\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-calendar-event me-1\" style=\"color:#8b5cf6;\"></i> Tanggal Akad <span class=\"text-danger\">*</span></label> <input type=\"date\" name=\"akad_date\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "\" class=\"form-control-dark\" placeholder=\"Contoh: Siti Aisyah\" required></div></div></div><!-- CARD 2: AKAD NIKAH --><div class=\"form-card\" style=\"background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;\"><div class=\"d-flex align-items-center gap-3 mb-4 pb-3\" style=\"border-bottom:1px solid #2a2a2a;\"><div style=\"width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;\"><i class=\"bi bi-ring\"></i></div><div><h5 class=\"mb-0\" style=\"color:#ffffff; font-weight:700; font-size:1.05rem;\">Akad Nikah</h5><p class=\"m-0\" style=\"color:#9ca3af; font-size:0.8rem;\">Waktu dan tempat akad nikah</p></div></div><div class=\"row g-3\"><div class=\"col-12 col-md-4\"><label class=\"form-label\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-calendar-event me-1\" style=\"color:#8b5cf6;\"></i> Tanggal Akad <span class=\"text-danger\">*</span></label> <input type=\"date\" name=\"akad_date\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.ResolveAttributeValue(getStr(data, "akad_date_raw", ""))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 103, Col: 82}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 112, Col: 82}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var5)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "\" class=\"form-control-dark\" required></div><div class=\"col-12 col-md-4\"><label class=\"form-label\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-clock me-1\" style=\"color:#8b5cf6;\"></i> Waktu Akad <span class=\"text-danger\">*</span></label> <input type=\"time\" name=\"akad_time\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "\" class=\"form-control-dark\" required></div><div class=\"col-12 col-md-4\"><label class=\"form-label\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-clock me-1\" style=\"color:#8b5cf6;\"></i> Waktu Akad <span class=\"text-danger\">*</span></label> <input type=\"time\" name=\"akad_time\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var6 string
 		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.ResolveAttributeValue(getStr(data, "akad_time", "08:00"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 110, Col: 83}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 119, Col: 83}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var6)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "\" class=\"form-control-dark\" required></div><div class=\"col-12 col-md-4\"><label class=\"form-label\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-geo-alt me-1\" style=\"color:#8b5cf6;\"></i> Tempat Akad <span class=\"text-danger\">*</span></label> <input type=\"text\" name=\"akad_venue\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "\" class=\"form-control-dark\" required></div><div class=\"col-12 col-md-4\"><label class=\"form-label\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-geo-alt me-1\" style=\"color:#8b5cf6;\"></i> Tempat Akad <span class=\"text-danger\">*</span></label> <input type=\"text\" name=\"akad_venue\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var7 string
 		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.ResolveAttributeValue(getStr(data, "akad_venue", ""))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 117, Col: 80}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 126, Col: 80}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var7)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "\" class=\"form-control-dark\" placeholder=\"Masjid Agung, Jakarta\" required></div></div></div><!-- CARD 3: RESEPSI --><div class=\"form-card\" style=\"background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;\"><div class=\"d-flex align-items-center gap-3 mb-4 pb-3\" style=\"border-bottom:1px solid #2a2a2a;\"><div style=\"width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;\"><i class=\"bi bi-balloon\"></i></div><div><h5 class=\"mb-0\" style=\"color:#ffffff; font-weight:700; font-size:1.05rem;\">Resepsi</h5><p class=\"m-0\" style=\"color:#9ca3af; font-size:0.8rem;\">Waktu, tempat, dan istilah acara resepsi</p></div></div><div class=\"row g-3 mb-4\"><div class=\"col-12 col-md-4\"><label class=\"form-label\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-calendar-event me-1\" style=\"color:#8b5cf6;\"></i> Tanggal Resepsi <span class=\"text-danger\">*</span></label> <input type=\"date\" name=\"resepsi_date\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "\" class=\"form-control-dark\" placeholder=\"Masjid Agung, Jakarta\" required></div></div></div><!-- CARD 3: RESEPSI --><div class=\"form-card\" style=\"background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;\"><div class=\"d-flex align-items-center gap-3 mb-4 pb-3\" style=\"border-bottom:1px solid #2a2a2a;\"><div style=\"width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;\"><i class=\"bi bi-balloon\"></i></div><div><h5 class=\"mb-0\" style=\"color:#ffffff; font-weight:700; font-size:1.05rem;\">Resepsi</h5><p class=\"m-0\" style=\"color:#9ca3af; font-size:0.8rem;\">Waktu, tempat, dan istilah acara resepsi</p></div></div><div class=\"row g-3 mb-4\"><div class=\"col-12 col-md-4\"><label class=\"form-label\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-calendar-event me-1\" style=\"color:#8b5cf6;\"></i> Tanggal Resepsi <span class=\"text-danger\">*</span></label> <input type=\"date\" name=\"resepsi_date\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var8 string
 		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.ResolveAttributeValue(getStr(data, "resepsi_date_raw", ""))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 140, Col: 88}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 149, Col: 88}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var8)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "\" class=\"form-control-dark\" required></div><div class=\"col-12 col-md-4\"><label class=\"form-label\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-clock me-1\" style=\"color:#8b5cf6;\"></i> Waktu Resepsi <span class=\"text-danger\">*</span></label> <input type=\"time\" name=\"resepsi_time\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "\" class=\"form-control-dark\" required></div><div class=\"col-12 col-md-4\"><label class=\"form-label\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-clock me-1\" style=\"color:#8b5cf6;\"></i> Waktu Resepsi <span class=\"text-danger\">*</span></label> <input type=\"time\" name=\"resepsi_time\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var9 string
 		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.ResolveAttributeValue(getStr(data, "resepsi_time", "10:00"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 147, Col: 89}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 156, Col: 89}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var9)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "\" class=\"form-control-dark\" required></div><div class=\"col-12 col-md-4\"><label class=\"form-label\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-geo-alt me-1\" style=\"color:#8b5cf6;\"></i> Tempat Resepsi <span class=\"text-danger\">*</span></label> <input type=\"text\" name=\"resepsi_venue\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "\" class=\"form-control-dark\" required></div><div class=\"col-12 col-md-4\"><label class=\"form-label\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-geo-alt me-1\" style=\"color:#8b5cf6;\"></i> Tempat Resepsi <span class=\"text-danger\">*</span></label> <input type=\"text\" name=\"resepsi_venue\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var10 string
 		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.ResolveAttributeValue(getStr(data, "resepsi_venue", ""))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 154, Col: 86}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 163, Col: 86}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var10)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "\" class=\"form-control-dark\" placeholder=\"Gedung Serbaguna, Jakarta\" required></div></div><!-- Label Resepsi --><label class=\"form-label mb-2\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-tag me-1\" style=\"color:#8b5cf6;\"></i> Istilah untuk Acara Resepsi <span class=\"text-danger\">*</span></label>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "\" class=\"form-control-dark\" placeholder=\"Gedung Serbaguna, Jakarta\" required></div></div><!-- Label Resepsi --><label class=\"form-label mb-2\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-tag me-1\" style=\"color:#8b5cf6;\"></i> Istilah untuk Acara Resepsi <span class=\"text-danger\">*</span></label>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -173,20 +199,20 @@ func GeneralContent(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "<!-- Custom Label Input --><div id=\"custom_resepsi_label_wrapper\" class=\"mt-3\" style=\"display:none;\"><label class=\"form-label\" style=\"color:#d1d5db; font-size:0.85rem;\">Tulis Istilah Custom Anda</label> <input type=\"text\" name=\"resepsi_label_custom\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "<!-- Custom Label Input --><div id=\"custom_resepsi_label_wrapper\" class=\"mt-3\" style=\"display:none;\"><label class=\"form-label\" style=\"color:#d1d5db; font-size:0.85rem;\">Tulis Istilah Custom Anda</label> <input type=\"text\" name=\"resepsi_label_custom\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var11 string
 		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.ResolveAttributeValue(getStr(data, "resepsi_label_custom", ""))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 171, Col: 99}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 180, Col: 99}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var11)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "\" class=\"form-control-dark\" placeholder=\"Contoh: Pesta Pernikahan, Syukuran, dll.\" style=\"max-width:400px;\"> <small style=\"color:#6b7280; font-size:0.75rem; display:block; margin-top:4px;\">Istilah ini akan tampil di undangan</small></div></div><!-- CARD 4: PENGATURAN TAMPILAN --><div class=\"form-card\" style=\"background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;\"><div class=\"d-flex align-items-center gap-3 mb-4 pb-3\" style=\"border-bottom:1px solid #2a2a2a;\"><div style=\"width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;\"><i class=\"bi bi-eye\"></i></div><div><h5 class=\"mb-0\" style=\"color:#ffffff; font-weight:700; font-size:1.05rem;\">Pengaturan Tampilan Cover</h5><p class=\"m-0\" style=\"color:#9ca3af; font-size:0.8rem;\">Pilih informasi apa saja yang tampil di cover undangan</p></div></div><label class=\"form-label mb-2\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-calendar-check me-1\" style=\"color:#8b5cf6;\"></i> Tanggal yang Ditampilkan di Cover <span class=\"text-danger\">*</span></label>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "\" class=\"form-control-dark\" placeholder=\"Contoh: Pesta Pernikahan, Syukuran, dll.\" style=\"max-width:400px;\"> <small style=\"color:#6b7280; font-size:0.75rem; display:block; margin-top:4px;\">Istilah ini akan tampil di undangan</small></div></div><!-- CARD 4: PENGATURAN TAMPILAN --><div class=\"form-card\" style=\"background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;\"><div class=\"d-flex align-items-center gap-3 mb-4 pb-3\" style=\"border-bottom:1px solid #2a2a2a;\"><div style=\"width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;\"><i class=\"bi bi-eye\"></i></div><div><h5 class=\"mb-0\" style=\"color:#ffffff; font-weight:700; font-size:1.05rem;\">Pengaturan Tampilan Cover</h5><p class=\"m-0\" style=\"color:#9ca3af; font-size:0.8rem;\">Pilih informasi apa saja yang tampil di cover undangan</p></div></div><label class=\"form-label mb-2\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-calendar-check me-1\" style=\"color:#8b5cf6;\"></i> Tanggal yang Ditampilkan di Cover <span class=\"text-danger\">*</span></label>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -194,7 +220,7 @@ func GeneralContent(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "<label class=\"form-label mb-2 mt-4\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-geo-alt me-1\" style=\"color:#8b5cf6;\"></i> Lokasi yang Ditampilkan di Cover <span class=\"text-danger\">*</span></label>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "<label class=\"form-label mb-2 mt-4\" style=\"color:#d1d5db; font-weight:500;\"><i class=\"bi bi-geo-alt me-1\" style=\"color:#8b5cf6;\"></i> Lokasi yang Ditampilkan di Cover <span class=\"text-danger\">*</span></label>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -202,7 +228,7 @@ func GeneralContent(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "</div><!-- CARD 5: BANK ACCOUNTS --><div class=\"form-card\" style=\"background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;\"><div class=\"d-flex align-items-center gap-3 mb-4 pb-3\" style=\"border-bottom:1px solid #2a2a2a;\"><div style=\"width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;\"><i class=\"bi bi-wallet2\"></i></div><div><h5 class=\"mb-0\" style=\"color:#ffffff; font-weight:700; font-size:1.05rem;\">Rekening / Amplop Digital</h5><p class=\"m-0\" style=\"color:#9ca3af; font-size:0.8rem;\">Fitur opsional untuk hadiah digital</p></div></div><div class=\"mb-3\" style=\"background: rgba(59,130,246,0.08); border-left: 3px solid #3b82f6; color: #93c5fd; border-radius: 10px; padding: 10px 14px; font-size: 0.8rem;\"><i class=\"bi bi-info-circle me-1\"></i> Jika diaktifkan, tamu dapat melihat info rekening untuk mengirim hadiah digital.</div><label class=\"form-label mb-2\" style=\"color:#d1d5db; font-weight:500;\">Tampilkan Rekening di Undangan?</label>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "</div><!-- CARD 5: BANK ACCOUNTS --><div class=\"form-card\" style=\"background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px; padding:28px; margin-bottom:20px;\"><div class=\"d-flex align-items-center gap-3 mb-4 pb-3\" style=\"border-bottom:1px solid #2a2a2a;\"><div style=\"width:42px; height:42px; border-radius:12px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); display:flex; align-items:center; justify-content:center; color:#8b5cf6; font-size:1.2rem;\"><i class=\"bi bi-wallet2\"></i></div><div><h5 class=\"mb-0\" style=\"color:#ffffff; font-weight:700; font-size:1.05rem;\">Rekening / Amplop Digital</h5><p class=\"m-0\" style=\"color:#9ca3af; font-size:0.8rem;\">Fitur opsional untuk hadiah digital</p></div></div><div class=\"mb-3\" style=\"background: rgba(59,130,246,0.08); border-left: 3px solid #3b82f6; color: #93c5fd; border-radius: 10px; padding: 10px 14px; font-size: 0.8rem;\"><i class=\"bi bi-info-circle me-1\"></i> Jika diaktifkan, tamu dapat melihat info rekening untuk mengirim hadiah digital.</div><label class=\"form-label mb-2\" style=\"color:#d1d5db; font-weight:500;\">Tampilkan Rekening di Undangan?</label>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -210,33 +236,48 @@ func GeneralContent(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "<!-- Container Rekening --><div id=\"bank_accounts_container\" style=\"display:none; margin-top:20px;\"><div id=\"bank_accounts_list\"></div><button type=\"button\" onclick=\"addBankAccount()\" class=\"btn\" style=\"width:100%; background:transparent; border:1.5px dashed #8b5cf6; color:#8b5cf6; padding:14px; border-radius:12px; margin-top:10px;\"><i class=\"bi bi-plus-circle me-2\"></i>Tambah Rekening / E-Wallet</button> <small style=\"color:#6b7280; font-size:0.75rem; display:block; text-align:center; margin-top:8px;\"><i class=\"bi bi-lightbulb me-1\"></i> Bisa tambah lebih dari 1 rekening (max 5)</small></div></div><!-- SUBMIT BUTTONS --><div class=\"d-flex gap-3 flex-wrap\"><a href=\"/invitation/create/select-client\" class=\"btn\" style=\"background:#2a2a2a; border:none; border-radius:12px; padding:14px 32px; color:white; text-decoration:none; font-weight:600;\"><i class=\"bi bi-arrow-left me-2\"></i>Kembali</a> <button type=\"submit\" class=\"btn\" style=\"flex:1; min-width:240px; background:#8b5cf6; border:none; border-radius:12px; padding:14px 32px; color:white; font-weight:600;\"><i class=\"bi bi-save me-2\"></i>Simpan & Lanjut ke Pemilihan Template</button></div></form><!-- Data untuk JavaScript --><input type=\"hidden\" id=\"bankListData\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "<!-- Container Rekening --><div id=\"bank_accounts_container\" style=\"display:none; margin-top:20px;\"><div id=\"bank_accounts_list\"></div><button type=\"button\" onclick=\"addBankAccount()\" class=\"btn\" style=\"width:100%; background:transparent; border:1.5px dashed #8b5cf6; color:#8b5cf6; padding:14px; border-radius:12px; margin-top:10px;\"><i class=\"bi bi-plus-circle me-2\"></i>Tambah Rekening / E-Wallet</button> <small style=\"color:#6b7280; font-size:0.75rem; display:block; text-align:center; margin-top:8px;\"><i class=\"bi bi-lightbulb me-1\"></i> Bisa tambah lebih dari 1 rekening (max 5)</small></div></div><!-- SUBMIT BUTTONS --><div class=\"d-flex gap-3 flex-wrap\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if isClient {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "<a href=\"/client/dashboard\" class=\"btn\" style=\"background:#2a2a2a; border:none; border-radius:12px; padding:14px 32px; color:white; text-decoration:none; font-weight:600;\"><i class=\"bi bi-arrow-left me-2\"></i>Kembali ke Dashboard</a> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		} else {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "<a href=\"/invitation/create/select-client\" class=\"btn\" style=\"background:#2a2a2a; border:none; border-radius:12px; padding:14px 32px; color:white; text-decoration:none; font-weight:600;\"><i class=\"bi bi-arrow-left me-2\"></i>Kembali</a> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "<button type=\"submit\" class=\"btn\" style=\"flex:1; min-width:240px; background:#8b5cf6; border:none; border-radius:12px; padding:14px 32px; color:white; font-weight:600;\"><i class=\"bi bi-save me-2\"></i>Simpan & Lanjut ke Pemilihan Template</button></div></form><!-- Data untuk JavaScript --><input type=\"hidden\" id=\"bankListData\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var12 string
 		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.ResolveAttributeValue(bankListJSON(bankList))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 249, Col: 70}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 264, Col: 70}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var12)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "\"> <input type=\"hidden\" id=\"existingAccountsData\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "\"> <input type=\"hidden\" id=\"existingAccountsData\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var13 string
 		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.ResolveAttributeValue(bankAccountsJSON(data))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 250, Col: 78}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 265, Col: 78}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var13)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "\"><!-- Init Script -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "\"><!-- Init Script -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -272,7 +313,7 @@ func resepsiLabelOptions(current string) templ.Component {
 			templ_7745c5c3_Var14 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "<div class=\"radio-option-grid\" style=\"display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "<div class=\"radio-option-grid\" style=\"display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -292,7 +333,7 @@ func resepsiLabelOptions(current string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "</div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -324,7 +365,7 @@ func showDatesOptions(current string) templ.Component {
 			templ_7745c5c3_Var15 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "<div class=\"radio-option-grid\" style=\"display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "<div class=\"radio-option-grid\" style=\"display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -344,7 +385,7 @@ func showDatesOptions(current string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "</div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -376,7 +417,7 @@ func showVenueOptions(current string) templ.Component {
 			templ_7745c5c3_Var16 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "<div class=\"radio-option-grid\" style=\"display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "<div class=\"radio-option-grid\" style=\"display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -396,7 +437,7 @@ func showVenueOptions(current string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "</div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -428,7 +469,7 @@ func showBankAccountsOptions(current string) templ.Component {
 			templ_7745c5c3_Var17 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "<div class=\"radio-option-grid\" style=\"display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "<div class=\"radio-option-grid\" style=\"display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -440,7 +481,7 @@ func showBankAccountsOptions(current string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "</div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -472,43 +513,43 @@ func radioCard(name string, value string, title string, desc string, icon string
 			templ_7745c5c3_Var18 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "<label style=\"display:flex; align-items:flex-start; gap:10px; padding:14px 16px; background:#0f0f0f; border:1.5px solid #2a2a2a; border-radius:12px; cursor:pointer; transition:all 0.2s; height:100%; margin:0;\"><input type=\"radio\" name=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "<label style=\"display:flex; align-items:flex-start; gap:10px; padding:14px 16px; background:#0f0f0f; border:1.5px solid #2a2a2a; border-radius:12px; cursor:pointer; transition:all 0.2s; height:100%; margin:0;\"><input type=\"radio\" name=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var19 string
 		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.ResolveAttributeValue(name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 307, Col: 33}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 322, Col: 33}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var19)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var20 string
 		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.ResolveAttributeValue(value)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 307, Col: 49}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 322, Col: 49}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var20)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if current == value {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, " checked")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, " checked")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, " style=\"margin-top:4px; accent-color:#8b5cf6;\" onchange=\"handleRadioChange(this)\"><div style=\"flex:1;\"><div style=\"display:flex; align-items:center; gap:8px; margin-bottom:2px;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, " style=\"margin-top:4px; accent-color:#8b5cf6;\" onchange=\"handleRadioChange(this)\"><div style=\"flex:1;\"><div style=\"display:flex; align-items:center; gap:8px; margin-bottom:2px;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -517,7 +558,7 @@ func radioCard(name string, value string, title string, desc string, icon string
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "<i class=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "<i class=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -530,33 +571,33 @@ func radioCard(name string, value string, title string, desc string, icon string
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "\" style=\"color:#8b5cf6;\"></i> <span style=\"color:#ffffff; font-weight:600; font-size:0.85rem;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "\" style=\"color:#8b5cf6;\"></i> <span style=\"color:#ffffff; font-weight:600; font-size:0.85rem;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var23 string
 		templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 311, Col: 76}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 326, Col: 76}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "</span></div><span style=\"color:#9ca3af; font-size:0.72rem; line-height:1.4; display:block;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "</span></div><span style=\"color:#9ca3af; font-size:0.72rem; line-height:1.4; display:block;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var24 string
 		templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(desc)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 313, Col: 89}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/general.templ`, Line: 328, Col: 89}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "</span></div></label>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "</span></div></label>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

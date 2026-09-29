@@ -48,82 +48,123 @@ func ClientLayout(user models.User, setting models.Config, activePage string, co
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title><link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\"><link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\"><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css\"><script defer src=\"https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js\"></script><link rel=\"stylesheet\" href=\"/css/admin.css\"><style>\n\t\t\t/* Override warna accent admin (ungu) → client (hijau) */\n\t\t\t.sidebar-item.active {\n\t\t\t\tbackground: rgba(16,185,129,0.1) !important;\n\t\t\t\tcolor: #10b981 !important;\n\t\t\t\tborder-left-color: #10b981 !important;\n\t\t\t}\n\t\t\t.sidebar-item:hover {\n\t\t\t\tcolor: #10b981 !important;\n\t\t\t}\n\t\t\t.sidebar-logo {\n\t\t\t\tbackground: linear-gradient(135deg, #10b981 0%, #34d399 100%);\n\t\t\t\t-webkit-background-clip: text;\n\t\t\t\t-webkit-text-fill-color: transparent;\n\t\t\t\tbackground-clip: text;\n\t\t\t}\n\t\t\t.btn-primary-custom-client {\n\t\t\t\tbackground: #10b981;\n\t\t\t\tcolor: white;\n\t\t\t\tborder: none;\n\t\t\t\tpadding: 8px 20px;\n\t\t\t\tborder-radius: 10px;\n\t\t\t\tfont-weight: 600;\n\t\t\t\ttransition: all 0.2s;\n\t\t\t}\n\t\t\t.btn-primary-custom-client:hover {\n\t\t\t\tbackground: #059669;\n\t\t\t\tcolor: white;\n\t\t\t}\n\t\t</style></head><body x-data=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var3 string
-		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.ResolveAttributeValue("{ sidebarOpen: false }")
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 55, Col: 40}
+		if setting.SiteFavicon != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<link rel=\"icon\" href=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var3 templ.SafeURL
+			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinURLErrs("/storage/" + setting.SiteFavicon)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 18, Col: 60}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "\"><link rel=\"apple-touch-icon\" href=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var4 templ.SafeURL
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinURLErrs("/storage/" + setting.SiteFavicon)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 19, Col: 72}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		} else {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var3)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "\"><div class=\"overlay\" x-bind:class=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var4 string
-		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.ResolveAttributeValue("{'active': sidebarOpen}")
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 57, Col: 63}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var4)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "\" x-on:click=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\"><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css\"><script defer src=\"https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js\"></script><link rel=\"stylesheet\" href=\"/css/admin.css\"><style>\n\t\t\t/* Override warna accent admin (ungu) → client (hijau) */\n\t\t\t.sidebar-item.active {\n\t\t\t\tbackground: rgba(16,185,129,0.1) !important;\n\t\t\t\tcolor: #10b981 !important;\n\t\t\t\tborder-left-color: #10b981 !important;\n\t\t\t}\n\t\t\t.sidebar-item:hover {\n\t\t\t\tcolor: #10b981 !important;\n\t\t\t}\n\t\t\t.sidebar-logo {\n\t\t\t\tbackground: linear-gradient(135deg, #10b981 0%, #34d399 100%);\n\t\t\t\t-webkit-background-clip: text;\n\t\t\t\t-webkit-text-fill-color: transparent;\n\t\t\t\tbackground-clip: text;\n\t\t\t}\n\t\t\t.btn-primary-custom-client {\n\t\t\t\tbackground: #10b981;\n\t\t\t\tcolor: white;\n\t\t\t\tborder: none;\n\t\t\t\tpadding: 8px 20px;\n\t\t\t\tborder-radius: 10px;\n\t\t\t\tfont-weight: 600;\n\t\t\t\ttransition: all 0.2s;\n\t\t\t}\n\t\t\t.btn-primary-custom-client:hover {\n\t\t\t\tbackground: #059669;\n\t\t\t\tcolor: white;\n\t\t\t}\n\t\t</style></head><body x-data=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var5 string
-		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.ResolveAttributeValue("sidebarOpen = false")
+		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.ResolveAttributeValue("{ sidebarOpen: false }")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 57, Col: 100}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 60, Col: 40}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var5)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "\"></div><!-- ============================================ --><!-- SIDEBAR --><!-- ============================================ --><div class=\"sidebar\" x-bind:class=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "\"><div class=\"overlay\" x-bind:class=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var6 string
-		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.ResolveAttributeValue("{'open': sidebarOpen}")
+		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.ResolveAttributeValue("{'active': sidebarOpen}")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 62, Col: 61}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 62, Col: 63}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var6)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "\"><div class=\"sidebar-header\"><a href=\"/\" class=\"text-decoration-none d-flex align-items-center gap-2\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "\" x-on:click=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var7 string
+		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.ResolveAttributeValue("sidebarOpen = false")
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 62, Col: 100}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var7)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "\"></div><!-- ============================================ --><!-- SIDEBAR --><!-- ============================================ --><div class=\"sidebar\" x-bind:class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var8 string
+		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.ResolveAttributeValue("{'open': sidebarOpen}")
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 67, Col: 61}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var8)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "\"><div class=\"sidebar-header\"><a href=\"/\" class=\"text-decoration-none d-flex align-items-center gap-2\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if setting.SiteFavicon != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "<img src=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "<img src=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var7 string
-			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + setting.SiteFavicon)
+			var templ_7745c5c3_Var9 string
+			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + setting.SiteFavicon)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 66, Col: 50}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 71, Col: 50}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var7)
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var9)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "\" alt=\"Logo\" style=\"width: 36px; height: 36px; object-fit: contain; border-radius: 8px;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "\" alt=\"Logo\" style=\"width: 36px; height: 36px; object-fit: contain; border-radius: 8px;\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<div><h4 class=\"sidebar-logo mb-0\">Wedding SaaS</h4><small class=\"sidebar-tagline\">Client Area</small></div></a></div><nav class=\"mt-3\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "<div><h4 class=\"sidebar-logo mb-0\">Wedding SaaS</h4><small class=\"sidebar-tagline\">Client Area</small></div></a></div><nav class=\"mt-3\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -147,46 +188,46 @@ func ClientLayout(user models.User, setting models.Config, activePage string, co
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "</nav><div class=\"position-absolute bottom-0 start-0 end-0 p-3\"><hr class=\"border-secondary\"><form action=\"/logout\" method=\"POST\"><button type=\"submit\" class=\"btn-logout w-100\"><i class=\"bi bi-box-arrow-right me-2\"></i>Logout</button></form></div></div><!-- ============================================ --><!-- MAIN CONTENT --><!-- ============================================ --><div class=\"main-content\"><!-- TOPBAR --><div class=\"topbar\"><div class=\"d-flex justify-content-between align-items-center\"><div class=\"d-flex align-items-center gap-3\"><button class=\"menu-toggle\" x-on:click=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var8 string
-		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.ResolveAttributeValue("sidebarOpen = !sidebarOpen")
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 102, Col: 75}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var8)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "\"><i class=\"bi bi-list\"></i></button><h5 class=\"mb-0 d-none d-sm-block\">Client Area</h5></div><div class=\"dropdown\"><button class=\"btn btn-dark dropdown-toggle\" data-bs-toggle=\"dropdown\"><i class=\"bi bi-person-circle me-2\"></i> <span class=\"d-none d-sm-inline\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var9 string
-		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(user.Name)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 111, Col: 51}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "</span> <span class=\"badge ms-1\" style=\"background:#10b981; font-size:0.55rem;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "</nav><div class=\"position-absolute bottom-0 start-0 end-0 p-3\"><hr class=\"border-secondary\"><form action=\"/logout\" method=\"POST\"><button type=\"submit\" class=\"btn-logout w-100\"><i class=\"bi bi-box-arrow-right me-2\"></i>Logout</button></form></div></div><!-- ============================================ --><!-- MAIN CONTENT --><!-- ============================================ --><div class=\"main-content\"><!-- TOPBAR --><div class=\"topbar\"><div class=\"d-flex justify-content-between align-items-center\"><div class=\"d-flex align-items-center gap-3\"><button class=\"menu-toggle\" x-on:click=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var10 string
-		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(user.Role)
+		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.ResolveAttributeValue("sidebarOpen = !sidebarOpen")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 113, Col: 19}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 107, Col: 75}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var10)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "</span></button><ul class=\"dropdown-menu dropdown-menu-dark\"><li><a class=\"dropdown-item\" href=\"/\"><i class=\"bi bi-house me-2\"></i>Lihat Website</a></li><li><a class=\"dropdown-item\" href=\"/client/profile/change-password\"><i class=\"bi bi-key me-2\"></i>Ganti Password</a></li><li><hr class=\"dropdown-divider\"></li><li><form action=\"/logout\" method=\"POST\"><button type=\"submit\" class=\"dropdown-item text-danger\"><i class=\"bi bi-box-arrow-right me-2\"></i>Logout</button></form></li></ul></div></div></div><!-- MAIN CONTENT AREA --><main class=\"p-3 p-md-4 p-lg-5\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "\"><i class=\"bi bi-list\"></i></button><h5 class=\"mb-0 d-none d-sm-block\">Client Area</h5></div><div class=\"dropdown\"><button class=\"btn btn-dark dropdown-toggle\" data-bs-toggle=\"dropdown\"><i class=\"bi bi-person-circle me-2\"></i> <span class=\"d-none d-sm-inline\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var11 string
+		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(user.Name)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 116, Col: 51}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "</span> <span class=\"badge ms-1\" style=\"background:#10b981; font-size:0.55rem;\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var12 string
+		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(user.Role)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 118, Col: 19}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "</span></button><ul class=\"dropdown-menu dropdown-menu-dark\"><li><a class=\"dropdown-item\" href=\"/\"><i class=\"bi bi-house me-2\"></i>Lihat Website</a></li><li><a class=\"dropdown-item\" href=\"/client/profile/change-password\"><i class=\"bi bi-key me-2\"></i>Ganti Password</a></li><li><hr class=\"dropdown-divider\"></li><li><form action=\"/logout\" method=\"POST\"><button type=\"submit\" class=\"dropdown-item text-danger\"><i class=\"bi bi-box-arrow-right me-2\"></i>Logout</button></form></li></ul></div></div></div><!-- MAIN CONTENT AREA --><main class=\"p-3 p-md-4 p-lg-5\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -194,7 +235,7 @@ func ClientLayout(user models.User, setting models.Config, activePage string, co
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "</main></div><script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js\"></script><script src=\"https://cdn.jsdelivr.net/npm/sweetalert2@11\"></script><script>\n\t\t\twindow.confirmDelete = function(form, name) {\n\t\t\t\tSwal.fire({\n\t\t\t\t\ttitle: 'Hapus Data?',\n\t\t\t\t\thtml: 'Yakin ingin menghapus <strong style=\"color: #10b981;\">' + name + '</strong>?<br>Data yang dihapus tidak dapat dikembalikan!',\n\t\t\t\t\ticon: 'warning',\n\t\t\t\t\tshowCancelButton: true,\n\t\t\t\t\tconfirmButtonColor: '#ef4444',\n\t\t\t\t\tcancelButtonColor: '#6b7280',\n\t\t\t\t\tconfirmButtonText: '<i class=\"bi bi-trash me-2\"></i>Ya, Hapus!',\n\t\t\t\t\tcancelButtonText: '<i class=\"bi bi-x-lg me-2\"></i>Batal',\n\t\t\t\t\tbackground: '#1e1e1e',\n\t\t\t\t\tcolor: '#ffffff'\n\t\t\t\t}).then((result) => {\n\t\t\t\t\tif (result.isConfirmed) {\n\t\t\t\t\t\tform.submit();\n\t\t\t\t\t}\n\t\t\t\t});\n\t\t\t\treturn false;\n\t\t\t}\n\t\t</script></body></html>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "</main></div><script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js\"></script><script src=\"https://cdn.jsdelivr.net/npm/sweetalert2@11\"></script><script>\n\t\t\twindow.confirmDelete = function(form, name) {\n\t\t\t\tSwal.fire({\n\t\t\t\t\ttitle: 'Hapus Data?',\n\t\t\t\t\thtml: 'Yakin ingin menghapus <strong style=\"color: #10b981;\">' + name + '</strong>?<br>Data yang dihapus tidak dapat dikembalikan!',\n\t\t\t\t\ticon: 'warning',\n\t\t\t\t\tshowCancelButton: true,\n\t\t\t\t\tconfirmButtonColor: '#ef4444',\n\t\t\t\t\tcancelButtonColor: '#6b7280',\n\t\t\t\t\tconfirmButtonText: '<i class=\"bi bi-trash me-2\"></i>Ya, Hapus!',\n\t\t\t\t\tcancelButtonText: '<i class=\"bi bi-x-lg me-2\"></i>Batal',\n\t\t\t\t\tbackground: '#1e1e1e',\n\t\t\t\t\tcolor: '#ffffff'\n\t\t\t\t}).then((result) => {\n\t\t\t\t\tif (result.isConfirmed) {\n\t\t\t\t\t\tform.submit();\n\t\t\t\t\t}\n\t\t\t\t});\n\t\t\t\treturn false;\n\t\t\t}\n\t\t</script></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -219,57 +260,35 @@ func clientSidebarItem(href string, icon string, label string, routeKey string, 
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var11 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var11 == nil {
-			templ_7745c5c3_Var11 = templ.NopComponent
+		templ_7745c5c3_Var13 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var13 == nil {
+			templ_7745c5c3_Var13 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		var templ_7745c5c3_Var12 = []any{"sidebar-item", templpkg.KV("active", routeKey == activePage)}
-		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var12...)
+		var templ_7745c5c3_Var14 = []any{"sidebar-item", templpkg.KV("active", routeKey == activePage)}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var14...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "<a href=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "<a href=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var13 templ.SafeURL
-		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.URL(href))
+		var templ_7745c5c3_Var15 templ.SafeURL
+		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.URL(href))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 176, Col: 29}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 181, Col: 29}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "\" class=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var14 string
-		templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.ResolveAttributeValue(templ.CSSClasses(templ_7745c5c3_Var12).String())
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 1, Col: 0}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var14)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var15 = []any{"bi", icon}
-		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var15...)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "<i class=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "\" class=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var16 string
-		templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.ResolveAttributeValue(templ.CSSClasses(templ_7745c5c3_Var15).String())
+		templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.ResolveAttributeValue(templ.CSSClasses(templ_7745c5c3_Var14).String())
 		if templ_7745c5c3_Err != nil {
 			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 1, Col: 0}
 		}
@@ -277,20 +296,42 @@ func clientSidebarItem(href string, icon string, label string, routeKey string, 
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "\"></i> <span>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var17 string
-		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(label)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 178, Col: 15}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
+		var templ_7745c5c3_Var17 = []any{"bi", icon}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var17...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "</span></a>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "<i class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var18 string
+		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.ResolveAttributeValue(templ.CSSClasses(templ_7745c5c3_Var17).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var18)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "\"></i> <span>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var19 string
+		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(label)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 183, Col: 15}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "</span></a>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

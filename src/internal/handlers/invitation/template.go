@@ -1,7 +1,6 @@
 package invitation
 
 import (
-	"bytes"
 	"fmt"
 	"mime/multipart"
 	"net/http"
@@ -16,7 +15,6 @@ import (
 	"wedding-invitation-go/internal/models"
 	"wedding-invitation-go/internal/services"
 	"wedding-invitation-go/views/invitation"
-	"wedding-invitation-go/views/layouts"
 )
 
 // ============================================
@@ -73,9 +71,7 @@ func TemplateList(c *gin.Context) {
 	errorMsg := c.Query("error")
 	successMsg := c.Query("success")
 
-	var buf bytes.Buffer
-	err := layouts.AdminLayout(
-		*user, setting, "invitation.create",
+	renderWithLayout(c, user, setting,
 		invitation.TemplateContent(
 			project,
 			templates,
@@ -85,14 +81,7 @@ func TemplateList(c *gin.Context) {
 			errorMsg,
 			successMsg,
 		),
-	).Render(c.Request.Context(), &buf)
-
-	if err != nil {
-		c.String(http.StatusInternalServerError, "Render error: %v", err)
-		return
-	}
-
-	c.Data(http.StatusOK, "text/html; charset=utf-8", buf.Bytes())
+	)
 }
 
 // ============================================

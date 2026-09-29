@@ -29,7 +29,12 @@ templ HomePage(setting models.Config, templates []models.Template, isLoggedIn bo
 			<link rel="icon" href={ "/storage/" + setting.SiteFavicon }/>
 			<link rel="apple-touch-icon" href={ "/storage/" + setting.SiteFavicon }/>
 		} else {
+			if setting.SiteFavicon != "" {
+			<link rel="icon" href={ "/storage/" + setting.SiteFavicon }/>
+			<link rel="apple-touch-icon" href={ "/storage/" + setting.SiteFavicon }/>
+		} else {
 			<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+		}
 		}
 
 		<!-- PWA -->

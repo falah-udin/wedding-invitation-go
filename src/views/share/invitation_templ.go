@@ -22,6 +22,8 @@ func InvitationContent(
 	stats map[string]int,
 	errorMsg string,
 	successMsg string,
+	isClient bool,
+	backURL string,
 ) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
@@ -50,229 +52,242 @@ func InvitationContent(
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(project.Title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 25, Col: 50}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 27, Col: 50}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</p></div><a href=\"/admin/projects\" class=\"btn\" style=\"background:#2a2a2a; color:white; border:none; border-radius:12px; padding:10px 20px; text-decoration:none;\"><i class=\"bi bi-arrow-left me-2\"></i>Kembali</a></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</p></div><a href=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var3 templ.SafeURL
+		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(backURL))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 29, Col: 31}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "\" class=\"btn\" style=\"background:#2a2a2a; color:white; border:none; border-radius:12px; padding:10px 20px; text-decoration:none;\"><i class=\"bi bi-arrow-left me-2\"></i>Kembali</a></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if errorMsg != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<div class=\"alert mb-3\" style=\"background: rgba(239,68,68,0.1); border-left: 4px solid #ef4444; color: #ef4444; border-radius: 12px; padding: 12px 16px;\"><i class=\"bi bi-exclamation-triangle me-2\"></i>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var3 string
-			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(errorMsg)
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 34, Col: 61}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "</div>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		}
-		if successMsg != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<div class=\"alert mb-3\" style=\"background: rgba(16,185,129,0.1); border-left: 4px solid #10b981; color: #10b981; border-radius: 12px; padding: 12px 16px;\"><i class=\"bi bi-check-circle me-2\"></i>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<div class=\"alert mb-3\" style=\"background: rgba(239,68,68,0.1); border-left: 4px solid #ef4444; color: #ef4444; border-radius: 12px; padding: 12px 16px;\"><i class=\"bi bi-exclamation-triangle me-2\"></i>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var4 string
-			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(successMsg)
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(errorMsg)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 39, Col: 55}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 36, Col: 61}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "<!-- STATS --><div class=\"row g-3 mb-4\"><div class=\"col-md-4\"><div class=\"p-3 d-flex align-items-center gap-3\" style=\"background:#1e1e1e; border-radius:12px; border:1px solid #2a2a2a;\"><div style=\"width:48px; height:48px; background:rgba(16,185,129,0.15); border-radius:12px; display:flex; align-items:center; justify-content:center;\"><i class=\"bi bi-people-fill\" style=\"color:#10b981; font-size:1.4rem;\"></i></div><div><div style=\"color:#9ca3af; font-size:0.75rem;\">Total Tamu</div><div style=\"color:white; font-weight:700; font-size:1.3rem;\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
+		if successMsg != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<div class=\"alert mb-3\" style=\"background: rgba(16,185,129,0.1); border-left: 4px solid #10b981; color: #10b981; border-radius: 12px; padding: 12px 16px;\"><i class=\"bi bi-check-circle me-2\"></i>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var5 string
+			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(successMsg)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 41, Col: 55}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "</div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 		}
-		var templ_7745c5c3_Var5 string
-		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(stats["total"]))
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 52, Col: 94}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "</div></div></div></div><div class=\"col-md-4\"><div class=\"p-3 d-flex align-items-center gap-3\" style=\"background:#1e1e1e; border-radius:12px; border:1px solid #2a2a2a;\"><div style=\"width:48px; height:48px; background:rgba(37,211,102,0.15); border-radius:12px; display:flex; align-items:center; justify-content:center;\"><i class=\"bi bi-whatsapp\" style=\"color:#25D366; font-size:1.4rem;\"></i></div><div><div style=\"color:#9ca3af; font-size:0.75rem;\">Sudah Di-share</div><div style=\"color:white; font-weight:700; font-size:1.3rem;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "<!-- STATS --><div class=\"row g-3 mb-4\"><div class=\"col-md-4\"><div class=\"p-3 d-flex align-items-center gap-3\" style=\"background:#1e1e1e; border-radius:12px; border:1px solid #2a2a2a;\"><div style=\"width:48px; height:48px; background:rgba(16,185,129,0.15); border-radius:12px; display:flex; align-items:center; justify-content:center;\"><i class=\"bi bi-people-fill\" style=\"color:#10b981; font-size:1.4rem;\"></i></div><div><div style=\"color:#9ca3af; font-size:0.75rem;\">Total Tamu</div><div style=\"color:white; font-weight:700; font-size:1.3rem;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var6 string
-		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(stats["shared"]))
+		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(stats["total"]))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 63, Col: 95}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 54, Col: 94}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "</div></div></div></div><div class=\"col-md-4\"><div class=\"p-3 d-flex align-items-center gap-3\" style=\"background:#1e1e1e; border-radius:12px; border:1px solid #2a2a2a;\"><div style=\"width:48px; height:48px; background:rgba(139,92,246,0.15); border-radius:12px; display:flex; align-items:center; justify-content:center;\"><i class=\"bi bi-telephone-fill\" style=\"color:#8b5cf6; font-size:1.4rem;\"></i></div><div><div style=\"color:#9ca3af; font-size:0.75rem;\">Punya Nomor</div><div style=\"color:white; font-weight:700; font-size:1.3rem;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "</div></div></div></div><div class=\"col-md-4\"><div class=\"p-3 d-flex align-items-center gap-3\" style=\"background:#1e1e1e; border-radius:12px; border:1px solid #2a2a2a;\"><div style=\"width:48px; height:48px; background:rgba(37,211,102,0.15); border-radius:12px; display:flex; align-items:center; justify-content:center;\"><i class=\"bi bi-whatsapp\" style=\"color:#25D366; font-size:1.4rem;\"></i></div><div><div style=\"color:#9ca3af; font-size:0.75rem;\">Sudah Di-share</div><div style=\"color:white; font-weight:700; font-size:1.3rem;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var7 string
-		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(stats["has_phone"]))
+		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(stats["shared"]))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 74, Col: 98}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 65, Col: 95}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "</div></div></div></div></div><div class=\"row g-4\"><!-- KOLOM KIRI: Settings --><div class=\"col-lg-4\"><!-- Link Undangan --><div class=\"card-dark p-4 mb-3\" style=\"background:#1a1a1a; border:1px solid #2a2a2a; border-radius:16px;\"><h6 class=\"mb-3\" style=\"color:white; font-weight:600;\"><i class=\"bi bi-link-45deg me-2\" style=\"color:#3b82f6;\"></i>Link Undangan</h6><div class=\"input-group\"><input type=\"text\" id=\"baseUrl\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "</div></div></div></div><div class=\"col-md-4\"><div class=\"p-3 d-flex align-items-center gap-3\" style=\"background:#1e1e1e; border-radius:12px; border:1px solid #2a2a2a;\"><div style=\"width:48px; height:48px; background:rgba(139,92,246,0.15); border-radius:12px; display:flex; align-items:center; justify-content:center;\"><i class=\"bi bi-telephone-fill\" style=\"color:#8b5cf6; font-size:1.4rem;\"></i></div><div><div style=\"color:#9ca3af; font-size:0.75rem;\">Punya Nomor</div><div style=\"color:white; font-weight:700; font-size:1.3rem;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var8 string
-		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.ResolveAttributeValue(baseUrl)
+		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(stats["has_phone"]))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 89, Col: 53}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 76, Col: 98}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var8)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "\" readonly style=\"background:#0f0f0f; border:1px solid #2a2a2a; border-radius:10px 0 0 10px; padding:10px 12px; color:white; font-size:0.75rem; flex:1;\"> <button type=\"button\" onclick=\"copyBaseUrl()\" style=\"background:#8b5cf6; color:white; border:none; border-radius:0 10px 10px 0; padding:10px 16px; cursor:pointer;\"><i class=\"bi bi-clipboard\"></i></button></div><small style=\"color:#6b7280; display:block; margin-top:6px; font-size:0.7rem;\">Link akan ditambah <code>?to=Nama</code> saat dikirim.</small></div><!-- Pesan Template --><div class=\"card-dark p-4\" style=\"background:#1a1a1a; border:1px solid #2a2a2a; border-radius:16px;\"><div class=\"d-flex justify-content-between align-items-center mb-3\"><h6 class=\"mb-0\" style=\"color:white; font-weight:600;\"><i class=\"bi bi-chat-text me-2\" style=\"color:#f59e0b;\"></i>Pesan Template</h6><button type=\"button\" onclick=\"resetMessage()\" class=\"btn btn-sm\" style=\"background:transparent; border:1px solid #2a2a2a; color:#9ca3af; border-radius:6px; padding:2px 8px;\" title=\"Reset\"><i class=\"bi bi-arrow-clockwise\"></i></button></div><textarea id=\"messageTemplate\" rows=\"15\" style=\"width:100%; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:10px; padding:12px; color:white; font-size:0.72rem; font-family:monospace; line-height:1.5; resize:vertical;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "</div></div></div></div></div><div class=\"row g-4\"><!-- KOLOM KIRI: Settings --><div class=\"col-lg-4\"><!-- Link Undangan --><div class=\"card-dark p-4 mb-3\" style=\"background:#1a1a1a; border:1px solid #2a2a2a; border-radius:16px;\"><h6 class=\"mb-3\" style=\"color:white; font-weight:600;\"><i class=\"bi bi-link-45deg me-2\" style=\"color:#3b82f6;\"></i>Link Undangan</h6><div class=\"input-group\"><input type=\"text\" id=\"baseUrl\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var9 string
-		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(defaultMsg)
+		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.ResolveAttributeValue(baseUrl)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 109, Col: 247}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 91, Col: 53}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var9)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "</textarea> <small style=\"color:#6b7280; display:block; margin-top:6px; font-size:0.7rem;\">Gunakan <code>&#123;&#123;LINK&#125;&#125;</code> sebagai placeholder</small></div></div><!-- KOLOM KANAN: Daftar Tamu --><div class=\"col-lg-8\"><div class=\"card-dark p-4\" style=\"background:#1a1a1a; border:1px solid #2a2a2a; border-radius:16px;\"><!-- Header Tamu --><div class=\"d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2\"><h6 class=\"mb-0\" style=\"color:white; font-weight:600;\"><i class=\"bi bi-list-ul me-2\" style=\"color:#10b981;\"></i>Daftar Tamu</h6><div class=\"d-flex gap-2 flex-wrap align-items-center\"><input type=\"text\" id=\"searchGuest\" placeholder=\"Cari nama...\" oninput=\"filterGuests()\" style=\"background:#0f0f0f; border:1px solid #2a2a2a; border-radius:8px; padding:6px 12px; color:white; font-size:0.8rem; width:150px;\"> <button type=\"button\" onclick=\"saveAllChanges()\" class=\"btn btn-sm\" style=\"background:#8b5cf6; color:white; border:none; border-radius:8px; padding:6px 14px; font-size:0.75rem; font-weight:600;\"><i class=\"bi bi-save me-1\"></i>Simpan</button> <button type=\"button\" onclick=\"openAddGuestModal()\" class=\"btn btn-sm\" style=\"background:#10b981; color:white; border:none; border-radius:8px; padding:6px 14px; font-size:0.75rem; font-weight:600;\"><i class=\"bi bi-plus-lg me-1\"></i>Tambah</button></div></div><!-- Tabel Tamu --><div style=\"overflow-y:auto; max-height:600px;\"><table class=\"table table-hover mb-0\" id=\"guestTable\"><thead style=\"position:sticky; top:0; background:#1a1a1a; z-index:1;\"><tr><th style=\"color:#8b5cf6; padding:12px 8px; text-align:left;\">Nama</th><th style=\"color:#8b5cf6; padding:12px 8px; text-align:left;\">Nomor WA</th><th style=\"color:#8b5cf6; padding:12px 8px; text-align:left;\">Status</th><th style=\"color:#8b5cf6; padding:12px 8px; text-align:right;\">Aksi</th></tr></thead> <tbody>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "\" readonly style=\"background:#0f0f0f; border:1px solid #2a2a2a; border-radius:10px 0 0 10px; padding:10px 12px; color:white; font-size:0.75rem; flex:1;\"> <button type=\"button\" onclick=\"copyBaseUrl()\" style=\"background:#8b5cf6; color:white; border:none; border-radius:0 10px 10px 0; padding:10px 16px; cursor:pointer;\"><i class=\"bi bi-clipboard\"></i></button></div><small style=\"color:#6b7280; display:block; margin-top:6px; font-size:0.7rem;\">Link akan ditambah <code>?to=Nama</code> saat dikirim.</small></div><!-- Pesan Template --><div class=\"card-dark p-4\" style=\"background:#1a1a1a; border:1px solid #2a2a2a; border-radius:16px;\"><div class=\"d-flex justify-content-between align-items-center mb-3\"><h6 class=\"mb-0\" style=\"color:white; font-weight:600;\"><i class=\"bi bi-chat-text me-2\" style=\"color:#f59e0b;\"></i>Pesan Template</h6><button type=\"button\" onclick=\"resetMessage()\" class=\"btn btn-sm\" style=\"background:transparent; border:1px solid #2a2a2a; color:#9ca3af; border-radius:6px; padding:2px 8px;\" title=\"Reset\"><i class=\"bi bi-arrow-clockwise\"></i></button></div><textarea id=\"messageTemplate\" rows=\"15\" style=\"width:100%; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:10px; padding:12px; color:white; font-size:0.72rem; font-family:monospace; line-height:1.5; resize:vertical;\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var10 string
+		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(defaultMsg)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 111, Col: 247}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "</textarea> <small style=\"color:#6b7280; display:block; margin-top:6px; font-size:0.7rem;\">Gunakan <code>&#123;&#123;LINK&#125;&#125;</code> sebagai placeholder</small></div></div><!-- KOLOM KANAN: Daftar Tamu --><div class=\"col-lg-8\"><div class=\"card-dark p-4\" style=\"background:#1a1a1a; border:1px solid #2a2a2a; border-radius:16px;\"><!-- Header Tamu --><div class=\"d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2\"><h6 class=\"mb-0\" style=\"color:white; font-weight:600;\"><i class=\"bi bi-list-ul me-2\" style=\"color:#10b981;\"></i>Daftar Tamu</h6><div class=\"d-flex gap-2 flex-wrap align-items-center\"><input type=\"text\" id=\"searchGuest\" placeholder=\"Cari nama...\" oninput=\"filterGuests()\" style=\"background:#0f0f0f; border:1px solid #2a2a2a; border-radius:8px; padding:6px 12px; color:white; font-size:0.8rem; width:150px;\"> <button type=\"button\" onclick=\"saveAllChanges()\" class=\"btn btn-sm\" style=\"background:#8b5cf6; color:white; border:none; border-radius:8px; padding:6px 14px; font-size:0.75rem; font-weight:600;\"><i class=\"bi bi-save me-1\"></i>Simpan</button> <button type=\"button\" onclick=\"openAddGuestModal()\" class=\"btn btn-sm\" style=\"background:#10b981; color:white; border:none; border-radius:8px; padding:6px 14px; font-size:0.75rem; font-weight:600;\"><i class=\"bi bi-plus-lg me-1\"></i>Tambah</button></div></div><!-- Tabel Tamu --><div style=\"overflow-y:auto; max-height:600px;\"><table class=\"table table-hover mb-0\" id=\"guestTable\"><thead style=\"position:sticky; top:0; background:#1a1a1a; z-index:1;\"><tr><th style=\"color:#8b5cf6; padding:12px 8px; text-align:left;\">Nama</th><th style=\"color:#8b5cf6; padding:12px 8px; text-align:left;\">Nomor WA</th><th style=\"color:#8b5cf6; padding:12px 8px; text-align:left;\">Status</th><th style=\"color:#8b5cf6; padding:12px 8px; text-align:right;\">Aksi</th></tr></thead> <tbody>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if len(guests) > 0 {
 			for _, guest := range guests {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "<tr data-guest-id=\"")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var10 string
-				templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatUint(guest.ID))
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 149, Col: 50}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var10)
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "\" data-name=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "<tr data-guest-id=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var11 string
-				templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.ResolveAttributeValue(guest.Name)
+				templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatUint(guest.ID))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 149, Col: 75}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 151, Col: 50}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var11)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "\" data-saved-phone=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "\" data-name=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var12 string
-				templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.ResolveAttributeValue(guest.GetPhone())
+				templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.ResolveAttributeValue(guest.Name)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 149, Col: 113}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 151, Col: 75}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var12)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "\" data-dirty=\"false\" style=\"border-bottom:1px solid #2a2a2a;\"><td style=\"color:white; padding:10px 8px; vertical-align:middle;\"><div style=\"display:flex; align-items:center; gap:8px;\"><div style=\"width:32px; height:32px; background:rgba(16,185,129,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:600; color:#10b981; flex-shrink:0;\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "\" data-saved-phone=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var13 string
-				templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(getInitial(guest.Name))
+				templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.ResolveAttributeValue(guest.GetPhone())
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 153, Col: 38}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 151, Col: 113}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var13)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "</div><div><div style=\"color:white; font-weight:500; font-size:0.85rem;\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "\" data-dirty=\"false\" style=\"border-bottom:1px solid #2a2a2a;\"><td style=\"color:white; padding:10px 8px; vertical-align:middle;\"><div style=\"display:flex; align-items:center; gap:8px;\"><div style=\"width:32px; height:32px; background:rgba(16,185,129,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:600; color:#10b981; flex-shrink:0;\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var14 string
-				templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(guest.Name)
+				templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(getInitial(guest.Name))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 156, Col: 88}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 155, Col: 38}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "</div>")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				if guest.RsvpID != nil {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "<small style=\"color:#10b981; font-size:0.65rem;\"><i class=\"bi bi-check-circle-fill\"></i> dari RSVP</small>")
-					if templ_7745c5c3_Err != nil {
-						return templ_7745c5c3_Err
-					}
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "</div></div></td><td style=\"padding:10px 8px; vertical-align:middle;\"><input type=\"text\" class=\"guest-phone\" value=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "</div><div><div style=\"color:white; font-weight:500; font-size:0.85rem;\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var15 string
-				templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.ResolveAttributeValue(guest.GetPhone())
+				templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(guest.Name)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 166, Col: 75}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 158, Col: 88}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var15)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "\" placeholder=\"08xxx / 628xxx\" oninput=\"onPhoneInput(this)\" style=\"background:#0f0f0f; border:1px solid #2a2a2a; border-radius:8px; padding:6px 10px; color:white; font-size:0.8rem; width:100%; max-width:200px;\"></td><td style=\"padding:10px 8px; vertical-align:middle;\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "</div>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				if guest.RsvpID != nil {
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "<small style=\"color:#10b981; font-size:0.65rem;\"><i class=\"bi bi-check-circle-fill\"></i> dari RSVP</small>")
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "</div></div></td><td style=\"padding:10px 8px; vertical-align:middle;\"><input type=\"text\" class=\"guest-phone\" value=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var16 string
+				templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.ResolveAttributeValue(guest.GetPhone())
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/share/invitation.templ`, Line: 168, Col: 75}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var16)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "\" placeholder=\"08xxx / 628xxx\" oninput=\"onPhoneInput(this)\" style=\"background:#0f0f0f; border:1px solid #2a2a2a; border-radius:8px; padding:6px 10px; color:white; font-size:0.8rem; width:100%; max-width:200px;\"></td><td style=\"padding:10px 8px; vertical-align:middle;\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				if guest.IsShared {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "<span class=\"badge\" style=\"background:#25D366; color:white; font-size:0.65rem; padding:4px 10px; border-radius:12px;\"><i class=\"bi bi-check2\"></i> Terkirim</span>")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "<span class=\"badge\" style=\"background:#25D366; color:white; font-size:0.65rem; padding:4px 10px; border-radius:12px;\"><i class=\"bi bi-check2\"></i> Terkirim</span>")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 				} else {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "<span class=\"badge\" style=\"background:#6b7280; color:white; font-size:0.65rem; padding:4px 10px; border-radius:12px;\">Belum</span>")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "<span class=\"badge\" style=\"background:#6b7280; color:white; font-size:0.65rem; padding:4px 10px; border-radius:12px;\">Belum</span>")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "</td><td style=\"padding:10px 8px; vertical-align:middle; text-align:right;\"><div style=\"display:flex; gap:4px; justify-content:flex-end;\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "</td><td style=\"padding:10px 8px; vertical-align:middle; text-align:right;\"><div style=\"display:flex; gap:4px; justify-content:flex-end;\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -280,16 +295,16 @@ func InvitationContent(
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "<button type=\"button\" onclick=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "<button type=\"button\" onclick=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var16 templ.ComponentScript = templpkg.JSFuncCall("shareToGuest", formatUint(guest.ID), guest.Name)
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var16.Call)
+				var templ_7745c5c3_Var17 templ.ComponentScript = templpkg.JSFuncCall("shareToGuest", formatUint(guest.ID), guest.Name)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var17.Call)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "\" style=\"background:#25D366; color:white; border:none; border-radius:6px; width:30px; height:30px; cursor:pointer;\" title=\"Share WA\"><i class=\"bi bi-whatsapp\" style=\"font-size:0.85rem;\"></i></button> ")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "\" style=\"background:#25D366; color:white; border:none; border-radius:6px; width:30px; height:30px; cursor:pointer;\" title=\"Share WA\"><i class=\"bi bi-whatsapp\" style=\"font-size:0.85rem;\"></i></button> ")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -297,27 +312,27 @@ func InvitationContent(
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "<button type=\"button\" onclick=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "<button type=\"button\" onclick=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var17 templ.ComponentScript = templpkg.JSFuncCall("deleteGuest", formatUint(guest.ID), guest.Name)
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var17.Call)
+				var templ_7745c5c3_Var18 templ.ComponentScript = templpkg.JSFuncCall("deleteGuest", formatUint(guest.ID), guest.Name)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var18.Call)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "\" style=\"background:#ef4444; color:white; border:none; border-radius:6px; width:30px; height:30px; cursor:pointer;\" title=\"Hapus\"><i class=\"bi bi-trash\" style=\"font-size:0.85rem;\"></i></button></div></td></tr>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "\" style=\"background:#ef4444; color:white; border:none; border-radius:6px; width:30px; height:30px; cursor:pointer;\" title=\"Hapus\"><i class=\"bi bi-trash\" style=\"font-size:0.85rem;\"></i></button></div></td></tr>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
 		} else {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "<tr><td colspan=\"4\" style=\"text-align:center; padding:40px; color:#6b7280;\"><i class=\"bi bi-inbox\" style=\"font-size:2rem; opacity:0.5; display:block; margin-bottom:8px;\"></i> Belum ada tamu. Klik <strong>Tambah</strong> atau tunggu RSVP masuk.</td></tr>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "<tr><td colspan=\"4\" style=\"text-align:center; padding:40px; color:#6b7280;\"><i class=\"bi bi-inbox\" style=\"font-size:2rem; opacity:0.5; display:block; margin-bottom:8px;\"></i> Belum ada tamu. Klik <strong>Tambah</strong> atau tunggu RSVP masuk.</td></tr>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "</tbody></table></div></div></div></div><!-- MODAL TAMBAH TAMU --><div class=\"modal fade\" id=\"addGuestModal\" tabindex=\"-1\"><div class=\"modal-dialog modal-dialog-centered\"><div class=\"modal-content\" style=\"background:#1e1e1e; border:1px solid #2a2a2a; border-radius:16px;\"><div class=\"modal-header\" style=\"border-bottom:1px solid #2a2a2a;\"><h5 class=\"modal-title\" style=\"color:white;\"><i class=\"bi bi-person-plus me-2\" style=\"color:#10b981;\"></i>Tambah Tamu</h5><button type=\"button\" class=\"btn-close btn-close-white\" data-bs-dismiss=\"modal\"></button></div><div class=\"modal-body\"><div class=\"mb-3\"><label style=\"color:#9ca3af; font-size:0.85rem; display:block; margin-bottom:6px;\">Nama Tamu <span style=\"color:#ef4444;\">*</span></label> <input type=\"text\" id=\"newGuestName\" style=\"width:100%; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:10px; padding:10px 14px; color:white;\" placeholder=\"Budi Santoso\"></div><div class=\"mb-0\"><label style=\"color:#9ca3af; font-size:0.85rem; display:block; margin-bottom:6px;\">Nomor WhatsApp</label> <input type=\"text\" id=\"newGuestPhone\" style=\"width:100%; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:10px; padding:10px 14px; color:white;\" placeholder=\"081234567890\"> <small style=\"color:#6b7280; display:block; margin-top:4px; font-size:0.7rem;\">Boleh kosong, isi nanti saat share.</small></div></div><div class=\"modal-footer\" style=\"border-top:1px solid #2a2a2a;\"><button type=\"button\" class=\"btn\" data-bs-dismiss=\"modal\" style=\"background:#2a2a2a; color:white; border:none; border-radius:8px; padding:8px 20px;\">Batal</button> <button type=\"button\" onclick=\"submitAddGuest()\" class=\"btn\" style=\"background:#10b981; color:white; border:none; border-radius:8px; padding:8px 20px; font-weight:600;\"><i class=\"bi bi-check-lg me-1\"></i>Simpan</button></div></div></div></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "</tbody></table></div></div></div></div><!-- MODAL TAMBAH TAMU --><div class=\"modal fade\" id=\"addGuestModal\" tabindex=\"-1\"><div class=\"modal-dialog modal-dialog-centered\"><div class=\"modal-content\" style=\"background:#1e1e1e; border:1px solid #2a2a2a; border-radius:16px;\"><div class=\"modal-header\" style=\"border-bottom:1px solid #2a2a2a;\"><h5 class=\"modal-title\" style=\"color:white;\"><i class=\"bi bi-person-plus me-2\" style=\"color:#10b981;\"></i>Tambah Tamu</h5><button type=\"button\" class=\"btn-close btn-close-white\" data-bs-dismiss=\"modal\"></button></div><div class=\"modal-body\"><div class=\"mb-3\"><label style=\"color:#9ca3af; font-size:0.85rem; display:block; margin-bottom:6px;\">Nama Tamu <span style=\"color:#ef4444;\">*</span></label> <input type=\"text\" id=\"newGuestName\" style=\"width:100%; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:10px; padding:10px 14px; color:white;\" placeholder=\"Budi Santoso\"></div><div class=\"mb-0\"><label style=\"color:#9ca3af; font-size:0.85rem; display:block; margin-bottom:6px;\">Nomor WhatsApp</label> <input type=\"text\" id=\"newGuestPhone\" style=\"width:100%; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:10px; padding:10px 14px; color:white;\" placeholder=\"081234567890\"> <small style=\"color:#6b7280; display:block; margin-top:4px; font-size:0.7rem;\">Boleh kosong, isi nanti saat share.</small></div></div><div class=\"modal-footer\" style=\"border-top:1px solid #2a2a2a;\"><button type=\"button\" class=\"btn\" data-bs-dismiss=\"modal\" style=\"background:#2a2a2a; color:white; border:none; border-radius:8px; padding:8px 20px;\">Batal</button> <button type=\"button\" onclick=\"submitAddGuest()\" class=\"btn\" style=\"background:#10b981; color:white; border:none; border-radius:8px; padding:8px 20px; font-weight:600;\"><i class=\"bi bi-check-lg me-1\"></i>Simpan</button></div></div></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

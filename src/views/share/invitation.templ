@@ -14,6 +14,8 @@ templ InvitationContent(
 	stats map[string]int,
 	errorMsg string,
 	successMsg string,
+	isClient bool,
+	backURL string,
 ) {
 	<div class="container-fluid">
 		<!-- HEADER -->
@@ -24,7 +26,7 @@ templ InvitationContent(
 				</h3>
 				<p class="text-secondary mb-0">{ project.Title }</p>
 			</div>
-			<a href="/admin/projects" class="btn" style="background:#2a2a2a; color:white; border:none; border-radius:12px; padding:10px 20px; text-decoration:none;">
+			<a href={ templ.URL(backURL) } class="btn" style="background:#2a2a2a; color:white; border:none; border-radius:12px; padding:10px 20px; text-decoration:none;">
 				<i class="bi bi-arrow-left me-2"></i>Kembali
 			</a>
 		</div>

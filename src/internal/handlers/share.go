@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"bytes"
 	"net/http"
 	"strconv"
 	"strings"
@@ -12,7 +11,6 @@ import (
 	"wedding-invitation-go/internal/database"
 	"wedding-invitation-go/internal/models"
 	"wedding-invitation-go/internal/services"
-	"wedding-invitation-go/views/layouts"
 	"wedding-invitation-go/views/share"
 )
 
@@ -27,7 +25,7 @@ func ShareInvitation(c *gin.Context) {
 	// Parse ID dari parameter
 	id, err := strconv.ParseUint(c.Param("id"), 10, 32)
 	if err != nil {
-		c.Redirect(http.StatusFound, "/admin/projects?error=ID+tidak+valid")
+		c.Redirect(http.StatusFound, backURLForRole(user)+"?error=ID+tidak+valid")
 		return
 	}
 
@@ -35,7 +33,7 @@ func ShareInvitation(c *gin.Context) {
 	var project models.Project
 	db := database.GetDB()
 	if err := db.Preload("User").Preload("Template").First(&project, id).Error; err != nil {
-		c.Redirect(http.StatusFound, "/admin/projects?error=Project+tidak+ditemukan")
+		c.Redirect(http.StatusFound, backURLForRole(user)+"?error=Project+tidak+ditemukan")
 		return
 	}
 
@@ -47,7 +45,7 @@ func ShareInvitation(c *gin.Context) {
 
 	// Cek status: harus published
 	if project.Status != "published" {
-		c.Redirect(http.StatusFound, "/admin/projects?error=Undangan+belum+dipublikasikan")
+		c.Redirect(http.StatusFound, backURLForRole(user)+"?error=Undangan+belum+dipublikasikan")
 		return
 	}
 
@@ -91,9 +89,7 @@ func ShareInvitation(c *gin.Context) {
 	errorMsg := c.Query("error")
 	successMsg := c.Query("success")
 
-	var buf bytes.Buffer
-	err = layouts.AdminLayout(
-		*user, setting, "share.invitation",
+	renderWithRoleLayout(c, user, setting, "share.invitation",
 		share.InvitationContent(
 			project,
 			guests,
@@ -102,15 +98,10 @@ func ShareInvitation(c *gin.Context) {
 			stats,
 			errorMsg,
 			successMsg,
+			isClientRole(user),
+			backURLForRole(user),
 		),
-	).Render(c.Request.Context(), &buf)
-
-	if err != nil {
-		c.String(http.StatusInternalServerError, "Render error: %v", err)
-		return
-	}
-
-	c.Data(http.StatusOK, "text/html; charset=utf-8", buf.Bytes())
+	)
 }
 
 // ============================================
@@ -370,4 +361,14 @@ func getBaseUrl(c *gin.Context) string {
 // getNow — helper untuk waktu sekarang
 func getNow() time.Time {
 	return time.Now()
+}
+
+// backURLForRole — URL "kembali" sesuai role
+func backURLForRole(user *models.User) string {
+	switch user.Role {
+	case "client":
+		return "/client/wedding"
+	default:
+		return "/admin/projects"
+	}
 }

@@ -9,6 +9,7 @@ templ GeneralContent(
 	bankList []map[string]string,
 	errorMsg string,
 	clientID uint,
+	isClient bool,
 ) {
 	<div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3">
 		<div>
@@ -19,17 +20,25 @@ templ GeneralContent(
 				Isi data utama yang akan muncul di semua template
 			</p>
 		</div>
-		<a href="/invitation/create/select-client" class="btn" style="background:#2a2a2a; border:none; border-radius:12px; padding:8px 20px; color:white; text-decoration:none;">
-			<i class="bi bi-x-circle me-2"></i>Batal
-		</a>
+		if isClient {
+			<a href="/client/dashboard" class="btn" style="background:#2a2a2a; border:none; border-radius:12px; padding:8px 20px; color:white; text-decoration:none;">
+				<i class="bi bi-x-circle me-2"></i>Batal
+			</a>
+		} else {
+			<a href="/invitation/create/select-client" class="btn" style="background:#2a2a2a; border:none; border-radius:12px; padding:8px 20px; color:white; text-decoration:none;">
+				<i class="bi bi-x-circle me-2"></i>Batal
+			</a>
+		}
 	</div>
 
 	<!-- PROGRESS BAR -->
 	<div class="mb-4">
 		<div class="d-flex justify-content-between mb-2 flex-wrap gap-2">
-			<span style="color: #10b981; font-weight: 600; font-size: 0.85rem;">
-				<i class="bi bi-check-circle-fill me-1"></i> Step 1: Pilih Client
-			</span>
+			if !isClient {
+				<span style="color: #10b981; font-weight: 600; font-size: 0.85rem;">
+					<i class="bi bi-check-circle-fill me-1"></i> Step 1: Pilih Client
+				</span>
+			}
 			<span style="color: #8b5cf6; font-weight: 600; font-size: 0.85rem;">
 				<i class="bi bi-circle-fill me-1" style="font-size: 0.5rem;"></i> Step 2: Data Umum
 			</span>
@@ -236,9 +245,15 @@ templ GeneralContent(
 
 		<!-- SUBMIT BUTTONS -->
 		<div class="d-flex gap-3 flex-wrap">
-			<a href="/invitation/create/select-client" class="btn" style="background:#2a2a2a; border:none; border-radius:12px; padding:14px 32px; color:white; text-decoration:none; font-weight:600;">
-				<i class="bi bi-arrow-left me-2"></i>Kembali
-			</a>
+			if isClient {
+				<a href="/client/dashboard" class="btn" style="background:#2a2a2a; border:none; border-radius:12px; padding:14px 32px; color:white; text-decoration:none; font-weight:600;">
+					<i class="bi bi-arrow-left me-2"></i>Kembali ke Dashboard
+				</a>
+			} else {
+				<a href="/invitation/create/select-client" class="btn" style="background:#2a2a2a; border:none; border-radius:12px; padding:14px 32px; color:white; text-decoration:none; font-weight:600;">
+					<i class="bi bi-arrow-left me-2"></i>Kembali
+				</a>
+			}
 			<button type="submit" class="btn" style="flex:1; min-width:240px; background:#8b5cf6; border:none; border-radius:12px; padding:14px 32px; color:white; font-weight:600;">
 				<i class="bi bi-save me-2"></i>Simpan & Lanjut ke Pemilihan Template
 			</button>

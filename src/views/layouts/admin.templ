@@ -19,7 +19,12 @@ templ AdminLayout(user models.User, setting models.Config, activePage string, co
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
 		<title>Admin Panel - { setting.SiteName }</title>
 
-		<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+		if setting.SiteFavicon != "" {
+			<link rel="icon" href={ "/storage/" + setting.SiteFavicon }/>
+			<link rel="apple-touch-icon" href={ "/storage/" + setting.SiteFavicon }/>
+		} else {
+			<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+		}
 
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>

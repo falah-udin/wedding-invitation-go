@@ -1,0 +1,275 @@
+package dashboard
+
+import (
+	"fmt"
+	"wedding-invitation-go/internal/models"
+)
+
+// DashboardData — data yang dikirim ke template
+type DashboardData struct {
+	User           models.User
+	Setting        models.Config
+	TotalProjects  int
+	TotalPublished int
+	TotalViews     int
+	TotalRsvp      int
+	RecentProjects []models.Project
+}
+
+// DashboardPage — halaman dashboard client
+templ DashboardPage(data DashboardData) {
+	<style>
+		.stat-card {
+			background: #1a1a1a;
+			border: 1px solid #2a2a2a;
+			border-radius: 16px;
+			padding: 20px 24px;
+			transition: all 0.3s;
+			position: relative;
+			overflow: hidden;
+		}
+		.stat-card:hover {
+			border-color: #10b981;
+			transform: translateY(-2px);
+			box-shadow: 0 8px 30px rgba(16,185,129,0.05);
+		}
+		.stat-card .stat-icon {
+			font-size: 2rem;
+			color: #10b981;
+			opacity: 0.15;
+			position: absolute;
+			right: 16px;
+			top: 16px;
+		}
+		.stat-card .stat-number {
+			font-size: 2.2rem;
+			font-weight: 700;
+			color: white;
+			margin-bottom: 2px;
+		}
+		.stat-card .stat-label {
+			color: #9ca3af;
+			font-size: 0.85rem;
+		}
+
+		.quick-action {
+			background: rgba(16,185,129,0.04);
+			border: 1px solid rgba(16,185,129,0.08);
+			border-radius: 12px;
+			padding: 16px 20px;
+			text-align: center;
+			color: white;
+			text-decoration: none;
+			transition: all 0.3s;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 8px;
+			position: relative;
+		}
+		.quick-action:hover {
+			background: rgba(16,185,129,0.08);
+			border-color: #10b981;
+			transform: translateY(-2px);
+			color: white;
+		}
+		.quick-action i {
+			font-size: 1.8rem;
+			color: #10b981;
+		}
+		.quick-action span {
+			font-size: 0.8rem;
+			color: #9ca3af;
+		}
+
+		.recent-card {
+			background: #1a1a1a;
+			border: 1px solid #2a2a2a;
+			border-radius: 16px;
+			padding: 20px 24px;
+			transition: all 0.3s;
+		}
+		.recent-card:hover {
+			border-color: rgba(16,185,129,0.15);
+		}
+
+		.invitation-item {
+			background: transparent;
+			border: 1px solid #2a2a2a;
+			border-radius: 12px;
+			padding: 14px 18px;
+			transition: all 0.3s;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			flex-wrap: wrap;
+			gap: 10px;
+		}
+		.invitation-item:hover {
+			border-color: rgba(16,185,129,0.15);
+		}
+		.invitation-item .title {
+			color: white;
+			font-weight: 500;
+		}
+		.invitation-item .meta {
+			color: #9ca3af;
+			font-size: 0.8rem;
+		}
+		.badge-status {
+			font-size: 0.65rem;
+			padding: 2px 12px;
+			border-radius: 12px;
+		}
+		.badge-status.published { background: #10b981; color: white; }
+		.badge-status.draft { background: #f59e0b; color: #1a1a1a; }
+		.badge-status.archived { background: #6b7280; color: white; }
+
+		.empty-state {
+			text-align: center;
+			padding: 50px 20px;
+			color: #6b7280;
+		}
+		.empty-state i {
+			font-size: 3.5rem;
+			display: block;
+			margin-bottom: 16px;
+			opacity: 0.3;
+		}
+	</style>
+
+	<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+		<div>
+			<h2 class="fw-bold mb-1" style="color: #10b981;">
+				<i class="bi bi-speedometer2 me-2"></i>Dashboard Client
+			</h2>
+			<p class="text-secondary m-0">
+				Selamat datang, <strong style="color:white;">{ data.User.Name }</strong>!
+				Kelola undangan pernikahan Anda di sini.
+			</p>
+		</div>
+		<a href="/invitation/create/select-client"
+		   class="btn"
+		   style="background: #10b981; color: white; border: none; padding: 10px 24px; border-radius: 12px; font-weight: 600; white-space: nowrap;">
+			<i class="bi bi-plus-lg me-2"></i>Buat Undangan
+		</a>
+	</div>
+
+	<!-- STATISTIK -->
+	<div class="row g-3 g-md-4 mb-4">
+		<div class="col-6 col-md-3">
+			<div class="stat-card">
+				<i class="stat-icon bi bi-envelope-paper"></i>
+				<div class="stat-number">{ fmt.Sprintf("%d", data.TotalProjects) }</div>
+				<div class="stat-label">Total Undangan</div>
+			</div>
+		</div>
+		<div class="col-6 col-md-3">
+			<div class="stat-card">
+				<i class="stat-icon bi bi-check-circle"></i>
+				<div class="stat-number">{ fmt.Sprintf("%d", data.TotalPublished) }</div>
+				<div class="stat-label">Published</div>
+			</div>
+		</div>
+		<div class="col-6 col-md-3">
+			<div class="stat-card">
+				<i class="stat-icon bi bi-eye"></i>
+				<div class="stat-number">{ fmt.Sprintf("%d", data.TotalViews) }</div>
+				<div class="stat-label">Total Views</div>
+			</div>
+		</div>
+		<div class="col-6 col-md-3">
+			<div class="stat-card">
+				<i class="stat-icon bi bi-people"></i>
+				<div class="stat-number">{ fmt.Sprintf("%d", data.TotalRsvp) }</div>
+				<div class="stat-label">Total RSVP</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- QUICK ACTIONS -->
+	<div class="row g-3 mb-4">
+		<div class="col-6 col-md-3">
+			<a href="/invitation/create/select-client" class="quick-action">
+				<i class="bi bi-plus-circle"></i>
+				<span>Buat Undangan Baru</span>
+			</a>
+		</div>
+		<div class="col-6 col-md-3">
+			<a href="/client/wedding" class="quick-action">
+				<i class="bi bi-list-ul"></i>
+				<span>Lihat Semua Undangan</span>
+			</a>
+		</div>
+		<div class="col-6 col-md-3">
+			<a href="/client/reservations" class="quick-action">
+				<i class="bi bi-people"></i>
+				<span>Kelola Reservasi</span>
+			</a>
+		</div>
+		<div class="col-6 col-md-3">
+			<a href="/client/wedding" class="quick-action">
+				<i class="bi bi-pencil"></i>
+				<span>Edit Undangan</span>
+			</a>
+		</div>
+	</div>
+
+	<!-- RECENT INVITATIONS -->
+	<div class="recent-card">
+		<div class="d-flex justify-content-between align-items-center mb-3">
+			<h5 style="color: #10b981; margin:0;">
+				<i class="bi bi-clock-history me-2"></i>Undangan Terbaru
+			</h5>
+			if data.TotalProjects > 5 {
+				<a href="/client/wedding" style="color: #10b981; text-decoration: none; font-size:0.85rem;">
+					Lihat Semua <i class="bi bi-arrow-right ms-1"></i>
+				</a>
+			}
+		</div>
+
+		if data.TotalProjects > 0 {
+			<div class="d-flex flex-column gap-2">
+				for _, p := range data.RecentProjects {
+					<div class="invitation-item">
+						<div>
+							<div class="title">
+								<i class="bi bi-envelope-paper me-2" style="color: #10b981;"></i>
+								{ p.Title }
+							</div>
+							<div class="meta">
+								<i class="bi bi-calendar me-1"></i>
+								{ p.CreatedAt.Format("02/01/2006 15:04") }
+								<span class="ms-2">
+									<i class="bi bi-eye me-1"></i>{ fmt.Sprintf("%d", p.TotalViews) }
+								</span>
+								<span class="ms-2">
+									<i class="bi bi-people me-1"></i>{ fmt.Sprintf("%d", p.TotalRsvp) }
+								</span>
+								<span class={ "badge-status ms-2", p.Status }>
+									{ p.Status }
+								</span>
+							</div>
+						</div>
+						<div class="d-flex gap-2">
+							<a href={ templ.URL("/invitation/" + p.Slug) }
+							   target="_blank"
+							   class="btn btn-sm"
+							   style="background: #8b5cf6; color: white; border-radius: 8px;">
+								<i class="bi bi-box-arrow-up-right"></i> Lihat
+							</a>
+						</div>
+					</div>
+				}
+			</div>
+		} else {
+			<div class="empty-state">
+				<i class="bi bi-inbox"></i>
+				<p>Belum ada undangan. Buat undangan pertama Anda!</p>
+				<a href="/invitation/create/select-client" class="btn" style="background: #10b981; color: white; border: none; padding: 10px 24px; border-radius: 12px;">
+					<i class="bi bi-plus-lg me-2"></i>Buat Undangan Sekarang
+				</a>
+			</div>
+		}
+	</div>
+}
