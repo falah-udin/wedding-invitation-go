@@ -2,11 +2,13 @@ package handlers
 
 import (
 	"bytes"
+	"crypto/rand"
 	"net/http"
 	"strings"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
+	"golang.org/x/oauth2"
 
 	"wedding-invitation-go/internal/database"
 	"wedding-invitation-go/internal/models"
@@ -147,4 +149,132 @@ func HandleLogout(c *gin.Context) {
 	}
 
 	c.Redirect(http.StatusFound, "/login?success=Berhasil+logout")
+}
+
+// ============================================
+// GoogleLogin — GET /auth/google
+// Redirect ke Google untuk login
+// ============================================
+func GoogleLogin(c *gin.Context) {
+	config := services.GetGoogleOAuthConfig(c.Request)
+
+	if config.ClientID == "" || config.ClientSecret == "" {
+		c.Redirect(http.StatusFound, "/login?error=Google+OAuth+belum+dikonfigurasi")
+		return
+	}
+
+	// State untuk CSRF protection
+	state := "wedding-oauth-state"
+
+	url := config.AuthCodeURL(state, oauth2.AccessTypeOffline)
+	c.Redirect(http.StatusFound, url)
+}
+
+// ============================================
+// GoogleCallback — GET /auth/google/callback
+// Handle callback dari Google setelah user login
+// ============================================
+func GoogleCallback(c *gin.Context) {
+	// 1. Cek error dari Google
+	if errMsg := c.Query("error"); errMsg != "" {
+		c.Redirect(http.StatusFound, "/login?error=Google+login+dibatalkan")
+		return
+	}
+
+	// 2. Ambil code dari query
+	code := c.Query("code")
+	if code == "" {
+		c.Redirect(http.StatusFound, "/login?error=Code+tidak+valid")
+		return
+	}
+
+	// 3. Tuker code → user info
+	userInfo, err := services.GetGoogleUserInfo(c.Request.Context(), c.Request, code)
+	if err != nil {
+		services.LogError("GoogleCallback", err, nil)
+		c.Redirect(http.StatusFound, "/login?error=Gagal+login+Google")
+		return
+	}
+
+	// 4. Cari user berdasarkan email atau google_id
+	db := database.GetDB()
+	var user models.User
+
+	err = db.Where("email = ? OR google_id = ?", userInfo.Email, userInfo.ID).
+		First(&user).Error
+
+	if err != nil {
+		// 5. User belum ada → daftar baru sebagai client
+		// Generate password random (karena kolom password NOT NULL)
+		randomBytes := make([]byte, 32)
+		rand.Read(randomBytes)
+		randomPassword, _ := bcrypt.GenerateFromPassword(randomBytes, bcrypt.DefaultCost)
+
+		user = models.User{
+			Name:     userInfo.Name,
+			Email:    userInfo.Email,
+			Password: string(randomPassword),
+			Role:     "client",
+			IsActive: true,
+			GoogleID: &userInfo.ID,
+		}
+		if userInfo.Picture != "" {
+			user.Avatar = &userInfo.Picture
+		}
+
+		if err := db.Create(&user).Error; err != nil {
+			services.LogError("GoogleCallback.CreateUser", err, map[string]interface{}{
+				"email": userInfo.Email,
+			})
+			c.Redirect(http.StatusFound, "/login?error=Gagal+membuat+akun")
+			return
+		}
+
+		services.LogSuccess("GoogleCallback", "User baru via Google: "+userInfo.Email)
+	} else {
+		// 6. User sudah ada → update google_id & avatar (kalau belum ada)
+		if user.GoogleID == nil {
+			user.GoogleID = &userInfo.ID
+		}
+		if userInfo.Picture != "" && (user.Avatar == nil || *user.Avatar == "") {
+			user.Avatar = &userInfo.Picture
+		}
+		db.Save(&user)
+	}
+
+	// 7. Cek user aktif
+	if !user.IsActive {
+		c.Redirect(http.StatusFound, "/login?error=Akun+Anda+tidak+aktif")
+		return
+	}
+
+	// 8. Set session (sama seperti login biasa)
+	store := services.GetStore()
+	session, err := store.Get(c.Request, "wedding_session")
+	if err != nil {
+		c.Redirect(http.StatusFound, "/login?error=Gagal+membuat+sesi")
+		return
+	}
+
+	session.Values["user_id"] = user.ID
+	session.Values["user_role"] = user.Role
+	session.Values["user_name"] = user.Name
+	session.Options.MaxAge = 86400 * 7 // 7 hari
+
+	if err := session.Save(c.Request, c.Writer); err != nil {
+		c.Redirect(http.StatusFound, "/login?error=Gagal+menyimpan+sesi")
+		return
+	}
+
+	services.LogSuccess("GoogleCallback", "Login sukses via Google: "+user.Email)
+
+	// 9. Redirect berdasarkan role
+	switch user.Role {
+	case "admin":
+		c.Redirect(http.StatusFound, "/admin/dashboard")
+	case "staff":
+		c.Redirect(http.StatusFound, "/staff/dashboard")
+	default:
+		c.Redirect(http.StatusFound, "/client/dashboard")
+	}
 }

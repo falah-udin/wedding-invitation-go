@@ -15,6 +15,10 @@ func Register(r *gin.Engine) {
 	r.GET("/health", handlers.ShowHealth)
 	r.GET("/preview/template/:slug", handlers.PreviewTemplate)
 
+	// PWA
+	r.GET("/manifest.webmanifest", handlers.Manifest)
+	r.GET("/sw.js", handlers.ServiceWorker)
+
 	// INVITATION PUBLIC (tamu akses)
 	r.GET("/invitation/:slug", invitationHandlers.ShowInvitation)
 	r.POST("/invitation/:slug/rsvp", invitationHandlers.RsvpSubmit)
@@ -26,6 +30,10 @@ func Register(r *gin.Engine) {
 	r.GET("/register", handlers.ShowRegister)
 	r.POST("/register", handlers.HandleRegister)
 	r.POST("/logout", handlers.HandleLogout)
+
+	// GOOGLE OAUTH
+	r.GET("/auth/google", handlers.GoogleLogin)
+	r.GET("/auth/google/callback", handlers.GoogleCallback)
 
 	// ADMIN
 	admin := r.Group("/admin")
@@ -74,6 +82,7 @@ func Register(r *gin.Engine) {
 		admin.POST("/settings", adminHandlers.SettingUpdate)
 		admin.POST("/settings/delete-favicon", adminHandlers.SettingDeleteFavicon)
 		admin.POST("/settings/delete-qris", adminHandlers.SettingDeleteQris)
+		admin.POST("/settings/delete-pwa-icon", adminHandlers.SettingDeletePwaIcon)
 	}
 
 	// INVITATION WIZARD (auth required — admin, staff, client semua boleh)

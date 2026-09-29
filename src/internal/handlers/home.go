@@ -18,14 +18,16 @@ func ShowHome(c *gin.Context) {
 	setting := services.GetSiteSetting()
 	templates := services.GetTemplates()
 
-	// Sementara: dummy isLoggedIn & role
-	// Nanti: cek session user
-	isLoggedIn := false
+	// ✅ Cek login dari session
+	user := services.GetCurrentUser(c.Request)
+	isLoggedIn := user != nil
 	userRole := ""
+	if isLoggedIn {
+		userRole = user.Role
+	}
 
 	var buf bytes.Buffer
 	err := guest.HomePage(setting, templates, isLoggedIn, userRole).Render(c.Request.Context(), &buf)
-
 	if err != nil {
 		c.String(http.StatusInternalServerError, "Render error: %v", err)
 		return

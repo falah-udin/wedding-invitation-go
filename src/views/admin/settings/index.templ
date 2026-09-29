@@ -8,7 +8,7 @@ templ IndexContent(settings map[string]string, errorMsg string, successMsg strin
 				<h3 class="mb-1" style="color: #8b5cf6;">
 					<i class="bi bi-gear-fill me-2"></i>Pengaturan Situs
 				</h3>
-				<p class="text-secondary mb-0">Kelola informasi footer, kontak, sosial media, dan favicon</p>
+				<p class="text-secondary mb-0">Kelola informasi footer, kontak, sosial media, favicon, dan PWA</p>
 			</div>
 		</div>
 
@@ -25,86 +25,6 @@ templ IndexContent(settings map[string]string, errorMsg string, successMsg strin
 
 		<form method="POST" action="/admin/settings" enctype="multipart/form-data">
 			<div class="row g-4">
-				<!-- BRAND -->
-				<div class="col-lg-6">
-					<div class="card-dark p-4 h-100">
-						<h5 class="mb-3" style="color: #8b5cf6;">
-							<i class="bi bi-shop me-2"></i>Brand
-						</h5>
-						<div class="mb-3">
-							<label class="form-label" style="color: #9ca3af;">Nama Situs</label>
-							<input type="text" name="site_name" value={ settings["site_name"] } class="form-control-dark"/>
-						</div>
-						<div class="mb-3">
-							<label class="form-label" style="color: #9ca3af;">Tagline</label>
-							<input type="text" name="site_tagline" value={ settings["site_tagline"] } class="form-control-dark"/>
-						</div>
-
-						<!-- FAVICON dengan 2 card preview -->
-						<div class="mb-0">
-							<label class="form-label" style="color: #9ca3af;">
-								<i class="bi bi-browser-chrome me-1"></i>Favicon
-							</label>
-
-							<div class="d-flex align-items-start gap-3 mb-3 flex-wrap">
-								<!-- Card Saat Ini -->
-								<div>
-									<div style="font-size: 0.7rem; color: #6b7280; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">
-										Saat Ini
-									</div>
-									<div style="width: 80px; height: 80px; background: #0f0f0f; border: 2px solid #2a2a2a; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-										if settings["site_favicon"] != "" {
-											<img src={ "/storage/" + settings["site_favicon"] } alt="Favicon saat ini" style="width: 100%; height: 100%; object-fit: contain;"/>
-										} else {
-											<i class="bi bi-image text-secondary" style="font-size: 1.5rem; color: #4b5563;"></i>
-										}
-									</div>
-									<div style="font-size: 0.65rem; color: #6b7280; margin-top: 4px; text-align: center;">
-										if settings["site_favicon"] != "" {
-											Tersimpan
-										} else {
-											Belum ada
-										}
-									</div>
-								</div>
-
-								<!-- Arrow -->
-								<div style="align-self: center; margin-top: 20px;">
-									<i class="bi bi-arrow-right" style="color: #4b5563; font-size: 1.5rem;"></i>
-								</div>
-
-								<!-- Card Preview Baru -->
-								<div>
-									<div style="font-size: 0.7rem; color: #8b5cf6; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">
-										Preview Baru
-									</div>
-									<div id="favicon-new-box" style="width: 80px; height: 80px; background: #0f0f0f; border: 2px dashed #2a2a2a; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: all 0.3s;">
-										<div id="favicon-new-placeholder" style="text-align: center; color: #6b7280;">
-											<i class="bi bi-cloud-arrow-up" style="font-size: 1.5rem; display: block; margin-bottom: 2px;"></i>
-											<span style="font-size: 0.6rem;">Pilih file</span>
-										</div>
-										<img id="favicon-new-preview" src="" alt="Preview favicon baru" style="width: 100%; height: 100%; object-fit: contain; display: none;"/>
-									</div>
-									<div id="favicon-new-info" style="font-size: 0.65rem; color: #6b7280; margin-top: 4px; text-align: center; max-width: 80px; word-wrap: break-word;">
-										Belum dipilih
-									</div>
-								</div>
-							</div>
-
-							<div class="mb-2">
-								<input type="file" name="site_favicon" id="site_favicon_input" class="form-control-dark" accept=".png,.jpg,.jpeg,.ico,.svg,.webp" onchange="previewFavicon(this)"/>
-							</div>
-							<small style="color: #6b7280; display: block; margin-bottom: 8px;">Format: PNG, JPG, ICO, SVG, WebP. Max 512 KB. Ukuran ideal: 32×32 atau 64×64 px.</small>
-
-							if settings["site_favicon"] != "" {
-								<button type="button" class="btn btn-sm" style="background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; padding: 6px 14px; font-size: 0.75rem;" onclick="confirmDeleteFavicon()">
-									<i class="bi bi-trash me-1"></i>Hapus Favicon
-								</button>
-							}
-						</div>
-					</div>
-				</div>
-
 				<!-- KONTAK -->
 				<div class="col-lg-6">
 					<div class="card-dark p-4 h-100">
@@ -227,23 +147,82 @@ templ IndexContent(settings map[string]string, errorMsg string, successMsg strin
 					</div>
 				</div>
 
-				<!-- FOOTER -->
+				<!-- BRAND -->
 				<div class="col-lg-6">
 					<div class="card-dark p-4 h-100">
 						<h5 class="mb-3" style="color: #8b5cf6;">
-							<i class="bi bi-layout-text-window-reverse me-2"></i>Footer
+							<i class="bi bi-shop me-2"></i>Brand
 						</h5>
 						<div class="mb-3">
-							<label class="form-label" style="color: #9ca3af;">Deskripsi Footer</label>
-							<textarea name="footer_description" class="form-control-dark" rows="3">{ settings["footer_description"] }</textarea>
+							<label class="form-label" style="color: #9ca3af;">Nama Situs</label>
+							<input type="text" name="site_name" value={ settings["site_name"] } class="form-control-dark"/>
 						</div>
 						<div class="mb-3">
-							<label class="form-label" style="color: #9ca3af;">Copyright</label>
-							<input type="text" name="footer_copyright" value={ settings["footer_copyright"] } class="form-control-dark"/>
+							<label class="form-label" style="color: #9ca3af;">Tagline</label>
+							<input type="text" name="site_tagline" value={ settings["site_tagline"] } class="form-control-dark"/>
 						</div>
+
+						<!-- FAVICON dengan 2 card preview -->
 						<div class="mb-0">
-							<label class="form-label" style="color: #9ca3af;">Versi</label>
-							<input type="text" name="footer_version" value={ settings["footer_version"] } class="form-control-dark" placeholder="v1.0.0"/>
+							<label class="form-label" style="color: #9ca3af;">
+								<i class="bi bi-browser-chrome me-1"></i>Favicon
+							</label>
+
+							<div class="d-flex align-items-start gap-3 mb-3 flex-wrap">
+								<!-- Card Saat Ini -->
+								<div>
+									<div style="font-size: 0.7rem; color: #6b7280; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">
+										Saat Ini
+									</div>
+									<div style="width: 80px; height: 80px; background: #0f0f0f; border: 2px solid #2a2a2a; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+										if settings["site_favicon"] != "" {
+											<img src={ "/storage/" + settings["site_favicon"] } alt="Favicon saat ini" style="width: 100%; height: 100%; object-fit: contain;"/>
+										} else {
+											<i class="bi bi-image text-secondary" style="font-size: 1.5rem; color: #4b5563;"></i>
+										}
+									</div>
+									<div style="font-size: 0.65rem; color: #6b7280; margin-top: 4px; text-align: center;">
+										if settings["site_favicon"] != "" {
+											Tersimpan
+										} else {
+											Belum ada
+										}
+									</div>
+								</div>
+
+								<!-- Arrow -->
+								<div style="align-self: center; margin-top: 20px;">
+									<i class="bi bi-arrow-right" style="color: #4b5563; font-size: 1.5rem;"></i>
+								</div>
+
+								<!-- Card Preview Baru -->
+								<div>
+									<div style="font-size: 0.7rem; color: #8b5cf6; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">
+										Preview Baru
+									</div>
+									<div id="favicon-new-box" style="width: 80px; height: 80px; background: #0f0f0f; border: 2px dashed #2a2a2a; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: all 0.3s;">
+										<div id="favicon-new-placeholder" style="text-align: center; color: #6b7280;">
+											<i class="bi bi-cloud-arrow-up" style="font-size: 1.5rem; display: block; margin-bottom: 2px;"></i>
+											<span style="font-size: 0.6rem;">Pilih file</span>
+										</div>
+										<img id="favicon-new-preview" src="" alt="Preview favicon baru" style="width: 100%; height: 100%; object-fit: contain; display: none;"/>
+									</div>
+									<div id="favicon-new-info" style="font-size: 0.65rem; color: #6b7280; margin-top: 4px; text-align: center; max-width: 80px; word-wrap: break-word;">
+										Belum dipilih
+									</div>
+								</div>
+							</div>
+
+							<div class="mb-2">
+								<input type="file" name="site_favicon" id="site_favicon_input" class="form-control-dark" accept=".png,.jpg,.jpeg,.ico,.svg,.webp" onchange="previewFavicon(this)"/>
+							</div>
+							<small style="color: #6b7280; display: block; margin-bottom: 8px;">Format: PNG, JPG, ICO, SVG, WebP. Max 512 KB. Ukuran ideal: 32×32 atau 64×64 px.</small>
+
+							if settings["site_favicon"] != "" {
+								<button type="button" class="btn btn-sm" style="background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; padding: 6px 14px; font-size: 0.75rem;" onclick="confirmDeleteFavicon()">
+									<i class="bi bi-trash me-1"></i>Hapus Favicon
+								</button>
+							}
 						</div>
 					</div>
 				</div>
@@ -272,6 +251,120 @@ templ IndexContent(settings map[string]string, errorMsg string, successMsg strin
 				</div>
 			</div>
 
+			<!-- FOOTER -->
+			<div class="mt-4 col-lg-12">
+				<div class="card-dark p-4 h-100">
+					<h5 class="mb-3" style="color: #8b5cf6;">
+						<i class="bi bi-layout-text-window-reverse me-2"></i>Footer
+					</h5>
+					<div class="mb-3">
+						<label class="form-label" style="color: #9ca3af;">Deskripsi Footer</label>
+						<textarea name="footer_description" class="form-control-dark" rows="3">{ settings["footer_description"] }</textarea>
+					</div>
+					<div class="mb-3">
+						<label class="form-label" style="color: #9ca3af;">Copyright</label>
+						<input type="text" name="footer_copyright" value={ settings["footer_copyright"] } class="form-control-dark"/>
+					</div>
+					<div class="mb-0">
+						<label class="form-label" style="color: #9ca3af;">Versi</label>
+						<input type="text" name="footer_version" value={ settings["footer_version"] } class="form-control-dark" placeholder="v1.0.0"/>
+					</div>
+				</div>
+			</div>
+			
+			<!-- PWA -->
+			<div class="mt-4 col-lg-12">
+				<div class="card-dark p-4">
+					<h5 class="mb-3" style="color: #8b5cf6;">
+						<i class="bi bi-phone me-2"></i>PWA (Progressive Web App)
+					</h5>
+					<p style="color: #9ca3af; font-size: 0.85rem;">
+						Pengaturan untuk install aplikasi ke home screen HP. Kalau icon PWA tidak diupload, otomatis pakai favicon.
+					</p>
+
+					<div class="row g-3 mb-3">
+						<div class="col-md-4">
+							<label class="form-label" style="color: #9ca3af;">Nama Pendek</label>
+							<input type="text" name="pwa_short_name" value={ settings["pwa_short_name"] } class="form-control-dark" maxlength="12" placeholder="Wedding"/>
+							<small style="color: #6b7280;">Max 12 karakter</small>
+						</div>
+						<div class="col-md-4">
+							<label class="form-label" style="color: #9ca3af;">Theme Color</label>
+							if settings["pwa_theme_color"] != "" {
+								<input type="color" name="pwa_theme_color" value={ settings["pwa_theme_color"] } class="form-control-dark" style="height: 44px; padding: 4px;"/>
+							} else {
+								<input type="color" name="pwa_theme_color" value="#8b5cf6" class="form-control-dark" style="height: 44px; padding: 4px;"/>
+							}
+						</div>
+						<div class="col-md-4">
+							<label class="form-label" style="color: #9ca3af;">Background Color</label>
+							if settings["pwa_background_color"] != "" {
+								<input type="color" name="pwa_background_color" value={ settings["pwa_background_color"] } class="form-control-dark" style="height: 44px; padding: 4px;"/>
+							} else {
+								<input type="color" name="pwa_background_color" value="#0f0f0f" class="form-control-dark" style="height: 44px; padding: 4px;"/>
+							}
+						</div>
+					</div>
+
+					<div class="row g-3">
+						<div class="col-md-6">
+							<label class="form-label" style="color: #9ca3af;">
+								<i class="bi bi-image me-1"></i>Icon 192×192
+							</label>
+							<div class="d-flex align-items-center gap-3 mb-2">
+								<div style="width: 96px; height: 96px; background: #0f0f0f; border: 2px solid #2a2a2a; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
+									if settings["pwa_icon_192"] != "" {
+										<img src={ "/storage/" + settings["pwa_icon_192"] } alt="Icon 192" style="width: 100%; height: 100%; object-fit: contain;"/>
+									} else {
+										<i class="bi bi-image text-secondary" style="font-size: 1.5rem; color: #4b5563;"></i>
+									}
+								</div>
+								<div style="flex: 1;">
+									<input type="file" name="pwa_icon_192" class="form-control-dark" accept=".png,.jpg,.jpeg,.webp"/>
+									<small style="color: #6b7280;">PNG/JPG/WebP. Max 1 MB. 192×192 px.</small>
+								</div>
+							</div>
+							if settings["pwa_icon_192"] != "" {
+								<button type="button" class="btn btn-sm" style="background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; padding: 6px 14px; font-size: 0.75rem;" onclick="confirmDeletePwaIcon('192')">
+									<i class="bi bi-trash me-1"></i>Hapus Icon 192
+								</button>
+							}
+						</div>
+
+						<div class="col-md-6">
+							<label class="form-label" style="color: #9ca3af;">
+								<i class="bi bi-image me-1"></i>Icon 512×512
+							</label>
+							<div class="d-flex align-items-center gap-3 mb-2">
+								<div style="width: 96px; height: 96px; background: #0f0f0f; border: 2px solid #2a2a2a; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
+									if settings["pwa_icon_512"] != "" {
+										<img src={ "/storage/" + settings["pwa_icon_512"] } alt="Icon 512" style="width: 100%; height: 100%; object-fit: contain;"/>
+									} else {
+										<i class="bi bi-image text-secondary" style="font-size: 1.5rem; color: #4b5563;"></i>
+									}
+								</div>
+								<div style="flex: 1;">
+									<input type="file" name="pwa_icon_512" class="form-control-dark" accept=".png,.jpg,.jpeg,.webp"/>
+									<small style="color: #6b7280;">PNG/JPG/WebP. Max 1 MB. 512×512 px.</small>
+								</div>
+							</div>
+							if settings["pwa_icon_512"] != "" {
+								<button type="button" class="btn btn-sm" style="background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; padding: 6px 14px; font-size: 0.75rem;" onclick="confirmDeletePwaIcon('512')">
+									<i class="bi bi-trash me-1"></i>Hapus Icon 512
+								</button>
+							}
+						</div>
+					</div>
+
+					<div class="mt-3 p-3" style="background: rgba(59,130,246,0.08); border-left: 3px solid #3b82f6; border-radius: 8px;">
+						<small style="color: #93c5fd;">
+							<i class="bi bi-info-circle me-1"></i>
+							Setelah upload, buka <code style="color: #93c5fd;">/manifest.webmanifest</code> untuk verifikasi. Cek juga DevTools → Application → Manifest.
+						</small>
+					</div>
+				</div>
+			</div>
+			
 			<div class="mt-4 d-flex justify-content-end gap-2">
 				<a href="/admin/dashboard" class="btn" style="background:#2a2a2a; color:white; border:none; padding:10px 24px; border-radius:12px; text-decoration:none;">Batal</a>
 				<button type="submit" class="btn-primary-custom">
@@ -286,14 +379,27 @@ templ IndexContent(settings map[string]string, errorMsg string, successMsg strin
 				<input type="hidden" name="_method" value="DELETE"/>
 			</form>
 		}
+		
 		if settings["qris_image"] != "" {
 			<form id="deleteQrisForm" action="/admin/settings/delete-qris" method="POST" style="display:none;">
 				<input type="hidden" name="_method" value="DELETE"/>
 			</form>
 		}
 
+		<form id="deletePwaIconForm" action="/admin/settings/delete-pwa-icon" method="POST" style="display:none;">
+			<input type="hidden" name="size" id="deletePwaIconSize" value=""/>
+		</form>
+
 		<!-- JavaScript untuk preview -->
 		<script>
+
+			function confirmDeletePwaIcon(size) {
+				if (confirm('Yakin hapus icon PWA ' + size + '×' + size + '?')) {
+					document.getElementById('deletePwaIconSize').value = size;
+					document.getElementById('deletePwaIconForm').submit();
+				}
+			}
+
 			function previewFavicon(input) {
 				const file = input.files[0];
 				const previewImg = document.getElementById('favicon-new-preview');

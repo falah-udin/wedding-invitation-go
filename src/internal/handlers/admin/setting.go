@@ -57,6 +57,8 @@ func SettingUpdate(c *gin.Context) {
 		"social_instagram", "social_facebook", "social_tiktok", "social_youtube", "social_twitter",
 		"footer_description", "footer_copyright", "footer_version",
 		"developer_name", "developer_email", "developer_url",
+		// PWA
+		"pwa_short_name", "pwa_theme_color", "pwa_background_color",
 	}
 
 	for _, key := range textFields {
@@ -95,6 +97,36 @@ func SettingUpdate(c *gin.Context) {
 			return
 		}
 		upsertSetting("qris_image", path)
+	}
+
+		// Handle PWA icon 192
+	if file, err := c.FormFile("pwa_icon_192"); err == nil && file.Size > 0 {
+		oldIcon := getSettingValue("pwa_icon_192")
+		if oldIcon != "" {
+			os.Remove(filepath.Join("/app/public/storage", oldIcon))
+		}
+
+		path, uploadErr := savePwaIconFile(c, file, "192")
+		if uploadErr != nil {
+			c.Redirect(http.StatusFound, "/admin/settings?error=Gagal+upload+icon+192")
+			return
+		}
+		upsertSetting("pwa_icon_192", path)
+	}
+
+	// Handle PWA icon 512
+	if file, err := c.FormFile("pwa_icon_512"); err == nil && file.Size > 0 {
+		oldIcon := getSettingValue("pwa_icon_512")
+		if oldIcon != "" {
+			os.Remove(filepath.Join("/app/public/storage", oldIcon))
+		}
+
+		path, uploadErr := savePwaIconFile(c, file, "512")
+		if uploadErr != nil {
+			c.Redirect(http.StatusFound, "/admin/settings?error=Gagal+upload+icon+512")
+			return
+		}
+		upsertSetting("pwa_icon_512", path)
 	}
 
 	c.Redirect(http.StatusFound, "/admin/settings?success=Pengaturan+berhasil+disimpan")
@@ -171,6 +203,40 @@ func saveBrandingFile(c *gin.Context, file *multipart.FileHeader) (string, error
 	return "branding/" + filename, nil
 }
 
+// savePwaIconFile — simpan icon PWA ke /app/public/storage/settings/pwa/
+// size: "192" atau "512" — buat nama file unik
+func savePwaIconFile(c *gin.Context, file *multipart.FileHeader, size string) (string, error) {
+	// Validasi ekstensi
+	ext := strings.ToLower(filepath.Ext(file.Filename))
+	allowed := map[string]bool{".png": true, ".jpg": true, ".jpeg": true, ".webp": true}
+	if !allowed[ext] {
+		return "", fmt.Errorf("format tidak didukung: %s", ext)
+	}
+
+	// Validasi ukuran file (max 1 MB untuk icon)
+	if file.Size > 1024*1024 {
+		return "", fmt.Errorf("file terlalu besar (max 1 MB)")
+	}
+
+	// Buat nama unik
+	filename := fmt.Sprintf("pwa-%s-%d%s", size, time.Now().Unix(), ext)
+
+	// Path di container
+	dstDir := "/app/public/storage/settings/pwa"
+	if err := os.MkdirAll(dstDir, 0755); err != nil {
+		return "", err
+	}
+	dstPath := filepath.Join(dstDir, filename)
+
+	// Save
+	if err := c.SaveUploadedFile(file, dstPath); err != nil {
+		return "", err
+	}
+
+	// Return path relatif (untuk DB)
+	return "settings/pwa/" + filename, nil
+}
+
 func saveQrisFile(c *gin.Context, file *multipart.FileHeader) (string, error) {
 	if err := os.MkdirAll(qrisUploadDir, 0755); err != nil {
 		return "", err
@@ -214,4 +280,16 @@ func SettingDeleteQris(c *gin.Context) {
 	}
 	upsertSetting("qris_image", "")
 	c.Redirect(http.StatusFound, "/admin/settings?success=QRIS+berhasil+dihapus")
+}
+
+// SettingDeletePwaIcon — POST /admin/settings/delete-pwa-icon
+func SettingDeletePwaIcon(c *gin.Context) {
+	size := c.PostForm("size")
+	key := "pwa_icon_" + size
+	oldIcon := getSettingValue(key)
+	if oldIcon != "" {
+		os.Remove(filepath.Join("/app/public/storage", oldIcon))
+	}
+	upsertSetting(key, "")
+	c.Redirect(http.StatusFound, "/admin/settings?success=Icon+PWA+berhasil+dihapus")
 }
