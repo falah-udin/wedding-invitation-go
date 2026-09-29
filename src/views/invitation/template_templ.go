@@ -1081,10 +1081,19 @@ func renderRepeaterField(field models.FieldSchema, items []map[string]string) te
 			return templ_7745c5c3_Err
 		}
 		if len(items) == 0 {
-			for i := 0; i < field.DefaultCount; i++ {
-				templ_7745c5c3_Err = repeaterItem(field.Name, i, "", "").Render(ctx, templ_7745c5c3_Buffer)
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
+			if len(field.DefaultStories) > 0 {
+				for i, story := range field.DefaultStories {
+					templ_7745c5c3_Err = repeaterItem(field.Name, i, story["title"], story["desc"]).Render(ctx, templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+				}
+			} else {
+				for i := 0; i < field.DefaultCount; i++ {
+					templ_7745c5c3_Err = repeaterItem(field.Name, i, "", "").Render(ctx, templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
 				}
 			}
 		} else {
@@ -1151,7 +1160,7 @@ func repeaterItem(fieldName string, index int, title string, desc string) templ.
 		var templ_7745c5c3_Var53 string
 		templ_7745c5c3_Var53, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatIntV2(index))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 497, Col: 59}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 505, Col: 59}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var53)
 		if templ_7745c5c3_Err != nil {
@@ -1164,7 +1173,7 @@ func repeaterItem(fieldName string, index int, title string, desc string) templ.
 		var templ_7745c5c3_Var54 string
 		templ_7745c5c3_Var54, templ_7745c5c3_Err = templ.ResolveAttributeValue(repeaterFieldName(fieldName, index, "title"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 501, Col: 74}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 509, Col: 74}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var54)
 		if templ_7745c5c3_Err != nil {
@@ -1177,7 +1186,7 @@ func repeaterItem(fieldName string, index int, title string, desc string) templ.
 		var templ_7745c5c3_Var55 string
 		templ_7745c5c3_Var55, templ_7745c5c3_Err = templ.ResolveAttributeValue(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 501, Col: 90}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 509, Col: 90}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var55)
 		if templ_7745c5c3_Err != nil {
@@ -1190,7 +1199,7 @@ func repeaterItem(fieldName string, index int, title string, desc string) templ.
 		var templ_7745c5c3_Var56 string
 		templ_7745c5c3_Var56, templ_7745c5c3_Err = templ.ResolveAttributeValue(repeaterFieldName(fieldName, index, "desc"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 505, Col: 64}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 513, Col: 64}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var56)
 		if templ_7745c5c3_Err != nil {
@@ -1203,7 +1212,7 @@ func repeaterItem(fieldName string, index int, title string, desc string) templ.
 		var templ_7745c5c3_Var57 string
 		templ_7745c5c3_Var57, templ_7745c5c3_Err = templ.JoinStringErrs(desc)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 505, Col: 195}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 513, Col: 195}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var57))
 		if templ_7745c5c3_Err != nil {

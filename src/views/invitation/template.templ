@@ -473,8 +473,16 @@ templ renderRepeaterField(field models.FieldSchema, items []map[string]string) {
 		<div class="repeater-wrapper" data-field={ field.Name }>
 			<div class="repeater-items" id={ "repeater-" + field.Name }>
 				if len(items) == 0 {
-					for i := 0; i < field.DefaultCount; i++ {
-						@repeaterItem(field.Name, i, "", "")
+					if len(field.DefaultStories) > 0 {
+						// Pakai default_stories dari schema (pre-filled)
+						for i, story := range field.DefaultStories {
+							@repeaterItem(field.Name, i, story["title"], story["desc"])
+						}
+					} else {
+						// Fallback: field kosong sesuai default_count
+						for i := 0; i < field.DefaultCount; i++ {
+							@repeaterItem(field.Name, i, "", "")
+						}
 					}
 				} else {
 					for i, item := range items {

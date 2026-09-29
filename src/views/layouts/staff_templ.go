@@ -188,6 +188,10 @@ func StaffLayout(user models.User, setting models.Config, activePage string, con
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
+		templ_7745c5c3_Err = staffSidebarItem("/staff/profile/change-password", "bi-key", "Ganti Password", "staff.password", activePage).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
 		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "</nav><div class=\"position-absolute bottom-0 start-0 end-0 p-3\"><hr class=\"border-secondary\"><form action=\"/logout\" method=\"POST\"><button type=\"submit\" class=\"btn-logout w-100\"><i class=\"bi bi-box-arrow-right me-2\"></i>Logout</button></form></div></div><div class=\"main-content\"><div class=\"topbar\"><div class=\"d-flex justify-content-between align-items-center\"><div class=\"d-flex align-items-center gap-3\"><button class=\"menu-toggle\" x-on:click=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -195,7 +199,7 @@ func StaffLayout(user models.User, setting models.Config, activePage string, con
 		var templ_7745c5c3_Var10 string
 		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.ResolveAttributeValue("sidebarOpen = !sidebarOpen")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/staff.templ`, Line: 83, Col: 75}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/staff.templ`, Line: 84, Col: 75}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var10)
 		if templ_7745c5c3_Err != nil {
@@ -208,7 +212,7 @@ func StaffLayout(user models.User, setting models.Config, activePage string, con
 		var templ_7745c5c3_Var11 string
 		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(user.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/staff.templ`, Line: 92, Col: 51}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/staff.templ`, Line: 93, Col: 51}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 		if templ_7745c5c3_Err != nil {
@@ -221,7 +225,7 @@ func StaffLayout(user models.User, setting models.Config, activePage string, con
 		var templ_7745c5c3_Var12 string
 		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(user.Role)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/staff.templ`, Line: 94, Col: 19}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/staff.templ`, Line: 95, Col: 19}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 		if templ_7745c5c3_Err != nil {
@@ -276,7 +280,7 @@ func staffSidebarItem(href string, icon string, label string, routeKey string, a
 		var templ_7745c5c3_Var15 templ.SafeURL
 		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.URL(href))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/staff.templ`, Line: 128, Col: 29}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/staff.templ`, Line: 129, Col: 29}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 		if templ_7745c5c3_Err != nil {
@@ -324,7 +328,7 @@ func staffSidebarItem(href string, icon string, label string, routeKey string, a
 		var templ_7745c5c3_Var19 string
 		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(label)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/staff.templ`, Line: 130, Col: 15}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/staff.templ`, Line: 131, Col: 15}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 		if templ_7745c5c3_Err != nil {

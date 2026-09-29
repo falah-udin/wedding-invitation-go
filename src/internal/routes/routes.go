@@ -51,6 +51,8 @@ func Register(r *gin.Engine) {
 		staff.DELETE("/projects/:id/rsvp/:rsvpId", staffHandlers.RsvpDelete)
 		staff.POST("/projects/:id/rsvp/bulk-delete", staffHandlers.RsvpBulkDelete)
 		staff.GET("/projects/:id/rsvp/export", staffHandlers.RsvpExport)
+		staff.GET("/profile/change-password", staffHandlers.ChangePasswordShow)
+		staff.POST("/profile/change-password", staffHandlers.ChangePasswordUpdate)
 	}
 
 	// CLIENT AREA

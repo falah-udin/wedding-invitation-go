@@ -61,17 +61,6 @@ func RsvpListIndex(c *gin.Context) {
 	var projects []models.Project
 	query.Preload("User").Preload("Template").Find(&projects)
 
-	// Filter hanya project yang punya RSVP (opsional) — bisa hapus kalau mau tampil semua
-	// Untuk sekarang tampilkan semua project dengan count RSVP
-	var filtered []models.Project
-	for _, p := range projects {
-		var count int64
-		db.Model(&models.Rsvp{}).Where("project_id = ?", p.ID).Count(&count)
-		if count > 0 {
-			filtered = append(filtered, p)
-		}
-	}
-	projects = filtered
 
 	// Statistik per project
 	type ProjectStats struct {
