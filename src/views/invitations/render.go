@@ -7,7 +7,8 @@ import (
 	"net/http"
 
 	"wedding-invitation-go/internal/models"
-	"wedding-invitation-go/views/invitations/muslim_elegan"   
+	"wedding-invitation-go/views/invitations/elegant_gold"
+	"wedding-invitation-go/views/invitations/muslim_elegan"
 	"wedding-invitation-go/views/invitations/rustic_wood"
 )
 
@@ -33,7 +34,7 @@ func RenderTemplate(
 	case "modern_minimalist":
 		return renderStub(ctx, w, "Modern Minimalist")
 	case "elegant_gold":
-		return renderStub(ctx, w, "Elegant Gold")
+		return elegant_gold.ElegantGold(ctx, w, project, data, guestName)
 	case "traditional_java":
 		return renderStub(ctx, w, "Traditional Java")
 	case "muslim_elegan":
