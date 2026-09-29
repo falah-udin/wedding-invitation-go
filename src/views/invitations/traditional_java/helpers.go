@@ -1,4 +1,4 @@
-package modern_minimalist
+package traditional_java
 
 import (
 	"encoding/json"
@@ -257,15 +257,6 @@ func getAccountIconPath(account map[string]interface{}) string {
 	return p
 }
 
-// getHeroImage — ambil hero image, fallback ke groom_photo
-func getHeroImage(data map[string]interface{}, fallback string) string {
-	v := getStr(data, "hero_image")
-	if v != "" && v != "-" {
-		return v
-	}
-	return fallback
-}
-
 // ============================================
 // RESEPSI LABEL
 // ============================================
@@ -368,4 +359,19 @@ func getParentsNameSplit(father, mother string) string {
 		return mother
 	}
 	return "Bapak & Ibu"
+}
+// getHeroImage — ambil hero image, fallback ke groom_photo.
+// Normalisasi path: tambah /storage/ kalau path relatif.
+func getHeroImage(data map[string]interface{}, fallback string) string {
+	v := getStr(data, "hero_image")
+	if v == "" || v == "-" {
+		v = fallback
+	}
+	if v == "" || v == "-" {
+		return ""
+	}
+	if len(v) > 0 && v[0] != '/' && v[0] != 'h' {
+		return "/storage/" + v
+	}
+	return v
 }

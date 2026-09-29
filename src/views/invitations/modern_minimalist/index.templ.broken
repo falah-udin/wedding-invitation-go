@@ -199,42 +199,23 @@ templ modernMinimalistPage(
 			/* OVERLAY */
 			/* ============================================ */
 			#startOverlay {
-                position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-                width: 100vw; height: 100vh; height: 100svh;
-                background-color: #1a1a1a;
-                z-index: 9999;
-                display: flex; align-items: center; justify-content: center;
-                transition: opacity 0.8s ease;
-                cursor: pointer;
-                padding: 24px;
-                overflow-y: auto;
-            }
-            #startOverlay .overlay-bg-img {
-                position: absolute;
-                inset: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                object-position: center;
-                opacity: 0.22;
-                filter: blur(1px) saturate(0.6);
-                z-index: 0;
-                pointer-events: none;
-            }
-            #startOverlay::before {
-                content: '';
-                position: absolute;
-                inset: 0;
-                background: 
-                    radial-gradient(ellipse at 50% 40%, rgba(28,25,23,0.3) 0%, transparent 70%),
-                    linear-gradient(180deg, 
-                        rgba(28,25,23,0.85) 0%, 
-                        rgba(28,25,23,0.78) 40%, 
-                        rgba(28,25,23,0.88) 70%, 
-                        rgba(28,25,23,0.95) 100%);
-                z-index: 1;
-                pointer-events: none;
-            }
+				position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+				width: 100vw; height: 100vh; height: 100svh;
+				background-size: cover;
+				background-position: center;
+				z-index: 9999;
+				display: flex; align-items: center; justify-content: center;
+				transition: opacity 0.8s ease;
+				cursor: pointer;
+				padding: 24px;
+				overflow-y: auto;
+			}
+			#startOverlay::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(180deg, rgba(28,25,23,0.6) 0%, rgba(28,25,23,0.85) 60%, rgba(28,25,23,0.95) 100%);
+			}
 			#startOverlay .overlay-inner {
 				position: relative;
 				z-index: 2;
@@ -369,86 +350,55 @@ templ modernMinimalistPage(
 			/* HERO — FULLSCREEN PHOTO */
 			/* ============================================ */
 			.hero-editorial {
-                position: relative;
-                min-height: 100vh;
-                min-height: 100svh;
-                display: flex;
-                align-items: flex-end;
-                justify-content: center;
-                padding: 80px 24px 80px;
-                color: var(--white);
-                overflow: hidden;
-                background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
-            }
-            .hero-editorial .hero-bg-img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                object-position: center;
-                z-index: 0;
-                pointer-events: none;
-                opacity: 0.25;                    /* ← foto jadi samar */
-                filter: blur(1.5px) saturate(0.7); /* ← efek dreamy */
-            }
-            .hero-editorial::before {
-                content: '';
-                position: absolute;
-                inset: 0;
-                background: 
-                    radial-gradient(ellipse at 50% 30%, rgba(28,25,23,0.55) 0%, transparent 60%),
-                    linear-gradient(180deg, 
-                        rgba(28,25,23,0.72) 0%, 
-                        rgba(28,25,23,0.55) 30%, 
-                        rgba(28,25,23,0.75) 65%, 
-                        rgba(28,25,23,0.95) 100%);
-                z-index: 1;
-                pointer-events: none;
-            }
-            .hero-editorial::after {
-                content: '';
-                position: absolute;
-                inset: 0;
-                background: radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.3) 0%, transparent 70%);
-                z-index: 1;
-                pointer-events: none;
-            }
-            .hero-editorial .hero-inner {
-                position: relative;
-                z-index: 2;
-                text-align: center;
-                max-width: 720px;
-                width: 100%;
-                padding-bottom: 20px;
-            }
+				position: relative;
+				min-height: 100vh;
+				min-height: 100svh;
+				background-image: url('');  /* di-set via inline style */
+				background-size: cover;
+				background-position: center;
+				display: flex;
+				align-items: flex-end;
+				justify-content: center;
+				padding: 80px 24px 80px;
+				color: var(--white);
+				overflow: hidden;
+			}
+			.hero-editorial::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(180deg, rgba(28,25,23,0.4) 0%, rgba(28,25,23,0.15) 30%, rgba(28,25,23,0.75) 75%, rgba(28,25,23,0.95) 100%);
+				z-index: 1;
+			}
+			.hero-editorial .hero-inner {
+				position: relative;
+				z-index: 2;
+				text-align: center;
+				max-width: 720px;
+				width: 100%;
+				padding-bottom: 20px;
 			}
 			.hero-editorial .hero-eyebrow {
-                font-size: 0.65rem;
-                text-transform: uppercase;
-                letter-spacing: 8px;
-                color: rgba(255, 255, 255, 0.85);
-                margin-bottom: 28px;
-                font-weight: 400;
-                text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
-            }
+				font-size: 0.65rem;
+				text-transform: uppercase;
+				letter-spacing: 8px;
+				color: rgba(255, 255, 255, 0.7);
+				margin-bottom: 28px;
+				font-weight: 400;
+			}
 			.hero-editorial .hero-names {
-                font-family: 'Playfair Display', serif;
-                font-size: 5.5rem;
-                font-weight: 400;
-                line-height: 0.95;
-                letter-spacing: -0.03em;
-                margin-bottom: 24px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                color: var(--white);
-                text-shadow: 
-                    0 4px 32px rgba(0, 0, 0, 0.55),
-                    0 2px 12px rgba(0, 0, 0, 0.4),
-                    0 1px 4px rgba(0, 0, 0, 0.3);
-            }
+				font-family: 'Playfair Display', serif;
+				font-size: 5.5rem;
+				font-weight: 400;
+				line-height: 0.95;
+				letter-spacing: -0.03em;
+				margin-bottom: 24px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				color: var(--white);
+				text-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+			}
 			.hero-editorial .hero-names .amp {
 				font-style: italic;
 				font-size: 2.2rem;
@@ -458,41 +408,37 @@ templ modernMinimalistPage(
 				font-weight: 300;
 			}
 			.hero-editorial .hero-divider {
-                width: 60px;
-                height: 1px;
-                background: rgba(255, 255, 255, 0.55);
-                margin: 32px auto;
-                box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-            }
+				width: 60px;
+				height: 1px;
+				background: rgba(255, 255, 255, 0.4);
+				margin: 32px auto;
+			}
 			.hero-editorial .hero-dates {
-                font-size: 0.85rem;
-                color: rgba(255, 255, 255, 0.92);
-                letter-spacing: 4px;
-                text-transform: uppercase;
-                margin-bottom: 40px;
-                font-weight: 400;
-                text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
-            }
+				font-size: 0.85rem;
+				color: rgba(255, 255, 255, 0.85);
+				letter-spacing: 4px;
+				text-transform: uppercase;
+				margin-bottom: 40px;
+				font-weight: 400;
+			}
 			.hero-editorial .btn-scroll {
-                display: inline-flex;
-                align-items: center;
-                gap: 10px;
-                background: rgba(255, 255, 255, 0.08);
-                color: var(--white);
-                padding: 14px 32px;
-                border: 1px solid rgba(255, 255, 255, 0.55);
-                border-radius: 2px;
-                text-decoration: none;
-                font-size: 0.75rem;
-                font-weight: 500;
-                letter-spacing: 3px;
-                text-transform: uppercase;
-                transition: all 0.3s;
-                cursor: pointer;
-                backdrop-filter: blur(8px);
-                -webkit-backdrop-filter: blur(8px);
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-            }
+				display: inline-flex;
+				align-items: center;
+				gap: 10px;
+				background: transparent;
+				color: var(--white);
+				padding: 14px 32px;
+				border: 1px solid rgba(255, 255, 255, 0.5);
+				border-radius: 2px;
+				text-decoration: none;
+				font-size: 0.75rem;
+				font-weight: 500;
+				letter-spacing: 3px;
+				text-transform: uppercase;
+				transition: all 0.3s;
+				cursor: pointer;
+				backdrop-filter: blur(4px);
+			}
 			.hero-editorial .btn-scroll:hover {
 				background: var(--white);
 				color: var(--text);
@@ -525,6 +471,9 @@ templ modernMinimalistPage(
 			@media (max-width: 400px) {
 				.hero-editorial .hero-names { font-size: 2.4rem; }
 			}
+		</style>
+	</head>
+	<body data-music-url={ musicURL } data-project-id={ formatUint(project.ID) } data-project-slug={ project.Slug }>
 
     			/* ============================================ */
 			/* OPENING STATEMENT */
@@ -1419,11 +1368,8 @@ templ modernMinimalistPage(
     		<!-- ============================================ -->
 		<!-- OVERLAY -->
 		<!-- ============================================ -->
-		<div id="startOverlay">
-            if heroImage != "" {
-                <img src={ heroImage } alt="" class="overlay-bg-img" loading="eager"/>
-            }
-            <div class="overlay-inner">
+		<div id="startOverlay" style={ "background-image: url('" + heroImage + "');" }>
+			<div class="overlay-inner">
 				<div class="overlay-eyebrow">The Wedding Of</div>
 
 				<div class="overlay-title">
@@ -1464,8 +1410,7 @@ templ modernMinimalistPage(
 		<!-- ============================================ -->
 		<!-- HERO — FULLSCREEN PHOTO -->
 		<!-- ============================================ -->
-		<section class="hero-editorial" id="section-hero">
-            <img src={ heroImage } alt="" class="hero-bg-img" loading="eager"/>
+		<section class="hero-editorial" id="section-hero" style={ "background-image: url('" + heroImage + "');" }>
 			<div class="hero-inner" data-aos="fade-up" data-aos-duration="1200">
 				<div class="hero-eyebrow">The Wedding Of</div>
 
