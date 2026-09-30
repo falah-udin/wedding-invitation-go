@@ -13,7 +13,8 @@ templ StaffLayout(user models.User, setting models.Config, activePage string, co
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
 		<title>Staff Area - { setting.SiteName }</title>
-
+		<meta name="robots" content="noindex, nofollow"/>
+		
 		if setting.SiteFavicon != "" {
 			<link rel="icon" href={ "/storage/" + setting.SiteFavicon }/>
 			<link rel="apple-touch-icon" href={ "/storage/" + setting.SiteFavicon }/>

@@ -21,6 +21,10 @@ func Register(r *gin.Engine) {
 	r.GET("/manifest.webmanifest", handlers.Manifest)
 	r.GET("/sw.js", handlers.ServiceWorker)
 
+	// SEO
+	r.GET("/sitemap.xml", handlers.Sitemap)
+	r.GET("/robots.txt", handlers.Robots)
+
 	// INVITATION PUBLIC (tamu akses)
 	r.GET("/invitation/:slug", invitationHandlers.ShowInvitation)
 	r.POST("/invitation/:slug/rsvp", invitationHandlers.RsvpSubmit)
@@ -72,6 +76,9 @@ func Register(r *gin.Engine) {
 		// Profile
 		client.GET("/profile/change-password", clientHandlers.ChangePasswordShow)
 		client.POST("/profile/change-password", clientHandlers.ChangePasswordUpdate)
+
+		// Support Developer
+		client.GET("/support", clientHandlers.SupportIndex)
 	}
 		
 	// ADMIN

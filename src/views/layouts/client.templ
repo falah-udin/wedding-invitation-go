@@ -13,7 +13,8 @@ templ ClientLayout(user models.User, setting models.Config, activePage string, c
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
 		<title>Client Area - { setting.SiteName }</title>
-
+		<meta name="robots" content="noindex, nofollow"/>
+		
 		if setting.SiteFavicon != "" {
 			<link rel="icon" href={ "/storage/" + setting.SiteFavicon }/>
 			<link rel="apple-touch-icon" href={ "/storage/" + setting.SiteFavicon }/>
@@ -83,6 +84,7 @@ templ ClientLayout(user models.User, setting models.Config, activePage string, c
 				@clientSidebarItem("/client/reservations", "bi-people", "Reservasi", "client.reservations", activePage)
 				@clientSidebarItem("/invitation/create/select-client", "bi-plus-circle", "Buat Undangan", "client.create", activePage)
 				@clientSidebarItem("/client/profile/change-password", "bi-key", "Ganti Password", "client.password", activePage)
+				@clientSidebarItem("/client/support", "bi-cup-hot", "Dukung Developer", "client.support", activePage)
 			</nav>
 
 			<div class="position-absolute bottom-0 start-0 end-0 p-3">

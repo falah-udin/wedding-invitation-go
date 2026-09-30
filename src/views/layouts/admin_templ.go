@@ -53,7 +53,7 @@ func AdminLayout(user models.User, setting models.Config, activePage string, con
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title><meta name=\"robots\" content=\"noindex, nofollow\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -65,7 +65,7 @@ func AdminLayout(user models.User, setting models.Config, activePage string, con
 			var templ_7745c5c3_Var3 templ.SafeURL
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinURLErrs("/storage/" + setting.SiteFavicon)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 23, Col: 60}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 24, Col: 60}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -78,7 +78,7 @@ func AdminLayout(user models.User, setting models.Config, activePage string, con
 			var templ_7745c5c3_Var4 templ.SafeURL
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinURLErrs("/storage/" + setting.SiteFavicon)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 24, Col: 72}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 25, Col: 72}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -101,7 +101,7 @@ func AdminLayout(user models.User, setting models.Config, activePage string, con
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.ResolveAttributeValue("{ sidebarOpen: false }")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 35, Col: 40}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 36, Col: 40}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var5)
 		if templ_7745c5c3_Err != nil {
@@ -114,7 +114,7 @@ func AdminLayout(user models.User, setting models.Config, activePage string, con
 		var templ_7745c5c3_Var6 string
 		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.ResolveAttributeValue("{'active': sidebarOpen}")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 37, Col: 63}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 38, Col: 63}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var6)
 		if templ_7745c5c3_Err != nil {
@@ -127,7 +127,7 @@ func AdminLayout(user models.User, setting models.Config, activePage string, con
 		var templ_7745c5c3_Var7 string
 		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.ResolveAttributeValue("sidebarOpen = false")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 37, Col: 100}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 38, Col: 100}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var7)
 		if templ_7745c5c3_Err != nil {
@@ -140,7 +140,7 @@ func AdminLayout(user models.User, setting models.Config, activePage string, con
 		var templ_7745c5c3_Var8 string
 		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.ResolveAttributeValue("{'open': sidebarOpen}")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 42, Col: 61}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 43, Col: 61}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var8)
 		if templ_7745c5c3_Err != nil {
@@ -158,7 +158,7 @@ func AdminLayout(user models.User, setting models.Config, activePage string, con
 			var templ_7745c5c3_Var9 string
 			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + setting.SiteFavicon)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 46, Col: 50}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 47, Col: 50}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var9)
 			if templ_7745c5c3_Err != nil {
@@ -208,7 +208,7 @@ func AdminLayout(user models.User, setting models.Config, activePage string, con
 		var templ_7745c5c3_Var10 string
 		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.ResolveAttributeValue("sidebarOpen = !sidebarOpen")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 84, Col: 75}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 85, Col: 75}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var10)
 		if templ_7745c5c3_Err != nil {
@@ -221,7 +221,7 @@ func AdminLayout(user models.User, setting models.Config, activePage string, con
 		var templ_7745c5c3_Var11 string
 		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(user.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 93, Col: 51}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 94, Col: 51}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 		if templ_7745c5c3_Err != nil {
@@ -234,7 +234,7 @@ func AdminLayout(user models.User, setting models.Config, activePage string, con
 		var templ_7745c5c3_Var12 string
 		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(user.Role)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 95, Col: 19}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 96, Col: 19}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 		if templ_7745c5c3_Err != nil {
@@ -290,7 +290,7 @@ func adminSidebarItem(href string, icon string, label string, routeKey string, a
 		var templ_7745c5c3_Var15 templ.SafeURL
 		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.URL(href))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 167, Col: 29}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 168, Col: 29}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 		if templ_7745c5c3_Err != nil {
@@ -338,7 +338,7 @@ func adminSidebarItem(href string, icon string, label string, routeKey string, a
 		var templ_7745c5c3_Var19 string
 		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(label)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 169, Col: 15}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/admin.templ`, Line: 170, Col: 15}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 		if templ_7745c5c3_Err != nil {

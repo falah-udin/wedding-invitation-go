@@ -1,0 +1,354 @@
+package support
+
+import (
+	"wedding-invitation-go/internal/models"
+)
+
+type SupportData struct {
+	User              models.User
+	Setting           models.Config
+	QrisImage         string
+	SupportName       string
+	SupportEmail      string
+	SupportUrl        string
+	SupportWhatsapp   string
+	SiteName          string
+	SiteTagline       string
+	FooterDescription string
+	ContactEmail      string
+	ContactPhone      string
+	ContactAddress    string
+	SocialInstagram   string
+	SocialFacebook    string
+	SocialTiktok      string
+	SocialYoutube     string
+	SocialTwitter     string
+}
+
+templ SupportPage(data SupportData) {
+	<style>
+		.card-support {
+			background: #1a1a1a;
+			border: 1px solid #2a2a2a;
+			border-radius: 20px;
+			padding: 28px;
+		}
+		.qris-wrapper {
+			background: #ffffff;
+			border-radius: 16px;
+			padding: 20px;
+			display: inline-block;
+			cursor: zoom-in;
+			transition: all 0.3s;
+		}
+		.qris-wrapper:hover {
+			transform: scale(1.02);
+			box-shadow: 0 8px 30px rgba(139,92,246,0.2);
+		}
+		.btn-download {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			padding: 12px 28px;
+			background: #8b5cf6;
+			color: white;
+			border: none;
+			border-radius: 12px;
+			font-weight: 600;
+			font-size: 0.9rem;
+			text-decoration: none;
+			transition: all 0.2s;
+			cursor: pointer;
+		}
+		.btn-download:hover {
+			background: #7c3aed;
+			color: white;
+			transform: translateY(-1px);
+		}
+		.btn-whatsapp {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			background: #25D366;
+			color: white;
+			padding: 12px;
+			border-radius: 12px;
+			text-decoration: none;
+			font-weight: 600;
+			font-size: 0.9rem;
+			transition: all 0.2s;
+		}
+		.btn-whatsapp:hover {
+			background: #128C7E;
+			color: white;
+		}
+		.hero-icon {
+			width: 80px;
+			height: 80px;
+			background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+			border-radius: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 20px;
+		}
+		.social-btn {
+			width: 44px;
+			height: 44px;
+			border-radius: 12px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 1.2rem;
+			text-decoration: none;
+			transition: all 0.2s;
+		}
+		.social-btn:hover {
+			transform: translateY(-2px);
+			color: white;
+		}
+		.label-small {
+			color: #9ca3af;
+			font-size: 0.7rem;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			margin-bottom: 4px;
+		}
+		.value-text {
+			color: #d1d5db;
+			font-size: 0.9rem;
+		}
+	</style>
+
+	<!-- HERO -->
+	<div class="text-center mb-5">
+		<div class="hero-icon">
+			<i class="bi bi-cup-hot-fill" style="font-size:2.5rem;color:white;"></i>
+		</div>
+		<h2 class="fw-bold mb-2" style="color:#8b5cf6;">
+			if data.SiteName != "" {
+				{ data.SiteName }
+			} else {
+				Dukung Developer
+			}
+		</h2>
+		<p class="text-secondary" style="max-width:600px;margin:0 auto;font-size:1rem;line-height:1.7;">
+			if data.FooterDescription != "" {
+				{ data.FooterDescription }
+			} else {
+				Platform ini dikembangkan oleh tim kecil yang berdedikasi. Dukungan Anda membantu kami terus mengembangkan fitur dan memberikan layanan terbaik.
+			}
+		</p>
+	</div>
+
+	<div class="row g-4">
+		<!-- QRIS CARD -->
+		<div class="col-12 col-lg-7">
+			<div class="d-flex flex-column h-100">
+				<div class="card-support">
+					<h5 class="mb-4" style="color:#8b5cf6;">
+						<i class="bi bi-qr-code me-2"></i>Scan QRIS untuk Donasi
+					</h5>
+
+					if data.QrisImage != "" {
+						<div class="text-center">
+							<div class="qris-wrapper" onclick="zoomQris()">
+								<img src={ "/storage/" + data.QrisImage } alt="QRIS Developer" style="width:100%;max-width:320px;height:auto;display:block;border-radius:8px;"/>
+							</div>
+							<p class="text-secondary mt-3 mb-0" style="font-size:0.85rem;">
+								<i class="bi bi-zoom-in me-1"></i>Klik gambar untuk memperbesar
+							</p>
+						</div>
+
+						<div class="text-center mt-4">
+							<a href={ templ.URL("/storage/" + data.QrisImage) } download="QRIS-Developer.png" class="btn-download">
+								<i class="bi bi-download"></i> Download QRIS
+							</a>
+							<p class="text-secondary mt-2 mb-0" style="font-size:0.75rem;">
+								Simpan gambar QRIS untuk scan nanti
+							</p>
+						</div>
+
+						<div class="mt-4 p-3" style="background:#0f0f0f;border-radius:12px;border-left:3px solid #8b5cf6;">
+							<div class="d-flex align-items-start gap-2">
+								<i class="bi bi-info-circle-fill" style="color:#8b5cf6;font-size:1.1rem;margin-top:2px;"></i>
+								<div style="font-size:0.85rem;line-height:1.6;color:#d1d5db;">
+									<strong style="color:#8b5cf6;">Donasi bersifat sukarela.</strong><br/>
+									Tidak ada kewajiban, tapi setiap dukungan sangat berarti untuk kami.
+									Terima kasih telah menggunakan layanan kami.
+								</div>
+							</div>
+						</div>
+					} else {
+						<div class="text-center py-5">
+							<i class="bi bi-qr-code" style="font-size:4rem;color:#4b5563;opacity:0.5;"></i>
+							<h6 class="mt-3" style="color:#9ca3af;">QRIS belum tersedia</h6>
+							<p style="color:#6b7280;font-size:0.85rem;">
+								Admin belum mengatur QRIS. Silakan hubungi developer langsung.
+							</p>
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+
+		<!-- INFO & KONTAK CARD -->
+		<div class="col-12 col-lg-5">
+			<div class="d-flex flex-column gap-3">
+
+				<!-- Kenapa Dukung -->
+				<div class="card-support">
+					<h5 class="mb-3" style="color:#8b5cf6;">
+						<i class="bi bi-stars me-2"></i>Dukungan Anda Untuk
+					</h5>
+					<ul class="list-unstyled mb-0">
+						<li class="d-flex align-items-start gap-2 mb-3">
+							<i class="bi bi-check-circle-fill" style="color:#10b981;margin-top:3px;"></i>
+							<span class="value-text">Server & hosting agar platform tetap online</span>
+						</li>
+						<li class="d-flex align-items-start gap-2 mb-3">
+							<i class="bi bi-check-circle-fill" style="color:#10b981;margin-top:3px;"></i>
+							<span class="value-text">Pengembangan fitur & template baru</span>
+						</li>
+						<li class="d-flex align-items-start gap-2 mb-3">
+							<i class="bi bi-check-circle-fill" style="color:#10b981;margin-top:3px;"></i>
+							<span class="value-text">Maintenance & security update</span>
+						</li>
+						<li class="d-flex align-items-start gap-2">
+							<i class="bi bi-check-circle-fill" style="color:#10b981;margin-top:3px;"></i>
+							<span class="value-text">Support & bantuan pengguna</span>
+						</li>
+					</ul>
+				</div>
+
+				<!-- Kontak Developer -->
+				if data.SupportName != "" || data.SupportEmail != "" || data.SupportUrl != "" || data.SupportWhatsapp != "" {
+					<div class="card-support">
+						<h5 class="mb-3" style="color:#8b5cf6;">
+							<i class="bi bi-person-badge me-2"></i>Kontak Developer
+						</h5>
+
+						if data.SupportName != "" {
+							<div class="mb-3">
+								<div class="label-small">Nama</div>
+								<div style="color:#ffffff;font-weight:600;font-size:0.95rem;">{ data.SupportName }</div>
+							</div>
+						}
+
+						if data.SupportEmail != "" {
+							<div class="mb-3">
+								<div class="label-small">Email</div>
+								<a href={ templ.URL("mailto:" + data.SupportEmail) } style="color:#8b5cf6;text-decoration:none;font-size:0.9rem;word-break:break-all;">
+									<i class="bi bi-envelope me-1"></i>{ data.SupportEmail }
+								</a>
+							</div>
+						}
+
+						if data.SupportUrl != "" {
+							<div class="mb-3">
+								<div class="label-small">Website</div>
+								<a href={ templ.URL(data.SupportUrl) } target="_blank" rel="noopener" style="color:#8b5cf6;text-decoration:none;font-size:0.9rem;word-break:break-all;">
+									<i class="bi bi-globe me-1"></i>{ data.SupportUrl }
+								</a>
+							</div>
+						}
+
+						if data.SupportWhatsapp != "" {
+							<div class="mb-0">
+								<a href={ templ.URL("https://wa.me/" + data.SupportWhatsapp) } target="_blank" rel="noopener" class="btn-whatsapp">
+									<i class="bi bi-whatsapp"></i>
+									Hubungi via WhatsApp
+								</a>
+							</div>
+						}
+					</div>
+				}
+
+				<!-- Hubungi Kami -->
+				if data.ContactEmail != "" || data.ContactPhone != "" || data.ContactAddress != "" {
+					<div class="card-support">
+						<h5 class="mb-3" style="color:#8b5cf6;">
+							<i class="bi bi-headset me-2"></i>Hubungi Kami
+						</h5>
+
+						if data.ContactEmail != "" {
+							<div class="mb-3">
+								<div class="label-small">Email</div>
+								<a href={ templ.URL("mailto:" + data.ContactEmail) } style="color:#8b5cf6;text-decoration:none;font-size:0.9rem;word-break:break-all;">
+									<i class="bi bi-envelope me-1"></i>{ data.ContactEmail }
+								</a>
+							</div>
+						}
+
+						if data.ContactPhone != "" {
+							<div class="mb-3">
+								<div class="label-small">Telepon</div>
+								<div class="value-text">
+									<i class="bi bi-telephone me-1"></i>{ data.ContactPhone }
+								</div>
+							</div>
+						}
+
+						if data.ContactAddress != "" {
+							<div class="mb-0">
+								<div class="label-small">Alamat</div>
+								<div class="value-text">
+									<i class="bi bi-geo-alt me-1"></i>{ data.ContactAddress }
+								</div>
+							</div>
+						}
+					</div>
+				}
+
+			</div>
+		</div>
+	</div>
+
+	<!-- THANK YOU -->
+	<div class="mt-5 text-center p-4" style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:20px;">
+		<i class="bi bi-cup-hot-fill" style="font-size:2rem;color:#8b5cf6;"></i>
+		<h5 class="mt-2 mb-2" style="color:#ffffff;">Terima Kasih!</h5>
+		<p class="text-secondary mb-0" style="font-size:0.9rem;max-width:500px;margin:0 auto;">
+			Setiap dukungan Anda, sekecil apapun, sangat berarti untuk kami.
+			Semoga platform ini bermanfaat untuk momen spesial Anda.
+		</p>
+	</div>
+
+	<!-- ZOOM MODAL -->
+	if data.QrisImage != "" {
+		<div id="qrisZoomModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.95);z-index:99999;display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out;" onclick="closeZoomQris()">
+			<button type="button" onclick="closeZoomQris()" style="position:absolute;top:20px;right:20px;width:44px;height:44px;background:#2a2a2a;border:none;border-radius:50%;color:white;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:1;">
+				<i class="bi bi-x-lg"></i>
+			</button>
+			<div style="background:#ffffff;border-radius:16px;padding:20px;max-width:90vw;max-height:90vh;text-align:center;">
+				<img src={ "/storage/" + data.QrisImage } alt="QRIS Zoom" style="max-width:100%;max-height:70vh;height:auto;display:block;border-radius:8px;margin:0 auto;"/>
+				<a href={ templ.URL("/storage/" + data.QrisImage) } download="QRIS-Developer.png" onclick="event.stopPropagation()" class="btn-download" style="margin-top:16px;">
+					<i class="bi bi-download"></i> Download QRIS
+				</a>
+			</div>
+		</div>
+	}
+
+	<script>
+		function zoomQris() {
+			var modal = document.getElementById('qrisZoomModal');
+			if (modal) {
+				modal.style.display = 'flex';
+				document.body.style.overflow = 'hidden';
+			}
+		}
+		function closeZoomQris() {
+			var modal = document.getElementById('qrisZoomModal');
+			if (modal) {
+				modal.style.display = 'none';
+				document.body.style.overflow = '';
+			}
+		}
+		document.addEventListener('keydown', function(e) {
+			if (e.key === 'Escape') { closeZoomQris(); }
+		});
+	</script>
+}

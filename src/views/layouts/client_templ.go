@@ -48,7 +48,7 @@ func ClientLayout(user models.User, setting models.Config, activePage string, co
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title><meta name=\"robots\" content=\"noindex, nofollow\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -60,7 +60,7 @@ func ClientLayout(user models.User, setting models.Config, activePage string, co
 			var templ_7745c5c3_Var3 templ.SafeURL
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinURLErrs("/storage/" + setting.SiteFavicon)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 18, Col: 60}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 19, Col: 60}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -73,7 +73,7 @@ func ClientLayout(user models.User, setting models.Config, activePage string, co
 			var templ_7745c5c3_Var4 templ.SafeURL
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinURLErrs("/storage/" + setting.SiteFavicon)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 19, Col: 72}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 20, Col: 72}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -96,7 +96,7 @@ func ClientLayout(user models.User, setting models.Config, activePage string, co
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.ResolveAttributeValue("{ sidebarOpen: false }")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 60, Col: 40}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 61, Col: 40}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var5)
 		if templ_7745c5c3_Err != nil {
@@ -109,7 +109,7 @@ func ClientLayout(user models.User, setting models.Config, activePage string, co
 		var templ_7745c5c3_Var6 string
 		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.ResolveAttributeValue("{'active': sidebarOpen}")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 62, Col: 63}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 63, Col: 63}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var6)
 		if templ_7745c5c3_Err != nil {
@@ -122,7 +122,7 @@ func ClientLayout(user models.User, setting models.Config, activePage string, co
 		var templ_7745c5c3_Var7 string
 		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.ResolveAttributeValue("sidebarOpen = false")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 62, Col: 100}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 63, Col: 100}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var7)
 		if templ_7745c5c3_Err != nil {
@@ -135,7 +135,7 @@ func ClientLayout(user models.User, setting models.Config, activePage string, co
 		var templ_7745c5c3_Var8 string
 		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.ResolveAttributeValue("{'open': sidebarOpen}")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 67, Col: 61}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 68, Col: 61}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var8)
 		if templ_7745c5c3_Err != nil {
@@ -153,7 +153,7 @@ func ClientLayout(user models.User, setting models.Config, activePage string, co
 			var templ_7745c5c3_Var9 string
 			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + setting.SiteFavicon)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 71, Col: 50}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 72, Col: 50}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var9)
 			if templ_7745c5c3_Err != nil {
@@ -188,6 +188,10 @@ func ClientLayout(user models.User, setting models.Config, activePage string, co
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
+		templ_7745c5c3_Err = clientSidebarItem("/client/support", "bi-cup-hot", "Dukung Developer", "client.support", activePage).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
 		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "</nav><div class=\"position-absolute bottom-0 start-0 end-0 p-3\"><hr class=\"border-secondary\"><form action=\"/logout\" method=\"POST\"><button type=\"submit\" class=\"btn-logout w-100\"><i class=\"bi bi-box-arrow-right me-2\"></i>Logout</button></form></div></div><!-- ============================================ --><!-- MAIN CONTENT --><!-- ============================================ --><div class=\"main-content\"><!-- TOPBAR --><div class=\"topbar\"><div class=\"d-flex justify-content-between align-items-center\"><div class=\"d-flex align-items-center gap-3\"><button class=\"menu-toggle\" x-on:click=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -195,7 +199,7 @@ func ClientLayout(user models.User, setting models.Config, activePage string, co
 		var templ_7745c5c3_Var10 string
 		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.ResolveAttributeValue("sidebarOpen = !sidebarOpen")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 107, Col: 75}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 109, Col: 75}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var10)
 		if templ_7745c5c3_Err != nil {
@@ -208,7 +212,7 @@ func ClientLayout(user models.User, setting models.Config, activePage string, co
 		var templ_7745c5c3_Var11 string
 		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(user.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 116, Col: 51}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 118, Col: 51}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 		if templ_7745c5c3_Err != nil {
@@ -221,7 +225,7 @@ func ClientLayout(user models.User, setting models.Config, activePage string, co
 		var templ_7745c5c3_Var12 string
 		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(user.Role)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 118, Col: 19}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 120, Col: 19}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 		if templ_7745c5c3_Err != nil {
@@ -277,7 +281,7 @@ func clientSidebarItem(href string, icon string, label string, routeKey string, 
 		var templ_7745c5c3_Var15 templ.SafeURL
 		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.URL(href))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 181, Col: 29}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 183, Col: 29}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 		if templ_7745c5c3_Err != nil {
@@ -325,7 +329,7 @@ func clientSidebarItem(href string, icon string, label string, routeKey string, 
 		var templ_7745c5c3_Var19 string
 		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(label)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 183, Col: 15}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/layouts/client.templ`, Line: 185, Col: 15}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 		if templ_7745c5c3_Err != nil {
