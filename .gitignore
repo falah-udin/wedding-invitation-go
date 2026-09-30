@@ -75,3 +75,7 @@ Thumbs.db
 
 # Catatan pribadi (bukan bagian project)
 notes/
+
+# Pengecualian: notes project (panduan, dokumentasi)
+!src/notes/
+!src/notes/**
