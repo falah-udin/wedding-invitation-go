@@ -280,7 +280,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var16 string
 			templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiLabelDisplay())
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 928, Col: 41}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 929, Col: 41}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 			if templ_7745c5c3_Err != nil {
@@ -293,7 +293,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var17 string
 			templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiVenue)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 928, Col: 64}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 929, Col: 64}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 			if templ_7745c5c3_Err != nil {
@@ -345,7 +345,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var20 string
 		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.GroomPhotoOrDefault())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 974, Col: 44}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 975, Col: 44}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var20)
 		if templ_7745c5c3_Err != nil {
@@ -358,7 +358,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var21 string
 		templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.GroomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 974, Col: 67}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 975, Col: 67}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var21)
 		if templ_7745c5c3_Err != nil {
@@ -371,7 +371,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var22 string
 		templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.JoinStringErrs(data.GroomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 978, Col: 23}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 979, Col: 23}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var22))
 		if templ_7745c5c3_Err != nil {
@@ -384,7 +384,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var23 string
 		templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.FatherGroomPhotoOrDefault())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 986, Col: 52}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 987, Col: 52}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var23)
 		if templ_7745c5c3_Err != nil {
@@ -397,7 +397,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var24 string
 		templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.FatherGroom)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 986, Col: 77}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 987, Col: 77}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var24)
 		if templ_7745c5c3_Err != nil {
@@ -410,7 +410,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var25 string
 		templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinStringErrs(data.FatherGroom)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 989, Col: 27}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 990, Col: 27}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
 		if templ_7745c5c3_Err != nil {
@@ -423,7 +423,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var26 string
 		templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.MotherGroomPhotoOrDefault())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 995, Col: 52}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 996, Col: 52}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var26)
 		if templ_7745c5c3_Err != nil {
@@ -436,7 +436,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var27 string
 		templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.MotherGroom)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 995, Col: 77}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 996, Col: 77}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var27)
 		if templ_7745c5c3_Err != nil {
@@ -449,7 +449,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var28 string
 		templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.JoinStringErrs(data.MotherGroom)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 998, Col: 27}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 999, Col: 27}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var28))
 		if templ_7745c5c3_Err != nil {
@@ -462,7 +462,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var29 string
 		templ_7745c5c3_Var29, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.BridePhotoOrDefault())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1008, Col: 44}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1009, Col: 44}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var29)
 		if templ_7745c5c3_Err != nil {
@@ -475,7 +475,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var30 string
 		templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.BrideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1008, Col: 67}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1009, Col: 67}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var30)
 		if templ_7745c5c3_Err != nil {
@@ -488,7 +488,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var31 string
 		templ_7745c5c3_Var31, templ_7745c5c3_Err = templ.JoinStringErrs(data.BrideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1012, Col: 23}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1013, Col: 23}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var31))
 		if templ_7745c5c3_Err != nil {
@@ -501,7 +501,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var32 string
 		templ_7745c5c3_Var32, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.FatherBridePhotoOrDefault())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1020, Col: 52}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1021, Col: 52}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var32)
 		if templ_7745c5c3_Err != nil {
@@ -514,7 +514,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var33 string
 		templ_7745c5c3_Var33, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.FatherBride)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1020, Col: 77}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1021, Col: 77}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var33)
 		if templ_7745c5c3_Err != nil {
@@ -527,7 +527,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var34 string
 		templ_7745c5c3_Var34, templ_7745c5c3_Err = templ.JoinStringErrs(data.FatherBride)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1023, Col: 27}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1024, Col: 27}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var34))
 		if templ_7745c5c3_Err != nil {
@@ -540,7 +540,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var35 string
 		templ_7745c5c3_Var35, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.MotherBridePhotoOrDefault())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1029, Col: 52}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1030, Col: 52}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var35)
 		if templ_7745c5c3_Err != nil {
@@ -553,7 +553,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var36 string
 		templ_7745c5c3_Var36, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.MotherBride)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1029, Col: 77}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1030, Col: 77}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var36)
 		if templ_7745c5c3_Err != nil {
@@ -566,7 +566,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var37 string
 		templ_7745c5c3_Var37, templ_7745c5c3_Err = templ.JoinStringErrs(data.MotherBride)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1032, Col: 27}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1033, Col: 27}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var37))
 		if templ_7745c5c3_Err != nil {
@@ -589,7 +589,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 				var templ_7745c5c3_Var38 string
 				templ_7745c5c3_Var38, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.FormatInt(80 * (index + 1)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1060, Col: 108}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1061, Col: 108}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var38)
 				if templ_7745c5c3_Err != nil {
@@ -602,7 +602,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 				var templ_7745c5c3_Var39 string
 				templ_7745c5c3_Var39, templ_7745c5c3_Err = templ.JoinStringErrs(story.Title)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1066, Col: 23}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1067, Col: 23}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var39))
 				if templ_7745c5c3_Err != nil {
@@ -615,7 +615,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 				var templ_7745c5c3_Var40 string
 				templ_7745c5c3_Var40, templ_7745c5c3_Err = templ.JoinStringErrs(story.Desc)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1069, Col: 22}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1070, Col: 22}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var40))
 				if templ_7745c5c3_Err != nil {
@@ -638,7 +638,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var41 string
 		templ_7745c5c3_Var41, templ_7745c5c3_Err = templ.JoinStringErrs(data.AkadDate)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1120, Col: 29}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1121, Col: 29}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var41))
 		if templ_7745c5c3_Err != nil {
@@ -651,7 +651,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var42 string
 		templ_7745c5c3_Var42, templ_7745c5c3_Err = templ.JoinStringErrs(data.AkadTime)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1124, Col: 35}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1125, Col: 35}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var42))
 		if templ_7745c5c3_Err != nil {
@@ -664,7 +664,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var43 string
 		templ_7745c5c3_Var43, templ_7745c5c3_Err = templ.JoinStringErrs(data.AkadVenue)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1128, Col: 30}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1129, Col: 30}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var43))
 		if templ_7745c5c3_Err != nil {
@@ -682,7 +682,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var44 templ.SafeURL
 			templ_7745c5c3_Var44, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.MapsURLAkad))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1134, Col: 52}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1135, Col: 52}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var44))
 			if templ_7745c5c3_Err != nil {
@@ -700,7 +700,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var45 string
 		templ_7745c5c3_Var45, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiLabelDisplay())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1159, Col: 35}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1160, Col: 35}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var45))
 		if templ_7745c5c3_Err != nil {
@@ -718,7 +718,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var46 string
 			templ_7745c5c3_Var46, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiArabic())
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1164, Col: 30}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1165, Col: 30}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var46))
 			if templ_7745c5c3_Err != nil {
@@ -736,7 +736,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var47 string
 		templ_7745c5c3_Var47, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiDate)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1171, Col: 32}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1172, Col: 32}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var47))
 		if templ_7745c5c3_Err != nil {
@@ -749,7 +749,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var48 string
 		templ_7745c5c3_Var48, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiTime)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1175, Col: 38}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1176, Col: 38}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var48))
 		if templ_7745c5c3_Err != nil {
@@ -762,7 +762,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var49 string
 		templ_7745c5c3_Var49, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiVenue)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1179, Col: 33}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1180, Col: 33}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var49))
 		if templ_7745c5c3_Err != nil {
@@ -780,7 +780,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var50 templ.SafeURL
 			templ_7745c5c3_Var50, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.MapsURLResepsi))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1185, Col: 55}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1186, Col: 55}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var50))
 			if templ_7745c5c3_Err != nil {
@@ -793,7 +793,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var51 string
 			templ_7745c5c3_Var51, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiLabelDisplay())
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1188, Col: 55}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1189, Col: 55}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var51))
 			if templ_7745c5c3_Err != nil {
@@ -821,7 +821,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 				var templ_7745c5c3_Var52 string
 				templ_7745c5c3_Var52, templ_7745c5c3_Err = templ.ResolveAttributeValue(img)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1235, Col: 24}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1236, Col: 24}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var52)
 				if templ_7745c5c3_Err != nil {
@@ -834,7 +834,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 				var templ_7745c5c3_Var53 string
 				templ_7745c5c3_Var53, templ_7745c5c3_Err = templ.ResolveAttributeValue("Foto " + invitation.FormatInt(index+1))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1235, Col: 72}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1236, Col: 72}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var53)
 				if templ_7745c5c3_Err != nil {
@@ -857,7 +857,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var54 templ.SafeURL
 		templ_7745c5c3_Var54, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("/invitation/" + data.Project.Slug + "/rsvp"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1260, Col: 113}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1261, Col: 113}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var54))
 		if templ_7745c5c3_Err != nil {
@@ -870,7 +870,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var55 string
 		templ_7745c5c3_Var55, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.FormatUint(data.Project.ID))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1261, Col: 90}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1262, Col: 90}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var55)
 		if templ_7745c5c3_Err != nil {
@@ -898,7 +898,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var56 string
 			templ_7745c5c3_Var56, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.GuestName)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1281, Col: 81}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1282, Col: 81}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var56)
 			if templ_7745c5c3_Err != nil {
@@ -969,7 +969,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var57 string
 		templ_7745c5c3_Var57, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.FormatInt(data.ExistingRsvpGuests()))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1325, Col: 119}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1326, Col: 119}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var57)
 		if templ_7745c5c3_Err != nil {
@@ -982,7 +982,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var58 string
 		templ_7745c5c3_Var58, templ_7745c5c3_Err = templ.JoinStringErrs(data.ExistingRsvpField("message", ""))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1334, Col: 259}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1335, Col: 259}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var58))
 		if templ_7745c5c3_Err != nil {
@@ -1005,7 +1005,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 				var templ_7745c5c3_Var59 string
 				templ_7745c5c3_Var59, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.FormatInt(80 * (index + 1)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1379, Col: 110}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1380, Col: 110}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var59)
 				if templ_7745c5c3_Err != nil {
@@ -1018,7 +1018,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 				var templ_7745c5c3_Var60 string
 				templ_7745c5c3_Var60, templ_7745c5c3_Err = templ.JoinStringErrs(invitation.GetBankTypeBadge(account))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1380, Col: 82}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1381, Col: 82}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var60))
 				if templ_7745c5c3_Err != nil {
@@ -1036,7 +1036,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 					var templ_7745c5c3_Var61 string
 					templ_7745c5c3_Var61, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.GetAccountIconURL(account))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1384, Col: 58}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1385, Col: 58}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var61)
 					if templ_7745c5c3_Err != nil {
@@ -1049,7 +1049,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 					var templ_7745c5c3_Var62 string
 					templ_7745c5c3_Var62, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.GetAccountBankName(account))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1384, Col: 105}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1385, Col: 105}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var62)
 					if templ_7745c5c3_Err != nil {
@@ -1067,7 +1067,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 					var templ_7745c5c3_Var63 string
 					templ_7745c5c3_Var63, templ_7745c5c3_Err = templ.JoinStringErrs(invitation.GetAccountInitial(account))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1386, Col: 78}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1387, Col: 78}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var63))
 					if templ_7745c5c3_Err != nil {
@@ -1085,7 +1085,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 				var templ_7745c5c3_Var64 string
 				templ_7745c5c3_Var64, templ_7745c5c3_Err = templ.JoinStringErrs(invitation.GetAccountBankName(account))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1390, Col: 77}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1391, Col: 77}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var64))
 				if templ_7745c5c3_Err != nil {
@@ -1106,7 +1106,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 				var templ_7745c5c3_Var65 string
 				templ_7745c5c3_Var65, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.GetAccountNumber(account))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1392, Col: 97}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1393, Col: 97}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var65)
 				if templ_7745c5c3_Err != nil {
@@ -1128,7 +1128,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 				var templ_7745c5c3_Var67 string
 				templ_7745c5c3_Var67, templ_7745c5c3_Err = templ.JoinStringErrs(invitation.GetAccountNumber(account))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1393, Col: 79}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1394, Col: 79}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var67))
 				if templ_7745c5c3_Err != nil {
@@ -1141,7 +1141,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 				var templ_7745c5c3_Var68 string
 				templ_7745c5c3_Var68, templ_7745c5c3_Err = templ.JoinStringErrs(invitation.GetAccountName(account))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1398, Col: 58}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1399, Col: 58}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var68))
 				if templ_7745c5c3_Err != nil {
@@ -1164,7 +1164,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var69 string
 		templ_7745c5c3_Var69, templ_7745c5c3_Err = templ.JoinStringErrs(data.GroomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1416, Col: 27}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1417, Col: 27}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var69))
 		if templ_7745c5c3_Err != nil {
@@ -1177,7 +1177,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var70 string
 		templ_7745c5c3_Var70, templ_7745c5c3_Err = templ.JoinStringErrs(data.BrideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1418, Col: 27}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1419, Col: 27}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var70))
 		if templ_7745c5c3_Err != nil {
@@ -1190,7 +1190,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var71 string
 		templ_7745c5c3_Var71, templ_7745c5c3_Err = templ.JoinStringErrs(data.AkadDate)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1424, Col: 20}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1425, Col: 20}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var71))
 		if templ_7745c5c3_Err != nil {
@@ -1208,7 +1208,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var72 templ.SafeURL
 			templ_7745c5c3_Var72, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.EventInstagram))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1429, Col: 53}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1430, Col: 53}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var72))
 			if templ_7745c5c3_Err != nil {
@@ -1227,7 +1227,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var73 templ.SafeURL
 			templ_7745c5c3_Var73, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("https://wa.me/" + data.Whatsapp))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1434, Col: 66}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1435, Col: 66}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var73))
 			if templ_7745c5c3_Err != nil {
@@ -1250,7 +1250,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var74 string
 			templ_7745c5c3_Var74, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + data.SiteConfig.SiteFavicon)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1454, Col: 61}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1455, Col: 61}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var74)
 			if templ_7745c5c3_Err != nil {
@@ -1268,7 +1268,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var75 string
 		templ_7745c5c3_Var75, templ_7745c5c3_Err = templ.JoinStringErrs(data.SiteConfig.FooterDescription)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1460, Col: 42}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1461, Col: 42}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var75))
 		if templ_7745c5c3_Err != nil {
@@ -1286,7 +1286,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var76 templ.SafeURL
 			templ_7745c5c3_Var76, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.SiteConfig.SocialInstagram))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1472, Col: 67}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1473, Col: 67}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var76))
 			if templ_7745c5c3_Err != nil {
@@ -1305,7 +1305,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var77 templ.SafeURL
 			templ_7745c5c3_Var77, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.SiteConfig.SocialFacebook))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1477, Col: 66}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1478, Col: 66}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var77))
 			if templ_7745c5c3_Err != nil {
@@ -1324,7 +1324,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var78 templ.SafeURL
 			templ_7745c5c3_Var78, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.SiteConfig.SocialTiktok))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1482, Col: 64}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1483, Col: 64}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var78))
 			if templ_7745c5c3_Err != nil {
@@ -1343,7 +1343,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var79 templ.SafeURL
 			templ_7745c5c3_Var79, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.SiteConfig.SocialYoutube))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1487, Col: 65}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1488, Col: 65}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var79))
 			if templ_7745c5c3_Err != nil {
@@ -1362,7 +1362,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var80 templ.SafeURL
 			templ_7745c5c3_Var80, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.SiteConfig.SocialTwitter))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1492, Col: 65}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1493, Col: 65}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var80))
 			if templ_7745c5c3_Err != nil {
@@ -1385,7 +1385,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var81 templ.SafeURL
 			templ_7745c5c3_Var81, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("mailto:" + data.SiteConfig.ContactEmail))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1505, Col: 77}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1506, Col: 77}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var81))
 			if templ_7745c5c3_Err != nil {
@@ -1398,7 +1398,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var82 string
 			templ_7745c5c3_Var82, templ_7745c5c3_Err = templ.JoinStringErrs(data.SiteConfig.ContactEmail)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1505, Col: 110}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1506, Col: 110}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var82))
 			if templ_7745c5c3_Err != nil {
@@ -1417,7 +1417,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var83 string
 			templ_7745c5c3_Var83, templ_7745c5c3_Err = templ.JoinStringErrs(data.SiteConfig.ContactPhone)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1511, Col: 45}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1512, Col: 45}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var83))
 			if templ_7745c5c3_Err != nil {
@@ -1436,7 +1436,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var84 templ.SafeURL
 			templ_7745c5c3_Var84, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("https://wa.me/" + data.SiteConfig.ContactWhatsapp))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1517, Col: 87}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1518, Col: 87}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var84))
 			if templ_7745c5c3_Err != nil {
@@ -1455,7 +1455,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var85 string
 			templ_7745c5c3_Var85, templ_7745c5c3_Err = templ.JoinStringErrs(data.SiteConfig.ContactAddress)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1523, Col: 47}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1524, Col: 47}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var85))
 			if templ_7745c5c3_Err != nil {
@@ -1478,7 +1478,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var86 templ.SafeURL
 			templ_7745c5c3_Var86, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.SiteConfig.DeveloperUrl))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1534, Col: 64}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1535, Col: 64}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var86))
 			if templ_7745c5c3_Err != nil {
@@ -1491,7 +1491,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var87 string
 			templ_7745c5c3_Var87, templ_7745c5c3_Err = templ.JoinStringErrs(data.SiteConfig.DeveloperName)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1534, Col: 153}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1535, Col: 153}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var87))
 			if templ_7745c5c3_Err != nil {
@@ -1505,7 +1505,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var88 string
 			templ_7745c5c3_Var88, templ_7745c5c3_Err = templ.JoinStringErrs(data.SiteConfig.DeveloperName)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1536, Col: 39}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1537, Col: 39}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var88))
 			if templ_7745c5c3_Err != nil {
@@ -1524,7 +1524,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var89 templ.SafeURL
 			templ_7745c5c3_Var89, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("mailto:" + data.SiteConfig.DeveloperEmail))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1542, Col: 78}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1543, Col: 78}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var89))
 			if templ_7745c5c3_Err != nil {
@@ -1537,7 +1537,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var90 string
 			templ_7745c5c3_Var90, templ_7745c5c3_Err = templ.JoinStringErrs(data.SiteConfig.DeveloperEmail)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1542, Col: 137}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1543, Col: 137}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var90))
 			if templ_7745c5c3_Err != nil {
@@ -1556,7 +1556,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 			var templ_7745c5c3_Var91 string
 			templ_7745c5c3_Var91, templ_7745c5c3_Err = templ.JoinStringErrs(data.SiteConfig.FooterVersion)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1547, Col: 69}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1548, Col: 69}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var91))
 			if templ_7745c5c3_Err != nil {
@@ -1574,7 +1574,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var92 string
 		templ_7745c5c3_Var92, templ_7745c5c3_Err = templ.JoinStringErrs(invitation.FormatInt(invitation.CurrentYear()))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1557, Col: 57}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1558, Col: 57}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var92))
 		if templ_7745c5c3_Err != nil {
@@ -1587,7 +1587,7 @@ func muslimEleganPage(data *invitation.TemplateData) templ.Component {
 		var templ_7745c5c3_Var93 string
 		templ_7745c5c3_Var93, templ_7745c5c3_Err = templ.JoinStringErrs(data.SiteConfig.FooterCopyright)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1557, Col: 93}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/muslim_elegan/index.templ`, Line: 1558, Col: 93}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var93))
 		if templ_7745c5c3_Err != nil {
