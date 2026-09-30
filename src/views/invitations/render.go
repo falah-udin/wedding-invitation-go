@@ -46,6 +46,7 @@ func RenderTemplate(
 	}
 }
 
+
 func normalizeFolder(folder string) string {
 	result := ""
 	for _, c := range folder {
