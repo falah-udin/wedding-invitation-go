@@ -1,0 +1,12 @@
+package shared
+
+import templpkg "github.com/a-h/templ"
+
+// MusicPlayer — player musik dengan tombol toggle
+templ MusicPlayer() {
+	<div class="music-player" id="musicPlayer">
+		<button class="music-btn" id="musicToggle" onclick={ templpkg.JSFuncCall("toggleMusic") }>
+			<i class="bi bi-music-note"></i>
+		</button>
+	</div>
+}

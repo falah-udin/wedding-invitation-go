@@ -1,0 +1,137 @@
+package shared
+
+import (
+	templpkg "github.com/a-h/templ"
+	"wedding-invitation-go/internal/invitation"
+)
+
+// ============================================
+// RSVP TEXT — teks form RSVP per bahasa
+// ============================================
+
+type RSVPText struct {
+	LabelName       string
+	LabelAttendance string
+	OptHadir        string
+	OptTidakHadir   string
+	OptRagu         string
+	LabelGuests     string
+	LabelMessage    string
+	PlaceholderMsg  string
+	WarningTitle    string
+	WarningDesc     string
+}
+
+var RSVPTextIndonesia = RSVPText{
+	LabelName:       "Nama Anda",
+	LabelAttendance: "Kehadiran",
+	OptHadir:        "Hadir",
+	OptTidakHadir:   "Tidak Hadir",
+	OptRagu:         "Ragu-ragu",
+	LabelGuests:     "Jumlah Tamu",
+	LabelMessage:    "Ucapan & Doa",
+	PlaceholderMsg:  "Tuliskan ucapan dan doa untuk pengantin...",
+	WarningTitle:    "Anda sudah RSVP",
+	WarningDesc:     "Data di bawah sudah terisi otomatis. Anda bisa edit jika ada perubahan.",
+}
+
+var RSVPTextJawa = RSVPText{
+	LabelName:       "Nama",
+	LabelAttendance: "Rawuh",
+	OptHadir:        "Rawuh",
+	OptTidakHadir:   "Mboten Rawuh",
+	OptRagu:         "Dereng Pasti",
+	LabelGuests:     "Cacah Tamu",
+	LabelMessage:    "Pangestu & Donga",
+	PlaceholderMsg:  "Nyuwun pangestu lan donga kangge temanten...",
+	WarningTitle:    "Panjenengan sampun RSVP",
+	WarningDesc:     "Data ing ngandhap sampun kaisi otomatis. Saged dipun-edit menawi wonten owah-owahan.",
+}
+
+// ============================================
+// RSVP FORM
+// ============================================
+
+templ RSVPForm(data *invitation.TemplateData, text RSVPText) {
+	<form class="rsvp-form" method="POST" action={ templpkg.SafeURL("/invitation/" + data.Project.Slug + "/rsvp") } data-aos="fade-up" data-aos-delay="150" id="rsvpForm">
+		<input type="hidden" name="project_id" value={ invitation.FormatUint(data.Project.ID) }/>
+
+		if data.HasExistingRsvp() {
+			<div class="rsvp-warning">
+				<div class="rsvp-warning-title">
+					<i class="bi bi-check-circle-fill"></i>
+					<strong>{ text.WarningTitle }</strong>
+				</div>
+				<p>{ text.WarningDesc }</p>
+			</div>
+		}
+
+		<div class="form-group">
+			<label for="rsvp-name">{ text.LabelName } <span class="required">*</span></label>
+			if data.IsNamedGuest {
+				<input type="text" id="rsvp-name" name="guest_name" value={ data.GuestName } readonly/>
+			} else {
+				<input type="text" id="rsvp-name" name="guest_name" placeholder="Nama lengkap" required/>
+			}
+		</div>
+
+		<div class="form-group">
+			<label for="rsvp-attendance">{ text.LabelAttendance } <span class="required">*</span></label>
+			<select id="rsvp-attendance" name="attendance" required>
+				if data.ExistingRsvpField("attendance", "") == "" {
+					<option value="" selected>Pilih konfirmasi</option>
+				} else {
+					<option value="">Pilih konfirmasi</option>
+				}
+				if data.ExistingRsvpField("attendance", "") == "hadir" {
+					<option value="hadir" selected>{ text.OptHadir }</option>
+				} else {
+					<option value="hadir">{ text.OptHadir }</option>
+				}
+				if data.ExistingRsvpField("attendance", "") == "tidak_hadir" {
+					<option value="tidak_hadir" selected>{ text.OptTidakHadir }</option>
+				} else {
+					<option value="tidak_hadir">{ text.OptTidakHadir }</option>
+				}
+				if data.ExistingRsvpField("attendance", "") == "ragu" {
+					<option value="ragu" selected>{ text.OptRagu }</option>
+				} else {
+					<option value="ragu">{ text.OptRagu }</option>
+				}
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="rsvp-guests">{ text.LabelGuests }</label>
+			<input type="number" id="rsvp-guests" name="total_guests" value={ invitation.FormatInt(data.ExistingRsvpGuests()) } min="1" max="10"/>
+		</div>
+
+		<div class="form-group">
+			<label for="rsvp-message">{ text.LabelMessage }</label>
+			<textarea id="rsvp-message" name="message" rows="3" placeholder={ text.PlaceholderMsg }>{ data.ExistingRsvpField("message", "") }</textarea>
+		</div>
+
+		<button type="submit" class="btn-submit">
+			<i class="bi bi-send me-2"></i>
+			Kirim Konfirmasi
+		</button>
+	</form>
+}
+
+// ============================================
+// RSVP LIST WRAP — wrapper list konfirmasi
+// ============================================
+
+templ RSVPListWrap() {
+	<div class="rsvp-list-wrap">
+		<div class="rsvp-list-head">
+			<h4>Konfirmasi Kehadiran</h4>
+			<span class="rsvp-count" id="rsvpCount">0 tamu</span>
+		</div>
+		<div id="rsvpList">
+			<div class="rsvp-empty">
+				<i class="bi bi-hourglass-split me-2"></i>Memuat daftar konfirmasi...
+			</div>
+		</div>
+	</div>
+}

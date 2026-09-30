@@ -7,6 +7,7 @@ import (
 	templpkg "github.com/a-h/templ"
 	"wedding-invitation-go/internal/invitation"
 	"wedding-invitation-go/internal/models"
+	"wedding-invitation-go/views/invitations/shared"
 )
 
 // TraditionalJava — template undangan Traditional Java (adat Jawa klasik)
@@ -1207,15 +1208,15 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				opacity: 1;
 			}
 
-			.rsvp-java-form {
+			.rsvp-form {
 				max-width: 520px;
 				margin: 0 auto;
 			}
-			.form-group-java {
+			.form-group {
 				margin-bottom: 24px;
 				text-align: left;
 			}
-			.form-group-java label {
+			.form-group label {
 				display: block;
 				font-family: 'Cormorant Garamond', serif;
 				font-size: 0.72rem;
@@ -1225,10 +1226,10 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				color: var(--gold);
 				margin-bottom: 10px;
 			}
-			.form-group-java .required { color: #c0392b; }
-			.form-group-java input,
-			.form-group-java select,
-			.form-group-java textarea {
+			.form-group .required { color: #c0392b; }
+			.form-group input,
+			.form-group select,
+			.form-group textarea {
 				width: 100%;
 				padding: 16px 0;
 				border: none;
@@ -1240,24 +1241,24 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				transition: border-color 0.3s;
 				border-radius: 0;
 			}
-			.form-group-java input:focus,
-			.form-group-java select:focus,
-			.form-group-java textarea:focus {
+			.form-group input:focus,
+			.form-group select:focus,
+			.form-group textarea:focus {
 				outline: none;
 				border-bottom-color: var(--gold);
 			}
-			.form-group-java input::placeholder,
-			.form-group-java textarea::placeholder {
+			.form-group input::placeholder,
+			.form-group textarea::placeholder {
 				color: var(--text-light);
 				font-style: italic;
 			}
-			.form-group-java input[readonly] {
+			.form-group input[readonly] {
 				color: var(--text-muted);
 				cursor: not-allowed;
 				background: transparent;
 			}
-			.form-group-java textarea { resize: vertical; min-height: 90px; }
-			.btn-submit-java {
+			.form-group textarea { resize: vertical; min-height: 90px; }
+			.btn-submit {
 				width: 100%;
 				padding: 18px;
 				background: linear-gradient(135deg, var(--sogan), var(--sogan-dark));
@@ -1273,32 +1274,32 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				text-transform: uppercase;
 				margin-top: 16px;
 			}
-			.btn-submit-java:hover {
+			.btn-submit:hover {
 				background: linear-gradient(135deg, var(--gold), var(--sogan));
 				transform: translateY(-2px);
 				box-shadow: 0 8px 30px rgba(107, 68, 35, 0.3);
 			}
-			.btn-submit-java:disabled { opacity: 0.6; cursor: not-allowed; }
+			.btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
-			.rsvp-java-list-wrap {
+			.rsvp-list-wrap {
 				max-width: 520px;
 				margin: 80px auto 0;
 				padding-top: 40px;
 				border-top: 1px solid var(--batik-line-strong);
 			}
-			.rsvp-java-list-head {
+			.rsvp-list-head {
 				display: flex;
 				justify-content: space-between;
 				align-items: baseline;
 				margin-bottom: 28px;
 			}
-			.rsvp-java-list-head h4 {
+			.rsvp-list-head h4 {
 				font-family: 'Playfair Display', serif;
 				font-size: 1.2rem;
 				font-weight: 600;
 				color: var(--sogan);
 			}
-			.rsvp-java-count {
+			.rsvp-count {
 				font-family: 'Cormorant Garamond', serif;
 				font-size: 0.75rem;
 				color: var(--gold);
@@ -1311,12 +1312,12 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				max-height: 440px;
 				overflow-y: auto;
 			}
-			.rsvp-java-item {
+			.rsvp-item {
 				padding: 20px 0;
 				border-bottom: 1px solid var(--batik-line);
 			}
-			.rsvp-java-item:last-child { border-bottom: none; }
-			.rsvp-java-item .row-main {
+			.rsvp-item:last-child { border-bottom: none; }
+			.rsvp-item .row-main {
 				display: flex;
 				justify-content: space-between;
 				align-items: baseline;
@@ -1324,13 +1325,13 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				gap: 8px;
 				margin-bottom: 8px;
 			}
-			.rsvp-java-item .guest-name {
+			.rsvp-item .guest-name {
 				font-family: 'Playfair Display', serif;
 				font-size: 1.05rem;
 				font-weight: 600;
 				color: var(--sogan);
 			}
-			.rsvp-java-item .status-badge {
+			.rsvp-item .status-badge {
 				font-family: 'Cormorant Garamond', serif;
 				font-size: 0.62rem;
 				padding: 3px 12px;
@@ -1339,26 +1340,26 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				text-transform: uppercase;
 				font-weight: 600;
 			}
-			.rsvp-java-item .status-badge.hadir {
+			.rsvp-item .status-badge.hadir {
 				background: rgba(16, 185, 129, 0.1);
 				color: #059669;
 			}
-			.rsvp-java-item .status-badge.tidak_hadir {
+			.rsvp-item .status-badge.tidak_hadir {
 				background: rgba(192, 57, 43, 0.1);
 				color: #c0392b;
 			}
-			.rsvp-java-item .status-badge.ragu {
+			.rsvp-item .status-badge.ragu {
 				background: rgba(184, 134, 11, 0.12);
 				color: var(--gold);
 			}
-			.rsvp-java-item .row-detail {
+			.rsvp-item .row-detail {
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
 				flex-wrap: wrap;
 				gap: 8px;
 			}
-			.rsvp-java-item .meta {
+			.rsvp-item .meta {
 				display: flex;
 				align-items: center;
 				gap: 16px;
@@ -1367,8 +1368,8 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				color: var(--text-light);
 				font-style: italic;
 			}
-			.rsvp-java-item .meta span { display: flex; align-items: center; gap: 5px; }
-			.rsvp-java-item .message {
+			.rsvp-item .meta span { display: flex; align-items: center; gap: 5px; }
+			.rsvp-item .message {
 				margin-top: 12px;
 				padding: 14px 18px;
 				background: var(--cream-dark);
@@ -1379,7 +1380,7 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				font-style: italic;
 				line-height: 1.7;
 			}
-			.rsvp-java-empty {
+			.rsvp-empty {
 				text-align: center;
 				color: var(--text-light);
 				font-family: 'Cormorant Garamond', serif;
@@ -1387,7 +1388,7 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				font-style: italic;
 				padding: 40px 0;
 			}
-			.rsvp-java-empty i { display: block; font-size: 1.6rem; margin-bottom: 12px; color: var(--gold); opacity: 0.4; }
+			.rsvp-empty i { display: block; font-size: 1.6rem; margin-bottom: 12px; color: var(--gold); opacity: 0.4; }
 
 			.bank-java-grid {
 				display: grid;
@@ -1623,19 +1624,19 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				.footer-java-pepindhan { font-size: 0.9rem; }
 			}
 
-			.web-footer-java {
+			.web-footer {
 				padding: 56px 0 32px;
 				background: var(--ink);
 				color: rgba(245, 239, 224, 0.55);
 				border-top: 1px solid rgba(184, 134, 11, 0.15);
 			}
-			.web-footer-java-grid {
+			.web-footer-row {
 				display: grid;
 				grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 				gap: 40px;
 				margin-bottom: 40px;
 			}
-			.web-footer-java-brand {
+			.web-footer-brand {
 				font-family: 'Playfair Display', serif;
 				font-size: 1.4rem;
 				font-weight: 600;
@@ -1643,12 +1644,12 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				text-decoration: none;
 				display: inline-block;
 			}
-			.web-footer-java-brand .wedding { color: var(--cream); }
-			.web-footer-java-brand .saas {
+			.web-footer-brand .wedding { color: var(--cream); }
+			.web-footer-brand .saas {
 				color: var(--gold);
 				font-style: italic;
 			}
-			.web-footer-java-desc {
+			.web-footer-desc {
 				font-family: 'Cormorant Garamond', serif;
 				font-size: 0.9rem;
 				line-height: 1.8;
@@ -1656,7 +1657,7 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				color: rgba(245, 239, 224, 0.55);
 				font-style: italic;
 			}
-			.web-footer-java-heading {
+			.web-footer-heading {
 				font-family: 'Cormorant Garamond', serif;
 				font-size: 0.7rem;
 				font-weight: 600;
@@ -1665,12 +1666,12 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				color: var(--gold);
 				margin-bottom: 24px;
 			}
-			.web-footer-java-list {
+			.web-footer-list {
 				list-style: none;
 				padding: 0;
 				margin: 0;
 			}
-			.web-footer-java-list li {
+			.web-footer-list li {
 				display: flex;
 				align-items: flex-start;
 				gap: 10px;
@@ -1680,27 +1681,27 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				line-height: 1.6;
 				color: rgba(245, 239, 224, 0.55);
 			}
-			.web-footer-java-list li i {
+			.web-footer-list li i {
 				color: var(--gold);
 				margin-top: 3px;
 				flex-shrink: 0;
 				opacity: 0.8;
 			}
-			.web-footer-java-list a,
-			.web-footer-java-link {
+			.web-footer-list a,
+			.web-footer-link {
 				color: rgba(245, 239, 224, 0.55);
 				text-decoration: none;
 				transition: color 0.2s;
 			}
-			.web-footer-java-list a:hover,
-			.web-footer-java-link:hover { color: var(--gold-pale); }
-			.web-footer-java-socials {
+			.web-footer-list a:hover,
+			.web-footer-link:hover { color: var(--gold-pale); }
+			.web-footer-socials {
 				display: flex;
 				gap: 12px;
 				flex-wrap: wrap;
 				margin-top: 20px;
 			}
-			.web-footer-java-socials a {
+			.web-footer-socials a {
 				width: 38px;
 				height: 38px;
 				border-radius: 50%;
@@ -1714,12 +1715,12 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				transition: all 0.3s;
 				text-decoration: none;
 			}
-			.web-footer-java-socials a:hover {
+			.web-footer-socials a:hover {
 				background: var(--gold);
 				color: var(--ink);
 				transform: translateY(-2px);
 			}
-			.web-footer-java-version {
+			.web-footer-version {
 				font-family: 'Cormorant Garamond', serif;
 				font-size: 0.72rem;
 				padding: 5px 12px;
@@ -1730,7 +1731,7 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				color: rgba(245, 239, 224, 0.45);
 				letter-spacing: 1px;
 			}
-			.web-footer-java-bottom {
+			.web-footer-divider {
 				border-top: 1px solid rgba(184, 134, 11, 0.12);
 				padding-top: 28px;
 				text-align: center;
@@ -1740,10 +1741,73 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				font-style: italic;
 			}
 			@media (max-width: 768px) {
-				.web-footer-java { padding: 48px 0 28px; text-align: center; }
-				.web-footer-java-list li { justify-content: center; }
-				.web-footer-java-socials { justify-content: center; }
+				.web-footer { padding: 48px 0 28px; text-align: center; }
+				.web-footer-list li { justify-content: center; }
+				.web-footer-socials { justify-content: center; }
 			}
+		
+			/* RSVP WARNING & LIST (shared) */
+			.rsvp-warning {
+				background: rgba(184, 134, 11, 0.08);
+				border-left: 2px solid var(--gold);
+				padding: 16px 20px;
+				margin-bottom: 28px;
+			}
+			.rsvp-warning-title {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				margin-bottom: 4px;
+			}
+			.rsvp-warning-title i {
+				color: var(--gold);
+				font-size: 1.1rem;
+			}
+			.rsvp-warning-title strong {
+				font-family: 'Playfair Display', serif;
+				font-size: 0.9rem;
+				color: var(--sogan);
+				font-weight: 600;
+			}
+			.rsvp-warning p {
+				margin: 0;
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 0.85rem;
+				color: var(--text-muted);
+				font-style: italic;
+				line-height: 1.6;
+			}
+			.rsvp-list-wrap {
+				max-width: 520px;
+				margin: 80px auto 0;
+				padding-top: 40px;
+				border-top: 1px solid var(--batik-line-strong);
+			}
+			.rsvp-list-head {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				margin-bottom: 28px;
+			}
+			.rsvp-list-head h4 {
+				font-family: 'Playfair Display', serif;
+				font-size: 1.2rem;
+				font-weight: 600;
+				color: var(--sogan);
+				margin: 0;
+			}
+			.rsvp-count {
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 0.75rem;
+				color: var(--gold);
+				letter-spacing: 3px;
+				text-transform: uppercase;
+			}
+
+		
+			/* Web Footer Icon (shared) */
+			.web-footer-icon { color: var(--gold); }
+
 		</style>
 	</head>
 	<body data-music-url={ data.MusicURL } data-project-id={ invitation.FormatUint(data.Project.ID) } data-project-slug={ data.Project.Slug }>
@@ -1782,11 +1846,7 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 		</div>
 
 		<!-- MUSIC PLAYER -->
-		<div class="music-player" id="musicPlayer">
-			<button class="music-btn" id="musicToggle" onclick={ templpkg.JSFuncCall("toggleMusic") }>
-				<i class="bi bi-music-note"></i>
-			</button>
-		</div>
+		@shared.MusicPlayer()
 
 		<!-- HERO — GUNUNGAN -->
 		<section class="hero-java" id="section-hero">
@@ -2143,83 +2203,9 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 					Nyuwun pangestu lan konfirmasi rawuh panjenengan supados adicara saged lumampah kanthi sae
 				</p>
 
-				<form class="rsvp-java-form" method="POST" action={ templpkg.SafeURL("/invitation/" + data.Project.Slug + "/rsvp") } data-aos="fade-up" data-aos-delay="150" id="rsvpForm">
-					<input type="hidden" name="project_id" value={ invitation.FormatUint(data.Project.ID) }/>
+				@shared.RSVPForm(data, shared.RSVPTextJawa)
 
-					if data.HasExistingRsvp() {
-						<div style="background: rgba(184, 134, 11, 0.08); border-left: 2px solid var(--gold); padding: 16px 20px; margin-bottom: 28px;">
-							<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-								<i class="bi bi-check-circle-fill" style="color: var(--gold);"></i>
-								<strong style="font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--sogan);">Panjenengan sampun RSVP</strong>
-							</div>
-							<p style="margin: 0; font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; color: var(--text-muted); font-style: italic; line-height: 1.6;">
-								Data ing ngandhap sampun kaisi otomatis. Saged dipun-edit menawi wonten owah-owahan.
-							</p>
-						</div>
-					}
-
-					<div class="form-group-java">
-						<label for="rsvp-name">Nama <span class="required">*</span></label>
-						if data.IsNamedGuest {
-							<input type="text" id="rsvp-name" name="guest_name" value={ data.GuestName } readonly/>
-						} else {
-							<input type="text" id="rsvp-name" name="guest_name" placeholder="Nama lengkap" required/>
-						}
-					</div>
-
-					<div class="form-group-java">
-						<label for="rsvp-attendance">Rawuh <span class="required">*</span></label>
-						<select id="rsvp-attendance" name="attendance" required>
-							if data.ExistingRsvpField("attendance", "") == "" {
-								<option value="" selected>Pilih konfirmasi</option>
-							} else {
-								<option value="">Pilih konfirmasi</option>
-							}
-							if data.ExistingRsvpField("attendance", "") == "hadir" {
-								<option value="hadir" selected>Rawuh</option>
-							} else {
-								<option value="hadir">Rawuh</option>
-							}
-							if data.ExistingRsvpField("attendance", "") == "tidak_hadir" {
-								<option value="tidak_hadir" selected>Mboten Rawuh</option>
-							} else {
-								<option value="tidak_hadir">Mboten Rawuh</option>
-							}
-							if data.ExistingRsvpField("attendance", "") == "ragu" {
-								<option value="ragu" selected>Dereng Pasti</option>
-							} else {
-								<option value="ragu">Dereng Pasti</option>
-							}
-						</select>
-					</div>
-
-					<div class="form-group-java">
-						<label for="rsvp-guests">Cacah Tamu</label>
-						<input type="number" id="rsvp-guests" name="total_guests" value={ invitation.FormatInt(data.ExistingRsvpGuests()) } min="1" max="10"/>
-					</div>
-
-					<div class="form-group-java">
-						<label for="rsvp-message">Pangestu &amp; Donga</label>
-						<textarea id="rsvp-message" name="message" rows="3" placeholder="Nyuwun pangestu lan donga kangge temanten...">{ data.ExistingRsvpField("message", "") }</textarea>
-					</div>
-
-					<button type="submit" class="btn-submit-java">
-						<i class="bi bi-envelope-paper me-2"></i>Kirim Konfirmasi
-					</button>
-				</form>
-
-				<div class="rsvp-java-list-wrap">
-					<div class="rsvp-java-list-head">
-						<h4>Konfirmasi Rawuh</h4>
-						<span class="rsvp-java-count" id="rsvpCount">0 tamu</span>
-					</div>
-					<div id="rsvpList">
-						<div class="rsvp-java-empty">
-							<i class="bi bi-hourglass-split"></i>
-							Ngangsal daftar konfirmasi...
-						</div>
-					</div>
-				</div>
+				@shared.RSVPListWrap()
 			</div>
 		</section>
 
@@ -2306,113 +2292,7 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 		</footer>
 
 		<!-- WEB FOOTER -->
-		<footer class="web-footer-java">
-			<div class="container-wide">
-				<div class="web-footer-java-grid">
-					<div>
-						<a href="/" class="web-footer-java-brand" style="text-decoration:none;">
-							if data.SiteConfig.SiteFavicon != "" {
-								<img src={ "/storage/" + data.SiteConfig.SiteFavicon } alt="Logo" style="width: 28px; height: 28px; object-fit: contain; margin-right: 8px; vertical-align: middle; display: inline-block;"/>
-							}
-							<span class="wedding">Wedding</span><span class="saas">SaaS</span>
-						</a>
-						<p class="web-footer-java-desc">
-							{ data.SiteConfig.FooterDescription }
-						</p>
-						<p class="web-footer-java-desc">
-							<i class="bi bi-globe me-1" style="color: var(--gold);"></i>
-							<a href="https://wedding.litebox.my.id" target="_blank" rel="noopener" class="web-footer-java-link">
-								wedding.litebox.my.id
-							</a>
-						</p>
-						<div class="web-footer-java-socials">
-							if data.SiteConfig.SocialInstagram != "" {
-								<a href={ templpkg.SafeURL(data.SiteConfig.SocialInstagram) } target="_blank" rel="noopener" title="Instagram">
-									<i class="bi bi-instagram"></i>
-								</a>
-							}
-							if data.SiteConfig.SocialFacebook != "" {
-								<a href={ templpkg.SafeURL(data.SiteConfig.SocialFacebook) } target="_blank" rel="noopener" title="Facebook">
-									<i class="bi bi-facebook"></i>
-								</a>
-							}
-							if data.SiteConfig.SocialTiktok != "" {
-								<a href={ templpkg.SafeURL(data.SiteConfig.SocialTiktok) } target="_blank" rel="noopener" title="TikTok">
-									<i class="bi bi-tiktok"></i>
-								</a>
-							}
-							if data.SiteConfig.SocialYoutube != "" {
-								<a href={ templpkg.SafeURL(data.SiteConfig.SocialYoutube) } target="_blank" rel="noopener" title="YouTube">
-									<i class="bi bi-youtube"></i>
-								</a>
-							}
-							if data.SiteConfig.SocialTwitter != "" {
-								<a href={ templpkg.SafeURL(data.SiteConfig.SocialTwitter) } target="_blank" rel="noopener" title="Twitter">
-									<i class="bi bi-twitter-x"></i>
-								</a>
-							}
-						</div>
-					</div>
-
-					<div>
-						<h6 class="web-footer-java-heading">Kontak</h6>
-						<ul class="web-footer-java-list">
-							if data.SiteConfig.ContactEmail != "" {
-								<li>
-									<i class="bi bi-envelope"></i>
-									<a href={ templpkg.SafeURL("mailto:" + data.SiteConfig.ContactEmail) }>{ data.SiteConfig.ContactEmail }</a>
-								</li>
-							}
-							if data.SiteConfig.ContactPhone != "" {
-								<li>
-									<i class="bi bi-telephone"></i>
-									<span>{ data.SiteConfig.ContactPhone }</span>
-								</li>
-							}
-							if data.SiteConfig.ContactWhatsapp != "" {
-								<li>
-									<i class="bi bi-whatsapp"></i>
-									<a href={ templpkg.SafeURL("https://wa.me/" + data.SiteConfig.ContactWhatsapp) } target="_blank" rel="noopener">WhatsApp Chat</a>
-								</li>
-							}
-							if data.SiteConfig.ContactAddress != "" {
-								<li>
-									<i class="bi bi-geo-alt"></i>
-									<span>{ data.SiteConfig.ContactAddress }</span>
-								</li>
-							}
-						</ul>
-					</div>
-
-					<div>
-						<h6 class="web-footer-java-heading">Developer</h6>
-						<ul class="web-footer-java-list">
-							<li>
-								<i class="bi bi-code-slash"></i>
-								if data.SiteConfig.DeveloperUrl != "" {
-									<a href={ templpkg.SafeURL(data.SiteConfig.DeveloperUrl) } target="_blank" rel="noopener">{ data.SiteConfig.DeveloperName }</a>
-								} else {
-									<span>{ data.SiteConfig.DeveloperName }</span>
-								}
-							</li>
-							if data.SiteConfig.DeveloperEmail != "" {
-								<li>
-									<i class="bi bi-envelope-at"></i>
-									<a href={ templpkg.SafeURL("mailto:" + data.SiteConfig.DeveloperEmail) }>{ data.SiteConfig.DeveloperEmail }</a>
-								</li>
-							}
-						</ul>
-						if data.SiteConfig.FooterVersion != "" {
-							<p class="web-footer-java-version">{ data.SiteConfig.FooterVersion }</p>
-						}
-					</div>
-				</div>
-
-				<div class="web-footer-java-bottom">
-					© { invitation.FormatInt(invitation.CurrentYear()) } { data.SiteConfig.FooterCopyright }
-				</div>
-			</div>
-		</footer>
+		@shared.WebFooter(data, shared.WebFooterTextShort)
 
 		<!-- SCRIPTS -->
 		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -2624,7 +2504,7 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 					.then(function(r) { return r.json(); })
 					.then(function(data) {
 						if (!data || data.length === 0) {
-							listContainer.innerHTML = '<div class="rsvp-java-empty"><i class="bi bi-envelope"></i>Dereng wonten konfirmasi rawuh</div>';
+							listContainer.innerHTML = '<div class="rsvp-empty"><i class="bi bi-envelope"></i>Dereng wonten konfirmasi rawuh</div>';
 							if (countContainer) countContainer.textContent = '0 tamu';
 							return;
 						}
@@ -2636,13 +2516,13 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 							var time = new Date(item.created_at);
 							var timeStr = time.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
 							var messageHtml = item.message ? '<div class="message">' + escapeHtml(item.message) + '</div>' : '';
-							html += '<div class="rsvp-java-item"><div class="row-main"><span class="guest-name">' + escapeHtml(item.guest_name) + '</span><span class="status-badge ' + item.attendance + '">' + statusText + '</span></div><div class="row-detail"><div class="meta"><span><i class="bi bi-calendar"></i> ' + timeStr + '</span><span><i class="bi bi-people"></i> ' + (item.total_guests || 1) + ' tamu</span></div></div>' + messageHtml + '</div>';
+							html += '<div class="rsvp-item"><div class="row-main"><span class="guest-name">' + escapeHtml(item.guest_name) + '</span><span class="status-badge ' + item.attendance + '">' + statusText + '</span></div><div class="row-detail"><div class="meta"><span><i class="bi bi-calendar"></i> ' + timeStr + '</span><span><i class="bi bi-people"></i> ' + (item.total_guests || 1) + ' tamu</span></div></div>' + messageHtml + '</div>';
 						});
 						listContainer.innerHTML = html;
 						if (countContainer) countContainer.textContent = totalGuests + ' tamu';
 					})
 					.catch(function() {
-						listContainer.innerHTML = '<div class="rsvp-java-empty"><i class="bi bi-exclamation-triangle"></i>Gagal ngangsal daftar konfirmasi<br><button onclick="loadRsvpList()" style="margin-top:12px; padding:8px 20px; background:var(--sogan); color:var(--cream); border:1px solid var(--gold); border-radius:2px; cursor:pointer; font-family:\'Cormorant Garamond\',serif; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;"><i class="bi bi-arrow-clockwise me-1"></i> Cobi Malih</button></div>';
+						listContainer.innerHTML = '<div class="rsvp-empty"><i class="bi bi-exclamation-triangle"></i>Gagal ngangsal daftar konfirmasi<br><button onclick="loadRsvpList()" style="margin-top:12px; padding:8px 20px; background:var(--sogan); color:var(--cream); border:1px solid var(--gold); border-radius:2px; cursor:pointer; font-family:\'Cormorant Garamond\',serif; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;"><i class="bi bi-arrow-clockwise me-1"></i> Cobi Malih</button></div>';
 					});
 			}
 

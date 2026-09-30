@@ -1,0 +1,149 @@
+package shared
+
+import (
+	templpkg "github.com/a-h/templ"
+	"wedding-invitation-go/internal/invitation"
+)
+
+// ============================================
+// WEB FOOTER TEXT — teks heading footer
+// ============================================
+
+type WebFooterText struct {
+	HeadingContact   string
+	HeadingDeveloper string
+}
+
+var WebFooterTextDefault = WebFooterText{
+	HeadingContact:   "Kontak Kami",
+	HeadingDeveloper: "Dikembangkan Oleh",
+}
+
+var WebFooterTextShort = WebFooterText{
+	HeadingContact:   "Kontak",
+	HeadingDeveloper: "Developer",
+}
+
+// ============================================
+// WEB FOOTER — footer web (dari site config)
+// ============================================
+
+templ WebFooter(data *invitation.TemplateData, text WebFooterText) {
+	<footer class="web-footer">
+		<div class="container">
+			<div class="web-footer-row">
+
+				<!-- BRAND & DESCRIPTION -->
+				<div>
+					<a href="/" class="web-footer-brand-link" style="text-decoration:none;">
+						<h5 class="web-footer-brand">
+							if data.SiteConfig.SiteFavicon != "" {
+								<img src={ "/storage/" + data.SiteConfig.SiteFavicon } alt="Logo" style="width: 32px; height: 32px; object-fit: contain; margin-right: 8px; vertical-align: middle;"/>
+							}
+							<span class="wedding">Wedding</span><span class="saas">SaaS</span>
+						</h5>
+					</a>
+					<p class="web-footer-desc">
+						{ data.SiteConfig.FooterDescription }
+					</p>
+					<p class="web-footer-desc mb-2" style="margin-top: 8px;">
+						<i class="bi bi-globe me-1 web-footer-icon"></i>
+						<a href="https://wedding.litebox.my.id" target="_blank" rel="noopener" class="web-footer-link">
+							wedding.litebox.my.id
+						</a>
+					</p>
+					<div class="web-footer-socials">
+						if data.SiteConfig.SocialInstagram != "" {
+							<a href={ templpkg.SafeURL(data.SiteConfig.SocialInstagram) } target="_blank" rel="noopener" class="web-social-link" title="Instagram">
+								<i class="bi bi-instagram"></i>
+							</a>
+						}
+						if data.SiteConfig.SocialFacebook != "" {
+							<a href={ templpkg.SafeURL(data.SiteConfig.SocialFacebook) } target="_blank" rel="noopener" class="web-social-link" title="Facebook">
+								<i class="bi bi-facebook"></i>
+							</a>
+						}
+						if data.SiteConfig.SocialTiktok != "" {
+							<a href={ templpkg.SafeURL(data.SiteConfig.SocialTiktok) } target="_blank" rel="noopener" class="web-social-link" title="TikTok">
+								<i class="bi bi-tiktok"></i>
+							</a>
+						}
+						if data.SiteConfig.SocialYoutube != "" {
+							<a href={ templpkg.SafeURL(data.SiteConfig.SocialYoutube) } target="_blank" rel="noopener" class="web-social-link" title="YouTube">
+								<i class="bi bi-youtube"></i>
+							</a>
+						}
+						if data.SiteConfig.SocialTwitter != "" {
+							<a href={ templpkg.SafeURL(data.SiteConfig.SocialTwitter) } target="_blank" rel="noopener" class="web-social-link" title="Twitter">
+								<i class="bi bi-twitter-x"></i>
+							</a>
+						}
+					</div>
+				</div>
+
+				<!-- KONTAK -->
+				<div>
+					<h6 class="web-footer-heading">{ text.HeadingContact }</h6>
+					<ul class="web-footer-list">
+						if data.SiteConfig.ContactEmail != "" {
+							<li>
+								<i class="bi bi-envelope"></i>
+								<a href={ templpkg.SafeURL("mailto:" + data.SiteConfig.ContactEmail) }>{ data.SiteConfig.ContactEmail }</a>
+							</li>
+						}
+						if data.SiteConfig.ContactPhone != "" {
+							<li>
+								<i class="bi bi-telephone"></i>
+								<span>{ data.SiteConfig.ContactPhone }</span>
+							</li>
+						}
+						if data.SiteConfig.ContactWhatsapp != "" {
+							<li>
+								<i class="bi bi-whatsapp"></i>
+								<a href={ templpkg.SafeURL("https://wa.me/" + data.SiteConfig.ContactWhatsapp) } target="_blank" rel="noopener">WhatsApp Chat</a>
+							</li>
+						}
+						if data.SiteConfig.ContactAddress != "" {
+							<li>
+								<i class="bi bi-geo-alt"></i>
+								<span>{ data.SiteConfig.ContactAddress }</span>
+							</li>
+						}
+					</ul>
+				</div>
+
+				<!-- DEVELOPER -->
+				<div>
+					<h6 class="web-footer-heading">{ text.HeadingDeveloper }</h6>
+					<p class="web-footer-desc mb-2">
+						<i class="bi bi-code-slash me-1 web-footer-icon"></i>
+						if data.SiteConfig.DeveloperUrl != "" {
+							<a href={ templpkg.SafeURL(data.SiteConfig.DeveloperUrl) } target="_blank" rel="noopener" class="web-footer-link">{ data.SiteConfig.DeveloperName }</a>
+						} else {
+							{ data.SiteConfig.DeveloperName }
+						}
+					</p>
+					if data.SiteConfig.DeveloperEmail != "" {
+						<p class="web-footer-desc mb-2">
+							<i class="bi bi-envelope-at me-1"></i>
+							<a href={ templpkg.SafeURL("mailto:" + data.SiteConfig.DeveloperEmail) } class="web-footer-link">{ data.SiteConfig.DeveloperEmail }</a>
+						</p>
+					}
+					if data.SiteConfig.FooterVersion != "" {
+						<p class="web-footer-version">
+							<i class="bi bi-tag me-1"></i>{ data.SiteConfig.FooterVersion }
+						</p>
+					}
+				</div>
+			</div>
+
+			<hr class="web-footer-divider"/>
+
+			<div class="text-center">
+				<p class="web-footer-text">
+					© { invitation.FormatInt(invitation.CurrentYear()) } { data.SiteConfig.FooterCopyright }
+				</p>
+			</div>
+		</div>
+	</footer>
+}

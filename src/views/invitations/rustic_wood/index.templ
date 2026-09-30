@@ -7,6 +7,7 @@ import (
 	templpkg "github.com/a-h/templ"
 	"wedding-invitation-go/internal/invitation"
 	"wedding-invitation-go/internal/models"
+	"wedding-invitation-go/views/invitations/shared"
 )
 
 // RusticWood — template undangan tema Rustic Wood
@@ -1125,6 +1126,75 @@ templ rusticWoodPage(data *invitation.TemplateData) {
 					}
 				}
 			}
+		
+			/* ============================================ */
+			/* RSVP WARNING & LIST (shared) */
+			/* ============================================ */
+			.rsvp-warning {
+				background: rgba(184, 149, 106, 0.1);
+				border: 1px solid var(--rustic-gold);
+				border-radius: 12px;
+				padding: 14px 18px;
+				margin-bottom: 20px;
+			}
+			.rsvp-warning-title {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				margin-bottom: 6px;
+			}
+			.rsvp-warning-title i {
+				color: var(--rustic-gold);
+				font-size: 1.2rem;
+			}
+			.rsvp-warning-title strong {
+				color: var(--rustic-brown-dark);
+				font-weight: 600;
+			}
+			.rsvp-warning p {
+				margin: 0;
+				font-size: 0.85rem;
+				color: var(--rustic-muted);
+				line-height: 1.6;
+			}
+			.rsvp-list-wrap {
+				max-width: 500px;
+				margin: 30px auto 0;
+				padding-top: 20px;
+				border-top: 1px solid rgba(139, 115, 85, 0.15);
+			}
+			.rsvp-list-head {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 16px;
+			}
+			.rsvp-list-head h4 {
+				font-size: 0.95rem;
+				color: var(--rustic-brown);
+				font-weight: 600;
+				margin: 0;
+			}
+			.rsvp-count {
+				font-size: 0.7rem;
+				color: var(--rustic-muted);
+				background: rgba(184, 149, 106, 0.08);
+				padding: 2px 12px;
+				border-radius: 12px;
+			}
+
+		
+			/* Web Footer Icon (shared) */
+			.web-footer-icon { color: var(--rustic-gold); }
+
+		
+			/* Web Footer Row — 3 kolom (shared) */
+			.web-footer-row {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 2rem;
+			}
+
 		</style>
 	</head>
 	<body data-music-url={ data.MusicURL } data-project-id={ invitation.FormatUint(data.Project.ID) } data-project-slug={ data.Project.Slug }>
@@ -1153,11 +1223,7 @@ templ rusticWoodPage(data *invitation.TemplateData) {
 		</div>
 
 		<!-- MUSIC PLAYER -->
-		<div class="music-player" id="musicPlayer">
-			<button class="music-btn" id="musicToggle" onclick={ templpkg.JSFuncCall("toggleMusic") }>
-				<i class="bi bi-music-note"></i>
-			</button>
-		</div>
+		@shared.MusicPlayer()
 
 		<!-- HERO / COVER -->
 		<section class="hero-rustic-ultimate" id="section-cover">
@@ -1466,90 +1532,9 @@ templ rusticWoodPage(data *invitation.TemplateData) {
 					Kami sangat berbahagia jika Anda bisa hadir di hari bahagia kami.
 				</p>
 
-				<form class="rsvp-form" method="POST" action={ templpkg.SafeURL("/invitation/" + data.Project.Slug + "/rsvp") } data-aos="fade-up" data-aos-delay="100" id="rsvpForm">
-					<input type="hidden" name="project_id" value={ invitation.FormatUint(data.Project.ID) }/>
+				@shared.RSVPForm(data, shared.RSVPTextIndonesia)
 
-					if data.HasExistingRsvp() {
-						<div style="background: rgba(184,149,106,0.1); border: 1px solid var(--rustic-gold); border-radius: 12px; padding: 14px 18px; margin-bottom: 20px;">
-							<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-								<i class="bi bi-check-circle-fill" style="color: var(--rustic-gold); font-size: 1.2rem;"></i>
-								<strong style="color: var(--rustic-brown-dark);">Anda sudah RSVP</strong>
-							</div>
-							<p style="margin: 0; font-size: 0.85rem; color: var(--rustic-muted); line-height: 1.6;">
-								Data di bawah sudah terisi otomatis. Anda bisa edit jika ada perubahan.
-							</p>
-						</div>
-					}
-
-					<div class="form-group">
-						<label for="rsvp-name">Nama Anda <span class="required">*</span></label>
-						if data.IsNamedGuest {
-							<input type="text" id="rsvp-name" name="guest_name" value={ data.GuestName } readonly/>
-							<small style="display:block; margin-top:6px; font-size:0.7rem; color:var(--rustic-muted); font-style:italic;">
-								<i class="bi bi-info-circle me-1"></i>Nama otomatis terisi dari undangan yang Anda terima
-							</small>
-						} else {
-							<input type="text" id="rsvp-name" name="guest_name" placeholder="Nama lengkap" required/>
-						}
-					</div>
-
-					<div class="form-group">
-						<label for="rsvp-attendance">Kehadiran <span class="required">*</span></label>
-						<select id="rsvp-attendance" name="attendance" required>
-							if data.ExistingRsvpField("attendance", "") == "" {
-								<option value="" selected>Pilih konfirmasi</option>
-							} else {
-								<option value="">Pilih konfirmasi</option>
-							}
-							if data.ExistingRsvpField("attendance", "") == "hadir" {
-								<option value="hadir" selected>Hadir</option>
-							} else {
-								<option value="hadir">Hadir</option>
-							}
-							if data.ExistingRsvpField("attendance", "") == "tidak_hadir" {
-								<option value="tidak_hadir" selected>Tidak Hadir</option>
-							} else {
-								<option value="tidak_hadir">Tidak Hadir</option>
-							}
-							if data.ExistingRsvpField("attendance", "") == "ragu" {
-								<option value="ragu" selected>Ragu-ragu</option>
-							} else {
-								<option value="ragu">Ragu-ragu</option>
-							}
-						</select>
-					</div>
-
-					<div class="form-group">
-						<label for="rsvp-guests">Jumlah Tamu</label>
-						<input type="number" id="rsvp-guests" name="total_guests" value={ invitation.FormatInt(data.ExistingRsvpGuests()) } min="1" max="10"/>
-					</div>
-
-					<div class="form-group">
-						<label for="rsvp-message">Ucapan &amp; Doa</label>
-						<textarea id="rsvp-message" name="message" rows="3" placeholder="Tuliskan ucapan dan doa untuk pengantin...">{ data.ExistingRsvpField("message", "") }</textarea>
-					</div>
-
-					<button type="submit" class="btn-submit">
-						<i class="bi bi-send me-2"></i>
-						Kirim Konfirmasi
-					</button>
-				</form>
-
-				<div style="max-width:500px; margin:30px auto 0; padding-top:20px; border-top:1px solid rgba(139,115,85,0.15);">
-					<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-						<h4 style="font-size:0.95rem; color:var(--rustic-brown); font-weight:600; margin:0;">
-							<i class="bi bi-people me-2"></i>Konfirmasi Kehadiran
-						</h4>
-						<span id="rsvpCount" style="font-size:0.7rem; color:var(--rustic-muted); background:rgba(184,149,106,0.08); padding:2px 12px; border-radius:12px;">
-							0 tamu
-						</span>
-					</div>
-					<div id="rsvpList">
-						<div style="text-align:center; color:var(--rustic-muted); font-size:0.8rem; padding:20px 0;">
-							<i class="bi bi-hourglass-split me-2"></i>Memuat daftar konfirmasi...
-						</div>
-					</div>
-				</div>
+				@shared.RSVPListWrap()
 			</div>
 		</section>
 
@@ -1626,119 +1611,7 @@ templ rusticWoodPage(data *invitation.TemplateData) {
 		</footer>
 
 		<!-- FOOTER TAHAP 2 - WEB FOOTER -->
-		<footer class="web-footer">
-			<div class="container">
-				<div class="row">
-					<div>
-						<a href="/" class="web-footer-brand-link" style="text-decoration:none;">
-							<h5 class="web-footer-brand">
-								if data.SiteConfig.SiteFavicon != "" {
-									<img src={ "/storage/" + data.SiteConfig.SiteFavicon } alt="Logo" style="width: 32px; height: 32px; object-fit: contain; margin-right: 8px; vertical-align: middle;"/>
-								}
-								<span class="wedding">Wedding</span><span class="saas">SaaS</span>
-							</h5>
-						</a>
-						<p class="web-footer-desc">
-							{ data.SiteConfig.FooterDescription }
-						</p>
-						<p class="web-footer-desc mb-2" style="margin-top: 8px;">
-							<i class="bi bi-globe me-1" style="color:var(--rustic-gold);"></i>
-							<a href="https://wedding.litebox.my.id" target="_blank" rel="noopener" class="web-footer-link">
-								wedding.litebox.my.id
-							</a>
-						</p>
-						<div class="web-footer-socials">
-							if data.SiteConfig.SocialInstagram != "" {
-								<a href={ templpkg.SafeURL(data.SiteConfig.SocialInstagram) } target="_blank" rel="noopener" class="web-social-link" title="Instagram">
-									<i class="bi bi-instagram"></i>
-								</a>
-							}
-							if data.SiteConfig.SocialFacebook != "" {
-								<a href={ templpkg.SafeURL(data.SiteConfig.SocialFacebook) } target="_blank" rel="noopener" class="web-social-link" title="Facebook">
-									<i class="bi bi-facebook"></i>
-								</a>
-							}
-							if data.SiteConfig.SocialTiktok != "" {
-								<a href={ templpkg.SafeURL(data.SiteConfig.SocialTiktok) } target="_blank" rel="noopener" class="web-social-link" title="TikTok">
-									<i class="bi bi-tiktok"></i>
-								</a>
-							}
-							if data.SiteConfig.SocialYoutube != "" {
-								<a href={ templpkg.SafeURL(data.SiteConfig.SocialYoutube) } target="_blank" rel="noopener" class="web-social-link" title="YouTube">
-									<i class="bi bi-youtube"></i>
-								</a>
-							}
-							if data.SiteConfig.SocialTwitter != "" {
-								<a href={ templpkg.SafeURL(data.SiteConfig.SocialTwitter) } target="_blank" rel="noopener" class="web-social-link" title="Twitter">
-									<i class="bi bi-twitter-x"></i>
-								</a>
-							}
-						</div>
-					</div>
-
-					<div>
-						<h6 class="web-footer-heading">Kontak Kami</h6>
-						<ul class="web-footer-list">
-							if data.SiteConfig.ContactEmail != "" {
-								<li>
-									<i class="bi bi-envelope"></i>
-									<a href={ templpkg.SafeURL("mailto:" + data.SiteConfig.ContactEmail) }>{ data.SiteConfig.ContactEmail }</a>
-								</li>
-							}
-							if data.SiteConfig.ContactPhone != "" {
-								<li>
-									<i class="bi bi-telephone"></i>
-									<span>{ data.SiteConfig.ContactPhone }</span>
-								</li>
-							}
-							if data.SiteConfig.ContactWhatsapp != "" {
-								<li>
-									<i class="bi bi-whatsapp"></i>
-									<a href={ templpkg.SafeURL("https://wa.me/" + data.SiteConfig.ContactWhatsapp) } target="_blank" rel="noopener">WhatsApp Chat</a>
-								</li>
-							}
-							if data.SiteConfig.ContactAddress != "" {
-								<li>
-									<i class="bi bi-geo-alt"></i>
-									<span>{ data.SiteConfig.ContactAddress }</span>
-								</li>
-							}
-						</ul>
-					</div>
-
-					<div>
-						<h6 class="web-footer-heading">Dikembangkan Oleh</h6>
-						<p class="web-footer-desc mb-2">
-							<i class="bi bi-code-slash me-1" style="color:var(--rustic-gold);"></i>
-							if data.SiteConfig.DeveloperUrl != "" {
-								<a href={ templpkg.SafeURL(data.SiteConfig.DeveloperUrl) } target="_blank" rel="noopener" class="web-footer-link">{ data.SiteConfig.DeveloperName }</a>
-							} else {
-								{ data.SiteConfig.DeveloperName }
-							}
-						</p>
-						if data.SiteConfig.DeveloperEmail != "" {
-							<p class="web-footer-desc mb-2">
-								<i class="bi bi-envelope-at me-1"></i>
-								<a href={ templpkg.SafeURL("mailto:" + data.SiteConfig.DeveloperEmail) } class="web-footer-link">{ data.SiteConfig.DeveloperEmail }</a>
-							</p>
-						}
-						if data.SiteConfig.FooterVersion != "" {
-							<p class="web-footer-version">
-								<i class="bi bi-tag me-1"></i>{ data.SiteConfig.FooterVersion }
-							</p>
-						}
-					</div>
-				</div>
-
-				<hr class="web-footer-divider"/>
-
-				<div class="text-center">
-					<p class="web-footer-text">
-						© { invitation.FormatInt(invitation.CurrentYear()) } { data.SiteConfig.FooterCopyright }
-					</p>
-				</div>
-			</div>
-		</footer>
+		@shared.WebFooter(data, shared.WebFooterTextDefault)
 
 		<!-- SCRIPTS -->
 		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
