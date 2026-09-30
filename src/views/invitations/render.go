@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 
+	"wedding-invitation-go/internal/invitation"
 	"wedding-invitation-go/internal/models"
 	"wedding-invitation-go/views/invitations/elegant_gold"
 	"wedding-invitation-go/views/invitations/modern_minimalist"
@@ -14,12 +15,11 @@ import (
 	"wedding-invitation-go/views/invitations/traditional_java"
 )
 
-// RenderTemplate — dispatch ke template view berdasarkan folder
 func RenderTemplate(
 	w io.Writer,
 	r *http.Request,
 	project models.Project,
-	data map[string]interface{},
+	data *invitation.TemplateData,
 	guestName string,
 ) error {
 	folder := "rustic_wood"
@@ -33,19 +33,18 @@ func RenderTemplate(
 	switch folder {
 	case "rustic_wood":
 		return rustic_wood.RusticWood(ctx, w, project, data, guestName)
-	case "modern_minimalist":
-		return modern_minimalist.ModernMinimalist(ctx, w, project, data, guestName)
-	case "elegant_gold":
-		return elegant_gold.ElegantGold(ctx, w, project, data, guestName)
-	case "traditional_java":
-		return traditional_java.TraditionalJava(ctx, w, project, data, guestName)
 	case "muslim_elegan":
 		return muslim_elegan.MuslimElegan(ctx, w, project, data, guestName)
+	case "elegant_gold":
+		return elegant_gold.ElegantGold(ctx, w, project, data, guestName)
+	case "modern_minimalist":
+		return modern_minimalist.ModernMinimalist(ctx, w, project, data, guestName)
+	case "traditional_java":
+		return traditional_java.TraditionalJava(ctx, w, project, data, guestName)
 	default:
-		return rustic_wood.RusticWood(ctx, w, project, data, guestName)
+		return fmt.Errorf("template %s tidak dikenal", folder)
 	}
 }
-
 
 func normalizeFolder(folder string) string {
 	result := ""

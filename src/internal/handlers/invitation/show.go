@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"wedding-invitation-go/internal/database"
+	invitationPkg "wedding-invitation-go/internal/invitation"
 	"wedding-invitation-go/internal/models"
 	"wedding-invitation-go/internal/services"
 	"wedding-invitation-go/views/invitations"
@@ -15,7 +16,6 @@ import (
 
 // ============================================
 // ShowInvitation — GET /invitation/:slug
-// Tampilkan undangan ke tamu (publik)
 // ============================================
 func ShowInvitation(c *gin.Context) {
 	slug := c.Param("slug")
@@ -24,7 +24,6 @@ func ShowInvitation(c *gin.Context) {
 		return
 	}
 
-	// Cari project berdasarkan slug
 	var project models.Project
 	db := database.GetDB()
 	if err := db.Preload("Template").Preload("User").
@@ -34,77 +33,32 @@ func ShowInvitation(c *gin.Context) {
 		return
 	}
 
-	// Cek status: hanya published yang bisa diakses
 	if project.Status != "published" {
 		c.String(http.StatusNotFound, "Undangan belum dipublikasikan")
 		return
 	}
 
-	// Increment views
 	db.Model(&project).UpdateColumn("total_views", project.TotalViews+1)
 
-	// Ambil data undangan (merge general + specific)
-	generalData := services.ParseJSONMap(project.DataUndangan)
-	specificData := services.ParseJSONMap(project.TemplateSpecificData)
-
-	allData := make(map[string]interface{})
-	for k, v := range generalData {
-		allData[k] = v
-	}
-	for k, v := range specificData {
-		allData[k] = v
-	}
-
-	// === INJECT DATA TAMBAHAN UNTUK TEMPLATE ===
-	// 1. Site config (untuk footer web)
-	siteCfg := services.GetSiteSetting()
-	allData["_site_config"] = siteCfg
-
-	// 2. Bank list (untuk lookup logo bank di amplop digital)
-	bankList := make([]map[string]string, 0)
-	for _, b := range models.GetBankList() {
-		bankList = append(bankList, map[string]string{
-			"code": b.Code,
-			"name": b.Name,
-			"type": b.Type,
-			"full": b.Full,
-		})
-	}
-	allData["_bank_list"] = bankList
-
-	// Nama tamu dari query parameter ?to=Nama
+	// Normalize guest name
 	guestName := c.Query("to")
 	if guestName == "" {
 		guestName = "Tamu Undangan"
 	}
-	// Normalize: ganti underscore/+ jadi spasi
 	guestName = strings.ReplaceAll(guestName, "_", " ")
 	guestName = strings.ReplaceAll(guestName, "+", " ")
 	guestName = strings.Join(strings.Fields(guestName), " ")
 
-	// 3. Existing RSVP (untuk pre-fill form)
-	if guestName != "Tamu Undangan" {
-		var existingRsvp models.Rsvp
-		err := db.Where("project_id = ? AND LOWER(guest_name) = ?",
-			project.ID, strings.ToLower(guestName)).
-			First(&existingRsvp).Error
-		if err == nil {
-			allData["_existing_rsvp"] = map[string]interface{}{
-				"attendance":   existingRsvp.Attendance,
-				"total_guests": existingRsvp.TotalGuests,
-				"message":      existingRsvp.GetMessage(),
-			}
-		}
-	}
+	// Load data
+	data := invitationPkg.LoadData(project, guestName)
 
-	// Render template sesuai folder
-	// Template view: views/invitations/{folder}/index.templ
+	// Render
 	var buf bytes.Buffer
 	err := invitations.RenderTemplate(
 		&buf,
 		c.Request,
 		project,
-		allData,
+		data,
 		guestName,
 	)
 
@@ -122,7 +76,6 @@ func ShowInvitation(c *gin.Context) {
 
 // ============================================
 // RsvpSubmit — POST /invitation/:slug/rsvp
-// Submit RSVP dari tamu
 // ============================================
 func RsvpSubmit(c *gin.Context) {
 	slug := c.Param("slug")
@@ -144,7 +97,6 @@ func RsvpSubmit(c *gin.Context) {
 		return
 	}
 
-	// Parse total guests
 	total := 1
 	if totalGuests != "" {
 		for _, ch := range totalGuests {
@@ -154,16 +106,13 @@ func RsvpSubmit(c *gin.Context) {
 		}
 	}
 
-	// Normalize nama
 	guestName = strings.Join(strings.Fields(guestName), " ")
 
-	// Cek duplikat
 	var existing models.Rsvp
 	err := db.Where("project_id = ? AND LOWER(guest_name) = ?", project.ID, strings.ToLower(guestName)).
 		First(&existing).Error
 
 	if err == nil {
-		// Update existing
 		existing.Attendance = attendance
 		existing.TotalGuests = total
 		if message != "" {
@@ -180,7 +129,6 @@ func RsvpSubmit(c *gin.Context) {
 		return
 	}
 
-	// Buat RSVP baru
 	rsvp := models.Rsvp{
 		ProjectID:   project.ID,
 		GuestName:   guestName,
@@ -196,10 +144,8 @@ func RsvpSubmit(c *gin.Context) {
 		return
 	}
 
-	// Increment total_rsvp di project
 	db.Model(&project).UpdateColumn("total_rsvp", project.TotalRsvp+1)
 
-	// Sync ke InvitationGuest
 	var existingGuest models.InvitationGuest
 	if err := db.Where("project_id = ? AND LOWER(name) = ?", project.ID, strings.ToLower(guestName)).
 		First(&existingGuest).Error; err == nil {
@@ -224,7 +170,6 @@ func RsvpSubmit(c *gin.Context) {
 
 // ============================================
 // RsvpList — GET /invitation/:slug/rsvp-list
-// Ambil daftar RSVP (JSON untuk AJAX)
 // ============================================
 func RsvpList(c *gin.Context) {
 	slug := c.Param("slug")

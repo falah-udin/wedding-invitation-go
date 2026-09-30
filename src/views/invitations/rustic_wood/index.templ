@@ -5,47 +5,23 @@ import (
 	"io"
 
 	templpkg "github.com/a-h/templ"
+	"wedding-invitation-go/internal/invitation"
 	"wedding-invitation-go/internal/models"
 )
 
-// RusticWood — template undangan tema Rustic Wood (FULL)
-func RusticWood(ctx context.Context, w io.Writer, project models.Project, data map[string]interface{}, guestName string) error {
-	// Pre-compute data yang sering dipakai
-	groomName := getStr(data, "groom_name")
-	brideName := getStr(data, "bride_name")
-	groomPhoto := getDefaultPhoto(data, "groom_photo")
-	bridePhoto := getDefaultPhoto(data, "bride_photo")
-	eventInstagram := getStr(data, "event_instagram")
-	musicURL := getMusicUrlFromProject(project)
-	isNamedGuest := guestName != "" && guestName != "Tamu Undangan"
-
-	component := rusticWoodPage(
-		project, data, guestName,
-		groomName, brideName,
-		groomPhoto, bridePhoto,
-		eventInstagram, musicURL, isNamedGuest,
-	)
+// RusticWood — template undangan tema Rustic Wood
+func RusticWood(ctx context.Context, w io.Writer, project models.Project, data *invitation.TemplateData, guestName string) error {
+	component := rusticWoodPage(data)
 	return component.Render(ctx, w)
 }
 
-templ rusticWoodPage(
-	project models.Project,
-	data map[string]interface{},
-	guestName string,
-	groomName string,
-	brideName string,
-	groomPhoto string,
-	bridePhoto string,
-	eventInstagram string,
-	musicURL string,
-	isNamedGuest bool,
-) {
+templ rusticWoodPage(data *invitation.TemplateData) {
 	<!DOCTYPE html>
 	<html lang="id">
 	<head>
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
-		<title>{ groomName } &amp; { brideName } - Rustic Wood</title>
+		<title>{ data.GroomName } &amp; { data.BrideName } - Rustic Wood</title>
 
 		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
@@ -68,9 +44,7 @@ templ rusticWoodPage(
 			* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 			img { max-width: 100%; height: auto; }
 
-			/* ============================================ */
-			/* DATE CARD TEXT FIX */
-			/* ============================================ */
+			/* DATE CARD */
 			.date-card {
 				background: rgba(45, 31, 10, 0.5) !important;
 				border: 1px solid rgba(184, 149, 106, 0.15);
@@ -109,9 +83,7 @@ templ rusticWoodPage(
 			}
 			.date-time i, .date-venue i { color: rgba(184, 149, 106, 0.15); font-size: 0.6rem; }
 
-			/* ============================================ */
-			/* ROOT VARIABLES - RUSTIC WOOD THEME */
-			/* ============================================ */
+			/* ROOT VARIABLES */
 			:root {
 				--rustic-brown: #5a3d2b;
 				--rustic-brown-light: #8b7355;
@@ -131,9 +103,7 @@ templ rusticWoodPage(
 			.container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
 			@media (min-width: 768px) { .container { padding: 0 40px; } }
 
-			/* ============================================ */
 			/* TYPOGRAPHY */
-			/* ============================================ */
 			.section-label {
 				font-family: 'Cormorant Garamond', serif;
 				font-size: 0.8rem; text-transform: uppercase; letter-spacing: 8px;
@@ -161,9 +131,7 @@ templ rusticWoodPage(
 				.section-subtitle { font-size: 0.85rem; padding: 0 16px; }
 			}
 
-			/* ============================================ */
 			/* TOAST */
-			/* ============================================ */
 			.toast-container {
 				position: fixed; top: 20px; right: 20px; z-index: 9999;
 				display: flex; flex-direction: column; gap: 8px;
@@ -187,9 +155,7 @@ templ rusticWoodPage(
 				to { transform: translateX(0) rotate(0); opacity: 1; }
 			}
 
-						/* ============================================ */
 			/* OVERLAY START */
-			/* ============================================ */
 			#startOverlay {
 				position: fixed; top: 0; left: 0; right: 0; bottom: 0;
 				width: 100vw; height: 100vh; height: 100svh;
@@ -296,9 +262,7 @@ templ rusticWoodPage(
 				#startOverlay .overlay-wood { font-size: 2.5rem; }
 			}
 
-			/* ============================================ */
 			/* MUSIC PLAYER */
-			/* ============================================ */
 			.music-player { position: fixed; bottom: 24px; right: 24px; z-index: 1000; }
 			.music-btn {
 				width: 56px; height: 56px; border-radius: 50%;
@@ -321,9 +285,7 @@ templ rusticWoodPage(
 				100% { box-shadow: 0 0 0 0 rgba(90, 61, 43, 0); }
 			}
 
-			/* ============================================ */
 			/* HERO */
-			/* ============================================ */
 			.hero-rustic-ultimate {
 				min-height: 100vh; min-height: 100svh; height: auto;
 				display: flex; flex-direction: column;
@@ -549,9 +511,7 @@ templ rusticWoodPage(
 				.hero-badge-wood { font-size: 0.6rem; letter-spacing: 5px; }
 			}
 
-			/* ============================================ */
 			/* COUPLE */
-			/* ============================================ */
 			.section-couple { padding: 80px 0; background: var(--rustic-cream); }
 			.couple-grid {
 				display: grid; grid-template-columns: 1fr auto 1fr;
@@ -620,9 +580,7 @@ templ rusticWoodPage(
 			}
 			@media (max-width: 700px) { .couple-ampersand { font-size: 2rem; } }
 
-			/* ============================================ */
 			/* LOVE STORY */
-			/* ============================================ */
 			.section-love { padding: 80px 0; background: var(--rustic-cream-dark); }
 			.love-timeline {
 				position: relative; padding-left: 35px;
@@ -663,15 +621,13 @@ templ rusticWoodPage(
 				margin-bottom: 4px; color: var(--rustic-brown);
 			}
 			.timeline-desc { color: var(--rustic-muted); font-size: 0.9rem; margin: 0; }
-				@media (max-width: 600px) {
-					.love-timeline { padding-left: 24px; }
-					.timeline-item { padding-left: 20px; }
-					.timeline-content { padding: 16px 18px; }
-				}
+			@media (max-width: 600px) {
+				.love-timeline { padding-left: 24px; }
+				.timeline-item { padding-left: 20px; }
+				.timeline-content { padding: 16px 18px; }
+			}
 
-							/* ============================================ */
 			/* EVENT */
-			/* ============================================ */
 			.section-event { padding: 80px 0; background: var(--rustic-cream); }
 			.event-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 			@media (max-width: 600px) { .event-grid { grid-template-columns: 1fr; } }
@@ -727,9 +683,7 @@ templ rusticWoodPage(
 			}
 			.btn-map:hover { color: var(--rustic-gold); border-bottom-color: var(--rustic-brown); }
 
-			/* ============================================ */
 			/* GALLERY */
-			/* ============================================ */
 			.section-gallery { padding: 80px 0; background: var(--rustic-cream-dark); }
 			.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 			@media (max-width: 600px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
@@ -755,9 +709,7 @@ templ rusticWoodPage(
 			}
 			.gallery-item:hover .gallery-overlay { opacity: 1; }
 
-			/* ============================================ */
 			/* RSVP */
-			/* ============================================ */
 			.section-rsvp { padding: 80px 0; background: var(--rustic-cream); }
 			.rsvp-form { max-width: 500px; margin: 0 auto; }
 			.form-group { margin-bottom: 16px; }
@@ -841,9 +793,7 @@ templ rusticWoodPage(
 			}
 			.rsvp-empty i { display: block; font-size: 2rem; margin-bottom: 10px; color: #d1d5db; }
 
-			/* ============================================ */
 			/* BANK / AMPLOP DIGITAL */
-			/* ============================================ */
 			.section-bank {
 				padding: 80px 0; background: var(--rustic-cream-dark);
 				position: relative; overflow: hidden;
@@ -954,9 +904,7 @@ templ rusticWoodPage(
 				.section-bank::before { font-size: 10rem; }
 			}
 
-			/* ============================================ */
 			/* LIGHTBOX */
-			/* ============================================ */
 			.lightbox {
 				position: fixed; top: 0; left: 0;
 				width: 100%; height: 100%;
@@ -973,9 +921,7 @@ templ rusticWoodPage(
 			.lightbox-close:hover { transform: rotate(90deg); color: var(--rustic-gold); }
 			@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-			/* ============================================ */
-			/* FOOTER TAHAP 1 - INFO MEMPELAI */
-			/* ============================================ */
+			/* FOOTER TAHAP 1 */
 			.section-footer {
 				padding: 60px 20px 45px;
 				background: var(--rustic-brown-dark);
@@ -1029,9 +975,7 @@ templ rusticWoodPage(
 				.section-footer::before { font-size: 10rem; }
 			}
 
-			/* ============================================ */
 			/* FOOTER TAHAP 2 - WEB FOOTER */
-			/* ============================================ */
 			.web-footer {
 				background: linear-gradient(180deg, #1a1208 0%, #0d0905 100%);
 				padding: 3rem 0 1.5rem;
@@ -1133,9 +1077,7 @@ templ rusticWoodPage(
 				.web-footer-socials { justify-content: center; }
 			}
 
-			/* ============================================ */
 			/* EVENT DATES */
-			/* ============================================ */
 			.event-dates-wood {
 				display: flex; flex-wrap: wrap; justify-content: center;
 				align-items: stretch; gap: 12px; margin: 12px 0 24px;
@@ -1185,24 +1127,19 @@ templ rusticWoodPage(
 			}
 		</style>
 	</head>
-	<body>
-		<!-- ============================================ -->
+	<body data-music-url={ data.MusicURL } data-project-id={ invitation.FormatUint(data.Project.ID) } data-project-slug={ data.Project.Slug }>
+
 		<!-- OVERLAY START -->
-		<!-- ============================================ -->
 		<div id="startOverlay">
 			<div class="overlay-inner">
 				<span class="overlay-wood">✦</span>
 				<h1 class="overlay-title">Rustic Wood</h1>
-				<p class="overlay-subtitle">{ groomName } &amp; { brideName }</p>
+				<p class="overlay-subtitle">{ data.GroomName } &amp; { data.BrideName }</p>
 				<div class="overlay-divider"></div>
 
 				<div class="overlay-guest">
-					if isNamedGuest {
-						<div class="overlay-guest-label">Kepada</div>
-					} else {
-						<div class="overlay-guest-label">Salam Hangat untuk</div>
-					}
-					<div class="overlay-guest-name">{ guestName }</div>
+					<div class="overlay-guest-label">{ invitation.GuestGreeting(data.IsNamedGuest) }</div>
+					<div class="overlay-guest-name">{ data.GuestName }</div>
 					<div class="overlay-guest-divider"></div>
 				</div>
 
@@ -1215,18 +1152,14 @@ templ rusticWoodPage(
 			</div>
 		</div>
 
-		<!-- ============================================ -->
 		<!-- MUSIC PLAYER -->
-		<!-- ============================================ -->
 		<div class="music-player" id="musicPlayer">
 			<button class="music-btn" id="musicToggle" onclick={ templpkg.JSFuncCall("toggleMusic") }>
 				<i class="bi bi-music-note"></i>
 			</button>
 		</div>
 
-				<!-- ============================================ -->
 		<!-- HERO / COVER -->
-		<!-- ============================================ -->
 		<section class="hero-rustic-ultimate" id="section-cover">
 			<div class="wood-bg-solid"></div>
 			<div class="wood-layer wood-layer-1"></div>
@@ -1262,9 +1195,9 @@ templ rusticWoodPage(
 						<div class="hero-badge-wood">✦ The Wedding of ✦</div>
 
 						<h1 class="hero-couple-wood">
-							<span class="groom-name">{ groomName }</span>
+							<span class="groom-name">{ data.GroomName }</span>
 							<span class="wood-ampersand">&amp;</span>
-							<span class="bride-name">{ brideName }</span>
+							<span class="bride-name">{ data.BrideName }</span>
 						</h1>
 
 						<div class="wood-divider-ornate">
@@ -1274,53 +1207,53 @@ templ rusticWoodPage(
 						</div>
 
 						<div class="event-dates-wood">
-							if showDates(data) == "both" || showDates(data) == "akad" {
+							if data.ShouldShowAkadDate() {
 								<div class="date-card date-akad">
 									<div class="date-label">
-										<i class="bi bi-ring"></i>
+										<i class="bi bi-gem"></i>
 										<span>Akad Nikah</span>
 									</div>
 									<div class="date-value">
 										<i class="bi bi-calendar3"></i>
-										<span>{ getStr(data, "akad_date") }</span>
+										<span>{ data.AkadDate }</span>
 									</div>
 									<div class="date-time">
 										<i class="bi bi-clock"></i>
-										<span>Pukul { getStr(data, "akad_time") }</span>
+										<span>Pukul { data.AkadTime }</span>
 									</div>
-									if showVenue(data) == "both" || showVenue(data) == "akad" {
+									if data.ShouldShowAkadVenue() {
 										<div class="date-venue">
 											<i class="bi bi-geo-alt"></i>
-											<span>{ getStr(data, "akad_venue") }</span>
+											<span>{ data.AkadVenue }</span>
 										</div>
 									}
 								</div>
 							}
 
-							if showDates(data) == "both" {
+							if data.ShouldShowBothDates() {
 								<div class="date-divider-wood">
 									<span class="divider-heart">❤</span>
 								</div>
 							}
 
-							if showDates(data) == "both" || showDates(data) == "resepsi" {
+							if data.ShouldShowResepsiDate() {
 								<div class="date-card date-resepsi">
 									<div class="date-label">
 										<i class="bi bi-balloon"></i>
-										<span>{ getResepsiLabel(data) }</span>
+										<span>{ data.ResepsiLabelDisplay() }</span>
 									</div>
 									<div class="date-value">
 										<i class="bi bi-calendar3"></i>
-										<span>{ getStr(data, "resepsi_date") }</span>
+										<span>{ data.ResepsiDate }</span>
 									</div>
 									<div class="date-time">
 										<i class="bi bi-clock"></i>
-										<span>Pukul { getStr(data, "resepsi_time") }</span>
+										<span>Pukul { data.ResepsiTime }</span>
 									</div>
-									if showVenue(data) == "both" || showVenue(data) == "resepsi" {
+									if data.ShouldShowResepsiVenue() {
 										<div class="date-venue">
 											<i class="bi bi-geo-alt"></i>
-											<span>{ getStr(data, "resepsi_venue") }</span>
+											<span>{ data.ResepsiVenue }</span>
 										</div>
 									}
 								</div>
@@ -1347,9 +1280,7 @@ templ rusticWoodPage(
 			</div>
 		</section>
 
-		<!-- ============================================ -->
 		<!-- COUPLE -->
-		<!-- ============================================ -->
 		<section class="section-couple" id="section-couple">
 			<div class="container">
 				<div class="section-label" data-aos="fade-up">PASANGAN</div>
@@ -1364,15 +1295,15 @@ templ rusticWoodPage(
 				<div class="couple-grid">
 					<div class="couple-card" data-aos="fade-right" data-aos-delay="100">
 						<div class="couple-photo">
-							<img src={ groomPhoto } alt={ groomName } loading="lazy"/>
-						</div>						
+							<img src={ data.GroomPhotoOrDefault() } alt={ data.GroomName } loading="lazy"/>
+						</div>
 						<div class="couple-info">
-							<h3>{ groomName }</h3>
+							<h3>{ data.GroomName }</h3>
 							<p class="couple-title">Putra dari</p>
-							<p class="couple-parents">{ getParentsName(data, "groom") }</p>
-							if getStr(data, "groom_instagram") != "-" {
+							<p class="couple-parents">{ data.ParentsGroom() }</p>
+							if data.GroomInstagram != "" {
 								<div class="couple-social">
-									<a href={ templ.SafeURL(getStr(data, "groom_instagram")) } target="_blank"><i class="bi bi-instagram"></i></a>
+									<a href={ templpkg.SafeURL(data.GroomInstagram) } target="_blank"><i class="bi bi-instagram"></i></a>
 								</div>
 							}
 						</div>
@@ -1382,15 +1313,15 @@ templ rusticWoodPage(
 
 					<div class="couple-card" data-aos="fade-left" data-aos-delay="200">
 						<div class="couple-photo">
-							<img src={ bridePhoto } alt={ brideName } loading="lazy"/>
+							<img src={ data.BridePhotoOrDefault() } alt={ data.BrideName } loading="lazy"/>
 						</div>
 						<div class="couple-info">
-							<h3>{ brideName }</h3>
+							<h3>{ data.BrideName }</h3>
 							<p class="couple-title">Putri dari</p>
-							<p class="couple-parents">{ getParentsName(data, "bride") }</p>
-							if getStr(data, "bride_instagram") != "-" {
+							<p class="couple-parents">{ data.ParentsBride() }</p>
+							if data.BrideInstagram != "" {
 								<div class="couple-social">
-									<a href={ templ.SafeURL(getStr(data, "bride_instagram")) } target="_blank"><i class="bi bi-instagram"></i></a>
+									<a href={ templpkg.SafeURL(data.BrideInstagram) } target="_blank"><i class="bi bi-instagram"></i></a>
 								</div>
 							}
 						</div>
@@ -1399,10 +1330,8 @@ templ rusticWoodPage(
 			</div>
 		</section>
 
-		<!-- ============================================ -->
 		<!-- LOVE STORY -->
-		<!-- ============================================ -->
-		if stories := getLoveStories(data); len(stories) > 0 {
+		if len(data.LoveStories) > 0 {
 			<section class="section-love" id="section-love">
 				<div class="container">
 					<div class="section-label" data-aos="fade-up">CERITA</div>
@@ -1415,12 +1344,12 @@ templ rusticWoodPage(
 					</p>
 
 					<div class="love-timeline">
-						for index, story := range stories {
-							<div class="timeline-item" data-aos="fade-up" data-aos-delay={ formatInt(100 * (index + 1)) }>
+						for index, story := range data.LoveStories {
+							<div class="timeline-item" data-aos="fade-up" data-aos-delay={ invitation.FormatInt(100 * (index + 1)) }>
 								<div class="timeline-dot"><i class="bi bi-heart-fill" style="font-size:0.4rem;"></i></div>
 								<div class="timeline-content">
-									<h3 class="timeline-title">{ story["title"] }</h3>
-									<p class="timeline-desc">{ story["desc"] }</p>
+									<h3 class="timeline-title">{ story.Title }</h3>
+									<p class="timeline-desc">{ story.Desc }</p>
 								</div>
 							</div>
 						}
@@ -1429,9 +1358,7 @@ templ rusticWoodPage(
 			</section>
 		}
 
-		<!-- ============================================ -->
 		<!-- EVENT -->
-		<!-- ============================================ -->
 		<section class="section-event" id="section-event">
 			<div class="container">
 				<div class="section-label" data-aos="fade-up">ACARA</div>
@@ -1449,19 +1376,19 @@ templ rusticWoodPage(
 						<h3 class="event-title">Akad Nikah</h3>
 						<div class="event-datetime">
 							<i class="bi bi-calendar3"></i>
-							<span>{ getStr(data, "akad_date") }</span>
+							<span>{ data.AkadDate }</span>
 						</div>
 						<div class="event-datetime">
 							<i class="bi bi-clock"></i>
-							<span>Pukul { getStr(data, "akad_time") }</span>
+							<span>Pukul { data.AkadTime }</span>
 						</div>
 						<div class="event-venue">
 							<i class="bi bi-geo-alt"></i>
-							<span>{ getStr(data, "akad_venue") }</span>
+							<span>{ data.AkadVenue }</span>
 						</div>
-						if getStr(data, "maps_url_akad") != "-" {
+						if data.MapsURLAkad != "" {
 							<div style="margin-top:14px;">
-								<a href={ templ.SafeURL(getStr(data, "maps_url_akad")) } target="_blank" class="btn-map">
+								<a href={ templpkg.SafeURL(data.MapsURLAkad) } target="_blank" class="btn-map">
 									<i class="bi bi-geo-alt me-2"></i>Buka Lokasi
 								</a>
 							</div>
@@ -1470,30 +1397,30 @@ templ rusticWoodPage(
 
 					<div class="event-card" data-aos="fade-up" data-aos-delay="150">
 						<div class="event-icon"><i class="bi bi-balloon"></i></div>
-						<h3 class="event-title">{ getResepsiLabel(data) }</h3>
+						<h3 class="event-title">{ data.ResepsiLabelDisplay() }</h3>
 
-						if isIslamicLabel(data) && getResepsiArabic(data) != "" {
+						if data.IsIslamicResepsi() && data.ResepsiArabic() != "" {
 							<div style="font-family:'Cormorant Garamond',serif; font-size:0.8rem; color:var(--rustic-gold); margin-bottom:8px; font-style:italic;">
-								{ getResepsiArabic(data) }
+								{ data.ResepsiArabic() }
 							</div>
 						}
 
 						<div class="event-datetime">
 							<i class="bi bi-calendar3"></i>
-							<span>{ getStr(data, "resepsi_date") }</span>
+							<span>{ data.ResepsiDate }</span>
 						</div>
 						<div class="event-datetime">
 							<i class="bi bi-clock"></i>
-							<span>Pukul { getStr(data, "resepsi_time") }</span>
+							<span>Pukul { data.ResepsiTime }</span>
 						</div>
 						<div class="event-venue">
 							<i class="bi bi-geo-alt"></i>
-							<span>{ getStr(data, "resepsi_venue") }</span>
+							<span>{ data.ResepsiVenue }</span>
 						</div>
-						if getStr(data, "maps_url_resepsi") != "-" {
+						if data.MapsURLResepsi != "" {
 							<div style="margin-top:14px;">
-								<a href={ templ.SafeURL(getStr(data, "maps_url_resepsi")) } target="_blank" class="btn-map">
-									<i class="bi bi-geo-alt me-2"></i>Buka Lokasi { getResepsiLabel(data) }
+								<a href={ templpkg.SafeURL(data.MapsURLResepsi) } target="_blank" class="btn-map">
+									<i class="bi bi-geo-alt me-2"></i>Buka Lokasi { data.ResepsiLabelDisplay() }
 								</a>
 							</div>
 						}
@@ -1502,10 +1429,8 @@ templ rusticWoodPage(
 			</div>
 		</section>
 
-		<!-- ============================================ -->
 		<!-- GALLERY -->
-		<!-- ============================================ -->
-		if gallery := getGallery(data); len(gallery) > 0 {
+		if len(data.Gallery) > 0 {
 			<section class="section-gallery" id="section-gallery">
 				<div class="container">
 					<div class="section-label" data-aos="fade-up">GALERI</div>
@@ -1518,9 +1443,9 @@ templ rusticWoodPage(
 					</p>
 
 					<div class="gallery-grid">
-						for index, img := range gallery {
-							<div class="gallery-item" data-aos="fade-up" data-aos-delay={ formatInt(100 * ((index % 6) + 1)) }>
-								<img src={ img } alt={ "Foto " + formatInt(index+1) } loading="lazy"/>
+						for index, img := range data.Gallery {
+							<div class="gallery-item" data-aos="fade-up" data-aos-delay={ invitation.FormatInt(100 * ((index % 6) + 1)) }>
+								<img src={ img } alt={ "Foto " + invitation.FormatInt(index+1) } loading="lazy"/>
 								<div class="gallery-overlay"><i class="bi bi-zoom-in"></i></div>
 							</div>
 						}
@@ -1529,9 +1454,7 @@ templ rusticWoodPage(
 			</section>
 		}
 
-		<!-- ============================================ -->
 		<!-- RSVP -->
-		<!-- ============================================ -->
 		<section class="section-rsvp" id="section-rsvp">
 			<div class="container">
 				<div class="section-label" data-aos="fade-up">KONFIRMASI</div>
@@ -1543,10 +1466,10 @@ templ rusticWoodPage(
 					Kami sangat berbahagia jika Anda bisa hadir di hari bahagia kami.
 				</p>
 
-				<form class="rsvp-form" method="POST" action={ templ.SafeURL("/invitation/" + project.Slug + "/rsvp") } data-aos="fade-up" data-aos-delay="100" id="rsvpForm">
-					<input type="hidden" name="project_id" value={ formatUint(project.ID) }/>
+				<form class="rsvp-form" method="POST" action={ templpkg.SafeURL("/invitation/" + data.Project.Slug + "/rsvp") } data-aos="fade-up" data-aos-delay="100" id="rsvpForm">
+					<input type="hidden" name="project_id" value={ invitation.FormatUint(data.Project.ID) }/>
 
-					if hasExistingRsvp(data) {
+					if data.HasExistingRsvp() {
 						<div style="background: rgba(184,149,106,0.1); border: 1px solid var(--rustic-gold); border-radius: 12px; padding: 14px 18px; margin-bottom: 20px;">
 							<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
 								<i class="bi bi-check-circle-fill" style="color: var(--rustic-gold); font-size: 1.2rem;"></i>
@@ -1560,8 +1483,8 @@ templ rusticWoodPage(
 
 					<div class="form-group">
 						<label for="rsvp-name">Nama Anda <span class="required">*</span></label>
-						if isNamedGuest {
-							<input type="text" id="rsvp-name" name="guest_name" value={ guestName } readonly/>
+						if data.IsNamedGuest {
+							<input type="text" id="rsvp-name" name="guest_name" value={ data.GuestName } readonly/>
 							<small style="display:block; margin-top:6px; font-size:0.7rem; color:var(--rustic-muted); font-style:italic;">
 								<i class="bi bi-info-circle me-1"></i>Nama otomatis terisi dari undangan yang Anda terima
 							</small>
@@ -1573,22 +1496,22 @@ templ rusticWoodPage(
 					<div class="form-group">
 						<label for="rsvp-attendance">Kehadiran <span class="required">*</span></label>
 						<select id="rsvp-attendance" name="attendance" required>
-							if getExistingRsvpField(data, "attendance", "") == "" {
+							if data.ExistingRsvpField("attendance", "") == "" {
 								<option value="" selected>Pilih konfirmasi</option>
 							} else {
 								<option value="">Pilih konfirmasi</option>
 							}
-							if getExistingRsvpField(data, "attendance", "") == "hadir" {
+							if data.ExistingRsvpField("attendance", "") == "hadir" {
 								<option value="hadir" selected>Hadir</option>
 							} else {
 								<option value="hadir">Hadir</option>
 							}
-							if getExistingRsvpField(data, "attendance", "") == "tidak_hadir" {
+							if data.ExistingRsvpField("attendance", "") == "tidak_hadir" {
 								<option value="tidak_hadir" selected>Tidak Hadir</option>
 							} else {
 								<option value="tidak_hadir">Tidak Hadir</option>
 							}
-							if getExistingRsvpField(data, "attendance", "") == "ragu" {
+							if data.ExistingRsvpField("attendance", "") == "ragu" {
 								<option value="ragu" selected>Ragu-ragu</option>
 							} else {
 								<option value="ragu">Ragu-ragu</option>
@@ -1598,12 +1521,12 @@ templ rusticWoodPage(
 
 					<div class="form-group">
 						<label for="rsvp-guests">Jumlah Tamu</label>
-						<input type="number" id="rsvp-guests" name="total_guests" value={ formatInt(getExistingRsvpGuests(data)) } min="1" max="10"/>
+						<input type="number" id="rsvp-guests" name="total_guests" value={ invitation.FormatInt(data.ExistingRsvpGuests()) } min="1" max="10"/>
 					</div>
 
 					<div class="form-group">
 						<label for="rsvp-message">Ucapan &amp; Doa</label>
-						<textarea id="rsvp-message" name="message" rows="3" placeholder="Tuliskan ucapan dan doa untuk pengantin...">{ getExistingRsvpField(data, "message", "") }</textarea>
+						<textarea id="rsvp-message" name="message" rows="3" placeholder="Tuliskan ucapan dan doa untuk pengantin...">{ data.ExistingRsvpField("message", "") }</textarea>
 					</div>
 
 					<button type="submit" class="btn-submit">
@@ -1630,10 +1553,8 @@ templ rusticWoodPage(
 			</div>
 		</section>
 
-		<!-- ============================================ -->
 		<!-- AMPLOP DIGITAL -->
-		<!-- ============================================ -->
-		if showBankAccounts(data) && len(getBankAccounts(data)) > 0 {
+		if data.ShouldShowBankAccounts() && len(data.BankAccounts) > 0 {
 			<section class="section-bank" id="section-bank">
 				<div class="container">
 					<div class="section-label" data-aos="fade-up">AMPLOP DIGITAL</div>
@@ -1646,27 +1567,27 @@ templ rusticWoodPage(
 					</p>
 
 					<div class="bank-grid-rustic">
-						for index, account := range getBankAccounts(data) {
-							<div class="bank-card-rustic" data-aos="fade-up" data-aos-delay={ formatInt(80 * (index + 1)) }>
-								<span class="bank-type-badge-rustic">{ getBankTypeBadge(account) }</span>
+						for index, account := range data.BankAccounts {
+							<div class="bank-card-rustic" data-aos="fade-up" data-aos-delay={ invitation.FormatInt(80 * (index + 1)) }>
+								<span class="bank-type-badge-rustic">{ invitation.GetBankTypeBadge(account) }</span>
 
 								<div class="bank-logo-rustic">
-									if hasCustomIcon(account) {
-										<img src={ "/storage/" + getAccountIconPath(account) } alt={ getAccountBankName(account, data) }/>
+									if invitation.HasCustomIcon(account) {
+										<img src={ invitation.GetAccountIconURL(account) } alt={ invitation.GetAccountBankName(account) }/>
 									} else {
-										<span class="bank-logo-icon">{ getAccountInitial(account, data) }</span>
+										<span class="bank-logo-icon">{ invitation.GetAccountInitial(account) }</span>
 									}
 								</div>
 
-								<div class="bank-name-rustic">{ getAccountBankName(account, data) }</div>
+								<div class="bank-name-rustic">{ invitation.GetAccountBankName(account) }</div>
 
-								<div class="bank-number-wrapper-rustic" data-number={ getAccountNumber(account) } onclick={ templpkg.JSFuncCall("copyBankNumberFromEl", templpkg.JSExpression("this")) }>
-									<span class="bank-number-rustic">{ getAccountNumber(account) }</span>
+								<div class="bank-number-wrapper-rustic" data-number={ invitation.GetAccountNumber(account) } onclick={ templpkg.JSFuncCall("copyBankNumberFromEl", templpkg.JSExpression("this")) }>
+									<span class="bank-number-rustic">{ invitation.GetAccountNumber(account) }</span>
 									<i class="bi bi-clipboard copy-icon-rustic"></i>
 								</div>
 
 								<div class="bank-holder-rustic">
-									a.n. <strong>{ getAccountName(account) }</strong>
+									a.n. <strong>{ invitation.GetAccountName(account) }</strong>
 								</div>
 							</div>
 						}
@@ -1680,24 +1601,22 @@ templ rusticWoodPage(
 			</section>
 		}
 
-		<!-- ============================================ -->
-		<!-- FOOTER TAHAP 1 - INFO MEMPELAI -->
-		<!-- ============================================ -->
+		<!-- FOOTER TAHAP 1 -->
 		<footer class="section-footer">
 			<div class="footer-inner">
 				<div class="footer-couple">
-					<span>{ groomName }</span>
+					<span>{ data.GroomName }</span>
 					<span class="footer-ampersand">&amp;</span>
-					<span>{ brideName }</span>
+					<span>{ data.BrideName }</span>
 				</div>
 				<div class="footer-divider"></div>
-				<p class="footer-date">{ getStr(data, "akad_date") }</p>
+				<p class="footer-date">{ data.AkadDate }</p>
 				<div class="footer-social">
-					if eventInstagram != "-" && eventInstagram != "" {
-						<a href={ templ.SafeURL(eventInstagram) } target="_blank"><i class="bi bi-instagram"></i></a>
+					if data.EventInstagram != "" {
+						<a href={ templpkg.SafeURL(data.EventInstagram) } target="_blank"><i class="bi bi-instagram"></i></a>
 					}
-					if getStr(data, "whatsapp") != "-" {
-						<a href={ templ.SafeURL("https://wa.me/" + getStr(data, "whatsapp")) } target="_blank"><i class="bi bi-whatsapp"></i></a>
+					if data.Whatsapp != "" {
+						<a href={ templpkg.SafeURL("https://wa.me/" + data.Whatsapp) } target="_blank"><i class="bi bi-whatsapp"></i></a>
 					}
 				</div>
 				<p class="footer-prayer">
@@ -1706,23 +1625,21 @@ templ rusticWoodPage(
 			</div>
 		</footer>
 
-		<!-- ============================================ -->
 		<!-- FOOTER TAHAP 2 - WEB FOOTER -->
-		<!-- ============================================ -->
 		<footer class="web-footer">
 			<div class="container">
 				<div class="row">
 					<div>
 						<a href="/" class="web-footer-brand-link" style="text-decoration:none;">
 							<h5 class="web-footer-brand">
-								if getSiteConfig(data, "site_favicon", "") != "" {
-									<img src={ "/storage/" + getSiteConfig(data, "site_favicon", "") } alt="Logo" style="width: 32px; height: 32px; object-fit: contain; margin-right: 8px; vertical-align: middle;"/>
+								if data.SiteConfig.SiteFavicon != "" {
+									<img src={ "/storage/" + data.SiteConfig.SiteFavicon } alt="Logo" style="width: 32px; height: 32px; object-fit: contain; margin-right: 8px; vertical-align: middle;"/>
 								}
 								<span class="wedding">Wedding</span><span class="saas">SaaS</span>
 							</h5>
 						</a>
 						<p class="web-footer-desc">
-							{ getSiteConfig(data, "footer_description", "Platform undangan pernikahan digital dengan template elegan, RSVP online, guest book, dan galeri foto.") }
+							{ data.SiteConfig.FooterDescription }
 						</p>
 						<p class="web-footer-desc mb-2" style="margin-top: 8px;">
 							<i class="bi bi-globe me-1" style="color:var(--rustic-gold);"></i>
@@ -1731,28 +1648,28 @@ templ rusticWoodPage(
 							</a>
 						</p>
 						<div class="web-footer-socials">
-							if getSiteConfig(data, "social_instagram", "") != "" {
-								<a href={ templ.SafeURL(getSiteConfig(data, "social_instagram", "")) } target="_blank" rel="noopener" class="web-social-link" title="Instagram">
+							if data.SiteConfig.SocialInstagram != "" {
+								<a href={ templpkg.SafeURL(data.SiteConfig.SocialInstagram) } target="_blank" rel="noopener" class="web-social-link" title="Instagram">
 									<i class="bi bi-instagram"></i>
 								</a>
 							}
-							if getSiteConfig(data, "social_facebook", "") != "" {
-								<a href={ templ.SafeURL(getSiteConfig(data, "social_facebook", "")) } target="_blank" rel="noopener" class="web-social-link" title="Facebook">
+							if data.SiteConfig.SocialFacebook != "" {
+								<a href={ templpkg.SafeURL(data.SiteConfig.SocialFacebook) } target="_blank" rel="noopener" class="web-social-link" title="Facebook">
 									<i class="bi bi-facebook"></i>
 								</a>
 							}
-							if getSiteConfig(data, "social_tiktok", "") != "" {
-								<a href={ templ.SafeURL(getSiteConfig(data, "social_tiktok", "")) } target="_blank" rel="noopener" class="web-social-link" title="TikTok">
+							if data.SiteConfig.SocialTiktok != "" {
+								<a href={ templpkg.SafeURL(data.SiteConfig.SocialTiktok) } target="_blank" rel="noopener" class="web-social-link" title="TikTok">
 									<i class="bi bi-tiktok"></i>
 								</a>
 							}
-							if getSiteConfig(data, "social_youtube", "") != "" {
-								<a href={ templ.SafeURL(getSiteConfig(data, "social_youtube", "")) } target="_blank" rel="noopener" class="web-social-link" title="YouTube">
+							if data.SiteConfig.SocialYoutube != "" {
+								<a href={ templpkg.SafeURL(data.SiteConfig.SocialYoutube) } target="_blank" rel="noopener" class="web-social-link" title="YouTube">
 									<i class="bi bi-youtube"></i>
 								</a>
 							}
-							if getSiteConfig(data, "social_twitter", "") != "" {
-								<a href={ templ.SafeURL(getSiteConfig(data, "social_twitter", "")) } target="_blank" rel="noopener" class="web-social-link" title="Twitter">
+							if data.SiteConfig.SocialTwitter != "" {
+								<a href={ templpkg.SafeURL(data.SiteConfig.SocialTwitter) } target="_blank" rel="noopener" class="web-social-link" title="Twitter">
 									<i class="bi bi-twitter-x"></i>
 								</a>
 							}
@@ -1762,28 +1679,28 @@ templ rusticWoodPage(
 					<div>
 						<h6 class="web-footer-heading">Kontak Kami</h6>
 						<ul class="web-footer-list">
-							if getSiteConfig(data, "contact_email", "") != "" {
+							if data.SiteConfig.ContactEmail != "" {
 								<li>
 									<i class="bi bi-envelope"></i>
-									<a href={ templ.SafeURL("mailto:" + getSiteConfig(data, "contact_email", "")) }>{ getSiteConfig(data, "contact_email", "") }</a>
+									<a href={ templpkg.SafeURL("mailto:" + data.SiteConfig.ContactEmail) }>{ data.SiteConfig.ContactEmail }</a>
 								</li>
 							}
-							if getSiteConfig(data, "contact_phone", "") != "" {
+							if data.SiteConfig.ContactPhone != "" {
 								<li>
 									<i class="bi bi-telephone"></i>
-									<span>{ getSiteConfig(data, "contact_phone", "") }</span>
+									<span>{ data.SiteConfig.ContactPhone }</span>
 								</li>
 							}
-							if getSiteConfig(data, "contact_whatsapp", "") != "" {
+							if data.SiteConfig.ContactWhatsapp != "" {
 								<li>
 									<i class="bi bi-whatsapp"></i>
-									<a href={ templ.SafeURL("https://wa.me/" + getSiteConfig(data, "contact_whatsapp", "")) } target="_blank" rel="noopener">WhatsApp Chat</a>
+									<a href={ templpkg.SafeURL("https://wa.me/" + data.SiteConfig.ContactWhatsapp) } target="_blank" rel="noopener">WhatsApp Chat</a>
 								</li>
 							}
-							if getSiteConfig(data, "contact_address", "") != "" {
+							if data.SiteConfig.ContactAddress != "" {
 								<li>
 									<i class="bi bi-geo-alt"></i>
-									<span>{ getSiteConfig(data, "contact_address", "") }</span>
+									<span>{ data.SiteConfig.ContactAddress }</span>
 								</li>
 							}
 						</ul>
@@ -1793,21 +1710,21 @@ templ rusticWoodPage(
 						<h6 class="web-footer-heading">Dikembangkan Oleh</h6>
 						<p class="web-footer-desc mb-2">
 							<i class="bi bi-code-slash me-1" style="color:var(--rustic-gold);"></i>
-							if getSiteConfig(data, "developer_url", "") != "" {
-								<a href={ templ.SafeURL(getSiteConfig(data, "developer_url", "")) } target="_blank" rel="noopener" class="web-footer-link">{ getSiteConfig(data, "developer_name", "Tim Developer") }</a>
+							if data.SiteConfig.DeveloperUrl != "" {
+								<a href={ templpkg.SafeURL(data.SiteConfig.DeveloperUrl) } target="_blank" rel="noopener" class="web-footer-link">{ data.SiteConfig.DeveloperName }</a>
 							} else {
-								{ getSiteConfig(data, "developer_name", "Tim Developer") }
+								{ data.SiteConfig.DeveloperName }
 							}
 						</p>
-						if getSiteConfig(data, "developer_email", "") != "" {
+						if data.SiteConfig.DeveloperEmail != "" {
 							<p class="web-footer-desc mb-2">
 								<i class="bi bi-envelope-at me-1"></i>
-								<a href={ templ.SafeURL("mailto:" + getSiteConfig(data, "developer_email", "")) } class="web-footer-link">{ getSiteConfig(data, "developer_email", "") }</a>
+								<a href={ templpkg.SafeURL("mailto:" + data.SiteConfig.DeveloperEmail) } class="web-footer-link">{ data.SiteConfig.DeveloperEmail }</a>
 							</p>
 						}
-						if getSiteConfig(data, "footer_version", "") != "" {
+						if data.SiteConfig.FooterVersion != "" {
 							<p class="web-footer-version">
-								<i class="bi bi-tag me-1"></i>{ getSiteConfig(data, "footer_version", "") }
+								<i class="bi bi-tag me-1"></i>{ data.SiteConfig.FooterVersion }
 							</p>
 						}
 					</div>
@@ -1817,15 +1734,13 @@ templ rusticWoodPage(
 
 				<div class="text-center">
 					<p class="web-footer-text">
-						© { currentYear() } { getSiteConfig(data, "footer_copyright", "Wedding SaaS. Platform Undangan Digital. All rights reserved.") }
+						© { invitation.FormatInt(invitation.CurrentYear()) } { data.SiteConfig.FooterCopyright }
 					</p>
 				</div>
 			</div>
 		</footer>
 
-		<!-- ============================================ -->
 		<!-- SCRIPTS -->
-		<!-- ============================================ -->
 		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -1845,8 +1760,9 @@ templ rusticWoodPage(
 			var audio = null;
 			var isPlaying = false;
 			var hasStarted = false;
-			var musicUrl = "{{ musicURL }}";
-			var projectID = {{ project.ID }};
+			var musicUrl = document.body.dataset.musicUrl || '';
+			var projectID = document.body.dataset.projectId || '';
+			var projectSlug = document.body.dataset.projectSlug || '';
 			var MUSIC_KEY = 'wedding_music_state_' + projectID;
 
 			function initAudio() {
@@ -1958,7 +1874,6 @@ templ rusticWoodPage(
 				return div.innerHTML;
 			}
 
-			// COPY BANK NUMBER
 			window.copyBankNumberFromEl = function(el) {
 				var number = el.getAttribute('data-number');
 				if (!number) return;
@@ -2030,11 +1945,10 @@ templ rusticWoodPage(
 
 			// LOAD RSVP LIST
 			function loadRsvpList() {
-				var slug = "{{ project.Slug }}";
 				var listContainer = document.getElementById('rsvpList');
 				var countContainer = document.getElementById('rsvpCount');
 				if (!listContainer) return;
-				fetch('/invitation/' + slug + '/rsvp-list')
+				fetch('/invitation/' + projectSlug + '/rsvp-list')
 					.then(function(r) { return r.json(); })
 					.then(function(data) {
 						if (!data || data.length === 0) {

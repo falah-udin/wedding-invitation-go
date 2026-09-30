@@ -13,55 +13,17 @@ import (
 	"io"
 
 	templpkg "github.com/a-h/templ"
+	"wedding-invitation-go/internal/invitation"
 	"wedding-invitation-go/internal/models"
 )
 
-// ModernMinimalist — template undangan Modern Minimalist (v2 — editorial)
-func ModernMinimalist(ctx context.Context, w io.Writer, project models.Project, data map[string]interface{}, guestName string) error {
-	groomName := getStr(data, "groom_name")
-	brideName := getStr(data, "bride_name")
-	groomPhoto := getDefaultPhoto(data, "groom_photo")
-	bridePhoto := getDefaultPhoto(data, "bride_photo")
-	heroImage := getHeroImage(data, groomPhoto)
-	eventInstagram := getStr(data, "event_instagram")
-	musicURL := getMusicUrlFromProject(project)
-	isNamedGuest := guestName != "" && guestName != "Tamu Undangan"
-	fatherGroomName := getStr(data, "father_groom")
-	motherGroomName := getStr(data, "mother_groom")
-	fatherBrideName := getStr(data, "father_bride")
-	motherBrideName := getStr(data, "mother_bride")
-	youtubeURL := getStr(data, "youtube")
-
-	component := modernMinimalistPage(
-		project, data, guestName,
-		groomName, brideName,
-		groomPhoto, bridePhoto,
-		heroImage,
-		fatherGroomName, motherGroomName,
-		fatherBrideName, motherBrideName,
-		eventInstagram, youtubeURL, musicURL, isNamedGuest,
-	)
+// ModernMinimalist — template undangan Modern Minimalist
+func ModernMinimalist(ctx context.Context, w io.Writer, project models.Project, data *invitation.TemplateData, guestName string) error {
+	component := modernMinimalistPage(data)
 	return component.Render(ctx, w)
 }
 
-func modernMinimalistPage(
-	project models.Project,
-	data map[string]interface{},
-	guestName string,
-	groomName string,
-	brideName string,
-	groomPhoto string,
-	bridePhoto string,
-	heroImage string,
-	fatherGroomName string,
-	motherGroomName string,
-	fatherBrideName string,
-	motherBrideName string,
-	eventInstagram string,
-	youtubeURL string,
-	musicURL string,
-	isNamedGuest bool,
-) templ.Component {
+func modernMinimalistPage(data *invitation.TemplateData) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -87,9 +49,9 @@ func modernMinimalistPage(
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var2 string
-		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(groomName)
+		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(data.GroomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 62, Col: 20}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 24, Col: 25}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -100,22 +62,22 @@ func modernMinimalistPage(
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var3 string
-		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(brideName)
+		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(data.BrideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 62, Col: 40}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 24, Col: 50}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, " - Modern Minimalist</title><link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap\" rel=\"stylesheet\"><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css\"><link href=\"https://unpkg.com/aos@2.3.1/dist/aos.css\" rel=\"stylesheet\"><style>\n\t\t\t/* ============================================ */\n\t\t\t/* ROOT VARIABLES */\n\t\t\t/* ============================================ */\n\t\t\t:root {\n\t\t\t\t--bg: #fafaf9;\n\t\t\t\t--bg-alt: #f5f5f4;\n\t\t\t\t--bg-dark: #1c1917;\n\t\t\t\t--card: #ffffff;\n\t\t\t\t--text: #1c1917;\n\t\t\t\t--text-muted: #78716c;\n\t\t\t\t--text-light: #a8a29e;\n\t\t\t\t--accent: #4a5d4a;\n\t\t\t\t--accent-light: #7d8c7d;\n\t\t\t\t--accent-soft: rgba(74, 93, 74, 0.08);\n\t\t\t\t--line: #e7e5e4;\n\t\t\t\t--line-strong: #d6d3d1;\n\t\t\t\t--white: #ffffff;\n\t\t\t\t--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);\n\t\t\t\t--shadow-md: 0 8px 32px rgba(0, 0, 0, 0.08);\n\t\t\t\t--shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.12);\n\t\t\t}\n\n\t\t\t* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }\n\t\t\thtml { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }\n\t\t\tbody {\n\t\t\t\tfont-family: 'Inter', sans-serif;\n\t\t\t\tbackground: var(--bg);\n\t\t\t\tcolor: var(--text);\n\t\t\t\tline-height: 1.7;\n\t\t\t\toverflow-x: hidden;\n\t\t\t\tmin-height: 100vh;\n\t\t\t\tmin-height: 100svh;\n\t\t\t\tfont-weight: 400;\n\t\t\t\t-webkit-font-smoothing: antialiased;\n\t\t\t}\n\t\t\timg { max-width: 100%; height: auto; display: block; }\n\n\t\t\t.container { max-width: 720px; margin: 0 auto; padding: 0 24px; }\n\t\t\t.container-wide { max-width: 1200px; margin: 0 auto; padding: 0 24px; }\n\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.container, .container-wide { padding: 0 20px; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* TYPOGRAPHY */\n\t\t\t/* ============================================ */\n\t\t\t.section-label {\n\t\t\t\tfont-size: 0.68rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 6px;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\ttext-align: center;\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.section-label::before {\n\t\t\t\tcontent: '';\n\t\t\t\tdisplay: inline-block;\n\t\t\t\twidth: 20px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: var(--text-light);\n\t\t\t\tvertical-align: middle;\n\t\t\t\tmargin-right: 12px;\n\t\t\t\topacity: 0.5;\n\t\t\t}\n\t\t\t.section-label::after {\n\t\t\t\tcontent: '';\n\t\t\t\tdisplay: inline-block;\n\t\t\t\twidth: 20px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: var(--text-light);\n\t\t\t\tvertical-align: middle;\n\t\t\t\tmargin-left: 12px;\n\t\t\t\topacity: 0.5;\n\t\t\t}\n\t\t\t.section-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 3rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\ttext-align: center;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tline-height: 1.15;\n\t\t\t\tletter-spacing: -0.02em;\n\t\t\t}\n\t\t\t.section-title em {\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--accent);\n\t\t\t}\n\t\t\t.section-subtitle {\n\t\t\t\ttext-align: center;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tmax-width: 500px;\n\t\t\t\tmargin: 0 auto 60px;\n\t\t\t\tfont-weight: 300;\n\t\t\t\tline-height: 1.8;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.section-title { font-size: 2rem; }\n\t\t\t\t.section-subtitle { font-size: 0.85rem; margin-bottom: 40px; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* TOAST */\n\t\t\t/* ============================================ */\n\t\t\t.toast-container {\n\t\t\t\tposition: fixed; top: 20px; right: 20px; z-index: 9999;\n\t\t\t\tdisplay: flex; flex-direction: column; gap: 8px;\n\t\t\t}\n\t\t\t.toast {\n\t\t\t\tbackground: var(--text); color: var(--white);\n\t\t\t\tpadding: 12px 20px; border-radius: 8px;\n\t\t\t\tbox-shadow: var(--shadow-lg);\n\t\t\t\tanimation: slideInToast 0.4s ease;\n\t\t\t\tmin-width: 200px;\n\t\t\t\tdisplay: flex; align-items: center; gap: 10px;\n\t\t\t\tfont-size: 0.85rem;\n\t\t\t}\n\t\t\t.toast i { font-size: 1.1rem; }\n\t\t\t.toast.success i { color: #10b981; }\n\t\t\t.toast.error i { color: #ef4444; }\n\t\t\t.toast.info i { color: var(--accent-light); }\n\t\t\t@keyframes slideInToast {\n\t\t\t\tfrom { transform: translateX(100%); opacity: 0; }\n\t\t\t\tto { transform: translateX(0); opacity: 1; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* OVERLAY */\n\t\t\t/* ============================================ */\n\t\t\t#startOverlay {\n                position: fixed; top: 0; left: 0; right: 0; bottom: 0;\n                width: 100vw; height: 100vh; height: 100svh;\n                background-color: #1a1a1a;\n                z-index: 9999;\n                display: flex; align-items: center; justify-content: center;\n                transition: opacity 0.8s ease;\n                cursor: pointer;\n                padding: 24px;\n                overflow-y: auto;\n            }\n            #startOverlay .overlay-bg-img {\n                position: absolute;\n                inset: 0;\n                width: 100%;\n                height: 100%;\n                object-fit: cover;\n                object-position: center;\n                opacity: 0.22;\n                filter: blur(1px) saturate(0.6);\n                z-index: 0;\n                pointer-events: none;\n            }\n            #startOverlay::before {\n                content: '';\n                position: absolute;\n                inset: 0;\n                background: \n                    radial-gradient(ellipse at 50% 40%, rgba(28,25,23,0.3) 0%, transparent 70%),\n                    linear-gradient(180deg, \n                        rgba(28,25,23,0.85) 0%, \n                        rgba(28,25,23,0.78) 40%, \n                        rgba(28,25,23,0.88) 70%, \n                        rgba(28,25,23,0.95) 100%);\n                z-index: 1;\n                pointer-events: none;\n            }\n\t\t\t#startOverlay .overlay-inner {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 2;\n\t\t\t\ttext-align: center;\n\t\t\t\tmax-width: 480px;\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding: 20px;\n\t\t\t\tmargin: auto;\n\t\t\t\tanimation: fadeIn 1.2s ease;\n\t\t\t}\n\t\t\t#startOverlay .overlay-eyebrow {\n\t\t\t\tfont-size: 0.65rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 8px;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.7);\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t\tfont-weight: 400;\n\t\t\t}\n\t\t\t#startOverlay .overlay-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 2.4rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--white);\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t\tline-height: 1.25;\n\t\t\t}\n\t\t\t#startOverlay .overlay-title span { display: block; }\n\t\t\t#startOverlay .overlay-title .amp {\n\t\t\t\tfont-size: 1.3rem;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.6);\n\t\t\t\tmargin: 10px 0;\n\t\t\t\tfont-style: italic;\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t#startOverlay .overlay-divider {\n\t\t\t\twidth: 60px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: rgba(255, 255, 255, 0.3);\n\t\t\t\tmargin: 32px auto;\n\t\t\t}\n\t\t\t#startOverlay .overlay-guest-label {\n\t\t\t\tfont-size: 0.62rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 5px;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.5);\n\t\t\t\tmargin-bottom: 10px;\n\t\t\t}\n\t\t\t#startOverlay .overlay-guest-name {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.6rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--white);\n\t\t\t\tmargin-bottom: 40px;\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t#startOverlay .btn-start {\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 10px;\n\t\t\t\tbackground: var(--white);\n\t\t\t\tcolor: var(--text);\n\t\t\t\tpadding: 16px 44px;\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tborder: none;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbox-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t\t#startOverlay .btn-start:hover {\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t\tbackground: var(--accent);\n\t\t\t\tcolor: var(--white);\n\t\t\t}\n\t\t\t#startOverlay .hint {\n\t\t\t\tfont-size: 0.6rem;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.4);\n\t\t\t\tmargin-top: 28px;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t\t@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }\n\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t#startOverlay { padding: 20px; }\n\t\t\t\t#startOverlay .overlay-title { font-size: 1.9rem; }\n\t\t\t\t#startOverlay .overlay-guest-name { font-size: 1.3rem; margin-bottom: 32px; }\n\t\t\t\t#startOverlay .btn-start { padding: 14px 32px; font-size: 0.75rem; width: 100%; max-width: 260px; justify-content: center; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* MUSIC PLAYER */\n\t\t\t/* ============================================ */\n\t\t\t.music-player {\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 24px;\n\t\t\t\tright: 24px;\n\t\t\t\tz-index: 1000;\n\t\t\t}\n\t\t\t.music-btn {\n\t\t\t\twidth: 48px;\n\t\t\t\theight: 48px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tbackground: rgba(28, 25, 23, 0.9);\n\t\t\t\tbackdrop-filter: blur(10px);\n\t\t\t\tborder: none;\n\t\t\t\tcolor: var(--white);\n\t\t\t\tfont-size: 1.15rem;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\t\t\t.music-btn:hover {\n\t\t\t\ttransform: scale(1.08);\n\t\t\t\tbackground: var(--accent);\n\t\t\t}\n\t\t\t.music-btn.playing { animation: pulseMinimal 2s infinite; }\n\t\t\t@keyframes pulseMinimal {\n\t\t\t\t0% { box-shadow: 0 0 0 0 rgba(74, 93, 74, 0.4); }\n\t\t\t\t70% { box-shadow: 0 0 0 16px rgba(74, 93, 74, 0); }\n\t\t\t\t100% { box-shadow: 0 0 0 0 rgba(74, 93, 74, 0); }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* HERO — FULLSCREEN PHOTO */\n\t\t\t/* ============================================ */\n\t\t\t.hero-editorial {\n\t\t\t\tposition: relative;\n\t\t\t\tmin-height: 100vh;\n\t\t\t\tmin-height: 100svh;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tpadding-top: 140px;\n\t\t\t\tpadding-bottom: 80px;\n\t\t\t\tpadding-left: 24px;\n\t\t\t\tpadding-right: 24px;\n\t\t\t\tcolor: var(--white);\n\t\t\t\toverflow: hidden;\n\t\t\t\tbackground: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);\n\t\t\t}\n            .hero-editorial .hero-bg-img {\n                position: absolute;\n                top: 0;\n                left: 0;\n                width: 100%;\n                height: 100%;\n                object-fit: cover;\n                object-position: center;\n                z-index: 0;\n                pointer-events: none;\n                opacity: 0.25;                    /* ← foto jadi samar */\n                filter: blur(1.5px) saturate(0.7); /* ← efek dreamy */\n            }\n            .hero-editorial::before {\n                content: '';\n                position: absolute;\n                inset: 0;\n                background: \n                    radial-gradient(ellipse at 50% 30%, rgba(28,25,23,0.55) 0%, transparent 60%),\n                    linear-gradient(180deg, \n                        rgba(28,25,23,0.72) 0%, \n                        rgba(28,25,23,0.55) 30%, \n                        rgba(28,25,23,0.75) 65%, \n                        rgba(28,25,23,0.95) 100%);\n                z-index: 1;\n                pointer-events: none;\n            }\n            .hero-editorial::after {\n                content: '';\n                position: absolute;\n                inset: 0;\n                background: radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.3) 0%, transparent 70%);\n                z-index: 1;\n                pointer-events: none;\n            }\n\t\t\t.hero-editorial .hero-inner {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 2;\n\t\t\t\ttext-align: center;\n\t\t\t\tmax-width: 720px;\n\t\t\t\twidth: 100%;\n\t\t\t}\n\t\t\t.hero-editorial .hero-eyebrow {\n                font-size: 0.65rem;\n                text-transform: uppercase;\n                letter-spacing: 8px;\n                color: rgba(255, 255, 255, 0.85);\n                margin-bottom: 28px;\n                font-weight: 400;\n                text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);\n            }\n\t\t\t.hero-editorial .hero-names {\n                font-family: 'Playfair Display', serif;\n                font-size: 5.5rem;\n                font-weight: 400;\n                line-height: 0.95;\n                letter-spacing: -0.03em;\n                margin-bottom: 24px;\n                display: flex;\n                flex-direction: column;\n                align-items: center;\n                color: var(--white);\n                text-shadow: \n                    0 4px 32px rgba(0, 0, 0, 0.55),\n                    0 2px 12px rgba(0, 0, 0, 0.4),\n                    0 1px 4px rgba(0, 0, 0, 0.3);\n            }\n\t\t\t.hero-editorial .hero-names .amp {\n\t\t\t\tfont-style: italic;\n\t\t\t\tfont-size: 2.2rem;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.75);\n\t\t\t\tmargin: 14px 0;\n\t\t\t\tline-height: 1;\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t.hero-editorial .hero-divider {\n                width: 60px;\n                height: 1px;\n                background: rgba(255, 255, 255, 0.55);\n                margin: 32px auto;\n                box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);\n            }\n\t\t\t.hero-editorial .hero-dates {\n                font-size: 0.85rem;\n                color: rgba(255, 255, 255, 0.92);\n                letter-spacing: 4px;\n                text-transform: uppercase;\n                margin-bottom: 40px;\n                font-weight: 400;\n                text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);\n            }\n\t\t\t.hero-editorial .btn-scroll {\n                display: inline-flex;\n                align-items: center;\n                gap: 10px;\n                background: rgba(255, 255, 255, 0.08);\n                color: var(--white);\n                padding: 14px 32px;\n                border: 1px solid rgba(255, 255, 255, 0.55);\n                border-radius: 2px;\n                text-decoration: none;\n                font-size: 0.75rem;\n                font-weight: 500;\n                letter-spacing: 3px;\n                text-transform: uppercase;\n                transition: all 0.3s;\n                cursor: pointer;\n                backdrop-filter: blur(8px);\n                -webkit-backdrop-filter: blur(8px);\n                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);\n            }\n\t\t\t.hero-editorial .btn-scroll:hover {\n\t\t\t\tbackground: var(--white);\n\t\t\t\tcolor: var(--text);\n\t\t\t\tborder-color: var(--white);\n\t\t\t}\n\t\t\t.hero-editorial .scroll-down {\n\t\t\t\tposition: absolute;\n\t\t\t\tbottom: 24px;\n\t\t\t\tleft: 50%;\n\t\t\t\ttransform: translateX(-50%);\n\t\t\t\tcolor: rgba(255, 255, 255, 0.6);\n\t\t\t\tfont-size: 1.3rem;\n\t\t\t\tanimation: bounceMinimal 2s infinite;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbackground: none;\n\t\t\t\tborder: none;\n\t\t\t\tz-index: 3;\n\t\t\t}\n\t\t\t@keyframes bounceMinimal {\n\t\t\t\t0%, 100% { transform: translateX(-50%) translateY(0); }\n\t\t\t\t50% { transform: translateX(-50%) translateY(8px); }\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.hero-editorial { \n\t\t\t\t\tpadding-top: 100px; \n\t\t\t\t\tpadding-bottom: 60px;\n\t\t\t\t\tpadding-left: 20px;\n\t\t\t\t\tpadding-right: 20px;\n\t\t\t\t}\n\t\t\t\t.hero-editorial .hero-names { font-size: 3rem; }\n\t\t\t\t.hero-editorial .hero-names .amp { font-size: 1.5rem; margin: 10px 0; }\n\t\t\t\t.hero-editorial .hero-eyebrow { letter-spacing: 5px; margin-bottom: 20px; }\n\t\t\t\t.hero-editorial .hero-dates { font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 32px; }\n\t\t\t}\n\t\t\t@media (max-width: 400px) {\n\t\t\t\t.hero-editorial .hero-names { font-size: 2.4rem; }\n\t\t\t}\n\n    \t\t\t/* ============================================ */\n\t\t\t/* OPENING STATEMENT */\n\t\t\t/* ============================================ */\n\t\t\t.opening-mini {\n\t\t\t\tpadding: 120px 24px;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\ttext-align: center;\n\t\t\t\tposition: relative;\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.opening-mini::before {\n\t\t\t\tcontent: '\"';\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 40px;\n\t\t\t\tleft: 50%;\n\t\t\t\ttransform: translateX(-50%);\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 12rem;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\topacity: 0.06;\n\t\t\t\tline-height: 1;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.opening-mini-inner {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 2;\n\t\t\t\tmax-width: 640px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t\t.opening-mini-quote {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.6rem;\n\t\t\t\tfont-style: italic;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tline-height: 1.6;\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t}\n\t\t\t.opening-mini-source {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.opening-mini-source::before {\n\t\t\t\tcontent: '— ';\n\t\t\t\tcolor: var(--accent);\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.opening-mini { padding: 80px 20px; }\n\t\t\t\t.opening-mini::before { font-size: 8rem; top: 20px; }\n\t\t\t\t.opening-mini-quote { font-size: 1.15rem; line-height: 1.6; margin-bottom: 24px; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* SECTION BASE */\n\t\t\t/* ============================================ */\n\t\t\t.section-mini {\n\t\t\t\tpadding: 120px 0;\n\t\t\t\tbackground: var(--bg);\n\t\t\t}\n\t\t\t.section-mini-alt {\n\t\t\t\tpadding: 120px 0;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.section-mini, .section-mini-alt { padding: 80px 0; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* COUPLE — EDITORIAL PORTRAIT */\n\t\t\t/* ============================================ */\n\t\t\t.couple-editorial {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tgap: 80px;\n\t\t\t}\n\t\t\t.couple-editorial-row {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: 1fr 1fr;\n\t\t\t\tgap: 48px;\n\t\t\t\talign-items: center;\n\t\t\t}\n\t\t\t.couple-editorial-row.reverse {\n\t\t\t\tdirection: rtl;\n\t\t\t}\n\t\t\t.couple-editorial-row.reverse > * {\n\t\t\t\tdirection: ltr;\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.couple-editorial-row,\n\t\t\t\t.couple-editorial-row.reverse {\n\t\t\t\t\tgrid-template-columns: 1fr;\n\t\t\t\t\tgap: 24px;\n\t\t\t\t\tdirection: ltr;\n\t\t\t\t}\n\t\t\t\t.couple-editorial { gap: 60px; }\n\t\t\t}\n\t\t\t.couple-editorial-photo {\n\t\t\t\tposition: relative;\n\t\t\t\taspect-ratio: 3 / 4;\n\t\t\t\toverflow: hidden;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\tborder-radius: 2px;\n\t\t\t}\n\t\t\t.couple-editorial-photo img {\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tobject-fit: cover;\n\t\t\t\ttransition: transform 0.7s ease;\n\t\t\t}\n\t\t\t.couple-editorial-photo:hover img { transform: scale(1.04); }\n\t\t\t.couple-editorial-photo::after {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\tbackground: linear-gradient(180deg, transparent 60%, rgba(28,25,23,0.15));\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.couple-editorial-info {\n\t\t\t\tpadding: 20px 0;\n\t\t\t}\n\t\t\t.couple-editorial-role {\n\t\t\t\tfont-size: 0.65rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 6px;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.couple-editorial-info h3 {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 2.4rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tline-height: 1.15;\n\t\t\t\tletter-spacing: -0.02em;\n\t\t\t}\n\t\t\t.couple-editorial-divider {\n\t\t\t\twidth: 40px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: var(--text);\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t}\n\t\t\t.couple-editorial-parents-label {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\tmargin-bottom: 8px;\n\t\t\t}\n\t\t\t.couple-editorial-parents {\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-style: italic;\n\t\t\t\tline-height: 1.7;\n\t\t\t\tfont-weight: 300;\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t}\n\t\t\t.couple-editorial-social {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 12px;\n\t\t\t}\n\t\t\t.couple-editorial-social a {\n\t\t\t\twidth: 36px;\n\t\t\t\theight: 36px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid var(--line-strong);\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\ttext-decoration: none;\n\t\t\t}\n\t\t\t.couple-editorial-social a:hover {\n\t\t\t\tbackground: var(--accent);\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\tcolor: var(--white);\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.couple-editorial-info h3 { font-size: 1.8rem; }\n\t\t\t\t.couple-editorial-photo { aspect-ratio: 1; }\n\t\t\t}\n\t\t\t/* Reverse mode: photo on right */\n\t\t\t.couple-editorial-row.reverse .couple-editorial-photo { order: 2; }\n\t\t\t.couple-editorial-row.reverse .couple-editorial-info { order: 1; }\n\n\t\t\t/* ============================================ */\n\t\t\t/* LOVE STORY — EDITORIAL NUMBERS */\n\t\t\t/* ============================================ */\n\t\t\t.story-editorial {\n\t\t\t\tmax-width: 640px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t\tcounter-reset: story-counter;\n\t\t\t}\n\t\t\t.story-editorial-item {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: 80px 1fr;\n\t\t\t\tgap: 32px;\n\t\t\t\tpadding: 40px 0;\n\t\t\t\tborder-bottom: 1px solid var(--line);\n\t\t\t\talign-items: start;\n\t\t\t}\n\t\t\t.story-editorial-item:last-child { border-bottom: none; padding-bottom: 0; }\n\t\t\t.story-editorial-item:first-child { padding-top: 0; }\n\t\t\t.story-editorial-num {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 3rem;\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tfont-weight: 400;\n\t\t\t\tline-height: 1;\n\t\t\t\topacity: 0.4;\n\t\t\t}\n\t\t\t.story-editorial-content h4 {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.4rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 12px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t}\n\t\t\t.story-editorial-content p {\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tline-height: 1.8;\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.story-editorial-item { grid-template-columns: 50px 1fr; gap: 20px; padding: 28px 0; }\n\t\t\t\t.story-editorial-num { font-size: 2rem; }\n\t\t\t\t.story-editorial-content h4 { font-size: 1.15rem; margin-bottom: 8px; }\n\t\t\t\t.story-editorial-content p { font-size: 0.88rem; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* EVENT — BIG CARD */\n\t\t\t/* ============================================ */\n\t\t\t.event-editorial-grid {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: 1fr 1fr;\n\t\t\t\tgap: 32px;\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.event-editorial-grid { grid-template-columns: 1fr; gap: 24px; }\n\t\t\t}\n\t\t\t.event-editorial-card {\n\t\t\t\tbackground: var(--card);\n\t\t\t\tborder: 1px solid var(--line);\n\t\t\t\tpadding: 56px 40px;\n\t\t\t\ttext-align: center;\n\t\t\t\ttransition: all 0.4s ease;\n\t\t\t\tposition: relative;\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.event-editorial-card::before {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 0; left: 0; right: 0;\n\t\t\t\theight: 3px;\n\t\t\t\tbackground: var(--accent);\n\t\t\t\ttransform: scaleX(0);\n\t\t\t\ttransform-origin: left;\n\t\t\t\ttransition: transform 0.5s ease;\n\t\t\t}\n\t\t\t.event-editorial-card:hover::before { transform: scaleX(1); }\n\t\t\t.event-editorial-card:hover {\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\ttransform: translateY(-4px);\n\t\t\t}\n\t\t\t.event-editorial-icon {\n\t\t\t\twidth: 56px;\n\t\t\t\theight: 56px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tbackground: var(--accent-soft);\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tfont-size: 1.4rem;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tmargin: 0 auto 28px;\n\t\t\t}\n\t\t\t.event-editorial-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.6rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 8px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t}\n\t\t\t.event-editorial-arabic {\n\t\t\t\tfont-family: 'Amiri', serif;\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tmargin-bottom: 28px;\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t.event-editorial-detail {\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tline-height: 2;\n\t\t\t\tfont-weight: 300;\n\t\t\t\tmargin-bottom: 28px;\n\t\t\t}\n\t\t\t.event-editorial-detail .row {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t}\n\t\t\t.event-editorial-detail .row:last-child { margin-bottom: 0; }\n\t\t\t.event-editorial-detail .label {\n\t\t\t\tfont-size: 0.65rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tmargin-bottom: 6px;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.event-editorial-detail .value {\n\t\t\t\tcolor: var(--text);\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t}\n\t\t\t.event-editorial-btn {\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 8px;\n\t\t\t\tcolor: var(--text);\n\t\t\t\ttext-decoration: none;\n\t\t\t\tfont-size: 0.75rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tborder-bottom: 1px solid var(--text);\n\t\t\t\tpadding-bottom: 6px;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t}\n\t\t\t.event-editorial-btn:hover {\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tborder-bottom-color: var(--accent);\n\t\t\t\tgap: 14px;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.event-editorial-card { padding: 40px 28px; }\n\t\t\t\t.event-editorial-title { font-size: 1.3rem; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* GALLERY — MASONRY */\n\t\t\t/* ============================================ */\n\t\t\t.gallery-masonry {\n\t\t\t\tcolumns: 3;\n\t\t\t\tcolumn-gap: 16px;\n\t\t\t}\n\t\t\t@media (max-width: 900px) {\n\t\t\t\t.gallery-masonry { columns: 2; column-gap: 12px; }\n\t\t\t}\n\t\t\t@media (max-width: 500px) {\n\t\t\t\t.gallery-masonry { columns: 2; column-gap: 8px; }\n\t\t\t}\n\t\t\t.gallery-masonry-item {\n\t\t\t\tbreak-inside: avoid;\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t\tposition: relative;\n\t\t\t\toverflow: hidden;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\tborder-radius: 2px;\n\t\t\t\ttransition: transform 0.4s ease;\n\t\t\t}\n\t\t\t@media (max-width: 900px) {\n\t\t\t\t.gallery-masonry-item { margin-bottom: 12px; }\n\t\t\t}\n\t\t\t@media (max-width: 500px) {\n\t\t\t\t.gallery-masonry-item { margin-bottom: 8px; }\n\t\t\t}\n\t\t\t.gallery-masonry-item img {\n\t\t\t\twidth: 100%;\n\t\t\t\theight: auto;\n\t\t\t\tdisplay: block;\n\t\t\t\ttransition: transform 0.7s ease;\n\t\t\t}\n\t\t\t.gallery-masonry-item:hover img { transform: scale(1.05); }\n\t\t\t.gallery-masonry-item::after {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\tbackground: rgba(28, 25, 23, 0);\n\t\t\t\ttransition: background 0.3s;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.gallery-masonry-item:hover::after { background: rgba(28, 25, 23, 0.15); }\n\t\t\t.gallery-masonry-item i {\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 50%;\n\t\t\t\tleft: 50%;\n\t\t\t\ttransform: translate(-50%, -50%) scale(0.7);\n\t\t\t\tcolor: var(--white);\n\t\t\t\tfont-size: 1.5rem;\n\t\t\t\topacity: 0;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tpointer-events: none;\n\t\t\t\tz-index: 2;\n\t\t\t}\n\t\t\t.gallery-masonry-item:hover i { opacity: 1; transform: translate(-50%, -50%) scale(1); }\n\n\t\t\t/* ============================================ */\n\t\t\t/* RSVP */\n\t\t\t/* ============================================ */\n\t\t\t.rsvp-mini-form {\n\t\t\t\tmax-width: 480px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t\t.form-group-mini {\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t\ttext-align: left;\n\t\t\t}\n\t\t\t.form-group-mini label {\n\t\t\t\tdisplay: block;\n\t\t\t\tfont-size: 0.68rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tmargin-bottom: 10px;\n\t\t\t}\n\t\t\t.form-group-mini .required { color: #dc2626; }\n\t\t\t.form-group-mini input,\n\t\t\t.form-group-mini select,\n\t\t\t.form-group-mini textarea {\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding: 16px 0;\n\t\t\t\tborder: none;\n\t\t\t\tborder-bottom: 1px solid var(--line-strong);\n\t\t\t\tbackground: transparent;\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tfont-family: 'Inter', sans-serif;\n\t\t\t\tcolor: var(--text);\n\t\t\t\ttransition: border-color 0.3s;\n\t\t\t\tborder-radius: 0;\n\t\t\t}\n\t\t\t.form-group-mini input:focus,\n\t\t\t.form-group-mini select:focus,\n\t\t\t.form-group-mini textarea:focus {\n\t\t\t\toutline: none;\n\t\t\t\tborder-bottom-color: var(--accent);\n\t\t\t}\n\t\t\t.form-group-mini input::placeholder,\n\t\t\t.form-group-mini textarea::placeholder { color: var(--text-light); }\n\t\t\t.form-group-mini input[readonly] {\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tcursor: not-allowed;\n\t\t\t\tbackground: transparent;\n\t\t\t}\n\t\t\t.form-group-mini textarea { resize: vertical; min-height: 90px; }\n\t\t\t.btn-submit-mini {\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding: 18px;\n\t\t\t\tbackground: var(--text);\n\t\t\t\tcolor: var(--white);\n\t\t\t\tborder: none;\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tfont-size: 0.78rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tcursor: pointer;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tmargin-top: 16px;\n\t\t\t}\n\t\t\t.btn-submit-mini:hover {\n\t\t\t\tbackground: var(--accent);\n\t\t\t\ttransform: translateY(-1px);\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t}\n\t\t\t.btn-submit-mini:disabled { opacity: 0.6; cursor: not-allowed; }\n\n\t\t\t.rsvp-mini-list-wrap {\n\t\t\t\tmax-width: 480px;\n\t\t\t\tmargin: 80px auto 0;\n\t\t\t\tpadding-top: 40px;\n\t\t\t\tborder-top: 1px solid var(--line);\n\t\t\t}\n\t\t\t.rsvp-mini-list-head {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: baseline;\n\t\t\t\tmargin-bottom: 28px;\n\t\t\t}\n\t\t\t.rsvp-mini-list-head h4 {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.2rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t}\n\t\t\t.rsvp-mini-count {\n\t\t\t\tfont-size: 0.72rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tletter-spacing: 2px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t\t#rsvpList {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tgap: 0;\n\t\t\t\tmax-height: 440px;\n\t\t\t\toverflow-y: auto;\n\t\t\t}\n\t\t\t.rsvp-mini-item {\n\t\t\t\tpadding: 24px 0;\n\t\t\t\tborder-bottom: 1px solid var(--line);\n\t\t\t}\n\t\t\t.rsvp-mini-item:last-child { border-bottom: none; }\n\t\t\t.rsvp-mini-item .row-main {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: baseline;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\tgap: 8px;\n\t\t\t\tmargin-bottom: 8px;\n\t\t\t}\n\t\t\t.rsvp-mini-item .guest-name {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.05rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t}\n\t\t\t.rsvp-mini-item .status-badge {\n\t\t\t\tfont-size: 0.62rem;\n\t\t\t\tpadding: 3px 12px;\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tletter-spacing: 2px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.rsvp-mini-item .status-badge.hadir {\n\t\t\t\tbackground: rgba(16, 185, 129, 0.1);\n\t\t\t\tcolor: #059669;\n\t\t\t}\n\t\t\t.rsvp-mini-item .status-badge.tidak_hadir {\n\t\t\t\tbackground: rgba(220, 38, 38, 0.08);\n\t\t\t\tcolor: #dc2626;\n\t\t\t}\n\t\t\t.rsvp-mini-item .status-badge.ragu {\n\t\t\t\tbackground: rgba(245, 158, 11, 0.1);\n\t\t\t\tcolor: #d97706;\n\t\t\t}\n\t\t\t.rsvp-mini-item .row-detail {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: center;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\tgap: 8px;\n\t\t\t}\n\t\t\t.rsvp-mini-item .meta {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 16px;\n\t\t\t\tfont-size: 0.72rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t}\n\t\t\t.rsvp-mini-item .meta span { display: flex; align-items: center; gap: 5px; }\n\t\t\t.rsvp-mini-item .message {\n\t\t\t\tmargin-top: 12px;\n\t\t\t\tpadding: 14px 18px;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\tborder-left: 2px solid var(--accent);\n\t\t\t\tfont-size: 0.85rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-style: italic;\n\t\t\t\tline-height: 1.7;\n\t\t\t\tborder-radius: 2px;\n\t\t\t}\n\t\t\t.rsvp-mini-empty {\n\t\t\t\ttext-align: center;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tfont-size: 0.85rem;\n\t\t\t\tpadding: 40px 0;\n\t\t\t}\n\t\t\t.rsvp-mini-empty i { display: block; font-size: 1.6rem; margin-bottom: 12px; opacity: 0.5; }\n\n\t\t\t/* ============================================ */\n\t\t\t/* BANK / AMPLOP DIGITAL */\n\t\t\t/* ============================================ */\n\t\t\t.bank-mini-grid {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: repeat(auto-fit, minmax(280px, 1fr));\n\t\t\t\tgap: 24px;\n\t\t\t\tmax-width: 720px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t\t.bank-mini-card {\n\t\t\t\tbackground: var(--card);\n\t\t\t\tborder: 1px solid var(--line);\n\t\t\t\tpadding: 40px 28px;\n\t\t\t\ttext-align: center;\n\t\t\t\ttransition: all 0.4s ease;\n\t\t\t\tposition: relative;\n\t\t\t}\n\t\t\t.bank-mini-card::before {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 0; left: 0; right: 0;\n\t\t\t\theight: 2px;\n\t\t\t\tbackground: var(--accent);\n\t\t\t\ttransform: scaleX(0);\n\t\t\t\ttransform-origin: left;\n\t\t\t\ttransition: transform 0.5s ease;\n\t\t\t}\n\t\t\t.bank-mini-card:hover::before { transform: scaleX(1); }\n\t\t\t.bank-mini-card:hover {\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\ttransform: translateY(-4px);\n\t\t\t}\n\t\t\t.bank-mini-logo {\n\t\t\t\twidth: 60px;\n\t\t\t\theight: 60px;\n\t\t\t\tmargin: 0 auto 24px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tbackground: var(--accent-soft);\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.bank-mini-logo img {\n\t\t\t\twidth: 55%;\n\t\t\t\theight: 55%;\n\t\t\t\tobject-fit: contain;\n\t\t\t}\n\t\t\t.bank-mini-logo .initial {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.3rem;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tfont-weight: 400;\n\t\t\t}\n\t\t\t.bank-mini-name {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.1rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tletter-spacing: 0.5px;\n\t\t\t}\n\t\t\t.bank-mini-number {\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 10px;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\tpadding: 14px 22px;\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tcursor: pointer;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tmargin-bottom: 14px;\n\t\t\t\twidth: 100%;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\t\t\t.bank-mini-number:hover {\n\t\t\t\tbackground: var(--accent-soft);\n\t\t\t\ttransform: translateY(-1px);\n\t\t\t}\n\t\t\t.bank-mini-number span {\n\t\t\t\tfont-family: 'Courier New', monospace;\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tletter-spacing: 2px;\n\t\t\t}\n\t\t\t.bank-mini-number i {\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\ttransition: color 0.3s;\n\t\t\t}\n\t\t\t.bank-mini-number:hover i { color: var(--accent); }\n\t\t\t.bank-mini-holder {\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t.bank-mini-holder strong {\n\t\t\t\tcolor: var(--text);\n\t\t\t\tfont-style: normal;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.bank-mini-note {\n\t\t\t\ttext-align: center;\n\t\t\t\tmargin-top: 40px;\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* FOOTER */\n\t\t\t/* ============================================ */\n\t\t\t.footer-mini {\n\t\t\t\tpadding: 100px 24px 48px;\n\t\t\t\tbackground: var(--bg);\n\t\t\t\ttext-align: center;\n\t\t\t\tborder-top: 1px solid var(--line);\n\t\t\t\tposition: relative;\n\t\t\t}\n\t\t\t.footer-mini-couple {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 2rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 12px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t}\n\t\t\t.footer-mini-couple .amp {\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tmargin: 0 12px;\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t.footer-mini-divider {\n\t\t\t\twidth: 60px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: var(--line-strong);\n\t\t\t\tmargin: 28px auto;\n\t\t\t}\n\t\t\t.footer-mini-date {\n\t\t\t\tfont-size: 0.75rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tletter-spacing: 5px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t}\n\t\t\t.footer-mini-social {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: center;\n\t\t\t\tgap: 16px;\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t}\n\t\t\t.footer-mini-social a {\n\t\t\t\twidth: 40px;\n\t\t\t\theight: 40px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid var(--line-strong);\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-size: 1rem;\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\ttext-decoration: none;\n\t\t\t}\n\t\t\t.footer-mini-social a:hover {\n\t\t\t\tbackground: var(--accent);\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\tcolor: var(--white);\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t}\n\t\t\t.footer-mini-prayer {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tmax-width: 500px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t\tline-height: 1.7;\n\t\t\t}\n\n\t\t\t/* Web footer */\n\t\t\t.web-footer-mini {\n\t\t\t\tpadding: 56px 0 32px;\n\t\t\t\tbackground: var(--bg-dark);\n\t\t\t\tcolor: rgba(255, 255, 255, 0.6);\n\t\t\t}\n\t\t\t.web-footer-mini-grid {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n\t\t\t\tgap: 40px;\n\t\t\t\tmargin-bottom: 40px;\n\t\t\t}\n\t\t\t.web-footer-mini-brand {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.4rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\ttext-decoration: none;\n\t\t\t\tdisplay: inline-block;\n\t\t\t}\n\t\t\t.web-footer-mini-brand .wedding { color: rgba(255, 255, 255, 0.9); }\n\t\t\t.web-footer-mini-brand .saas {\n\t\t\t\tcolor: var(--accent-light);\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t.web-footer-mini-desc {\n\t\t\t\tfont-size: 0.82rem;\n\t\t\t\tline-height: 1.8;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tfont-weight: 300;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.5);\n\t\t\t}\n\t\t\t.web-footer-mini-heading {\n\t\t\t\tfont-size: 0.68rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.85);\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t}\n\t\t\t.web-footer-mini-list {\n\t\t\t\tlist-style: none;\n\t\t\t\tpadding: 0;\n\t\t\t\tmargin: 0;\n\t\t\t}\n\t\t\t.web-footer-mini-list li {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: flex-start;\n\t\t\t\tgap: 10px;\n\t\t\t\tmargin-bottom: 14px;\n\t\t\t\tfont-size: 0.82rem;\n\t\t\t\tline-height: 1.6;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.5);\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t.web-footer-mini-list li i {\n\t\t\t\tcolor: var(--accent-light);\n\t\t\t\tmargin-top: 3px;\n\t\t\t\tflex-shrink: 0;\n\t\t\t\topacity: 0.7;\n\t\t\t}\n\t\t\t.web-footer-mini-list a, .web-footer-mini-link {\n\t\t\t\tcolor: rgba(255, 255, 255, 0.5);\n\t\t\t\ttext-decoration: none;\n\t\t\t\ttransition: color 0.2s;\n\t\t\t}\n\t\t\t.web-footer-mini-list a:hover, .web-footer-mini-link:hover { color: var(--white); }\n\t\t\t.web-footer-mini-socials {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 12px;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\tmargin-top: 20px;\n\t\t\t}\n\t\t\t.web-footer-mini-socials a {\n\t\t\t\twidth: 38px;\n\t\t\t\theight: 38px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tbackground: rgba(255, 255, 255, 0.05);\n\t\t\t\tborder: 1px solid rgba(255, 255, 255, 0.1);\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.6);\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\ttext-decoration: none;\n\t\t\t}\n\t\t\t.web-footer-mini-socials a:hover {\n\t\t\t\tbackground: var(--accent);\n\t\t\t\tcolor: var(--white);\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t}\n\t\t\t.web-footer-mini-version {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\tpadding: 5px 12px;\n\t\t\t\tbackground: rgba(255, 255, 255, 0.05);\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tdisplay: inline-block;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.4);\n\t\t\t\tletter-spacing: 1px;\n\t\t\t}\n\t\t\t.web-footer-mini-bottom {\n\t\t\t\tborder-top: 1px solid rgba(255, 255, 255, 0.08);\n\t\t\t\tpadding-top: 28px;\n\t\t\t\ttext-align: center;\n\t\t\t\tfont-size: 0.75rem;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.35);\n\t\t\t\tfont-weight: 300;\n\t\t\t\tletter-spacing: 1px;\n\t\t\t}\n\t\t\t@media (max-width: 768px) {\n\t\t\t\t.web-footer-mini { padding: 48px 0 28px; text-align: center; }\n\t\t\t\t.web-footer-mini-list li { justify-content: center; }\n\t\t\t\t.web-footer-mini-socials { justify-content: center; }\n\t\t\t}\n\t\t</style></head><body data-music-url=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, " - Modern Minimalist</title><link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap\" rel=\"stylesheet\"><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css\"><link href=\"https://unpkg.com/aos@2.3.1/dist/aos.css\" rel=\"stylesheet\"><style>\n\t\t\t:root {\n\t\t\t\t--bg: #fafaf9;\n\t\t\t\t--bg-alt: #f5f5f4;\n\t\t\t\t--bg-dark: #1c1917;\n\t\t\t\t--card: #ffffff;\n\t\t\t\t--text: #1c1917;\n\t\t\t\t--text-muted: #78716c;\n\t\t\t\t--text-light: #a8a29e;\n\t\t\t\t--accent: #4a5d4a;\n\t\t\t\t--accent-light: #7d8c7d;\n\t\t\t\t--accent-soft: rgba(74, 93, 74, 0.08);\n\t\t\t\t--line: #e7e5e4;\n\t\t\t\t--line-strong: #d6d3d1;\n\t\t\t\t--white: #ffffff;\n\t\t\t\t--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);\n\t\t\t\t--shadow-md: 0 8px 32px rgba(0, 0, 0, 0.08);\n\t\t\t\t--shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.12);\n\t\t\t}\n\n\t\t\t* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }\n\t\t\thtml { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }\n\t\t\tbody {\n\t\t\t\tfont-family: 'Inter', sans-serif;\n\t\t\t\tbackground: var(--bg);\n\t\t\t\tcolor: var(--text);\n\t\t\t\tline-height: 1.7;\n\t\t\t\toverflow-x: hidden;\n\t\t\t\tmin-height: 100vh;\n\t\t\t\tmin-height: 100svh;\n\t\t\t\tfont-weight: 400;\n\t\t\t\t-webkit-font-smoothing: antialiased;\n\t\t\t}\n\t\t\timg { max-width: 100%; height: auto; display: block; }\n\n\t\t\t.container { max-width: 720px; margin: 0 auto; padding: 0 24px; }\n\t\t\t.container-wide { max-width: 1200px; margin: 0 auto; padding: 0 24px; }\n\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.container, .container-wide { padding: 0 20px; }\n\t\t\t}\n\n\t\t\t.section-label {\n\t\t\t\tfont-size: 0.68rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 6px;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\ttext-align: center;\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.section-label::before {\n\t\t\t\tcontent: '';\n\t\t\t\tdisplay: inline-block;\n\t\t\t\twidth: 20px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: var(--text-light);\n\t\t\t\tvertical-align: middle;\n\t\t\t\tmargin-right: 12px;\n\t\t\t\topacity: 0.5;\n\t\t\t}\n\t\t\t.section-label::after {\n\t\t\t\tcontent: '';\n\t\t\t\tdisplay: inline-block;\n\t\t\t\twidth: 20px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: var(--text-light);\n\t\t\t\tvertical-align: middle;\n\t\t\t\tmargin-left: 12px;\n\t\t\t\topacity: 0.5;\n\t\t\t}\n\t\t\t.section-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 3rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\ttext-align: center;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tline-height: 1.15;\n\t\t\t\tletter-spacing: -0.02em;\n\t\t\t}\n\t\t\t.section-title em {\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--accent);\n\t\t\t}\n\t\t\t.section-subtitle {\n\t\t\t\ttext-align: center;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tmax-width: 500px;\n\t\t\t\tmargin: 0 auto 60px;\n\t\t\t\tfont-weight: 300;\n\t\t\t\tline-height: 1.8;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.section-title { font-size: 2rem; }\n\t\t\t\t.section-subtitle { font-size: 0.85rem; margin-bottom: 40px; }\n\t\t\t}\n\n\t\t\t.toast-container {\n\t\t\t\tposition: fixed; top: 20px; right: 20px; z-index: 9999;\n\t\t\t\tdisplay: flex; flex-direction: column; gap: 8px;\n\t\t\t}\n\t\t\t.toast {\n\t\t\t\tbackground: var(--text); color: var(--white);\n\t\t\t\tpadding: 12px 20px; border-radius: 8px;\n\t\t\t\tbox-shadow: var(--shadow-lg);\n\t\t\t\tanimation: slideInToast 0.4s ease;\n\t\t\t\tmin-width: 200px;\n\t\t\t\tdisplay: flex; align-items: center; gap: 10px;\n\t\t\t\tfont-size: 0.85rem;\n\t\t\t}\n\t\t\t.toast i { font-size: 1.1rem; }\n\t\t\t.toast.success i { color: #10b981; }\n\t\t\t.toast.error i { color: #ef4444; }\n\t\t\t.toast.info i { color: var(--accent-light); }\n\t\t\t@keyframes slideInToast {\n\t\t\t\tfrom { transform: translateX(100%); opacity: 0; }\n\t\t\t\tto { transform: translateX(0); opacity: 1; }\n\t\t\t}\n\n\t\t\t#startOverlay {\n\t\t\t\tposition: fixed; top: 0; left: 0; right: 0; bottom: 0;\n\t\t\t\twidth: 100vw; height: 100vh; height: 100svh;\n\t\t\t\tbackground-color: #1a1a1a;\n\t\t\t\tz-index: 9999;\n\t\t\t\tdisplay: flex; align-items: center; justify-content: center;\n\t\t\t\ttransition: opacity 0.8s ease;\n\t\t\t\tcursor: pointer;\n\t\t\t\tpadding: 24px;\n\t\t\t\toverflow-y: auto;\n\t\t\t}\n\t\t\t#startOverlay .overlay-bg-img {\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tobject-fit: cover;\n\t\t\t\tobject-position: center;\n\t\t\t\topacity: 0.22;\n\t\t\t\tfilter: blur(1px) saturate(0.6);\n\t\t\t\tz-index: 0;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t#startOverlay::before {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\tbackground: \n\t\t\t\t\tradial-gradient(ellipse at 50% 40%, rgba(28,25,23,0.3) 0%, transparent 70%),\n\t\t\t\t\tlinear-gradient(180deg, \n\t\t\t\t\t\trgba(28,25,23,0.85) 0%, \n\t\t\t\t\t\trgba(28,25,23,0.78) 40%, \n\t\t\t\t\t\trgba(28,25,23,0.88) 70%, \n\t\t\t\t\t\trgba(28,25,23,0.95) 100%);\n\t\t\t\tz-index: 1;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t#startOverlay .overlay-inner {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 2;\n\t\t\t\ttext-align: center;\n\t\t\t\tmax-width: 480px;\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding: 20px;\n\t\t\t\tmargin: auto;\n\t\t\t\tanimation: fadeIn 1.2s ease;\n\t\t\t}\n\t\t\t#startOverlay .overlay-eyebrow {\n\t\t\t\tfont-size: 0.65rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 8px;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.7);\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t\tfont-weight: 400;\n\t\t\t}\n\t\t\t#startOverlay .overlay-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 2.4rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--white);\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t\tline-height: 1.25;\n\t\t\t}\n\t\t\t#startOverlay .overlay-title span { display: block; }\n\t\t\t#startOverlay .overlay-title .amp {\n\t\t\t\tfont-size: 1.3rem;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.6);\n\t\t\t\tmargin: 10px 0;\n\t\t\t\tfont-style: italic;\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t#startOverlay .overlay-divider {\n\t\t\t\twidth: 60px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: rgba(255, 255, 255, 0.3);\n\t\t\t\tmargin: 32px auto;\n\t\t\t}\n\t\t\t#startOverlay .overlay-guest-label {\n\t\t\t\tfont-size: 0.62rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 5px;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.5);\n\t\t\t\tmargin-bottom: 10px;\n\t\t\t}\n\t\t\t#startOverlay .overlay-guest-name {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.6rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--white);\n\t\t\t\tmargin-bottom: 40px;\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t#startOverlay .btn-start {\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 10px;\n\t\t\t\tbackground: var(--white);\n\t\t\t\tcolor: var(--text);\n\t\t\t\tpadding: 16px 44px;\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tborder: none;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbox-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t\t#startOverlay .btn-start:hover {\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t\tbackground: var(--accent);\n\t\t\t\tcolor: var(--white);\n\t\t\t}\n\t\t\t#startOverlay .hint {\n\t\t\t\tfont-size: 0.6rem;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.4);\n\t\t\t\tmargin-top: 28px;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t\t@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }\n\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t#startOverlay { padding: 20px; }\n\t\t\t\t#startOverlay .overlay-title { font-size: 1.9rem; }\n\t\t\t\t#startOverlay .overlay-guest-name { font-size: 1.3rem; margin-bottom: 32px; }\n\t\t\t\t#startOverlay .btn-start { padding: 14px 32px; font-size: 0.75rem; width: 100%; max-width: 260px; justify-content: center; }\n\t\t\t}\n\n\t\t\t.music-player {\n\t\t\t\tposition: fixed;\n\t\t\t\tbottom: 24px;\n\t\t\t\tright: 24px;\n\t\t\t\tz-index: 1000;\n\t\t\t}\n\t\t\t.music-btn {\n\t\t\t\twidth: 48px;\n\t\t\t\theight: 48px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tbackground: rgba(28, 25, 23, 0.9);\n\t\t\t\tbackdrop-filter: blur(10px);\n\t\t\t\tborder: none;\n\t\t\t\tcolor: var(--white);\n\t\t\t\tfont-size: 1.15rem;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\t\t\t.music-btn:hover {\n\t\t\t\ttransform: scale(1.08);\n\t\t\t\tbackground: var(--accent);\n\t\t\t}\n\t\t\t.music-btn.playing { animation: pulseMinimal 2s infinite; }\n\t\t\t@keyframes pulseMinimal {\n\t\t\t\t0% { box-shadow: 0 0 0 0 rgba(74, 93, 74, 0.4); }\n\t\t\t\t70% { box-shadow: 0 0 0 16px rgba(74, 93, 74, 0); }\n\t\t\t\t100% { box-shadow: 0 0 0 0 rgba(74, 93, 74, 0); }\n\t\t\t}\n\n\t\t\t.hero-editorial {\n\t\t\t\tposition: relative;\n\t\t\t\tmin-height: 100vh;\n\t\t\t\tmin-height: 100svh;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tpadding-top: 140px;\n\t\t\t\tpadding-bottom: 80px;\n\t\t\t\tpadding-left: 24px;\n\t\t\t\tpadding-right: 24px;\n\t\t\t\tcolor: var(--white);\n\t\t\t\toverflow: hidden;\n\t\t\t\tbackground: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);\n\t\t\t}\n\t\t\t.hero-editorial .hero-bg-img {\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 0;\n\t\t\t\tleft: 0;\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tobject-fit: cover;\n\t\t\t\tobject-position: center;\n\t\t\t\tz-index: 0;\n\t\t\t\tpointer-events: none;\n\t\t\t\topacity: 0.25;\n\t\t\t\tfilter: blur(1.5px) saturate(0.7);\n\t\t\t}\n\t\t\t.hero-editorial::before {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\tbackground: \n\t\t\t\t\tradial-gradient(ellipse at 50% 30%, rgba(28,25,23,0.55) 0%, transparent 60%),\n\t\t\t\t\tlinear-gradient(180deg, \n\t\t\t\t\t\trgba(28,25,23,0.72) 0%, \n\t\t\t\t\t\trgba(28,25,23,0.55) 30%, \n\t\t\t\t\t\trgba(28,25,23,0.75) 65%, \n\t\t\t\t\t\trgba(28,25,23,0.95) 100%);\n\t\t\t\tz-index: 1;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.hero-editorial::after {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\tbackground: radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.3) 0%, transparent 70%);\n\t\t\t\tz-index: 1;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.hero-editorial .hero-inner {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 2;\n\t\t\t\ttext-align: center;\n\t\t\t\tmax-width: 720px;\n\t\t\t\twidth: 100%;\n\t\t\t}\n\t\t\t.hero-editorial .hero-eyebrow {\n\t\t\t\tfont-size: 0.65rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 8px;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.85);\n\t\t\t\tmargin-bottom: 28px;\n\t\t\t\tfont-weight: 400;\n\t\t\t\ttext-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);\n\t\t\t}\n\t\t\t.hero-editorial .hero-names {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 5.5rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tline-height: 0.95;\n\t\t\t\tletter-spacing: -0.03em;\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\talign-items: center;\n\t\t\t\tcolor: var(--white);\n\t\t\t\ttext-shadow: \n\t\t\t\t\t0 4px 32px rgba(0, 0, 0, 0.55),\n\t\t\t\t\t0 2px 12px rgba(0, 0, 0, 0.4),\n\t\t\t\t\t0 1px 4px rgba(0, 0, 0, 0.3);\n\t\t\t}\n\t\t\t.hero-editorial .hero-names .amp {\n\t\t\t\tfont-style: italic;\n\t\t\t\tfont-size: 2.2rem;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.75);\n\t\t\t\tmargin: 14px 0;\n\t\t\t\tline-height: 1;\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t.hero-editorial .hero-divider {\n\t\t\t\twidth: 60px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: rgba(255, 255, 255, 0.55);\n\t\t\t\tmargin: 32px auto;\n\t\t\t\tbox-shadow: 0 0 8px rgba(255, 255, 255, 0.3);\n\t\t\t}\n\t\t\t.hero-editorial .hero-dates {\n\t\t\t\tfont-size: 0.85rem;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.92);\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tmargin-bottom: 40px;\n\t\t\t\tfont-weight: 400;\n\t\t\t\ttext-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);\n\t\t\t}\n\t\t\t.hero-editorial .btn-scroll {\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 10px;\n\t\t\t\tbackground: rgba(255, 255, 255, 0.08);\n\t\t\t\tcolor: var(--white);\n\t\t\t\tpadding: 14px 32px;\n\t\t\t\tborder: 1px solid rgba(255, 255, 255, 0.55);\n\t\t\t\tborder-radius: 2px;\n\t\t\t\ttext-decoration: none;\n\t\t\t\tfont-size: 0.75rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbackdrop-filter: blur(8px);\n\t\t\t\t-webkit-backdrop-filter: blur(8px);\n\t\t\t\tbox-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);\n\t\t\t}\n\t\t\t.hero-editorial .btn-scroll:hover {\n\t\t\t\tbackground: var(--white);\n\t\t\t\tcolor: var(--text);\n\t\t\t\tborder-color: var(--white);\n\t\t\t}\n\t\t\t.hero-editorial .scroll-down {\n\t\t\t\tposition: absolute;\n\t\t\t\tbottom: 24px;\n\t\t\t\tleft: 50%;\n\t\t\t\ttransform: translateX(-50%);\n\t\t\t\tcolor: rgba(255, 255, 255, 0.6);\n\t\t\t\tfont-size: 1.3rem;\n\t\t\t\tanimation: bounceMinimal 2s infinite;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbackground: none;\n\t\t\t\tborder: none;\n\t\t\t\tz-index: 3;\n\t\t\t}\n\t\t\t@keyframes bounceMinimal {\n\t\t\t\t0%, 100% { transform: translateX(-50%) translateY(0); }\n\t\t\t\t50% { transform: translateX(-50%) translateY(8px); }\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.hero-editorial { \n\t\t\t\t\tpadding-top: 100px; \n\t\t\t\t\tpadding-bottom: 60px;\n\t\t\t\t\tpadding-left: 20px;\n\t\t\t\t\tpadding-right: 20px;\n\t\t\t\t}\n\t\t\t\t.hero-editorial .hero-names { font-size: 3rem; }\n\t\t\t\t.hero-editorial .hero-names .amp { font-size: 1.5rem; margin: 10px 0; }\n\t\t\t\t.hero-editorial .hero-eyebrow { letter-spacing: 5px; margin-bottom: 20px; }\n\t\t\t\t.hero-editorial .hero-dates { font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 32px; }\n\t\t\t}\n\t\t\t@media (max-width: 400px) {\n\t\t\t\t.hero-editorial .hero-names { font-size: 2.4rem; }\n\t\t\t}\n\n\t\t\t.opening-mini {\n\t\t\t\tpadding: 120px 24px;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\ttext-align: center;\n\t\t\t\tposition: relative;\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.opening-mini::before {\n\t\t\t\tcontent: '\"';\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 40px;\n\t\t\t\tleft: 50%;\n\t\t\t\ttransform: translateX(-50%);\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 12rem;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\topacity: 0.06;\n\t\t\t\tline-height: 1;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.opening-mini-inner {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 2;\n\t\t\t\tmax-width: 640px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t\t.opening-mini-quote {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.6rem;\n\t\t\t\tfont-style: italic;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tline-height: 1.6;\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t}\n\t\t\t.opening-mini-source {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.opening-mini-source::before {\n\t\t\t\tcontent: '— ';\n\t\t\t\tcolor: var(--accent);\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.opening-mini { padding: 80px 20px; }\n\t\t\t\t.opening-mini::before { font-size: 8rem; top: 20px; }\n\t\t\t\t.opening-mini-quote { font-size: 1.15rem; line-height: 1.6; margin-bottom: 24px; }\n\t\t\t}\n\n\t\t\t.section-mini {\n\t\t\t\tpadding: 120px 0;\n\t\t\t\tbackground: var(--bg);\n\t\t\t}\n\t\t\t.section-mini-alt {\n\t\t\t\tpadding: 120px 0;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.section-mini, .section-mini-alt { padding: 80px 0; }\n\t\t\t}\n\n\t\t\t.couple-editorial {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tgap: 80px;\n\t\t\t}\n\t\t\t.couple-editorial-row {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: 1fr 1fr;\n\t\t\t\tgap: 48px;\n\t\t\t\talign-items: center;\n\t\t\t}\n\t\t\t.couple-editorial-row.reverse {\n\t\t\t\tdirection: rtl;\n\t\t\t}\n\t\t\t.couple-editorial-row.reverse > * {\n\t\t\t\tdirection: ltr;\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.couple-editorial-row,\n\t\t\t\t.couple-editorial-row.reverse {\n\t\t\t\t\tgrid-template-columns: 1fr;\n\t\t\t\t\tgap: 24px;\n\t\t\t\t\tdirection: ltr;\n\t\t\t\t}\n\t\t\t\t.couple-editorial { gap: 60px; }\n\t\t\t}\n\t\t\t.couple-editorial-photo {\n\t\t\t\tposition: relative;\n\t\t\t\taspect-ratio: 3 / 4;\n\t\t\t\toverflow: hidden;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\tborder-radius: 2px;\n\t\t\t}\n\t\t\t.couple-editorial-photo img {\n\t\t\t\twidth: 100%;\n\t\t\t\theight: 100%;\n\t\t\t\tobject-fit: cover;\n\t\t\t\ttransition: transform 0.7s ease;\n\t\t\t}\n\t\t\t.couple-editorial-photo:hover img { transform: scale(1.04); }\n\t\t\t.couple-editorial-photo::after {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\tbackground: linear-gradient(180deg, transparent 60%, rgba(28,25,23,0.15));\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.couple-editorial-info {\n\t\t\t\tpadding: 20px 0;\n\t\t\t}\n\t\t\t.couple-editorial-role {\n\t\t\t\tfont-size: 0.65rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 6px;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.couple-editorial-info h3 {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 2.4rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tline-height: 1.15;\n\t\t\t\tletter-spacing: -0.02em;\n\t\t\t}\n\t\t\t.couple-editorial-divider {\n\t\t\t\twidth: 40px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: var(--text);\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t}\n\t\t\t.couple-editorial-parents-label {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\tmargin-bottom: 8px;\n\t\t\t}\n\t\t\t.couple-editorial-parents {\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-style: italic;\n\t\t\t\tline-height: 1.7;\n\t\t\t\tfont-weight: 300;\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t}\n\t\t\t.couple-editorial-social {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 12px;\n\t\t\t}\n\t\t\t.couple-editorial-social a {\n\t\t\t\twidth: 36px;\n\t\t\t\theight: 36px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid var(--line-strong);\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\ttext-decoration: none;\n\t\t\t}\n\t\t\t.couple-editorial-social a:hover {\n\t\t\t\tbackground: var(--accent);\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\tcolor: var(--white);\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.couple-editorial-info h3 { font-size: 1.8rem; }\n\t\t\t\t.couple-editorial-photo { aspect-ratio: 1; }\n\t\t\t}\n\t\t\t.couple-editorial-row.reverse .couple-editorial-photo { order: 2; }\n\t\t\t.couple-editorial-row.reverse .couple-editorial-info { order: 1; }\n\n\t\t\t.story-editorial {\n\t\t\t\tmax-width: 640px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t\tcounter-reset: story-counter;\n\t\t\t}\n\t\t\t.story-editorial-item {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: 80px 1fr;\n\t\t\t\tgap: 32px;\n\t\t\t\tpadding: 40px 0;\n\t\t\t\tborder-bottom: 1px solid var(--line);\n\t\t\t\talign-items: start;\n\t\t\t}\n\t\t\t.story-editorial-item:last-child { border-bottom: none; padding-bottom: 0; }\n\t\t\t.story-editorial-item:first-child { padding-top: 0; }\n\t\t\t.story-editorial-num {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 3rem;\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tfont-weight: 400;\n\t\t\t\tline-height: 1;\n\t\t\t\topacity: 0.4;\n\t\t\t}\n\t\t\t.story-editorial-content h4 {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.4rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 12px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t}\n\t\t\t.story-editorial-content p {\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tline-height: 1.8;\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.story-editorial-item { grid-template-columns: 50px 1fr; gap: 20px; padding: 28px 0; }\n\t\t\t\t.story-editorial-num { font-size: 2rem; }\n\t\t\t\t.story-editorial-content h4 { font-size: 1.15rem; margin-bottom: 8px; }\n\t\t\t\t.story-editorial-content p { font-size: 0.88rem; }\n\t\t\t}\n\n\t\t\t.event-editorial-grid {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: 1fr 1fr;\n\t\t\t\tgap: 32px;\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.event-editorial-grid { grid-template-columns: 1fr; gap: 24px; }\n\t\t\t}\n\t\t\t.event-editorial-card {\n\t\t\t\tbackground: var(--card);\n\t\t\t\tborder: 1px solid var(--line);\n\t\t\t\tpadding: 56px 40px;\n\t\t\t\ttext-align: center;\n\t\t\t\ttransition: all 0.4s ease;\n\t\t\t\tposition: relative;\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.event-editorial-card::before {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 0; left: 0; right: 0;\n\t\t\t\theight: 3px;\n\t\t\t\tbackground: var(--accent);\n\t\t\t\ttransform: scaleX(0);\n\t\t\t\ttransform-origin: left;\n\t\t\t\ttransition: transform 0.5s ease;\n\t\t\t}\n\t\t\t.event-editorial-card:hover::before { transform: scaleX(1); }\n\t\t\t.event-editorial-card:hover {\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\ttransform: translateY(-4px);\n\t\t\t}\n\t\t\t.event-editorial-icon {\n\t\t\t\twidth: 56px;\n\t\t\t\theight: 56px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tbackground: var(--accent-soft);\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tfont-size: 1.4rem;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tmargin: 0 auto 28px;\n\t\t\t}\n\t\t\t.event-editorial-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.6rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 8px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t}\n\t\t\t.event-editorial-arabic {\n\t\t\t\tfont-family: 'Amiri', serif;\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tmargin-bottom: 28px;\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t.event-editorial-detail {\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tline-height: 2;\n\t\t\t\tfont-weight: 300;\n\t\t\t\tmargin-bottom: 28px;\n\t\t\t}\n\t\t\t.event-editorial-detail .row {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t}\n\t\t\t.event-editorial-detail .row:last-child { margin-bottom: 0; }\n\t\t\t.event-editorial-detail .label {\n\t\t\t\tfont-size: 0.65rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tmargin-bottom: 6px;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.event-editorial-detail .value {\n\t\t\t\tcolor: var(--text);\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t}\n\t\t\t.event-editorial-btn {\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 8px;\n\t\t\t\tcolor: var(--text);\n\t\t\t\ttext-decoration: none;\n\t\t\t\tfont-size: 0.75rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tborder-bottom: 1px solid var(--text);\n\t\t\t\tpadding-bottom: 6px;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t}\n\t\t\t.event-editorial-btn:hover {\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tborder-bottom-color: var(--accent);\n\t\t\t\tgap: 14px;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.event-editorial-card { padding: 40px 28px; }\n\t\t\t\t.event-editorial-title { font-size: 1.3rem; }\n\t\t\t}\n\n\t\t\t.gallery-masonry {\n\t\t\t\tcolumns: 3;\n\t\t\t\tcolumn-gap: 16px;\n\t\t\t}\n\t\t\t@media (max-width: 900px) {\n\t\t\t\t.gallery-masonry { columns: 2; column-gap: 12px; }\n\t\t\t}\n\t\t\t@media (max-width: 500px) {\n\t\t\t\t.gallery-masonry { columns: 2; column-gap: 8px; }\n\t\t\t}\n\t\t\t.gallery-masonry-item {\n\t\t\t\tbreak-inside: avoid;\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t\tposition: relative;\n\t\t\t\toverflow: hidden;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\tborder-radius: 2px;\n\t\t\t\ttransition: transform 0.4s ease;\n\t\t\t}\n\t\t\t@media (max-width: 900px) {\n\t\t\t\t.gallery-masonry-item { margin-bottom: 12px; }\n\t\t\t}\n\t\t\t@media (max-width: 500px) {\n\t\t\t\t.gallery-masonry-item { margin-bottom: 8px; }\n\t\t\t}\n\t\t\t.gallery-masonry-item img {\n\t\t\t\twidth: 100%;\n\t\t\t\theight: auto;\n\t\t\t\tdisplay: block;\n\t\t\t\ttransition: transform 0.7s ease;\n\t\t\t}\n\t\t\t.gallery-masonry-item:hover img { transform: scale(1.05); }\n\t\t\t.gallery-masonry-item::after {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\tbackground: rgba(28, 25, 23, 0);\n\t\t\t\ttransition: background 0.3s;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.gallery-masonry-item:hover::after { background: rgba(28, 25, 23, 0.15); }\n\t\t\t.gallery-masonry-item i {\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 50%;\n\t\t\t\tleft: 50%;\n\t\t\t\ttransform: translate(-50%, -50%) scale(0.7);\n\t\t\t\tcolor: var(--white);\n\t\t\t\tfont-size: 1.5rem;\n\t\t\t\topacity: 0;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tpointer-events: none;\n\t\t\t\tz-index: 2;\n\t\t\t}\n\t\t\t.gallery-masonry-item:hover i { opacity: 1; transform: translate(-50%, -50%) scale(1); }\n\n\t\t\t.rsvp-mini-form {\n\t\t\t\tmax-width: 480px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t\t.form-group-mini {\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t\ttext-align: left;\n\t\t\t}\n\t\t\t.form-group-mini label {\n\t\t\t\tdisplay: block;\n\t\t\t\tfont-size: 0.68rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tmargin-bottom: 10px;\n\t\t\t}\n\t\t\t.form-group-mini .required { color: #dc2626; }\n\t\t\t.form-group-mini input,\n\t\t\t.form-group-mini select,\n\t\t\t.form-group-mini textarea {\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding: 16px 0;\n\t\t\t\tborder: none;\n\t\t\t\tborder-bottom: 1px solid var(--line-strong);\n\t\t\t\tbackground: transparent;\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tfont-family: 'Inter', sans-serif;\n\t\t\t\tcolor: var(--text);\n\t\t\t\ttransition: border-color 0.3s;\n\t\t\t\tborder-radius: 0;\n\t\t\t}\n\t\t\t.form-group-mini input:focus,\n\t\t\t.form-group-mini select:focus,\n\t\t\t.form-group-mini textarea:focus {\n\t\t\t\toutline: none;\n\t\t\t\tborder-bottom-color: var(--accent);\n\t\t\t}\n\t\t\t.form-group-mini input::placeholder,\n\t\t\t.form-group-mini textarea::placeholder { color: var(--text-light); }\n\t\t\t.form-group-mini input[readonly] {\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tcursor: not-allowed;\n\t\t\t\tbackground: transparent;\n\t\t\t}\n\t\t\t.form-group-mini textarea { resize: vertical; min-height: 90px; }\n\t\t\t.btn-submit-mini {\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding: 18px;\n\t\t\t\tbackground: var(--text);\n\t\t\t\tcolor: var(--white);\n\t\t\t\tborder: none;\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tfont-size: 0.78rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tcursor: pointer;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tmargin-top: 16px;\n\t\t\t}\n\t\t\t.btn-submit-mini:hover {\n\t\t\t\tbackground: var(--accent);\n\t\t\t\ttransform: translateY(-1px);\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t}\n\t\t\t.btn-submit-mini:disabled { opacity: 0.6; cursor: not-allowed; }\n\n\t\t\t.rsvp-mini-list-wrap {\n\t\t\t\tmax-width: 480px;\n\t\t\t\tmargin: 80px auto 0;\n\t\t\t\tpadding-top: 40px;\n\t\t\t\tborder-top: 1px solid var(--line);\n\t\t\t}\n\t\t\t.rsvp-mini-list-head {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: baseline;\n\t\t\t\tmargin-bottom: 28px;\n\t\t\t}\n\t\t\t.rsvp-mini-list-head h4 {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.2rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t}\n\t\t\t.rsvp-mini-count {\n\t\t\t\tfont-size: 0.72rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tletter-spacing: 2px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t\t#rsvpList {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tgap: 0;\n\t\t\t\tmax-height: 440px;\n\t\t\t\toverflow-y: auto;\n\t\t\t}\n\t\t\t.rsvp-mini-item {\n\t\t\t\tpadding: 24px 0;\n\t\t\t\tborder-bottom: 1px solid var(--line);\n\t\t\t}\n\t\t\t.rsvp-mini-item:last-child { border-bottom: none; }\n\t\t\t.rsvp-mini-item .row-main {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: baseline;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\tgap: 8px;\n\t\t\t\tmargin-bottom: 8px;\n\t\t\t}\n\t\t\t.rsvp-mini-item .guest-name {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.05rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t}\n\t\t\t.rsvp-mini-item .status-badge {\n\t\t\t\tfont-size: 0.62rem;\n\t\t\t\tpadding: 3px 12px;\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tletter-spacing: 2px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.rsvp-mini-item .status-badge.hadir {\n\t\t\t\tbackground: rgba(16, 185, 129, 0.1);\n\t\t\t\tcolor: #059669;\n\t\t\t}\n\t\t\t.rsvp-mini-item .status-badge.tidak_hadir {\n\t\t\t\tbackground: rgba(220, 38, 38, 0.08);\n\t\t\t\tcolor: #dc2626;\n\t\t\t}\n\t\t\t.rsvp-mini-item .status-badge.ragu {\n\t\t\t\tbackground: rgba(245, 158, 11, 0.1);\n\t\t\t\tcolor: #d97706;\n\t\t\t}\n\t\t\t.rsvp-mini-item .row-detail {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: center;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\tgap: 8px;\n\t\t\t}\n\t\t\t.rsvp-mini-item .meta {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 16px;\n\t\t\t\tfont-size: 0.72rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t}\n\t\t\t.rsvp-mini-item .meta span { display: flex; align-items: center; gap: 5px; }\n\t\t\t.rsvp-mini-item .message {\n\t\t\t\tmargin-top: 12px;\n\t\t\t\tpadding: 14px 18px;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\tborder-left: 2px solid var(--accent);\n\t\t\t\tfont-size: 0.85rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-style: italic;\n\t\t\t\tline-height: 1.7;\n\t\t\t\tborder-radius: 2px;\n\t\t\t}\n\t\t\t.rsvp-mini-empty {\n\t\t\t\ttext-align: center;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tfont-size: 0.85rem;\n\t\t\t\tpadding: 40px 0;\n\t\t\t}\n\t\t\t.rsvp-mini-empty i { display: block; font-size: 1.6rem; margin-bottom: 12px; opacity: 0.5; }\n\n\t\t\t.bank-mini-grid {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: repeat(auto-fit, minmax(280px, 1fr));\n\t\t\t\tgap: 24px;\n\t\t\t\tmax-width: 720px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t\t.bank-mini-card {\n\t\t\t\tbackground: var(--card);\n\t\t\t\tborder: 1px solid var(--line);\n\t\t\t\tpadding: 40px 28px;\n\t\t\t\ttext-align: center;\n\t\t\t\ttransition: all 0.4s ease;\n\t\t\t\tposition: relative;\n\t\t\t}\n\t\t\t.bank-mini-card::before {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 0; left: 0; right: 0;\n\t\t\t\theight: 2px;\n\t\t\t\tbackground: var(--accent);\n\t\t\t\ttransform: scaleX(0);\n\t\t\t\ttransform-origin: left;\n\t\t\t\ttransition: transform 0.5s ease;\n\t\t\t}\n\t\t\t.bank-mini-card:hover::before { transform: scaleX(1); }\n\t\t\t.bank-mini-card:hover {\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\ttransform: translateY(-4px);\n\t\t\t}\n\t\t\t.bank-mini-logo {\n\t\t\t\twidth: 60px;\n\t\t\t\theight: 60px;\n\t\t\t\tmargin: 0 auto 24px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tbackground: var(--accent-soft);\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.bank-mini-logo img {\n\t\t\t\twidth: 55%;\n\t\t\t\theight: 55%;\n\t\t\t\tobject-fit: contain;\n\t\t\t}\n\t\t\t.bank-mini-logo .initial {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.3rem;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tfont-weight: 400;\n\t\t\t}\n\t\t\t.bank-mini-name {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.1rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tletter-spacing: 0.5px;\n\t\t\t}\n\t\t\t.bank-mini-number {\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 10px;\n\t\t\t\tbackground: var(--bg-alt);\n\t\t\t\tpadding: 14px 22px;\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tcursor: pointer;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tmargin-bottom: 14px;\n\t\t\t\twidth: 100%;\n\t\t\t\tjustify-content: center;\n\t\t\t}\n\t\t\t.bank-mini-number:hover {\n\t\t\t\tbackground: var(--accent-soft);\n\t\t\t\ttransform: translateY(-1px);\n\t\t\t}\n\t\t\t.bank-mini-number span {\n\t\t\t\tfont-family: 'Courier New', monospace;\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tletter-spacing: 2px;\n\t\t\t}\n\t\t\t.bank-mini-number i {\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\ttransition: color 0.3s;\n\t\t\t}\n\t\t\t.bank-mini-number:hover i { color: var(--accent); }\n\t\t\t.bank-mini-holder {\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t.bank-mini-holder strong {\n\t\t\t\tcolor: var(--text);\n\t\t\t\tfont-style: normal;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.bank-mini-note {\n\t\t\t\ttext-align: center;\n\t\t\t\tmargin-top: 40px;\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\n\t\t\t.footer-mini {\n\t\t\t\tpadding: 100px 24px 48px;\n\t\t\t\tbackground: var(--bg);\n\t\t\t\ttext-align: center;\n\t\t\t\tborder-top: 1px solid var(--line);\n\t\t\t\tposition: relative;\n\t\t\t}\n\t\t\t.footer-mini-couple {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 2rem;\n\t\t\t\tfont-weight: 400;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tmargin-bottom: 12px;\n\t\t\t\tletter-spacing: -0.01em;\n\t\t\t}\n\t\t\t.footer-mini-couple .amp {\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--accent);\n\t\t\t\tmargin: 0 12px;\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t.footer-mini-divider {\n\t\t\t\twidth: 60px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: var(--line-strong);\n\t\t\t\tmargin: 28px auto;\n\t\t\t}\n\t\t\t.footer-mini-date {\n\t\t\t\tfont-size: 0.75rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tletter-spacing: 5px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t}\n\t\t\t.footer-mini-social {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: center;\n\t\t\t\tgap: 16px;\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t}\n\t\t\t.footer-mini-social a {\n\t\t\t\twidth: 40px;\n\t\t\t\theight: 40px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid var(--line-strong);\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-size: 1rem;\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\ttext-decoration: none;\n\t\t\t}\n\t\t\t.footer-mini-social a:hover {\n\t\t\t\tbackground: var(--accent);\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\tcolor: var(--white);\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t}\n\t\t\t.footer-mini-prayer {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tmax-width: 500px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t\tline-height: 1.7;\n\t\t\t}\n\n\t\t\t.web-footer-mini {\n\t\t\t\tpadding: 56px 0 32px;\n\t\t\t\tbackground: var(--bg-dark);\n\t\t\t\tcolor: rgba(255, 255, 255, 0.6);\n\t\t\t}\n\t\t\t.web-footer-mini-grid {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n\t\t\t\tgap: 40px;\n\t\t\t\tmargin-bottom: 40px;\n\t\t\t}\n\t\t\t.web-footer-mini-brand {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.4rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\ttext-decoration: none;\n\t\t\t\tdisplay: inline-block;\n\t\t\t}\n\t\t\t.web-footer-mini-brand .wedding { color: rgba(255, 255, 255, 0.9); }\n\t\t\t.web-footer-mini-brand .saas {\n\t\t\t\tcolor: var(--accent-light);\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t.web-footer-mini-desc {\n\t\t\t\tfont-size: 0.82rem;\n\t\t\t\tline-height: 1.8;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tfont-weight: 300;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.5);\n\t\t\t}\n\t\t\t.web-footer-mini-heading {\n\t\t\t\tfont-size: 0.68rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.85);\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t}\n\t\t\t.web-footer-mini-list {\n\t\t\t\tlist-style: none;\n\t\t\t\tpadding: 0;\n\t\t\t\tmargin: 0;\n\t\t\t}\n\t\t\t.web-footer-mini-list li {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: flex-start;\n\t\t\t\tgap: 10px;\n\t\t\t\tmargin-bottom: 14px;\n\t\t\t\tfont-size: 0.82rem;\n\t\t\t\tline-height: 1.6;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.5);\n\t\t\t\tfont-weight: 300;\n\t\t\t}\n\t\t\t.web-footer-mini-list li i {\n\t\t\t\tcolor: var(--accent-light);\n\t\t\t\tmargin-top: 3px;\n\t\t\t\tflex-shrink: 0;\n\t\t\t\topacity: 0.7;\n\t\t\t}\n\t\t\t.web-footer-mini-list a, .web-footer-mini-link {\n\t\t\t\tcolor: rgba(255, 255, 255, 0.5);\n\t\t\t\ttext-decoration: none;\n\t\t\t\ttransition: color 0.2s;\n\t\t\t}\n\t\t\t.web-footer-mini-list a:hover, .web-footer-mini-link:hover { color: var(--white); }\n\t\t\t.web-footer-mini-socials {\n\t\t\t\tdisplay: flex;\n\t\t\t\tgap: 12px;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\tmargin-top: 20px;\n\t\t\t}\n\t\t\t.web-footer-mini-socials a {\n\t\t\t\twidth: 38px;\n\t\t\t\theight: 38px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tbackground: rgba(255, 255, 255, 0.05);\n\t\t\t\tborder: 1px solid rgba(255, 255, 255, 0.1);\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.6);\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\ttext-decoration: none;\n\t\t\t}\n\t\t\t.web-footer-mini-socials a:hover {\n\t\t\t\tbackground: var(--accent);\n\t\t\t\tcolor: var(--white);\n\t\t\t\tborder-color: var(--accent);\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t}\n\t\t\t.web-footer-mini-version {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\tpadding: 5px 12px;\n\t\t\t\tbackground: rgba(255, 255, 255, 0.05);\n\t\t\t\tborder-radius: 2px;\n\t\t\t\tdisplay: inline-block;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.4);\n\t\t\t\tletter-spacing: 1px;\n\t\t\t}\n\t\t\t.web-footer-mini-bottom {\n\t\t\t\tborder-top: 1px solid rgba(255, 255, 255, 0.08);\n\t\t\t\tpadding-top: 28px;\n\t\t\t\ttext-align: center;\n\t\t\t\tfont-size: 0.75rem;\n\t\t\t\tcolor: rgba(255, 255, 255, 0.35);\n\t\t\t\tfont-weight: 300;\n\t\t\t\tletter-spacing: 1px;\n\t\t\t}\n\t\t\t@media (max-width: 768px) {\n\t\t\t\t.web-footer-mini { padding: 48px 0 28px; text-align: center; }\n\t\t\t\t.web-footer-mini-list li { justify-content: center; }\n\t\t\t\t.web-footer-mini-socials { justify-content: center; }\n\t\t\t}\n\t\t</style></head><body data-music-url=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var4 string
-		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.ResolveAttributeValue(musicURL)
+		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.MusicURL)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1423, Col: 32}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1338, Col: 37}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var4)
 		if templ_7745c5c3_Err != nil {
@@ -126,9 +88,9 @@ func modernMinimalistPage(
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var5 string
-		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatUint(project.ID))
+		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.FormatUint(data.Project.ID))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1423, Col: 75}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1338, Col: 96}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var5)
 		if templ_7745c5c3_Err != nil {
@@ -139,27 +101,27 @@ func modernMinimalistPage(
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var6 string
-		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.ResolveAttributeValue(project.Slug)
+		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.Project.Slug)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1423, Col: 110}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1338, Col: 136}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var6)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "\"><!-- ============================================ --><!-- OVERLAY --><!-- ============================================ --><div id=\"startOverlay\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "\"><!-- OVERLAY --><div id=\"startOverlay\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if heroImage != "" {
+		if data.HeroImage != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "<img src=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var7 string
-			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.ResolveAttributeValue(heroImage)
+			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.HeroImage)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1430, Col: 36}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1343, Col: 29}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var7)
 			if templ_7745c5c3_Err != nil {
@@ -175,9 +137,9 @@ func modernMinimalistPage(
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var8 string
-		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(groomName)
+		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(data.GroomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1436, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1349, Col: 27}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 		if templ_7745c5c3_Err != nil {
@@ -188,9 +150,9 @@ func modernMinimalistPage(
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var9 string
-		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(brideName)
+		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(data.BrideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1438, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1351, Col: 27}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 		if templ_7745c5c3_Err != nil {
@@ -200,31 +162,29 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if isNamedGuest {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "Kepada")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		} else {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "Salam Hangat Untuk")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "</div><div class=\"overlay-guest-name\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
 		var templ_7745c5c3_Var10 string
-		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(guestName)
+		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(invitation.GuestGreeting(data.IsNamedGuest))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1450, Col: 47}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1357, Col: 50}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "</div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "</div><div class=\"overlay-guest-name\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var11 string
+		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(data.GuestName)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1359, Col: 52}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -232,16 +192,16 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "<button class=\"btn-start\" onclick=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "<button class=\"btn-start\" onclick=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var11 templ.ComponentScript = templpkg.JSFuncCall("startMusic")
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var11.Call)
+		var templ_7745c5c3_Var12 templ.ComponentScript = templpkg.JSFuncCall("startMusic")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var12.Call)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "\"><i class=\"bi bi-envelope-open\"></i> Buka Undangan</button><p class=\"hint\">Tap untuk membuka undangan</p></div></div><!-- ============================================ --><!-- MUSIC PLAYER --><!-- ============================================ --><div class=\"music-player\" id=\"musicPlayer\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "\"><i class=\"bi bi-envelope-open\"></i> Buka Undangan</button><p class=\"hint\">Tap untuk membuka undangan</p></div></div><!-- MUSIC PLAYER --><div class=\"music-player\" id=\"musicPlayer\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -249,38 +209,48 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "<button class=\"music-btn\" id=\"musicToggle\" onclick=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "<button class=\"music-btn\" id=\"musicToggle\" onclick=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var12 templ.ComponentScript = templpkg.JSFuncCall("toggleMusic")
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var12.Call)
+		var templ_7745c5c3_Var13 templ.ComponentScript = templpkg.JSFuncCall("toggleMusic")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var13.Call)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "\"><i class=\"bi bi-music-note\"></i></button></div><!-- ============================================ --><!-- HERO — FULLSCREEN PHOTO --><!-- ============================================ --><section class=\"hero-editorial\" id=\"section-hero\"><img src=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "\"><i class=\"bi bi-music-note\"></i></button></div><!-- HERO --><section class=\"hero-editorial\" id=\"section-hero\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var13 string
-		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.ResolveAttributeValue(heroImage)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1474, Col: 32}
+		if data.HeroImage != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "<img src=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var14 string
+			templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.HeroImage)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1380, Col: 29}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var14)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "\" alt=\"\" class=\"hero-bg-img\" loading=\"eager\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var13)
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "<div class=\"hero-inner\" data-aos=\"fade-up\" data-aos-duration=\"1200\"><div class=\"hero-eyebrow\">The Wedding Of</div><h1 class=\"hero-names\"><span>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "\" alt=\"\" class=\"hero-bg-img\" loading=\"eager\"><div class=\"hero-inner\" data-aos=\"fade-up\" data-aos-duration=\"1200\"><div class=\"hero-eyebrow\">The Wedding Of</div><h1 class=\"hero-names\"><span>")
+		var templ_7745c5c3_Var15 string
+		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(data.GroomName)
 		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1386, Col: 27}
 		}
-		var templ_7745c5c3_Var14 string
-		templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(groomName)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1479, Col: 22}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -288,12 +258,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var15 string
-		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(brideName)
+		var templ_7745c5c3_Var16 string
+		templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(data.BrideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1481, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1388, Col: 27}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -301,13 +271,13 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if showDates(data) == "both" || showDates(data) == "akad" {
-			var templ_7745c5c3_Var16 string
-			templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_date"))
+		if data.ShouldShowAkadDate() {
+			var templ_7745c5c3_Var17 string
+			templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(data.AkadDate)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1488, Col: 33}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1395, Col: 21}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -316,19 +286,19 @@ func modernMinimalistPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		if showDates(data) == "both" {
+		if data.ShouldShowBothDates() {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "<span>· </span> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		if showDates(data) == "both" || showDates(data) == "resepsi" {
-			var templ_7745c5c3_Var17 string
-			templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_date"))
+		if data.ShouldShowResepsiDate() {
+			var templ_7745c5c3_Var18 string
+			templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiDate)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1494, Col: 36}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1401, Col: 24}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -345,21 +315,21 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var18 templ.ComponentScript = templpkg.JSFuncCall("scrollToOpening")
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var18.Call)
+		var templ_7745c5c3_Var19 templ.ComponentScript = templpkg.JSFuncCall("scrollToOpening")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var19.Call)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "\"><i class=\"bi bi-chevron-double-down\"></i></button></section><!-- ============================================ --><!-- OPENING STATEMENT --><!-- ============================================ --><section class=\"opening-mini\" id=\"section-opening\"><div class=\"opening-mini-inner\" data-aos=\"fade-up\"><div class=\"opening-mini-quote\">\"Dengan memohon rahmat dan ridho Tuhan Yang Maha Esa, kami bermaksud menyelenggarakan pernikahan putra-putri kami.\"</div><div class=\"opening-mini-source\">The Wedding Of ")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "\"><i class=\"bi bi-chevron-double-down\"></i></button></section><!-- OPENING STATEMENT --><section class=\"opening-mini\" id=\"section-opening\"><div class=\"opening-mini-inner\" data-aos=\"fade-up\"><div class=\"opening-mini-quote\">\"Dengan memohon rahmat dan ridho Tuhan Yang Maha Esa, kami bermaksud menyelenggarakan pernikahan putra-putri kami.\"</div><div class=\"opening-mini-source\">The Wedding Of ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var19 string
-		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(groomName)
+		var templ_7745c5c3_Var20 string
+		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(data.GroomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1517, Col: 63}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1422, Col: 68}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -367,25 +337,25 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var20 string
-		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(brideName)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1517, Col: 83}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "</div></div></section><!-- ============================================ --><!-- COUPLE — EDITORIAL --><!-- ============================================ --><section class=\"section-mini\" id=\"section-couple\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">The Bride &amp; Groom</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Mempelai<br><em>yang berbahagia</em></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Dengan penuh rasa syukur, kami mempersembahkan dua insan yang akan diikat dalam janji suci pernikahan</p><div class=\"couple-editorial\"><!-- GROOM --><div class=\"couple-editorial-row\" data-aos=\"fade-up\" data-aos-delay=\"150\"><div class=\"couple-editorial-photo\"><img src=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
 		var templ_7745c5c3_Var21 string
-		templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.ResolveAttributeValue(groomPhoto)
+		templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs(data.BrideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1538, Col: 28}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1422, Col: 93}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var21)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "</div></div></section><!-- COUPLE --><section class=\"section-mini\" id=\"section-couple\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">The Bride &amp; Groom</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Mempelai<br><em>yang berbahagia</em></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Dengan penuh rasa syukur, kami mempersembahkan dua insan yang akan diikat dalam janji suci pernikahan</p><div class=\"couple-editorial\"><!-- GROOM --><div class=\"couple-editorial-row\" data-aos=\"fade-up\" data-aos-delay=\"150\"><div class=\"couple-editorial-photo\"><img src=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var22 string
+		templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.GroomPhotoOrDefault())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1441, Col: 44}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var22)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -393,12 +363,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var22 string
-		templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.ResolveAttributeValue(groomName)
+		var templ_7745c5c3_Var23 string
+		templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.GroomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1538, Col: 46}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1441, Col: 67}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var22)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var23)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -406,12 +376,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var23 string
-		templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs(groomName)
+		var templ_7745c5c3_Var24 string
+		templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(data.GroomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1542, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1445, Col: 27}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -419,12 +389,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var24 string
-		templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(getParentsNameSplit(fatherGroomName, motherGroomName))
+		var templ_7745c5c3_Var25 string
+		templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinStringErrs(data.ParentsGroom())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1546, Col: 63}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1449, Col: 29}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -432,17 +402,17 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if getStr(data, "groom_instagram") != "-" {
+		if data.GroomInstagram != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "<div class=\"couple-editorial-social\"><a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var25 templ.SafeURL
-			templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getStr(data, "groom_instagram")))
+			var templ_7745c5c3_Var26 templ.SafeURL
+			templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.GroomInstagram))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1550, Col: 68}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1453, Col: 56}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var26))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -455,12 +425,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var26 string
-		templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.ResolveAttributeValue(bridePhoto)
+		var templ_7745c5c3_Var27 string
+		templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.BridePhotoOrDefault())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1561, Col: 28}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1464, Col: 44}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var26)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var27)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -468,12 +438,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var27 string
-		templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.ResolveAttributeValue(brideName)
+		var templ_7745c5c3_Var28 string
+		templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.BrideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1561, Col: 46}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1464, Col: 67}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var27)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var28)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -481,12 +451,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var28 string
-		templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.JoinStringErrs(brideName)
+		var templ_7745c5c3_Var29 string
+		templ_7745c5c3_Var29, templ_7745c5c3_Err = templ.JoinStringErrs(data.BrideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1565, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1468, Col: 27}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var28))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var29))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -494,12 +464,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var29 string
-		templ_7745c5c3_Var29, templ_7745c5c3_Err = templ.JoinStringErrs(getParentsNameSplit(fatherBrideName, motherBrideName))
+		var templ_7745c5c3_Var30 string
+		templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.JoinStringErrs(data.ParentsBride())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1569, Col: 63}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1472, Col: 29}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var29))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var30))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -507,17 +477,17 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if getStr(data, "bride_instagram") != "-" {
+		if data.BrideInstagram != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "<div class=\"couple-editorial-social\"><a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var30 templ.SafeURL
-			templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getStr(data, "bride_instagram")))
+			var templ_7745c5c3_Var31 templ.SafeURL
+			templ_7745c5c3_Var31, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.BrideInstagram))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1573, Col: 68}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1476, Col: 56}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var30))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var31))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -526,26 +496,26 @@ func modernMinimalistPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "</div></div></div></div></section><!-- ============================================ --><!-- LOVE STORY --><!-- ============================================ -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "</div></div></div></div></section><!-- LOVE STORY -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if stories := getLoveStories(data); len(stories) > 0 {
+		if len(data.LoveStories) > 0 {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "<section class=\"section-mini-alt\" id=\"section-love\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">Our Story</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Perjalanan<br><em>yang kami lalui</em></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Setiap langkah adalah bagian dari cerita yang membawa kami hingga di hari bahagia ini</p><div class=\"story-editorial\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			for index, story := range stories {
+			for index, story := range data.LoveStories {
 				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, "<div class=\"story-editorial-item\" data-aos=\"fade-up\" data-aos-delay=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var31 string
-				templ_7745c5c3_Var31, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(80 * (index + 1)))
+				var templ_7745c5c3_Var32 string
+				templ_7745c5c3_Var32, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.FormatInt(80 * (index + 1)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1600, Col: 104}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1501, Col: 115}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var31)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var32)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -553,12 +523,12 @@ func modernMinimalistPage(
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var32 string
-				templ_7745c5c3_Var32, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(index + 1))
+				var templ_7745c5c3_Var33 string
+				templ_7745c5c3_Var33, templ_7745c5c3_Err = templ.JoinStringErrs(invitation.FormatInt(index + 1))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1601, Col: 64}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1502, Col: 75}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var32))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var33))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -566,12 +536,12 @@ func modernMinimalistPage(
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var33 string
-				templ_7745c5c3_Var33, templ_7745c5c3_Err = templ.JoinStringErrs(story["title"])
+				var templ_7745c5c3_Var34 string
+				templ_7745c5c3_Var34, templ_7745c5c3_Err = templ.JoinStringErrs(story.Title)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1603, Col: 29}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1504, Col: 26}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var33))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var34))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -579,12 +549,12 @@ func modernMinimalistPage(
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var34 string
-				templ_7745c5c3_Var34, templ_7745c5c3_Err = templ.JoinStringErrs(story["desc"])
+				var templ_7745c5c3_Var35 string
+				templ_7745c5c3_Var35, templ_7745c5c3_Err = templ.JoinStringErrs(story.Desc)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1604, Col: 27}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1505, Col: 24}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var34))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var35))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -598,16 +568,16 @@ func modernMinimalistPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 51, "<!-- ============================================ --><!-- EVENT — EDITORIAL --><!-- ============================================ --><section class=\"section-mini\" id=\"section-event\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">When &amp; Where</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Detail<br><em>acara</em></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Dengan penuh rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara kami</p><div class=\"event-editorial-grid\"><!-- Akad --><div class=\"event-editorial-card\" data-aos=\"fade-up\" data-aos-delay=\"150\"><div class=\"event-editorial-icon\"><i class=\"bi bi-heart\"></i></div><h3 class=\"event-editorial-title\">Akad Nikah</h3><div class=\"event-editorial-detail\"><div class=\"row\"><span class=\"label\">Tanggal</span> <span class=\"value\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 51, "<!-- EVENT --><section class=\"section-mini\" id=\"section-event\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">When &amp; Where</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Detail<br><em>acara</em></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Dengan penuh rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara kami</p><div class=\"event-editorial-grid\"><!-- Akad --><div class=\"event-editorial-card\" data-aos=\"fade-up\" data-aos-delay=\"150\"><div class=\"event-editorial-icon\"><i class=\"bi bi-heart\"></i></div><h3 class=\"event-editorial-title\">Akad Nikah</h3><div class=\"event-editorial-detail\"><div class=\"row\"><span class=\"label\">Tanggal</span> <span class=\"value\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var35 string
-		templ_7745c5c3_Var35, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_date"))
+		var templ_7745c5c3_Var36 string
+		templ_7745c5c3_Var36, templ_7745c5c3_Err = templ.JoinStringErrs(data.AkadDate)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1636, Col: 55}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1535, Col: 43}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var35))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var36))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -615,12 +585,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var36 string
-		templ_7745c5c3_Var36, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_time"))
+		var templ_7745c5c3_Var37 string
+		templ_7745c5c3_Var37, templ_7745c5c3_Err = templ.JoinStringErrs(data.AkadTime)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1640, Col: 55}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1539, Col: 43}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var36))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var37))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -628,12 +598,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var37 string
-		templ_7745c5c3_Var37, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_venue"))
+		var templ_7745c5c3_Var38 string
+		templ_7745c5c3_Var38, templ_7745c5c3_Err = templ.JoinStringErrs(data.AkadVenue)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1644, Col: 56}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1543, Col: 44}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var37))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var38))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -641,17 +611,17 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if getStr(data, "maps_url_akad") != "-" {
+		if data.MapsURLAkad != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 55, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var38 templ.SafeURL
-			templ_7745c5c3_Var38, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getStr(data, "maps_url_akad")))
+			var templ_7745c5c3_Var39 templ.SafeURL
+			templ_7745c5c3_Var39, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.MapsURLAkad))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1648, Col: 64}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1547, Col: 51}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var38))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var39))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -664,12 +634,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var39 string
-		templ_7745c5c3_Var39, templ_7745c5c3_Err = templ.JoinStringErrs(getResepsiLabel(data))
+		var templ_7745c5c3_Var40 string
+		templ_7745c5c3_Var40, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiLabelDisplay())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1659, Col: 63}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1558, Col: 68}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var39))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var40))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -677,17 +647,17 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if isIslamicLabel(data) && getResepsiArabic(data) != "" {
+		if data.IsIslamicResepsi() && data.ResepsiArabic() != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 59, "<div class=\"event-editorial-arabic\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var40 string
-			templ_7745c5c3_Var40, templ_7745c5c3_Err = templ.JoinStringErrs(getResepsiArabic(data))
+			var templ_7745c5c3_Var41 string
+			templ_7745c5c3_Var41, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiArabic())
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1661, Col: 67}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1560, Col: 65}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var40))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var41))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -700,12 +670,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var41 string
-		templ_7745c5c3_Var41, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_date"))
+		var templ_7745c5c3_Var42 string
+		templ_7745c5c3_Var42, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiDate)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1666, Col: 58}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1565, Col: 46}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var41))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var42))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -713,12 +683,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var42 string
-		templ_7745c5c3_Var42, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_time"))
+		var templ_7745c5c3_Var43 string
+		templ_7745c5c3_Var43, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiTime)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1670, Col: 58}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1569, Col: 46}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var42))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var43))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -726,12 +696,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var43 string
-		templ_7745c5c3_Var43, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "resepsi_venue"))
+		var templ_7745c5c3_Var44 string
+		templ_7745c5c3_Var44, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiVenue)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1674, Col: 59}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1573, Col: 47}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var43))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var44))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -739,17 +709,17 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if getStr(data, "maps_url_resepsi") != "-" {
+		if data.MapsURLResepsi != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 65, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var44 templ.SafeURL
-			templ_7745c5c3_Var44, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getStr(data, "maps_url_resepsi")))
+			var templ_7745c5c3_Var45 templ.SafeURL
+			templ_7745c5c3_Var45, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.MapsURLResepsi))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1678, Col: 67}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1577, Col: 54}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var44))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var45))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -758,26 +728,26 @@ func modernMinimalistPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 67, "</div></div></div></section><!-- ============================================ --><!-- GALLERY — MASONRY --><!-- ============================================ -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 67, "</div></div></div></section><!-- GALLERY -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if gallery := getGallery(data); len(gallery) > 0 {
+		if len(data.Gallery) > 0 {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 68, "<section class=\"section-mini-alt\" id=\"section-gallery\"><div class=\"container-wide\"><div class=\"section-label\" data-aos=\"fade-up\">Gallery</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Momen<br><em>terindah</em></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Kumpulan kenangan yang kami abadikan dalam perjalanan menuju hari bahagia</p><div class=\"gallery-masonry\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			for index, img := range gallery {
+			for index, img := range data.Gallery {
 				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 69, "<div class=\"gallery-masonry-item\" data-aos=\"fade-up\" data-aos-delay=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var45 string
-				templ_7745c5c3_Var45, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(60 * ((index % 6) + 1)))
+				var templ_7745c5c3_Var46 string
+				templ_7745c5c3_Var46, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.FormatInt(60 * ((index % 6) + 1)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1703, Col: 110}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1600, Col: 121}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var45)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var46)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -785,12 +755,12 @@ func modernMinimalistPage(
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var46 string
-				templ_7745c5c3_Var46, templ_7745c5c3_Err = templ.ResolveAttributeValue(img)
+				var templ_7745c5c3_Var47 string
+				templ_7745c5c3_Var47, templ_7745c5c3_Err = templ.ResolveAttributeValue(img)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1704, Col: 22}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1601, Col: 22}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var46)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var47)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -798,12 +768,12 @@ func modernMinimalistPage(
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var47 string
-				templ_7745c5c3_Var47, templ_7745c5c3_Err = templ.ResolveAttributeValue("Foto " + formatInt(index+1))
+				var templ_7745c5c3_Var48 string
+				templ_7745c5c3_Var48, templ_7745c5c3_Err = templ.ResolveAttributeValue("Foto " + invitation.FormatInt(index+1))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1704, Col: 59}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1601, Col: 70}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var47)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var48)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -817,16 +787,16 @@ func modernMinimalistPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 74, "<!-- ============================================ --><!-- RSVP --><!-- ============================================ --><section class=\"section-mini\" id=\"section-rsvp\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">RSVP</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Konfirmasi<br><em>kehadiran</em></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Mohon konfirmasi kehadiran Anda untuk membantu kami mempersiapkan acara dengan lebih baik</p><form class=\"rsvp-mini-form\" method=\"POST\" action=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 74, "<!-- RSVP --><section class=\"section-mini\" id=\"section-rsvp\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">RSVP</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Konfirmasi<br><em>kehadiran</em></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Mohon konfirmasi kehadiran Anda untuk membantu kami mempersiapkan acara dengan lebih baik</p><form class=\"rsvp-mini-form\" method=\"POST\" action=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var48 templ.SafeURL
-		templ_7745c5c3_Var48, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("/invitation/" + project.Slug + "/rsvp"))
+		var templ_7745c5c3_Var49 templ.SafeURL
+		templ_7745c5c3_Var49, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("/invitation/" + data.Project.Slug + "/rsvp"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1726, Col: 113}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1621, Col: 118}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var48))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var49))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -834,12 +804,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var49 string
-		templ_7745c5c3_Var49, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatUint(project.ID))
+		var templ_7745c5c3_Var50 string
+		templ_7745c5c3_Var50, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.FormatUint(data.Project.ID))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1727, Col: 74}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1622, Col: 90}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var49)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var50)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -847,7 +817,7 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if hasExistingRsvp(data) {
+		if data.HasExistingRsvp() {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 77, "<div style=\"background: var(--accent-soft); border-left: 2px solid var(--accent); padding: 16px 20px; margin-bottom: 28px; border-radius: 2px;\"><div style=\"display: flex; align-items: center; gap: 8px; margin-bottom: 4px;\"><i class=\"bi bi-check-circle-fill\" style=\"color: var(--accent);\"></i> <strong style=\"font-size: 0.85rem; color: var(--text);\">Anda sudah RSVP</strong></div><p style=\"margin: 0; font-size: 0.78rem; color: var(--text-muted); line-height: 1.6;\">Data di bawah sudah terisi otomatis. Silakan edit jika ada perubahan.</p></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -857,17 +827,17 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if isNamedGuest {
+		if data.IsNamedGuest {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 79, "<input type=\"text\" id=\"rsvp-name\" name=\"guest_name\" value=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var50 string
-			templ_7745c5c3_Var50, templ_7745c5c3_Err = templ.ResolveAttributeValue(guestName)
+			var templ_7745c5c3_Var51 string
+			templ_7745c5c3_Var51, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.GuestName)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1744, Col: 76}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1639, Col: 81}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var50)
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var51)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -885,7 +855,7 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if getExistingRsvpField(data, "attendance", "") == "" {
+		if data.ExistingRsvpField("attendance", "") == "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 83, "<option value=\"\" selected>Pilih konfirmasi</option> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -896,7 +866,7 @@ func modernMinimalistPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		if getExistingRsvpField(data, "attendance", "") == "hadir" {
+		if data.ExistingRsvpField("attendance", "") == "hadir" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 85, "<option value=\"hadir\" selected>Hadir</option> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -907,7 +877,7 @@ func modernMinimalistPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		if getExistingRsvpField(data, "attendance", "") == "tidak_hadir" {
+		if data.ExistingRsvpField("attendance", "") == "tidak_hadir" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 87, "<option value=\"tidak_hadir\" selected>Tidak Hadir</option> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -918,7 +888,7 @@ func modernMinimalistPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		if getExistingRsvpField(data, "attendance", "") == "ragu" {
+		if data.ExistingRsvpField("attendance", "") == "ragu" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 89, "<option value=\"ragu\" selected>Ragu-ragu</option>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -933,12 +903,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var51 string
-		templ_7745c5c3_Var51, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(getExistingRsvpGuests(data)))
+		var templ_7745c5c3_Var52 string
+		templ_7745c5c3_Var52, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.FormatInt(data.ExistingRsvpGuests()))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1778, Col: 110}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1673, Col: 119}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var51)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var52)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -946,35 +916,35 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var52 string
-		templ_7745c5c3_Var52, templ_7745c5c3_Err = templ.JoinStringErrs(getExistingRsvpField(data, "message", ""))
+		var templ_7745c5c3_Var53 string
+		templ_7745c5c3_Var53, templ_7745c5c3_Err = templ.JoinStringErrs(data.ExistingRsvpField("message", ""))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1783, Col: 158}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1678, Col: 154}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var52))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 93, "</textarea></div><button type=\"submit\" class=\"btn-submit-mini\"><i class=\"bi bi-send me-2\"></i>Kirim Konfirmasi</button></form><div class=\"rsvp-mini-list-wrap\"><div class=\"rsvp-mini-list-head\"><h4>Konfirmasi Kehadiran</h4><span class=\"rsvp-mini-count\" id=\"rsvpCount\">0 tamu</span></div><div id=\"rsvpList\"><div class=\"rsvp-mini-empty\"><i class=\"bi bi-hourglass-split\"></i> Memuat daftar konfirmasi...</div></div></div></div></section><!-- ============================================ --><!-- AMPLOP DIGITAL --><!-- ============================================ -->")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var53))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if showBankAccounts(data) && len(getBankAccounts(data)) > 0 {
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 93, "</textarea></div><button type=\"submit\" class=\"btn-submit-mini\"><i class=\"bi bi-send me-2\"></i>Kirim Konfirmasi</button></form><div class=\"rsvp-mini-list-wrap\"><div class=\"rsvp-mini-list-head\"><h4>Konfirmasi Kehadiran</h4><span class=\"rsvp-mini-count\" id=\"rsvpCount\">0 tamu</span></div><div id=\"rsvpList\"><div class=\"rsvp-mini-empty\"><i class=\"bi bi-hourglass-split\"></i> Memuat daftar konfirmasi...</div></div></div></div></section><!-- AMPLOP DIGITAL -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if data.ShouldShowBankAccounts() && len(data.BankAccounts) > 0 {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 94, "<section class=\"section-mini-alt\" id=\"section-bank\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">Wedding Gift</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Amplop<br><em>digital</em></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Doa restu Anda adalah hadiah terindah. Namun jika ingin memberi, kami sediakan</p><div class=\"bank-mini-grid\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			for index, account := range getBankAccounts(data) {
+			for index, account := range data.BankAccounts {
 				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 95, "<div class=\"bank-mini-card\" data-aos=\"fade-up\" data-aos-delay=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var53 string
-				templ_7745c5c3_Var53, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatInt(80 * (index + 1)))
+				var templ_7745c5c3_Var54 string
+				templ_7745c5c3_Var54, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.FormatInt(80 * (index + 1)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1822, Col: 98}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1715, Col: 109}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var53)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var54)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -982,17 +952,17 @@ func modernMinimalistPage(
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				if hasCustomIcon(account) {
+				if invitation.HasCustomIcon(account) {
 					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 97, "<img src=\"")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					var templ_7745c5c3_Var54 string
-					templ_7745c5c3_Var54, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + getAccountIconPath(account))
+					var templ_7745c5c3_Var55 string
+					templ_7745c5c3_Var55, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.GetAccountIconURL(account))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1825, Col: 62}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1718, Col: 58}
 					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var54)
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var55)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -1000,12 +970,12 @@ func modernMinimalistPage(
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					var templ_7745c5c3_Var55 string
-					templ_7745c5c3_Var55, templ_7745c5c3_Err = templ.ResolveAttributeValue(getAccountBankName(account, data))
+					var templ_7745c5c3_Var56 string
+					templ_7745c5c3_Var56, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.GetAccountBankName(account))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1825, Col: 104}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1718, Col: 105}
 					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var55)
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var56)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -1018,12 +988,12 @@ func modernMinimalistPage(
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					var templ_7745c5c3_Var56 string
-					templ_7745c5c3_Var56, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountInitial(account, data))
+					var templ_7745c5c3_Var57 string
+					templ_7745c5c3_Var57, templ_7745c5c3_Err = templ.JoinStringErrs(invitation.GetAccountInitial(account))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1827, Col: 66}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1720, Col: 71}
 					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var56))
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var57))
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -1036,12 +1006,12 @@ func modernMinimalistPage(
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var57 string
-				templ_7745c5c3_Var57, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountBankName(account, data))
+				var templ_7745c5c3_Var58 string
+				templ_7745c5c3_Var58, templ_7745c5c3_Err = templ.JoinStringErrs(invitation.GetAccountBankName(account))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1830, Col: 71}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1723, Col: 76}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var57))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var58))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -1057,12 +1027,12 @@ func modernMinimalistPage(
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var58 string
-				templ_7745c5c3_Var58, templ_7745c5c3_Err = templ.ResolveAttributeValue(getAccountNumber(account))
+				var templ_7745c5c3_Var59 string
+				templ_7745c5c3_Var59, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.GetAccountNumber(account))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1832, Col: 77}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1725, Col: 88}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var58)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var59)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -1070,8 +1040,8 @@ func modernMinimalistPage(
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var59 templ.ComponentScript = templpkg.JSFuncCall("copyBankNumberFromEl", templpkg.JSExpression("this"))
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var59.Call)
+				var templ_7745c5c3_Var60 templ.ComponentScript = templpkg.JSFuncCall("copyBankNumberFromEl", templpkg.JSExpression("this"))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var60.Call)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -1079,12 +1049,12 @@ func modernMinimalistPage(
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var60 string
-				templ_7745c5c3_Var60, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountNumber(account))
+				var templ_7745c5c3_Var61 string
+				templ_7745c5c3_Var61, templ_7745c5c3_Err = templ.JoinStringErrs(invitation.GetAccountNumber(account))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1833, Col: 42}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1726, Col: 53}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var60))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var61))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -1092,12 +1062,12 @@ func modernMinimalistPage(
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var61 string
-				templ_7745c5c3_Var61, templ_7745c5c3_Err = templ.JoinStringErrs(getAccountName(account))
+				var templ_7745c5c3_Var62 string
+				templ_7745c5c3_Var62, templ_7745c5c3_Err = templ.JoinStringErrs(invitation.GetAccountName(account))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1838, Col: 47}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1731, Col: 58}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var61))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var62))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -1111,16 +1081,16 @@ func modernMinimalistPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 110, "<!-- ============================================ --><!-- FOOTER --><!-- ============================================ --><footer class=\"footer-mini\"><div class=\"footer-mini-couple\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 110, "<!-- FOOTER --><footer class=\"footer-mini\"><div class=\"footer-mini-couple\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var62 string
-		templ_7745c5c3_Var62, templ_7745c5c3_Err = templ.JoinStringErrs(groomName)
+		var templ_7745c5c3_Var63 string
+		templ_7745c5c3_Var63, templ_7745c5c3_Err = templ.JoinStringErrs(data.GroomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1857, Col: 14}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1748, Col: 20}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var62))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var63))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -1128,12 +1098,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var63 string
-		templ_7745c5c3_Var63, templ_7745c5c3_Err = templ.JoinStringErrs(brideName)
+		var templ_7745c5c3_Var64 string
+		templ_7745c5c3_Var64, templ_7745c5c3_Err = templ.JoinStringErrs(data.BrideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1857, Col: 55}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1748, Col: 68}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var63))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var64))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -1141,12 +1111,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var64 string
-		templ_7745c5c3_Var64, templ_7745c5c3_Err = templ.JoinStringErrs(getStr(data, "akad_date"))
+		var templ_7745c5c3_Var65 string
+		templ_7745c5c3_Var65, templ_7745c5c3_Err = templ.JoinStringErrs(data.AkadDate)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1860, Col: 60}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1751, Col: 48}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var64))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var65))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -1154,17 +1124,17 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if eventInstagram != "-" && eventInstagram != "" {
+		if data.EventInstagram != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 114, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var65 templ.SafeURL
-			templ_7745c5c3_Var65, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(eventInstagram))
+			var templ_7745c5c3_Var66 templ.SafeURL
+			templ_7745c5c3_Var66, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.EventInstagram))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1864, Col: 47}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1755, Col: 52}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var65))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var66))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1173,17 +1143,17 @@ func modernMinimalistPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		if getStr(data, "whatsapp") != "-" {
+		if data.Whatsapp != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 116, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var66 templ.SafeURL
-			templ_7745c5c3_Var66, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("https://wa.me/" + getStr(data, "whatsapp")))
+			var templ_7745c5c3_Var67 templ.SafeURL
+			templ_7745c5c3_Var67, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("https://wa.me/" + data.Whatsapp))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1869, Col: 76}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1760, Col: 65}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var66))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var67))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1192,17 +1162,17 @@ func modernMinimalistPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		if youtubeURL != "-" && youtubeURL != "" {
+		if data.Youtube != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 118, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var67 templ.SafeURL
-			templ_7745c5c3_Var67, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(youtubeURL))
+			var templ_7745c5c3_Var68 templ.SafeURL
+			templ_7745c5c3_Var68, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.Youtube))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1874, Col: 43}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1765, Col: 45}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var67))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var68))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1211,21 +1181,21 @@ func modernMinimalistPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 120, "</div><p class=\"footer-mini-prayer\">\"Merupakan suatu kebahagiaan bagi kami apabila Anda berkenan hadir dan memberikan doa restu\"</p></footer><!-- Web Footer --><footer class=\"web-footer-mini\"><div class=\"container-wide\"><div class=\"web-footer-mini-grid\"><div><a href=\"/\" class=\"web-footer-mini-brand\" style=\"text-decoration:none;\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 120, "</div><p class=\"footer-mini-prayer\">\"Merupakan suatu kebahagiaan bagi kami apabila Anda berkenan hadir dan memberikan doa restu\"</p></footer><!-- WEB FOOTER --><footer class=\"web-footer-mini\"><div class=\"container-wide\"><div class=\"web-footer-mini-grid\"><div><a href=\"/\" class=\"web-footer-mini-brand\" style=\"text-decoration:none;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if getSiteConfig(data, "site_favicon", "") != "" {
+		if data.SiteConfig.SiteFavicon != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 121, "<img src=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var68 string
-			templ_7745c5c3_Var68, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + getSiteConfig(data, "site_favicon", ""))
+			var templ_7745c5c3_Var69 string
+			templ_7745c5c3_Var69, templ_7745c5c3_Err = templ.ResolveAttributeValue("/storage/" + data.SiteConfig.SiteFavicon)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1892, Col: 72}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1783, Col: 60}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var68)
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var69)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1238,12 +1208,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var69 string
-		templ_7745c5c3_Var69, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "footer_description", "Platform undangan pernikahan digital dengan template elegan, RSVP online, guest book, dan galeri foto."))
+		var templ_7745c5c3_Var70 string
+		templ_7745c5c3_Var70, templ_7745c5c3_Err = templ.JoinStringErrs(data.SiteConfig.FooterDescription)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1897, Col: 156}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1788, Col: 42}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var69))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var70))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -1251,17 +1221,17 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if getSiteConfig(data, "social_instagram", "") != "" {
+		if data.SiteConfig.SocialInstagram != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 125, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var70 templ.SafeURL
-			templ_7745c5c3_Var70, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_instagram", "")))
+			var templ_7745c5c3_Var71 templ.SafeURL
+			templ_7745c5c3_Var71, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.SiteConfig.SocialInstagram))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1907, Col: 79}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1798, Col: 67}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var70))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var71))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1270,17 +1240,17 @@ func modernMinimalistPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		if getSiteConfig(data, "social_facebook", "") != "" {
+		if data.SiteConfig.SocialFacebook != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 127, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var71 templ.SafeURL
-			templ_7745c5c3_Var71, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_facebook", "")))
+			var templ_7745c5c3_Var72 templ.SafeURL
+			templ_7745c5c3_Var72, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.SiteConfig.SocialFacebook))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1912, Col: 78}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1803, Col: 66}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var71))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var72))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1289,17 +1259,17 @@ func modernMinimalistPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		if getSiteConfig(data, "social_tiktok", "") != "" {
+		if data.SiteConfig.SocialTiktok != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 129, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var72 templ.SafeURL
-			templ_7745c5c3_Var72, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_tiktok", "")))
+			var templ_7745c5c3_Var73 templ.SafeURL
+			templ_7745c5c3_Var73, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.SiteConfig.SocialTiktok))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1917, Col: 76}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1808, Col: 64}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var72))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var73))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1308,17 +1278,17 @@ func modernMinimalistPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		if getSiteConfig(data, "social_youtube", "") != "" {
+		if data.SiteConfig.SocialYoutube != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 131, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var73 templ.SafeURL
-			templ_7745c5c3_Var73, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_youtube", "")))
+			var templ_7745c5c3_Var74 templ.SafeURL
+			templ_7745c5c3_Var74, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.SiteConfig.SocialYoutube))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1922, Col: 77}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1813, Col: 65}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var73))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var74))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1327,17 +1297,17 @@ func modernMinimalistPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		if getSiteConfig(data, "social_twitter", "") != "" {
+		if data.SiteConfig.SocialTwitter != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 133, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var74 templ.SafeURL
-			templ_7745c5c3_Var74, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "social_twitter", "")))
+			var templ_7745c5c3_Var75 templ.SafeURL
+			templ_7745c5c3_Var75, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.SiteConfig.SocialTwitter))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1927, Col: 77}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1818, Col: 65}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var74))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var75))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1350,17 +1320,17 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if getSiteConfig(data, "contact_email", "") != "" {
+		if data.SiteConfig.ContactEmail != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 136, "<li><i class=\"bi bi-envelope\"></i> <a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var75 templ.SafeURL
-			templ_7745c5c3_Var75, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("mailto:" + getSiteConfig(data, "contact_email", "")))
+			var templ_7745c5c3_Var76 templ.SafeURL
+			templ_7745c5c3_Var76, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("mailto:" + data.SiteConfig.ContactEmail))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1940, Col: 89}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1831, Col: 77}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var75))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var76))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1368,12 +1338,12 @@ func modernMinimalistPage(
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var76 string
-			templ_7745c5c3_Var76, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "contact_email", ""))
+			var templ_7745c5c3_Var77 string
+			templ_7745c5c3_Var77, templ_7745c5c3_Err = templ.JoinStringErrs(data.SiteConfig.ContactEmail)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1940, Col: 134}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1831, Col: 110}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var76))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var77))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1382,17 +1352,17 @@ func modernMinimalistPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		if getSiteConfig(data, "contact_phone", "") != "" {
+		if data.SiteConfig.ContactPhone != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 139, "<li><i class=\"bi bi-telephone\"></i> <span>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var77 string
-			templ_7745c5c3_Var77, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "contact_phone", ""))
+			var templ_7745c5c3_Var78 string
+			templ_7745c5c3_Var78, templ_7745c5c3_Err = templ.JoinStringErrs(data.SiteConfig.ContactPhone)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1946, Col: 57}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1837, Col: 45}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var77))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var78))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1401,17 +1371,17 @@ func modernMinimalistPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		if getSiteConfig(data, "contact_whatsapp", "") != "" {
+		if data.SiteConfig.ContactWhatsapp != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 141, "<li><i class=\"bi bi-whatsapp\"></i> <a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var78 templ.SafeURL
-			templ_7745c5c3_Var78, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("https://wa.me/" + getSiteConfig(data, "contact_whatsapp", "")))
+			var templ_7745c5c3_Var79 templ.SafeURL
+			templ_7745c5c3_Var79, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("https://wa.me/" + data.SiteConfig.ContactWhatsapp))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1952, Col: 99}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1843, Col: 87}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var78))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var79))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1420,17 +1390,17 @@ func modernMinimalistPage(
 				return templ_7745c5c3_Err
 			}
 		}
-		if getSiteConfig(data, "contact_address", "") != "" {
+		if data.SiteConfig.ContactAddress != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 143, "<li><i class=\"bi bi-geo-alt\"></i> <span>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var79 string
-			templ_7745c5c3_Var79, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "contact_address", ""))
+			var templ_7745c5c3_Var80 string
+			templ_7745c5c3_Var80, templ_7745c5c3_Err = templ.JoinStringErrs(data.SiteConfig.ContactAddress)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1958, Col: 59}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1849, Col: 47}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var79))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var80))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1443,17 +1413,17 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if getSiteConfig(data, "developer_url", "") != "" {
+		if data.SiteConfig.DeveloperUrl != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 146, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var80 templ.SafeURL
-			templ_7745c5c3_Var80, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(getSiteConfig(data, "developer_url", "")))
+			var templ_7745c5c3_Var81 templ.SafeURL
+			templ_7745c5c3_Var81, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.SiteConfig.DeveloperUrl))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1970, Col: 77}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1861, Col: 65}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var80))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var81))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1461,12 +1431,12 @@ func modernMinimalistPage(
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var81 string
-			templ_7745c5c3_Var81, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "developer_name", "Tim Developer"))
+			var templ_7745c5c3_Var82 string
+			templ_7745c5c3_Var82, templ_7745c5c3_Err = templ.JoinStringErrs(data.SiteConfig.DeveloperName)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1970, Col: 167}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1861, Col: 130}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var81))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var82))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1479,12 +1449,12 @@ func modernMinimalistPage(
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var82 string
-			templ_7745c5c3_Var82, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "developer_name", "Tim Developer"))
+			var templ_7745c5c3_Var83 string
+			templ_7745c5c3_Var83, templ_7745c5c3_Err = templ.JoinStringErrs(data.SiteConfig.DeveloperName)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1972, Col: 71}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1863, Col: 46}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var82))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var83))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1497,17 +1467,17 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if getSiteConfig(data, "developer_email", "") != "" {
+		if data.SiteConfig.DeveloperEmail != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 152, "<li><i class=\"bi bi-envelope-at\"></i> <a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var83 templ.SafeURL
-			templ_7745c5c3_Var83, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("mailto:" + getSiteConfig(data, "developer_email", "")))
+			var templ_7745c5c3_Var84 templ.SafeURL
+			templ_7745c5c3_Var84, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL("mailto:" + data.SiteConfig.DeveloperEmail))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1978, Col: 91}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1869, Col: 79}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var83))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var84))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1515,12 +1485,12 @@ func modernMinimalistPage(
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var84 string
-			templ_7745c5c3_Var84, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "developer_email", ""))
+			var templ_7745c5c3_Var85 string
+			templ_7745c5c3_Var85, templ_7745c5c3_Err = templ.JoinStringErrs(data.SiteConfig.DeveloperEmail)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1978, Col: 138}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1869, Col: 114}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var84))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var85))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1533,17 +1503,17 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if getSiteConfig(data, "footer_version", "") != "" {
+		if data.SiteConfig.FooterVersion != "" {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 156, "<p class=\"web-footer-mini-version\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var85 string
-			templ_7745c5c3_Var85, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "footer_version", ""))
+			var templ_7745c5c3_Var86 string
+			templ_7745c5c3_Var86, templ_7745c5c3_Err = templ.JoinStringErrs(data.SiteConfig.FooterVersion)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1983, Col: 85}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1874, Col: 73}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var85))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var86))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1556,12 +1526,12 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var86 string
-		templ_7745c5c3_Var86, templ_7745c5c3_Err = templ.JoinStringErrs(formatInt(currentYear()))
+		var templ_7745c5c3_Var87 string
+		templ_7745c5c3_Var87, templ_7745c5c3_Err = templ.JoinStringErrs(invitation.FormatInt(invitation.CurrentYear()))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1989, Col: 34}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1880, Col: 56}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var86))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var87))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -1569,16 +1539,16 @@ func modernMinimalistPage(
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var87 string
-		templ_7745c5c3_Var87, templ_7745c5c3_Err = templ.JoinStringErrs(getSiteConfig(data, "footer_copyright", "Wedding SaaS. All rights reserved."))
+		var templ_7745c5c3_Var88 string
+		templ_7745c5c3_Var88, templ_7745c5c3_Err = templ.JoinStringErrs(data.SiteConfig.FooterCopyright)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1989, Col: 116}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/modern_minimalist/index.templ`, Line: 1880, Col: 92}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var87))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var88))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 160, "</div></div></footer><!-- ============================================ --><!-- SCRIPTS --><!-- ============================================ --><script src=\"https://unpkg.com/aos@2.3.1/dist/aos.js\"></script><script src=\"https://cdn.jsdelivr.net/npm/sweetalert2@11\"></script><script>\n\t\t\t// AOS\n\t\t\tAOS.init({\n\t\t\t\tduration: 900,\n\t\t\t\teasing: 'ease-out',\n\t\t\t\tonce: true,\n\t\t\t\tmirror: false,\n\t\t\t\toffset: 60,\n\t\t\t\tdisable: function() { return window.innerWidth < 480; }\n\t\t\t});\n\t\t\twindow.addEventListener('resize', function() { AOS.refresh(); });\n\n\t\t\t// MUSIC PLAYER\n\t\t\tvar musicUrl = document.body.dataset.musicUrl || '';\n\t\t\tvar projectID = document.body.dataset.projectId || '';\n\t\t\tvar projectSlug = document.body.dataset.projectSlug || '';\n\t\t\tvar audio = null;\n\t\t\tvar isPlaying = false;\n\t\t\tvar hasStarted = false;\n\t\t\tvar MUSIC_KEY = 'wedding_music_state_' + projectID;\n\n\t\t\tfunction initAudio() {\n\t\t\t\tif (!musicUrl) return false;\n\t\t\t\tif (audio) return true;\n\t\t\t\taudio = new Audio(musicUrl);\n\t\t\t\taudio.loop = true;\n\t\t\t\taudio.volume = 0.5;\n\t\t\t\treturn true;\n\t\t\t}\n\n\t\t\twindow.startMusic = function() {\n\t\t\t\tif (!initAudio()) {\n\t\t\t\t\tshowToast('info', 'Belum ada musik untuk undangan ini');\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\taudio.play().then(function() {\n\t\t\t\t\tisPlaying = true;\n\t\t\t\t\thasStarted = true;\n\t\t\t\t\tvar btn = document.getElementById('musicToggle');\n\t\t\t\t\tif (btn) {\n\t\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-pause-fill\"></i>';\n\t\t\t\t\t\tbtn.classList.add('playing');\n\t\t\t\t\t}\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'playing');\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t}).catch(function(e) {\n\t\t\t\t\tconsole.log('Play failed:', e);\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t\tdocument.addEventListener('click', function retry() {\n\t\t\t\t\t\taudio.play().catch(function(){});\n\t\t\t\t\t\tdocument.removeEventListener('click', retry);\n\t\t\t\t\t}, { once: true });\n\t\t\t\t});\n\t\t\t};\n\n\t\t\tfunction closeOverlay() {\n\t\t\t\tvar overlay = document.getElementById('startOverlay');\n\t\t\t\tif (overlay) {\n\t\t\t\t\toverlay.style.opacity = '0';\n\t\t\t\t\tsetTimeout(function() {\n\t\t\t\t\t\toverlay.style.display = 'none';\n\t\t\t\t\t\tdocument.body.style.overflow = '';\n\t\t\t\t\t}, 800);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\twindow.toggleMusic = function() {\n\t\t\t\tif (!audio && musicUrl) initAudio();\n\t\t\t\tif (!audio) {\n\t\t\t\t\tshowToast('info', 'Belum ada musik untuk undangan ini');\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\tvar btn = document.getElementById('musicToggle');\n\t\t\t\tif (isPlaying) {\n\t\t\t\t\taudio.pause();\n\t\t\t\t\tisPlaying = false;\n\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-music-note\"></i>';\n\t\t\t\t\tbtn.classList.remove('playing');\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'paused');\n\t\t\t\t} else {\n\t\t\t\t\taudio.play().catch(function(e) { console.log('Play blocked'); });\n\t\t\t\t\tisPlaying = true;\n\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-pause-fill\"></i>';\n\t\t\t\t\tbtn.classList.add('playing');\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'playing');\n\t\t\t\t}\n\t\t\t};\n\n\t\t\tdocument.getElementById('startOverlay')?.addEventListener('click', function(e) {\n\t\t\t\tstartMusic();\n\t\t\t});\n\t\t\tdocument.getElementById('musicToggle')?.addEventListener('click', function(e) {\n\t\t\t\tif (!hasStarted) startMusic();\n\t\t\t});\n\t\t\tdocument.addEventListener('keydown', function(e) {\n\t\t\t\tif (e.key === ' ' && !hasStarted) { e.preventDefault(); startMusic(); }\n\t\t\t});\n\n\t\t\twindow.scrollToOpening = function() {\n\t\t\t\tvar el = document.getElementById('section-opening');\n\t\t\t\tif (el) el.scrollIntoView({ behavior: 'smooth' });\n\t\t\t};\n\n\t\t\tfunction showToast(type, message) {\n\t\t\t\tvar container = document.querySelector('.toast-container');\n\t\t\t\tif (!container) {\n\t\t\t\t\tcontainer = document.createElement('div');\n\t\t\t\t\tcontainer.className = 'toast-container';\n\t\t\t\t\tdocument.body.appendChild(container);\n\t\t\t\t}\n\t\t\t\tvar toast = document.createElement('div');\n\t\t\t\ttoast.className = 'toast';\n\t\t\t\tvar icons = { success: 'bi-check-circle-fill', error: 'bi-x-circle-fill', info: 'bi-info-circle-fill' };\n\t\t\t\ttoast.innerHTML = '<i class=\"bi ' + (icons[type] || icons.info) + '\"></i><span>' + message + '</span>';\n\t\t\t\tcontainer.appendChild(toast);\n\t\t\t\tsetTimeout(function() {\n\t\t\t\t\ttoast.style.opacity = '0';\n\t\t\t\t\ttoast.style.transform = 'translateX(100px)';\n\t\t\t\t\tsetTimeout(function() { toast.remove(); }, 400);\n\t\t\t\t}, 3000);\n\t\t\t}\n\n\t\t\tfunction escapeHtml(text) {\n\t\t\t\tif (!text) return '';\n\t\t\t\tvar div = document.createElement('div');\n\t\t\t\tdiv.textContent = text;\n\t\t\t\treturn div.innerHTML;\n\t\t\t}\n\n\t\t\t// COPY BANK NUMBER\n\t\t\twindow.copyBankNumberFromEl = function(el) {\n\t\t\t\tvar number = el.getAttribute('data-number');\n\t\t\t\tif (!number) return;\n\t\t\t\tcopyText(number, el);\n\t\t\t};\n\n\t\t\tfunction copyText(number, element) {\n\t\t\t\tvar doSuccess = function() {\n\t\t\t\t\tshowToast('success', 'Nomor rekening dicopy!');\n\t\t\t\t\tif (element) {\n\t\t\t\t\t\tvar icon = element.querySelector('i');\n\t\t\t\t\t\tif (icon) {\n\t\t\t\t\t\t\tvar original = icon.className;\n\t\t\t\t\t\t\ticon.className = 'bi bi-check-lg';\n\t\t\t\t\t\t\ticon.style.color = '#10b981';\n\t\t\t\t\t\t\tsetTimeout(function() {\n\t\t\t\t\t\t\t\ticon.className = original;\n\t\t\t\t\t\t\t\ticon.style.color = '';\n\t\t\t\t\t\t\t}, 1500);\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t};\n\t\t\t\tif (navigator.clipboard) {\n\t\t\t\t\tnavigator.clipboard.writeText(number).then(doSuccess).catch(function() {\n\t\t\t\t\t\tfallbackCopy(number, element);\n\t\t\t\t\t});\n\t\t\t\t} else {\n\t\t\t\t\tfallbackCopy(number, element);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tfunction fallbackCopy(text, element) {\n\t\t\t\tvar textarea = document.createElement('textarea');\n\t\t\t\ttextarea.value = text;\n\t\t\t\ttextarea.style.position = 'fixed';\n\t\t\t\ttextarea.style.opacity = '0';\n\t\t\t\tdocument.body.appendChild(textarea);\n\t\t\t\ttextarea.select();\n\t\t\t\ttry {\n\t\t\t\t\tdocument.execCommand('copy');\n\t\t\t\t\tshowToast('success', 'Nomor rekening dicopy!');\n\t\t\t\t} catch (err) {\n\t\t\t\t\tshowToast('error', 'Gagal copy nomor');\n\t\t\t\t}\n\t\t\t\tdocument.body.removeChild(textarea);\n\t\t\t}\n\n\t\t\t// GALLERY LIGHTBOX\n\t\t\tdocument.addEventListener('DOMContentLoaded', function() {\n\t\t\t\tdocument.querySelectorAll('.gallery-masonry-item').forEach(function(item) {\n\t\t\t\t\titem.addEventListener('click', function() {\n\t\t\t\t\t\tvar img = this.querySelector('img');\n\t\t\t\t\t\tif (img) {\n\t\t\t\t\t\t\tvar lb = document.createElement('div');\n\t\t\t\t\t\t\tlb.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.94);z-index:9999;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:20px;';\n\t\t\t\t\t\t\tlb.innerHTML = '<span style=\"position:absolute;top:20px;right:24px;color:#fff;font-size:2rem;cursor:pointer;opacity:0.7;\">&times;</span><img src=\"' + img.src + '\" style=\"max-width:92%;max-height:92%;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,0.5);\"/>';\n\t\t\t\t\t\t\tdocument.body.appendChild(lb);\n\t\t\t\t\t\t\tlb.addEventListener('click', function(e) {\n\t\t\t\t\t\t\t\tif (e.target === this || e.target.textContent === '×') {\n\t\t\t\t\t\t\t\t\tthis.remove();\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t}\n\t\t\t\t\t});\n\t\t\t\t});\n\t\t\t});\n\n\t\t\t// LOAD RSVP LIST\n\t\t\tfunction loadRsvpList() {\n\t\t\t\tvar listContainer = document.getElementById('rsvpList');\n\t\t\t\tvar countContainer = document.getElementById('rsvpCount');\n\t\t\t\tif (!listContainer) return;\n\n\t\t\t\tfetch('/invitation/' + projectSlug + '/rsvp-list')\n\t\t\t\t\t.then(function(r) { return r.json(); })\n\t\t\t\t\t.then(function(data) {\n\t\t\t\t\t\tif (!data || data.length === 0) {\n\t\t\t\t\t\t\tlistContainer.innerHTML = '<div class=\"rsvp-mini-empty\"><i class=\"bi bi-envelope\"></i>Belum ada konfirmasi kehadiran</div>';\n\t\t\t\t\t\t\tif (countContainer) countContainer.textContent = '0 tamu';\n\t\t\t\t\t\t\treturn;\n\t\t\t\t\t\t}\n\t\t\t\t\t\tvar totalGuests = 0;\n\t\t\t\t\t\tvar html = '';\n\t\t\t\t\t\tdata.forEach(function(item) {\n\t\t\t\t\t\t\tvar statusText = item.attendance === 'hadir' ? 'Hadir' : (item.attendance === 'tidak_hadir' ? 'Tidak Hadir' : 'Ragu');\n\t\t\t\t\t\t\ttotalGuests += parseInt(item.total_guests || 1);\n\t\t\t\t\t\t\tvar time = new Date(item.created_at);\n\t\t\t\t\t\t\tvar timeStr = time.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });\n\t\t\t\t\t\t\tvar messageHtml = item.message ? '<div class=\"message\">' + escapeHtml(item.message) + '</div>' : '';\n\t\t\t\t\t\t\thtml += '<div class=\"rsvp-mini-item\"><div class=\"row-main\"><span class=\"guest-name\">' + escapeHtml(item.guest_name) + '</span><span class=\"status-badge ' + item.attendance + '\">' + statusText + '</span></div><div class=\"row-detail\"><div class=\"meta\"><span><i class=\"bi bi-calendar\"></i> ' + timeStr + '</span><span><i class=\"bi bi-people\"></i> ' + (item.total_guests || 1) + ' org</span></div></div>' + messageHtml + '</div>';\n\t\t\t\t\t\t});\n\t\t\t\t\t\tlistContainer.innerHTML = html;\n\t\t\t\t\t\tif (countContainer) countContainer.textContent = totalGuests + ' tamu';\n\t\t\t\t\t})\n\t\t\t\t\t.catch(function() {\n\t\t\t\t\t\tlistContainer.innerHTML = '<div class=\"rsvp-mini-empty\"><i class=\"bi bi-exclamation-triangle\"></i>Gagal memuat daftar konfirmasi<br><button onclick=\"loadRsvpList()\" style=\"margin-top:12px; padding:8px 20px; background:var(--text); color:white; border:none; border-radius:2px; cursor:pointer; font-size:0.75rem; letter-spacing:1px; text-transform:uppercase;\"><i class=\"bi bi-arrow-clockwise me-1\"></i> Coba Lagi</button></div>';\n\t\t\t\t\t});\n\t\t\t}\n\n\t\t\t// SUBMIT RSVP\n\t\t\tdocument.addEventListener('DOMContentLoaded', function() {\n\t\t\t\tvar form = document.getElementById('rsvpForm');\n\t\t\t\tif (!form) return;\n\t\t\t\tform.addEventListener('submit', function(e) {\n\t\t\t\t\te.preventDefault();\n\t\t\t\t\tvar formData = new FormData(form);\n\t\t\t\t\tvar btn = form.querySelector('button[type=\"submit\"]');\n\t\t\t\t\tvar originalText = btn.innerHTML;\n\t\t\t\t\tbtn.disabled = true;\n\t\t\t\t\tbtn.innerHTML = '<span class=\"spinner-border spinner-border-sm me-2\"></span>Mengirim...';\n\t\t\t\t\tfetch(form.action, { method: 'POST', body: formData })\n\t\t\t\t\t\t.then(function(r) { return r.json(); })\n\t\t\t\t\t\t.then(function(data) {\n\t\t\t\t\t\t\tif (data.success) {\n\t\t\t\t\t\t\t\tvar isUpdate = data.updated === true;\n\t\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\t\ttitle: isUpdate ? 'Konfirmasi Diperbarui!' : 'Terima Kasih!',\n\t\t\t\t\t\t\t\t\ttext: data.message,\n\t\t\t\t\t\t\t\t\ticon: 'success',\n\t\t\t\t\t\t\t\t\tconfirmButtonColor: '#4a5d4a',\n\t\t\t\t\t\t\t\t\tbackground: '#fafaf9',\n\t\t\t\t\t\t\t\t\tcolor: '#1c1917',\n\t\t\t\t\t\t\t\t\ttimer: 2200,\n\t\t\t\t\t\t\t\t\ttimerProgressBar: true,\n\t\t\t\t\t\t\t\t\tshowConfirmButton: false\n\t\t\t\t\t\t\t\t});\n\t\t\t\t\t\t\t\tif (!isUpdate) form.reset();\n\t\t\t\t\t\t\t\tsetTimeout(function() { loadRsvpList(); }, 500);\n\t\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\t\ttitle: 'Gagal!',\n\t\t\t\t\t\t\t\t\ttext: data.message || 'Terjadi kesalahan',\n\t\t\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\t\t\tconfirmButtonColor: '#4a5d4a',\n\t\t\t\t\t\t\t\t\tbackground: '#fafaf9',\n\t\t\t\t\t\t\t\t\tcolor: '#1c1917'\n\t\t\t\t\t\t\t\t});\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t})\n\t\t\t\t\t\t.catch(function() {\n\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\ttitle: 'Error!',\n\t\t\t\t\t\t\t\ttext: 'Terjadi kesalahan, silakan coba lagi',\n\t\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\t\tconfirmButtonColor: '#4a5d4a',\n\t\t\t\t\t\t\t\tbackground: '#fafaf9',\n\t\t\t\t\t\t\t\tcolor: '#1c1917'\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t})\n\t\t\t\t\t\t.finally(function() {\n\t\t\t\t\t\t\tbtn.disabled = false;\n\t\t\t\t\t\t\tbtn.innerHTML = originalText;\n\t\t\t\t\t\t});\n\t\t\t\t});\n\t\t\t\tloadRsvpList();\n\t\t\t});\n\t\t</script></body></html>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 160, "</div></div></footer><!-- SCRIPTS --><script src=\"https://unpkg.com/aos@2.3.1/dist/aos.js\"></script><script src=\"https://cdn.jsdelivr.net/npm/sweetalert2@11\"></script><script>\n\t\t\tAOS.init({\n\t\t\t\tduration: 900,\n\t\t\t\teasing: 'ease-out',\n\t\t\t\tonce: true,\n\t\t\t\tmirror: false,\n\t\t\t\toffset: 60,\n\t\t\t\tdisable: function() { return window.innerWidth < 480; }\n\t\t\t});\n\t\t\twindow.addEventListener('resize', function() { AOS.refresh(); });\n\n\t\t\t// MUSIC PLAYER\n\t\t\tvar musicUrl = document.body.dataset.musicUrl || '';\n\t\t\tvar projectID = document.body.dataset.projectId || '';\n\t\t\tvar projectSlug = document.body.dataset.projectSlug || '';\n\t\t\tvar audio = null;\n\t\t\tvar isPlaying = false;\n\t\t\tvar hasStarted = false;\n\t\t\tvar MUSIC_KEY = 'wedding_music_state_' + projectID;\n\n\t\t\tfunction initAudio() {\n\t\t\t\tif (!musicUrl) return false;\n\t\t\t\tif (audio) return true;\n\t\t\t\taudio = new Audio(musicUrl);\n\t\t\t\taudio.loop = true;\n\t\t\t\taudio.volume = 0.5;\n\t\t\t\treturn true;\n\t\t\t}\n\n\t\t\twindow.startMusic = function() {\n\t\t\t\tif (!initAudio()) {\n\t\t\t\t\tshowToast('info', 'Belum ada musik untuk undangan ini');\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\taudio.play().then(function() {\n\t\t\t\t\tisPlaying = true;\n\t\t\t\t\thasStarted = true;\n\t\t\t\t\tvar btn = document.getElementById('musicToggle');\n\t\t\t\t\tif (btn) {\n\t\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-pause-fill\"></i>';\n\t\t\t\t\t\tbtn.classList.add('playing');\n\t\t\t\t\t}\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'playing');\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t}).catch(function(e) {\n\t\t\t\t\tconsole.log('Play failed:', e);\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t\tdocument.addEventListener('click', function retry() {\n\t\t\t\t\t\taudio.play().catch(function(){});\n\t\t\t\t\t\tdocument.removeEventListener('click', retry);\n\t\t\t\t\t}, { once: true });\n\t\t\t\t});\n\t\t\t};\n\n\t\t\tfunction closeOverlay() {\n\t\t\t\tvar overlay = document.getElementById('startOverlay');\n\t\t\t\tif (overlay) {\n\t\t\t\t\toverlay.style.opacity = '0';\n\t\t\t\t\tsetTimeout(function() {\n\t\t\t\t\t\toverlay.style.display = 'none';\n\t\t\t\t\t\tdocument.body.style.overflow = '';\n\t\t\t\t\t}, 800);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\twindow.toggleMusic = function() {\n\t\t\t\tif (!audio && musicUrl) initAudio();\n\t\t\t\tif (!audio) {\n\t\t\t\t\tshowToast('info', 'Belum ada musik untuk undangan ini');\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\tvar btn = document.getElementById('musicToggle');\n\t\t\t\tif (isPlaying) {\n\t\t\t\t\taudio.pause();\n\t\t\t\t\tisPlaying = false;\n\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-music-note\"></i>';\n\t\t\t\t\tbtn.classList.remove('playing');\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'paused');\n\t\t\t\t} else {\n\t\t\t\t\taudio.play().catch(function(e) { console.log('Play blocked'); });\n\t\t\t\t\tisPlaying = true;\n\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-pause-fill\"></i>';\n\t\t\t\t\tbtn.classList.add('playing');\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'playing');\n\t\t\t\t}\n\t\t\t};\n\n\t\t\tdocument.getElementById('startOverlay')?.addEventListener('click', function(e) {\n\t\t\t\tstartMusic();\n\t\t\t});\n\t\t\tdocument.getElementById('musicToggle')?.addEventListener('click', function(e) {\n\t\t\t\tif (!hasStarted) startMusic();\n\t\t\t});\n\t\t\tdocument.addEventListener('keydown', function(e) {\n\t\t\t\tif (e.key === ' ' && !hasStarted) { e.preventDefault(); startMusic(); }\n\t\t\t});\n\n\t\t\twindow.scrollToOpening = function() {\n\t\t\t\tvar el = document.getElementById('section-opening');\n\t\t\t\tif (el) el.scrollIntoView({ behavior: 'smooth' });\n\t\t\t};\n\n\t\t\tfunction showToast(type, message) {\n\t\t\t\tvar container = document.querySelector('.toast-container');\n\t\t\t\tif (!container) {\n\t\t\t\t\tcontainer = document.createElement('div');\n\t\t\t\t\tcontainer.className = 'toast-container';\n\t\t\t\t\tdocument.body.appendChild(container);\n\t\t\t\t}\n\t\t\t\tvar toast = document.createElement('div');\n\t\t\t\ttoast.className = 'toast';\n\t\t\t\tvar icons = { success: 'bi-check-circle-fill', error: 'bi-x-circle-fill', info: 'bi-info-circle-fill' };\n\t\t\t\ttoast.innerHTML = '<i class=\"bi ' + (icons[type] || icons.info) + '\"></i><span>' + message + '</span>';\n\t\t\t\tcontainer.appendChild(toast);\n\t\t\t\tsetTimeout(function() {\n\t\t\t\t\ttoast.style.opacity = '0';\n\t\t\t\t\ttoast.style.transform = 'translateX(100px)';\n\t\t\t\t\tsetTimeout(function() { toast.remove(); }, 400);\n\t\t\t\t}, 3000);\n\t\t\t}\n\n\t\t\tfunction escapeHtml(text) {\n\t\t\t\tif (!text) return '';\n\t\t\t\tvar div = document.createElement('div');\n\t\t\t\tdiv.textContent = text;\n\t\t\t\treturn div.innerHTML;\n\t\t\t}\n\n\t\t\twindow.copyBankNumberFromEl = function(el) {\n\t\t\t\tvar number = el.getAttribute('data-number');\n\t\t\t\tif (!number) return;\n\t\t\t\tcopyText(number, el);\n\t\t\t};\n\n\t\t\tfunction copyText(number, element) {\n\t\t\t\tvar doSuccess = function() {\n\t\t\t\t\tshowToast('success', 'Nomor rekening dicopy!');\n\t\t\t\t\tif (element) {\n\t\t\t\t\t\tvar icon = element.querySelector('i');\n\t\t\t\t\t\tif (icon) {\n\t\t\t\t\t\t\tvar original = icon.className;\n\t\t\t\t\t\t\ticon.className = 'bi bi-check-lg';\n\t\t\t\t\t\t\ticon.style.color = '#10b981';\n\t\t\t\t\t\t\tsetTimeout(function() {\n\t\t\t\t\t\t\t\ticon.className = original;\n\t\t\t\t\t\t\t\ticon.style.color = '';\n\t\t\t\t\t\t\t}, 1500);\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t};\n\t\t\t\tif (navigator.clipboard) {\n\t\t\t\t\tnavigator.clipboard.writeText(number).then(doSuccess).catch(function() {\n\t\t\t\t\t\tfallbackCopy(number, element);\n\t\t\t\t\t});\n\t\t\t\t} else {\n\t\t\t\t\tfallbackCopy(number, element);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tfunction fallbackCopy(text, element) {\n\t\t\t\tvar textarea = document.createElement('textarea');\n\t\t\t\ttextarea.value = text;\n\t\t\t\ttextarea.style.position = 'fixed';\n\t\t\t\ttextarea.style.opacity = '0';\n\t\t\t\tdocument.body.appendChild(textarea);\n\t\t\t\ttextarea.select();\n\t\t\t\ttry {\n\t\t\t\t\tdocument.execCommand('copy');\n\t\t\t\t\tshowToast('success', 'Nomor rekening dicopy!');\n\t\t\t\t} catch (err) {\n\t\t\t\t\tshowToast('error', 'Gagal copy nomor');\n\t\t\t\t}\n\t\t\t\tdocument.body.removeChild(textarea);\n\t\t\t}\n\n\t\t\t// GALLERY LIGHTBOX\n\t\t\tdocument.addEventListener('DOMContentLoaded', function() {\n\t\t\t\tdocument.querySelectorAll('.gallery-masonry-item').forEach(function(item) {\n\t\t\t\t\titem.addEventListener('click', function() {\n\t\t\t\t\t\tvar img = this.querySelector('img');\n\t\t\t\t\t\tif (img) {\n\t\t\t\t\t\t\tvar lb = document.createElement('div');\n\t\t\t\t\t\t\tlb.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.94);z-index:9999;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:20px;';\n\t\t\t\t\t\t\tlb.innerHTML = '<span style=\"position:absolute;top:20px;right:24px;color:#fff;font-size:2rem;cursor:pointer;opacity:0.7;\">&times;</span><img src=\"' + img.src + '\" style=\"max-width:92%;max-height:92%;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,0.5);\"/>';\n\t\t\t\t\t\t\tdocument.body.appendChild(lb);\n\t\t\t\t\t\t\tlb.addEventListener('click', function(e) {\n\t\t\t\t\t\t\t\tif (e.target === this || e.target.textContent === '×') {\n\t\t\t\t\t\t\t\t\tthis.remove();\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t}\n\t\t\t\t\t});\n\t\t\t\t});\n\t\t\t});\n\n\t\t\t// LOAD RSVP LIST\n\t\t\tfunction loadRsvpList() {\n\t\t\t\tvar listContainer = document.getElementById('rsvpList');\n\t\t\t\tvar countContainer = document.getElementById('rsvpCount');\n\t\t\t\tif (!listContainer) return;\n\n\t\t\t\tfetch('/invitation/' + projectSlug + '/rsvp-list')\n\t\t\t\t\t.then(function(r) { return r.json(); })\n\t\t\t\t\t.then(function(data) {\n\t\t\t\t\t\tif (!data || data.length === 0) {\n\t\t\t\t\t\t\tlistContainer.innerHTML = '<div class=\"rsvp-mini-empty\"><i class=\"bi bi-envelope\"></i>Belum ada konfirmasi kehadiran</div>';\n\t\t\t\t\t\t\tif (countContainer) countContainer.textContent = '0 tamu';\n\t\t\t\t\t\t\treturn;\n\t\t\t\t\t\t}\n\t\t\t\t\t\tvar totalGuests = 0;\n\t\t\t\t\t\tvar html = '';\n\t\t\t\t\t\tdata.forEach(function(item) {\n\t\t\t\t\t\t\tvar statusText = item.attendance === 'hadir' ? 'Hadir' : (item.attendance === 'tidak_hadir' ? 'Tidak Hadir' : 'Ragu');\n\t\t\t\t\t\t\ttotalGuests += parseInt(item.total_guests || 1);\n\t\t\t\t\t\t\tvar time = new Date(item.created_at);\n\t\t\t\t\t\t\tvar timeStr = time.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });\n\t\t\t\t\t\t\tvar messageHtml = item.message ? '<div class=\"message\">' + escapeHtml(item.message) + '</div>' : '';\n\t\t\t\t\t\t\thtml += '<div class=\"rsvp-mini-item\"><div class=\"row-main\"><span class=\"guest-name\">' + escapeHtml(item.guest_name) + '</span><span class=\"status-badge ' + item.attendance + '\">' + statusText + '</span></div><div class=\"row-detail\"><div class=\"meta\"><span><i class=\"bi bi-calendar\"></i> ' + timeStr + '</span><span><i class=\"bi bi-people\"></i> ' + (item.total_guests || 1) + ' org</span></div></div>' + messageHtml + '</div>';\n\t\t\t\t\t\t});\n\t\t\t\t\t\tlistContainer.innerHTML = html;\n\t\t\t\t\t\tif (countContainer) countContainer.textContent = totalGuests + ' tamu';\n\t\t\t\t\t})\n\t\t\t\t\t.catch(function() {\n\t\t\t\t\t\tlistContainer.innerHTML = '<div class=\"rsvp-mini-empty\"><i class=\"bi bi-exclamation-triangle\"></i>Gagal memuat daftar konfirmasi<br><button onclick=\"loadRsvpList()\" style=\"margin-top:12px; padding:8px 20px; background:var(--text); color:white; border:none; border-radius:2px; cursor:pointer; font-size:0.75rem; letter-spacing:1px; text-transform:uppercase;\"><i class=\"bi bi-arrow-clockwise me-1\"></i> Coba Lagi</button></div>';\n\t\t\t\t\t});\n\t\t\t}\n\n\t\t\t// SUBMIT RSVP\n\t\t\tdocument.addEventListener('DOMContentLoaded', function() {\n\t\t\t\tvar form = document.getElementById('rsvpForm');\n\t\t\t\tif (!form) return;\n\t\t\t\tform.addEventListener('submit', function(e) {\n\t\t\t\t\te.preventDefault();\n\t\t\t\t\tvar formData = new FormData(form);\n\t\t\t\t\tvar btn = form.querySelector('button[type=\"submit\"]');\n\t\t\t\t\tvar originalText = btn.innerHTML;\n\t\t\t\t\tbtn.disabled = true;\n\t\t\t\t\tbtn.innerHTML = '<span class=\"spinner-border spinner-border-sm me-2\"></span>Mengirim...';\n\t\t\t\t\tfetch(form.action, { method: 'POST', body: formData })\n\t\t\t\t\t\t.then(function(r) { return r.json(); })\n\t\t\t\t\t\t.then(function(data) {\n\t\t\t\t\t\t\tif (data.success) {\n\t\t\t\t\t\t\t\tvar isUpdate = data.updated === true;\n\t\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\t\ttitle: isUpdate ? 'Konfirmasi Diperbarui!' : 'Terima Kasih!',\n\t\t\t\t\t\t\t\t\ttext: data.message,\n\t\t\t\t\t\t\t\t\ticon: 'success',\n\t\t\t\t\t\t\t\t\tconfirmButtonColor: '#4a5d4a',\n\t\t\t\t\t\t\t\t\tbackground: '#fafaf9',\n\t\t\t\t\t\t\t\t\tcolor: '#1c1917',\n\t\t\t\t\t\t\t\t\ttimer: 2200,\n\t\t\t\t\t\t\t\t\ttimerProgressBar: true,\n\t\t\t\t\t\t\t\t\tshowConfirmButton: false\n\t\t\t\t\t\t\t\t});\n\t\t\t\t\t\t\t\tif (!isUpdate) form.reset();\n\t\t\t\t\t\t\t\tsetTimeout(function() { loadRsvpList(); }, 500);\n\t\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\t\ttitle: 'Gagal!',\n\t\t\t\t\t\t\t\t\ttext: data.message || 'Terjadi kesalahan',\n\t\t\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\t\t\tconfirmButtonColor: '#4a5d4a',\n\t\t\t\t\t\t\t\t\tbackground: '#fafaf9',\n\t\t\t\t\t\t\t\t\tcolor: '#1c1917'\n\t\t\t\t\t\t\t\t});\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t})\n\t\t\t\t\t\t.catch(function() {\n\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\ttitle: 'Error!',\n\t\t\t\t\t\t\t\ttext: 'Terjadi kesalahan, silakan coba lagi',\n\t\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\t\tconfirmButtonColor: '#4a5d4a',\n\t\t\t\t\t\t\t\tbackground: '#fafaf9',\n\t\t\t\t\t\t\t\tcolor: '#1c1917'\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t})\n\t\t\t\t\t\t.finally(function() {\n\t\t\t\t\t\t\tbtn.disabled = false;\n\t\t\t\t\t\t\tbtn.innerHTML = originalText;\n\t\t\t\t\t\t});\n\t\t\t\t});\n\t\t\t\tloadRsvpList();\n\t\t\t});\n\t\t</script></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

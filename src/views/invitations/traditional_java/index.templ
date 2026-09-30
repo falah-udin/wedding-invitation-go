@@ -5,90 +5,39 @@ import (
 	"io"
 
 	templpkg "github.com/a-h/templ"
+	"wedding-invitation-go/internal/invitation"
 	"wedding-invitation-go/internal/models"
 )
 
 // TraditionalJava — template undangan Traditional Java (adat Jawa klasik)
-func TraditionalJava(ctx context.Context, w io.Writer, project models.Project, data map[string]interface{}, guestName string) error {
-	groomName := getStr(data, "groom_name")
-	brideName := getStr(data, "bride_name")
-	groomPhoto := getDefaultPhoto(data, "groom_photo")
-	bridePhoto := getDefaultPhoto(data, "bride_photo")
-	heroImage := getHeroImage(data, groomPhoto)
-	eventInstagram := getStr(data, "event_instagram")
-	musicURL := getMusicUrlFromProject(project)
-	isNamedGuest := guestName != "" && guestName != "Tamu Undangan"
-
-	fatherGroomName := getStr(data, "father_groom")
-	motherGroomName := getStr(data, "mother_groom")
-	fatherBrideName := getStr(data, "father_bride")
-	motherBrideName := getStr(data, "mother_bride")
-
-	fatherGroomOrigin := getStr(data, "groom_family_origin")
-	fatherBrideOrigin := getStr(data, "bride_family_origin")
-	kembarMayang := getStr(data, "kembar_mayang")
-
-	youtubeURL := getStr(data, "youtube")
-
-	component := traditionalJavaPage(
-		project, data, guestName,
-		groomName, brideName,
-		groomPhoto, bridePhoto, heroImage,
-		fatherGroomName, motherGroomName,
-		fatherBrideName, motherBrideName,
-		fatherGroomOrigin, fatherBrideOrigin,
-		kembarMayang,
-		eventInstagram, youtubeURL, musicURL, isNamedGuest,
-	)
+func TraditionalJava(ctx context.Context, w io.Writer, project models.Project, data *invitation.TemplateData, guestName string) error {
+	component := traditionalJavaPage(data)
 	return component.Render(ctx, w)
 }
 
-templ traditionalJavaPage(
-	project models.Project,
-	data map[string]interface{},
-	guestName string,
-	groomName string,
-	brideName string,
-	groomPhoto string,
-	bridePhoto string,
-	heroImage string,
-	fatherGroomName string,
-	motherGroomName string,
-	fatherBrideName string,
-	motherBrideName string,
-	fatherGroomOrigin string,
-	fatherBrideOrigin string,
-	kembarMayang string,
-	eventInstagram string,
-	youtubeURL string,
-	musicURL string,
-	isNamedGuest bool,
-) {
+templ traditionalJavaPage(data *invitation.TemplateData) {
 	<!DOCTYPE html>
 	<html lang="id">
 	<head>
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
-		<title>{ groomName } &amp; { brideName } - Traditional Java</title>
+		<title>{ data.GroomName } &amp; { data.BrideName } - Traditional Java</title>
 
 		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
 		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 
 		<style>
-			/* ============================================ */
-			/* ROOT VARIABLES — TRADITIONAL JAVA */
-			/* ============================================ */
 			:root {
-				--sogan: #6b4423;           /* cokelat sogan batik */
+				--sogan: #6b4423;
 				--sogan-dark: #4a2f18;
 				--sogan-light: #8b5a2b;
-				--gold: #b8860b;            /* emas tua */
+				--gold: #b8860b;
 				--gold-light: #d4a017;
 				--gold-pale: #e8d5a3;
-				--cream: #f5efe0;           /* krem batik */
+				--cream: #f5efe0;
 				--cream-dark: #ebe2cd;
-				--ink: #1a0f08;             /* hitam pekat */
+				--ink: #1a0f08;
 				--ink-soft: #2d1f0a;
 				--text: #3d2b1f;
 				--text-muted: #6b5a45;
@@ -122,27 +71,19 @@ templ traditionalJavaPage(
 				.container, .container-wide { padding: 0 20px; }
 			}
 
-			/* ============================================ */
-			/* BATIK PATTERN — BACKGROUND TEXTURE */
-			/* ============================================ */
 			.batik-pattern {
 				position: absolute;
 				inset: 0;
 				pointer-events: none;
 				z-index: 0;
 				background-image:
-					/* Kawung — lingkaran kecil */
 					radial-gradient(circle at 20px 20px, rgba(107, 68, 35, 0.04) 3px, transparent 4px),
 					radial-gradient(circle at 60px 60px, rgba(107, 68, 35, 0.03) 3px, transparent 4px),
-					/* Parang — diagonal */
 					repeating-linear-gradient(45deg, rgba(107, 68, 35, 0.015) 0px, rgba(107, 68, 35, 0.015) 1px, transparent 1px, transparent 12px),
 					repeating-linear-gradient(-45deg, rgba(107, 68, 35, 0.015) 0px, rgba(107, 68, 35, 0.015) 1px, transparent 1px, transparent 12px);
 				background-size: 80px 80px, 80px 80px, 20px 20px, 20px 20px;
 			}
 
-			/* ============================================ */
-			/* TYPOGRAPHY */
-			/* ============================================ */
 			.section-label {
 				font-family: 'Cormorant Garamond', serif;
 				font-size: 0.72rem;
@@ -196,7 +137,6 @@ templ traditionalJavaPage(
 				.section-label { font-size: 0.65rem; letter-spacing: 5px; }
 			}
 
-			/* Ornamen pembatas */
 			.divider-java {
 				display: flex;
 				align-items: center;
@@ -224,9 +164,6 @@ templ traditionalJavaPage(
 				opacity: 0.6;
 			}
 
-			/* ============================================ */
-			/* TOAST */
-			/* ============================================ */
 			.toast-container {
 				position: fixed; top: 20px; right: 20px; z-index: 9999;
 				display: flex; flex-direction: column; gap: 8px;
@@ -250,9 +187,6 @@ templ traditionalJavaPage(
 				to { transform: translateX(0); opacity: 1; }
 			}
 
-			/* ============================================ */
-			/* OVERLAY START */
-			/* ============================================ */
 			#startOverlay {
 				position: fixed; top: 0; left: 0; right: 0; bottom: 0;
 				width: 100vw; height: 100vh; height: 100svh;
@@ -420,9 +354,6 @@ templ traditionalJavaPage(
 				#startOverlay .btn-start { padding: 14px 32px; font-size: 0.75rem; width: 100%; max-width: 260px; justify-content: center; }
 			}
 
-			/* ============================================ */
-			/* MUSIC PLAYER */
-			/* ============================================ */
 			.music-player {
 				position: fixed;
 				bottom: 24px;
@@ -456,9 +387,6 @@ templ traditionalJavaPage(
 				100% { box-shadow: 0 0 0 0 rgba(184, 134, 11, 0); }
 			}
 
-            			/* ============================================ */
-			/* HERO — GUNUNGAN WAYANG */
-			/* ============================================ */
 			.hero-java {
 				position: relative;
 				min-height: 100vh;
@@ -685,9 +613,6 @@ templ traditionalJavaPage(
 				.hero-java .hero-names { font-size: 2.2rem; }
 			}
 
-			/* ============================================ */
-			/* OPENING — GUNUNGAN QUOTE */
-			/* ============================================ */
 			.opening-java {
 				padding: 120px 24px;
 				background: var(--cream);
@@ -750,9 +675,6 @@ templ traditionalJavaPage(
 				.opening-java-quote { font-size: 1.15rem; margin-bottom: 24px; }
 			}
 
-			/* ============================================ */
-			/* SECTION BASE */
-			/* ============================================ */
 			.section-java {
 				padding: 120px 0;
 				background: var(--cream);
@@ -779,9 +701,6 @@ templ traditionalJavaPage(
 				.section-java, .section-java-alt { padding: 80px 0; }
 			}
 
-			/* ============================================ */
-			/* COUPLE — FRAME BATIK */
-			/* ============================================ */
 			.couple-java-grid {
 				display: grid;
 				grid-template-columns: 1fr auto 1fr;
@@ -929,9 +848,6 @@ templ traditionalJavaPage(
 				.couple-java-info h3 { font-size: 1.5rem; }
 			}
 
-			/* ============================================ */
-			/* KEMBAR MAYANG — INFO SECTION */
-			/* ============================================ */
 			.kembar-mayang-card {
 				max-width: 560px;
 				margin: 0 auto;
@@ -990,9 +906,6 @@ templ traditionalJavaPage(
 				.kembar-mayang-text { font-size: 0.9rem; }
 			}
 
-			/* ============================================ */
-			/* PROSESI ADAT — 4 TAHAP */
-			/* ============================================ */
 			.prosesi-grid {
 				display: grid;
 				grid-template-columns: repeat(4, 1fr);
@@ -1060,9 +973,6 @@ templ traditionalJavaPage(
 				line-height: 1.6;
 			}
 
-			/* ============================================ */
-			/* LOVE STORY */
-			/* ============================================ */
 			.story-java-timeline {
 				position: relative;
 				max-width: 640px;
@@ -1130,9 +1040,6 @@ templ traditionalJavaPage(
 				.story-java-content { padding: 18px 20px; }
 			}
 
-			/* ============================================ */
-			/* EVENT */
-			/* ============================================ */
 			.event-java-grid {
 				display: grid;
 				grid-template-columns: 1fr 1fr;
@@ -1243,9 +1150,6 @@ templ traditionalJavaPage(
 				.event-java-title { font-size: 1.3rem; }
 			}
 
-			/* ============================================ */
-			/* GALLERY */
-			/* ============================================ */
 			.gallery-java-grid {
 				display: grid;
 				grid-template-columns: repeat(3, 1fr);
@@ -1303,9 +1207,6 @@ templ traditionalJavaPage(
 				opacity: 1;
 			}
 
-			/* ============================================ */
-			/* RSVP */
-			/* ============================================ */
 			.rsvp-java-form {
 				max-width: 520px;
 				margin: 0 auto;
@@ -1488,9 +1389,6 @@ templ traditionalJavaPage(
 			}
 			.rsvp-java-empty i { display: block; font-size: 1.6rem; margin-bottom: 12px; color: var(--gold); opacity: 0.4; }
 
-			/* ============================================ */
-			/* BANK / AMPLOP DIGITAL */
-			/* ============================================ */
 			.bank-java-grid {
 				display: grid;
 				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -1609,9 +1507,6 @@ templ traditionalJavaPage(
 				font-style: italic;
 			}
 
-			/* ============================================ */
-			/* FOOTER — PEPINDHAN */
-			/* ============================================ */
 			.footer-java {
 				padding: 100px 24px 48px;
 				background: linear-gradient(180deg, var(--sogan-dark) 0%, var(--ink) 100%);
@@ -1728,7 +1623,6 @@ templ traditionalJavaPage(
 				.footer-java-pepindhan { font-size: 0.9rem; }
 			}
 
-			/* Web Footer */
 			.web-footer-java {
 				padding: 56px 0 32px;
 				background: var(--ink);
@@ -1852,14 +1746,12 @@ templ traditionalJavaPage(
 			}
 		</style>
 	</head>
-	<body data-music-url={ musicURL } data-project-id={ formatUint(project.ID) } data-project-slug={ project.Slug }>
+	<body data-music-url={ data.MusicURL } data-project-id={ invitation.FormatUint(data.Project.ID) } data-project-slug={ data.Project.Slug }>
 
-    		<!-- ============================================ -->
-		<!-- OVERLAY START — GUNUNGAN WAYANG -->
-		<!-- ============================================ -->
+		<!-- OVERLAY START -->
 		<div id="startOverlay">
-			if heroImage != "" {
-				<img src={ heroImage } alt="" class="overlay-bg-img" loading="eager"/>
+			if data.HeroImage != "" {
+				<img src={ data.HeroImage } alt="" class="overlay-bg-img" loading="eager"/>
 			}
 			<div class="overlay-batik"></div>
 			<div class="overlay-inner">
@@ -1868,21 +1760,17 @@ templ traditionalJavaPage(
 				<div class="overlay-eyebrow">The Wedding Of</div>
 
 				<div class="overlay-title">
-					<span>{ groomName }</span>
+					<span>{ data.GroomName }</span>
 					<span class="amp">&amp;</span>
-					<span>{ brideName }</span>
+					<span>{ data.BrideName }</span>
 				</div>
 
 				<div class="overlay-divider"></div>
 
 				<div class="overlay-guest-label">
-					if isNamedGuest {
-						Kepada
-					} else {
-						Salam Hangat Untuk
-					}
+					{ invitation.GuestGreeting(data.IsNamedGuest) }
 				</div>
-				<div class="overlay-guest-name">{ guestName }</div>
+				<div class="overlay-guest-name">{ data.GuestName }</div>
 
 				<button class="btn-start" onclick={ templpkg.JSFuncCall("startMusic") }>
 					<i class="bi bi-envelope-paper"></i>
@@ -1893,21 +1781,17 @@ templ traditionalJavaPage(
 			</div>
 		</div>
 
-		<!-- ============================================ -->
 		<!-- MUSIC PLAYER -->
-		<!-- ============================================ -->
 		<div class="music-player" id="musicPlayer">
 			<button class="music-btn" id="musicToggle" onclick={ templpkg.JSFuncCall("toggleMusic") }>
 				<i class="bi bi-music-note"></i>
 			</button>
 		</div>
 
-		<!-- ============================================ -->
 		<!-- HERO — GUNUNGAN -->
-		<!-- ============================================ -->
 		<section class="hero-java" id="section-hero">
-			if heroImage != "" {
-				<img src={ heroImage } alt="" class="hero-bg-img" loading="eager"/>
+			if data.HeroImage != "" {
+				<img src={ data.HeroImage } alt="" class="hero-bg-img" loading="eager"/>
 			}
 			<div class="hero-batik-frame"></div>
 
@@ -1917,9 +1801,9 @@ templ traditionalJavaPage(
 				<div class="hero-eyebrow">The Wedding Of</div>
 
 				<h1 class="hero-names">
-					<span>{ groomName }</span>
+					<span>{ data.GroomName }</span>
 					<span class="amp">&amp;</span>
-					<span>{ brideName }</span>
+					<span>{ data.BrideName }</span>
 				</h1>
 
 				<div class="hero-subtitle">Ngundhuh Wohing Panggaotan</div>
@@ -1931,29 +1815,29 @@ templ traditionalJavaPage(
 				</div>
 
 				<div class="hero-dates">
-					if showDates(data) == "both" || showDates(data) == "akad" {
+					if data.ShouldShowAkadDate() {
 						<div class="date-item">
 							<i class="bi bi-flower1"></i>
-							<span>Akad: { getStr(data, "akad_date") }</span>
+							<span>Akad: { data.AkadDate }</span>
 						</div>
 					}
-					if showDates(data) == "both" || showDates(data) == "resepsi" {
+					if data.ShouldShowResepsiDate() {
 						<div class="date-item">
 							<i class="bi bi-brightness-high"></i>
-							<span>{ getResepsiLabel(data) }: { getStr(data, "resepsi_date") }</span>
+							<span>{ data.ResepsiLabelDisplay() }: { data.ResepsiDate }</span>
 						</div>
 					}
 				</div>
 
 				<div class="hero-venue">
-					if showVenue(data) == "both" || showVenue(data) == "akad" {
-						<span>{ getStr(data, "akad_venue") }</span>
+					if data.ShouldShowAkadVenue() {
+						<span>{ data.AkadVenue }</span>
 					}
-					if showVenue(data) == "both" {
+					if data.ShouldShowBothVenues() {
 						<span> · </span>
 					}
-					if showVenue(data) == "both" || showVenue(data) == "resepsi" {
-						<span>{ getStr(data, "resepsi_venue") }</span>
+					if data.ShouldShowResepsiVenue() {
+						<span>{ data.ResepsiVenue }</span>
 					}
 				</div>
 
@@ -1968,9 +1852,7 @@ templ traditionalJavaPage(
 			</button>
 		</section>
 
-		<!-- ============================================ -->
 		<!-- OPENING — PEPINDHAN -->
-		<!-- ============================================ -->
 		<section class="opening-java" id="section-opening">
 			<div class="opening-java-inner" data-aos="fade-up">
 				<span class="opening-java-icon">⚜</span>
@@ -1981,9 +1863,7 @@ templ traditionalJavaPage(
 			</div>
 		</section>
 
-		<!-- ============================================ -->
-		<!-- COUPLE — FRAME BATIK -->
-		<!-- ============================================ -->
+		<!-- COUPLE -->
 		<section class="section-java" id="section-couple">
 			<div class="batik-pattern"></div>
 			<div class="container">
@@ -2000,22 +1880,22 @@ templ traditionalJavaPage(
 					<div class="couple-java-card" data-aos="fade-up" data-aos-delay="150">
 						<div class="couple-java-photo-wrap">
 							<div class="couple-java-photo">
-								<img src={ groomPhoto } alt={ groomName } loading="lazy"/>
+								<img src={ data.GroomPhotoOrDefault() } alt={ data.GroomName } loading="lazy"/>
 							</div>
 						</div>
 						<div class="couple-java-info">
-							<h3>{ groomName }</h3>
+							<h3>{ data.GroomName }</h3>
 							<div class="couple-java-role">Temanten Kakung</div>
 							<div class="couple-java-parents-label">Putra saking</div>
 							<div class="couple-java-parents">
-								{ getParentsNameSplit(fatherGroomName, motherGroomName) }
+								{ data.ParentsGroom() }
 							</div>
-							if fatherGroomOrigin != "-" && fatherGroomOrigin != "" {
-								<div class="couple-java-origin">{ fatherGroomOrigin }</div>
+							if data.GroomFamilyOrigin != "" {
+								<div class="couple-java-origin">{ data.GroomFamilyOrigin }</div>
 							}
-							if getStr(data, "groom_instagram") != "-" {
+							if data.GroomInstagram != "" {
 								<div class="couple-java-social">
-									<a href={ templpkg.SafeURL(getStr(data, "groom_instagram")) } target="_blank" rel="noopener">
+									<a href={ templpkg.SafeURL(data.GroomInstagram) } target="_blank" rel="noopener">
 										<i class="bi bi-instagram"></i>
 									</a>
 								</div>
@@ -2029,22 +1909,22 @@ templ traditionalJavaPage(
 					<div class="couple-java-card" data-aos="fade-up" data-aos-delay="250">
 						<div class="couple-java-photo-wrap">
 							<div class="couple-java-photo">
-								<img src={ bridePhoto } alt={ brideName } loading="lazy"/>
+								<img src={ data.BridePhotoOrDefault() } alt={ data.BrideName } loading="lazy"/>
 							</div>
 						</div>
 						<div class="couple-java-info">
-							<h3>{ brideName }</h3>
+							<h3>{ data.BrideName }</h3>
 							<div class="couple-java-role">Temanten Putri</div>
 							<div class="couple-java-parents-label">Putri saking</div>
 							<div class="couple-java-parents">
-								{ getParentsNameSplit(fatherBrideName, motherBrideName) }
+								{ data.ParentsBride() }
 							</div>
-							if fatherBrideOrigin != "-" && fatherBrideOrigin != "" {
-								<div class="couple-java-origin">{ fatherBrideOrigin }</div>
+							if data.BrideFamilyOrigin != "" {
+								<div class="couple-java-origin">{ data.BrideFamilyOrigin }</div>
 							}
-							if getStr(data, "bride_instagram") != "-" {
+							if data.BrideInstagram != "" {
 								<div class="couple-java-social">
-									<a href={ templpkg.SafeURL(getStr(data, "bride_instagram")) } target="_blank" rel="noopener">
+									<a href={ templpkg.SafeURL(data.BrideInstagram) } target="_blank" rel="noopener">
 										<i class="bi bi-instagram"></i>
 									</a>
 								</div>
@@ -2055,10 +1935,8 @@ templ traditionalJavaPage(
 			</div>
 		</section>
 
-		<!-- ============================================ -->
-		<!-- KEMBAR MAYANG — INFO KHUSUS JAWA -->
-		<!-- ============================================ -->
-		if kembarMayang == "yes" {
+		<!-- KEMBAR MAYANG -->
+		if data.KembarMayang == "yes" {
 			<section class="section-java-alt" id="section-kembar-mayang">
 				<div class="container">
 					<div class="section-label" data-aos="fade-up">Adat Jawa</div>
@@ -2080,9 +1958,7 @@ templ traditionalJavaPage(
 			</section>
 		}
 
-		<!-- ============================================ -->
 		<!-- PROSESI ADAT JAWA -->
-		<!-- ============================================ -->
 		<section class="section-java" id="section-prosesi">
 			<div class="batik-pattern"></div>
 			<div class="container">
@@ -2131,10 +2007,8 @@ templ traditionalJavaPage(
 			</div>
 		</section>
 
-		<!-- ============================================ -->
 		<!-- LOVE STORY -->
-		<!-- ============================================ -->
-		if stories := getLoveStories(data); len(stories) > 0 {
+		if len(data.LoveStories) > 0 {
 			<section class="section-java-alt" id="section-love">
 				<div class="container">
 					<div class="section-label" data-aos="fade-up">Lelakon Katresnan</div>
@@ -2146,12 +2020,12 @@ templ traditionalJavaPage(
 					</p>
 
 					<div class="story-java-timeline">
-						for index, story := range stories {
-							<div class="story-java-item" data-aos="fade-up" data-aos-delay={ formatInt(80 * (index + 1)) }>
+						for index, story := range data.LoveStories {
+							<div class="story-java-item" data-aos="fade-up" data-aos-delay={ invitation.FormatInt(80 * (index + 1)) }>
 								<div class="story-java-dot"></div>
 								<div class="story-java-content">
-									<h4 class="story-java-title">{ story["title"] }</h4>
-									<p class="story-java-desc">{ story["desc"] }</p>
+									<h4 class="story-java-title">{ story.Title }</h4>
+									<p class="story-java-desc">{ story.Desc }</p>
 								</div>
 							</div>
 						}
@@ -2160,9 +2034,7 @@ templ traditionalJavaPage(
 			</section>
 		}
 
-        		<!-- ============================================ -->
 		<!-- EVENT -->
-		<!-- ============================================ -->
 		<section class="section-java" id="section-event">
 			<div class="batik-pattern"></div>
 			<div class="container">
@@ -2184,19 +2056,19 @@ templ traditionalJavaPage(
 						<div class="event-java-detail">
 							<div class="row">
 								<span class="label">Dinten</span>
-								<span class="value">{ getStr(data, "akad_date") }</span>
+								<span class="value">{ data.AkadDate }</span>
 							</div>
 							<div class="row">
 								<span class="label">Wanci</span>
-								<span class="value">{ getStr(data, "akad_time") } WIB</span>
+								<span class="value">{ data.AkadTime } WIB</span>
 							</div>
 							<div class="row">
 								<span class="label">Papan</span>
-								<span class="value">{ getStr(data, "akad_venue") }</span>
+								<span class="value">{ data.AkadVenue }</span>
 							</div>
 						</div>
-						if getStr(data, "maps_url_akad") != "-" {
-							<a href={ templpkg.SafeURL(getStr(data, "maps_url_akad")) } target="_blank" rel="noopener" class="event-java-btn">
+						if data.MapsURLAkad != "" {
+							<a href={ templpkg.SafeURL(data.MapsURLAkad) } target="_blank" rel="noopener" class="event-java-btn">
 								<i class="bi bi-geo-alt"></i> Mriki Papanipun
 							</a>
 						}
@@ -2207,26 +2079,26 @@ templ traditionalJavaPage(
 						<div class="event-java-icon">
 							<i class="bi bi-brightness-high"></i>
 						</div>
-						<h3 class="event-java-title">{ getResepsiLabel(data) }</h3>
-						if isIslamicLabel(data) && getResepsiArabic(data) != "" {
-							<div class="event-java-arabic">{ getResepsiArabic(data) }</div>
+						<h3 class="event-java-title">{ data.ResepsiLabelDisplay() }</h3>
+						if data.IsIslamicResepsi() && data.ResepsiArabic() != "" {
+							<div class="event-java-arabic">{ data.ResepsiArabic() }</div>
 						}
 						<div class="event-java-detail">
 							<div class="row">
 								<span class="label">Dinten</span>
-								<span class="value">{ getStr(data, "resepsi_date") }</span>
+								<span class="value">{ data.ResepsiDate }</span>
 							</div>
 							<div class="row">
 								<span class="label">Wanci</span>
-								<span class="value">{ getStr(data, "resepsi_time") } WIB</span>
+								<span class="value">{ data.ResepsiTime } WIB</span>
 							</div>
 							<div class="row">
 								<span class="label">Papan</span>
-								<span class="value">{ getStr(data, "resepsi_venue") }</span>
+								<span class="value">{ data.ResepsiVenue }</span>
 							</div>
 						</div>
-						if getStr(data, "maps_url_resepsi") != "-" {
-							<a href={ templpkg.SafeURL(getStr(data, "maps_url_resepsi")) } target="_blank" rel="noopener" class="event-java-btn">
+						if data.MapsURLResepsi != "" {
+							<a href={ templpkg.SafeURL(data.MapsURLResepsi) } target="_blank" rel="noopener" class="event-java-btn">
 								<i class="bi bi-geo-alt"></i> Mriki Papanipun
 							</a>
 						}
@@ -2235,10 +2107,8 @@ templ traditionalJavaPage(
 			</div>
 		</section>
 
-		<!-- ============================================ -->
 		<!-- GALLERY -->
-		<!-- ============================================ -->
-		if gallery := getGallery(data); len(gallery) > 0 {
+		if len(data.Gallery) > 0 {
 			<section class="section-java-alt" id="section-gallery">
 				<div class="container">
 					<div class="section-label" data-aos="fade-up">Pepethikan</div>
@@ -2250,9 +2120,9 @@ templ traditionalJavaPage(
 					</p>
 
 					<div class="gallery-java-grid">
-						for index, img := range gallery {
-							<div class="gallery-java-item" data-aos="fade-up" data-aos-delay={ formatInt(60 * ((index % 6) + 1)) }>
-								<img src={ img } alt={ "Foto " + formatInt(index+1) } loading="lazy"/>
+						for index, img := range data.Gallery {
+							<div class="gallery-java-item" data-aos="fade-up" data-aos-delay={ invitation.FormatInt(60 * ((index % 6) + 1)) }>
+								<img src={ img } alt={ "Foto " + invitation.FormatInt(index+1) } loading="lazy"/>
 								<div class="overlay"><i class="bi bi-zoom-in"></i></div>
 							</div>
 						}
@@ -2261,9 +2131,7 @@ templ traditionalJavaPage(
 			</section>
 		}
 
-		<!-- ============================================ -->
 		<!-- RSVP -->
-		<!-- ============================================ -->
 		<section class="section-java" id="section-rsvp">
 			<div class="batik-pattern"></div>
 			<div class="container">
@@ -2275,10 +2143,10 @@ templ traditionalJavaPage(
 					Nyuwun pangestu lan konfirmasi rawuh panjenengan supados adicara saged lumampah kanthi sae
 				</p>
 
-				<form class="rsvp-java-form" method="POST" action={ templpkg.SafeURL("/invitation/" + project.Slug + "/rsvp") } data-aos="fade-up" data-aos-delay="150" id="rsvpForm">
-					<input type="hidden" name="project_id" value={ formatUint(project.ID) }/>
+				<form class="rsvp-java-form" method="POST" action={ templpkg.SafeURL("/invitation/" + data.Project.Slug + "/rsvp") } data-aos="fade-up" data-aos-delay="150" id="rsvpForm">
+					<input type="hidden" name="project_id" value={ invitation.FormatUint(data.Project.ID) }/>
 
-					if hasExistingRsvp(data) {
+					if data.HasExistingRsvp() {
 						<div style="background: rgba(184, 134, 11, 0.08); border-left: 2px solid var(--gold); padding: 16px 20px; margin-bottom: 28px;">
 							<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
 								<i class="bi bi-check-circle-fill" style="color: var(--gold);"></i>
@@ -2292,8 +2160,8 @@ templ traditionalJavaPage(
 
 					<div class="form-group-java">
 						<label for="rsvp-name">Nama <span class="required">*</span></label>
-						if isNamedGuest {
-							<input type="text" id="rsvp-name" name="guest_name" value={ guestName } readonly/>
+						if data.IsNamedGuest {
+							<input type="text" id="rsvp-name" name="guest_name" value={ data.GuestName } readonly/>
 						} else {
 							<input type="text" id="rsvp-name" name="guest_name" placeholder="Nama lengkap" required/>
 						}
@@ -2302,22 +2170,22 @@ templ traditionalJavaPage(
 					<div class="form-group-java">
 						<label for="rsvp-attendance">Rawuh <span class="required">*</span></label>
 						<select id="rsvp-attendance" name="attendance" required>
-							if getExistingRsvpField(data, "attendance", "") == "" {
+							if data.ExistingRsvpField("attendance", "") == "" {
 								<option value="" selected>Pilih konfirmasi</option>
 							} else {
 								<option value="">Pilih konfirmasi</option>
 							}
-							if getExistingRsvpField(data, "attendance", "") == "hadir" {
+							if data.ExistingRsvpField("attendance", "") == "hadir" {
 								<option value="hadir" selected>Rawuh</option>
 							} else {
 								<option value="hadir">Rawuh</option>
 							}
-							if getExistingRsvpField(data, "attendance", "") == "tidak_hadir" {
+							if data.ExistingRsvpField("attendance", "") == "tidak_hadir" {
 								<option value="tidak_hadir" selected>Mboten Rawuh</option>
 							} else {
 								<option value="tidak_hadir">Mboten Rawuh</option>
 							}
-							if getExistingRsvpField(data, "attendance", "") == "ragu" {
+							if data.ExistingRsvpField("attendance", "") == "ragu" {
 								<option value="ragu" selected>Dereng Pasti</option>
 							} else {
 								<option value="ragu">Dereng Pasti</option>
@@ -2327,12 +2195,12 @@ templ traditionalJavaPage(
 
 					<div class="form-group-java">
 						<label for="rsvp-guests">Cacah Tamu</label>
-						<input type="number" id="rsvp-guests" name="total_guests" value={ formatInt(getExistingRsvpGuests(data)) } min="1" max="10"/>
+						<input type="number" id="rsvp-guests" name="total_guests" value={ invitation.FormatInt(data.ExistingRsvpGuests()) } min="1" max="10"/>
 					</div>
 
 					<div class="form-group-java">
 						<label for="rsvp-message">Pangestu &amp; Donga</label>
-						<textarea id="rsvp-message" name="message" rows="3" placeholder="Nyuwun pangestu lan donga kangge temanten...">{ getExistingRsvpField(data, "message", "") }</textarea>
+						<textarea id="rsvp-message" name="message" rows="3" placeholder="Nyuwun pangestu lan donga kangge temanten...">{ data.ExistingRsvpField("message", "") }</textarea>
 					</div>
 
 					<button type="submit" class="btn-submit-java">
@@ -2355,10 +2223,8 @@ templ traditionalJavaPage(
 			</div>
 		</section>
 
-		<!-- ============================================ -->
 		<!-- BANK / AMPLOP DIGITAL -->
-		<!-- ============================================ -->
-		if showBankAccounts(data) && len(getBankAccounts(data)) > 0 {
+		if data.ShouldShowBankAccounts() && len(data.BankAccounts) > 0 {
 			<section class="section-java-alt" id="section-bank">
 				<div class="container">
 					<div class="section-label" data-aos="fade-up">Pisungsung</div>
@@ -2370,24 +2236,24 @@ templ traditionalJavaPage(
 					</p>
 
 					<div class="bank-java-grid">
-						for index, account := range getBankAccounts(data) {
-							<div class="bank-java-card" data-aos="fade-up" data-aos-delay={ formatInt(80 * (index + 1)) }>
+						for index, account := range data.BankAccounts {
+							<div class="bank-java-card" data-aos="fade-up" data-aos-delay={ invitation.FormatInt(80 * (index + 1)) }>
 								<div class="bank-java-logo">
-									if hasCustomIcon(account) {
-										<img src={ "/storage/" + getAccountIconPath(account) } alt={ getAccountBankName(account, data) } loading="lazy"/>
+									if invitation.HasCustomIcon(account) {
+										<img src={ invitation.GetAccountIconURL(account) } alt={ invitation.GetAccountBankName(account) } loading="lazy"/>
 									} else {
-										<span class="initial">{ getAccountInitial(account, data) }</span>
+										<span class="initial">{ invitation.GetAccountInitial(account) }</span>
 									}
 								</div>
-								<div class="bank-java-name">{ getAccountBankName(account, data) }</div>
+								<div class="bank-java-name">{ invitation.GetAccountBankName(account) }</div>
 
-								<div class="bank-java-number" data-number={ getAccountNumber(account) } onclick={ templpkg.JSFuncCall("copyBankNumberFromEl", templpkg.JSExpression("this")) }>
-									<span>{ getAccountNumber(account) }</span>
+								<div class="bank-java-number" data-number={ invitation.GetAccountNumber(account) } onclick={ templpkg.JSFuncCall("copyBankNumberFromEl", templpkg.JSExpression("this")) }>
+									<span>{ invitation.GetAccountNumber(account) }</span>
 									<i class="bi bi-clipboard"></i>
 								</div>
 
 								<div class="bank-java-holder">
-									a.n. <strong>{ getAccountName(account) }</strong>
+									a.n. <strong>{ invitation.GetAccountName(account) }</strong>
 								</div>
 							</div>
 						}
@@ -2401,32 +2267,30 @@ templ traditionalJavaPage(
 			</section>
 		}
 
-		<!-- ============================================ -->
 		<!-- FOOTER — PEPINDHAN JAWA -->
-		<!-- ============================================ -->
 		<footer class="footer-java">
 			<div class="footer-java-inner">
 				<span class="footer-java-gunungan">⚜</span>
 
 				<div class="footer-java-couple">
-					{groomName}<span class="amp">&amp;</span>{brideName}
+					{ data.GroomName }<span class="amp">&amp;</span>{ data.BrideName }
 				</div>
 				<div class="footer-java-divider"></div>
-				<div class="footer-java-date">{ getStr(data, "akad_date") }</div>
+				<div class="footer-java-date">{ data.AkadDate }</div>
 
 				<div class="footer-java-social">
-					if eventInstagram != "-" && eventInstagram != "" {
-						<a href={ templpkg.SafeURL(eventInstagram) } target="_blank" rel="noopener">
+					if data.EventInstagram != "" {
+						<a href={ templpkg.SafeURL(data.EventInstagram) } target="_blank" rel="noopener">
 							<i class="bi bi-instagram"></i>
 						</a>
 					}
-					if getStr(data, "whatsapp") != "-" {
-						<a href={ templpkg.SafeURL("https://wa.me/" + getStr(data, "whatsapp")) } target="_blank" rel="noopener">
+					if data.Whatsapp != "" {
+						<a href={ templpkg.SafeURL("https://wa.me/" + data.Whatsapp) } target="_blank" rel="noopener">
 							<i class="bi bi-whatsapp"></i>
 						</a>
 					}
-					if youtubeURL != "-" && youtubeURL != "" {
-						<a href={ templpkg.SafeURL(youtubeURL) } target="_blank" rel="noopener">
+					if data.Youtube != "" {
+						<a href={ templpkg.SafeURL(data.Youtube) } target="_blank" rel="noopener">
 							<i class="bi bi-youtube"></i>
 						</a>
 					}
@@ -2441,21 +2305,19 @@ templ traditionalJavaPage(
 			</div>
 		</footer>
 
-		<!-- ============================================ -->
 		<!-- WEB FOOTER -->
-		<!-- ============================================ -->
 		<footer class="web-footer-java">
 			<div class="container-wide">
 				<div class="web-footer-java-grid">
 					<div>
 						<a href="/" class="web-footer-java-brand" style="text-decoration:none;">
-							if getSiteConfig(data, "site_favicon", "") != "" {
-								<img src={ "/storage/" + getSiteConfig(data, "site_favicon", "") } alt="Logo" style="width: 28px; height: 28px; object-fit: contain; margin-right: 8px; vertical-align: middle; display: inline-block;"/>
+							if data.SiteConfig.SiteFavicon != "" {
+								<img src={ "/storage/" + data.SiteConfig.SiteFavicon } alt="Logo" style="width: 28px; height: 28px; object-fit: contain; margin-right: 8px; vertical-align: middle; display: inline-block;"/>
 							}
 							<span class="wedding">Wedding</span><span class="saas">SaaS</span>
 						</a>
 						<p class="web-footer-java-desc">
-							{ getSiteConfig(data, "footer_description", "Platform undangan pernikahan digital dengan template elegan, RSVP online, guest book, dan galeri foto.") }
+							{ data.SiteConfig.FooterDescription }
 						</p>
 						<p class="web-footer-java-desc">
 							<i class="bi bi-globe me-1" style="color: var(--gold);"></i>
@@ -2464,28 +2326,28 @@ templ traditionalJavaPage(
 							</a>
 						</p>
 						<div class="web-footer-java-socials">
-							if getSiteConfig(data, "social_instagram", "") != "" {
-								<a href={ templpkg.SafeURL(getSiteConfig(data, "social_instagram", "")) } target="_blank" rel="noopener" title="Instagram">
+							if data.SiteConfig.SocialInstagram != "" {
+								<a href={ templpkg.SafeURL(data.SiteConfig.SocialInstagram) } target="_blank" rel="noopener" title="Instagram">
 									<i class="bi bi-instagram"></i>
 								</a>
 							}
-							if getSiteConfig(data, "social_facebook", "") != "" {
-								<a href={ templpkg.SafeURL(getSiteConfig(data, "social_facebook", "")) } target="_blank" rel="noopener" title="Facebook">
+							if data.SiteConfig.SocialFacebook != "" {
+								<a href={ templpkg.SafeURL(data.SiteConfig.SocialFacebook) } target="_blank" rel="noopener" title="Facebook">
 									<i class="bi bi-facebook"></i>
 								</a>
 							}
-							if getSiteConfig(data, "social_tiktok", "") != "" {
-								<a href={ templpkg.SafeURL(getSiteConfig(data, "social_tiktok", "")) } target="_blank" rel="noopener" title="TikTok">
+							if data.SiteConfig.SocialTiktok != "" {
+								<a href={ templpkg.SafeURL(data.SiteConfig.SocialTiktok) } target="_blank" rel="noopener" title="TikTok">
 									<i class="bi bi-tiktok"></i>
 								</a>
 							}
-							if getSiteConfig(data, "social_youtube", "") != "" {
-								<a href={ templpkg.SafeURL(getSiteConfig(data, "social_youtube", "")) } target="_blank" rel="noopener" title="YouTube">
+							if data.SiteConfig.SocialYoutube != "" {
+								<a href={ templpkg.SafeURL(data.SiteConfig.SocialYoutube) } target="_blank" rel="noopener" title="YouTube">
 									<i class="bi bi-youtube"></i>
 								</a>
 							}
-							if getSiteConfig(data, "social_twitter", "") != "" {
-								<a href={ templpkg.SafeURL(getSiteConfig(data, "social_twitter", "")) } target="_blank" rel="noopener" title="Twitter">
+							if data.SiteConfig.SocialTwitter != "" {
+								<a href={ templpkg.SafeURL(data.SiteConfig.SocialTwitter) } target="_blank" rel="noopener" title="Twitter">
 									<i class="bi bi-twitter-x"></i>
 								</a>
 							}
@@ -2495,28 +2357,28 @@ templ traditionalJavaPage(
 					<div>
 						<h6 class="web-footer-java-heading">Kontak</h6>
 						<ul class="web-footer-java-list">
-							if getSiteConfig(data, "contact_email", "") != "" {
+							if data.SiteConfig.ContactEmail != "" {
 								<li>
 									<i class="bi bi-envelope"></i>
-									<a href={ templpkg.SafeURL("mailto:" + getSiteConfig(data, "contact_email", "")) }>{ getSiteConfig(data, "contact_email", "") }</a>
+									<a href={ templpkg.SafeURL("mailto:" + data.SiteConfig.ContactEmail) }>{ data.SiteConfig.ContactEmail }</a>
 								</li>
 							}
-							if getSiteConfig(data, "contact_phone", "") != "" {
+							if data.SiteConfig.ContactPhone != "" {
 								<li>
 									<i class="bi bi-telephone"></i>
-									<span>{ getSiteConfig(data, "contact_phone", "") }</span>
+									<span>{ data.SiteConfig.ContactPhone }</span>
 								</li>
 							}
-							if getSiteConfig(data, "contact_whatsapp", "") != "" {
+							if data.SiteConfig.ContactWhatsapp != "" {
 								<li>
 									<i class="bi bi-whatsapp"></i>
-									<a href={ templpkg.SafeURL("https://wa.me/" + getSiteConfig(data, "contact_whatsapp", "")) } target="_blank" rel="noopener">WhatsApp Chat</a>
+									<a href={ templpkg.SafeURL("https://wa.me/" + data.SiteConfig.ContactWhatsapp) } target="_blank" rel="noopener">WhatsApp Chat</a>
 								</li>
 							}
-							if getSiteConfig(data, "contact_address", "") != "" {
+							if data.SiteConfig.ContactAddress != "" {
 								<li>
 									<i class="bi bi-geo-alt"></i>
-									<span>{ getSiteConfig(data, "contact_address", "") }</span>
+									<span>{ data.SiteConfig.ContactAddress }</span>
 								</li>
 							}
 						</ul>
@@ -2527,39 +2389,36 @@ templ traditionalJavaPage(
 						<ul class="web-footer-java-list">
 							<li>
 								<i class="bi bi-code-slash"></i>
-								if getSiteConfig(data, "developer_url", "") != "" {
-									<a href={ templpkg.SafeURL(getSiteConfig(data, "developer_url", "")) } target="_blank" rel="noopener">{ getSiteConfig(data, "developer_name", "Tim Developer") }</a>
+								if data.SiteConfig.DeveloperUrl != "" {
+									<a href={ templpkg.SafeURL(data.SiteConfig.DeveloperUrl) } target="_blank" rel="noopener">{ data.SiteConfig.DeveloperName }</a>
 								} else {
-									<span>{ getSiteConfig(data, "developer_name", "Tim Developer") }</span>
+									<span>{ data.SiteConfig.DeveloperName }</span>
 								}
 							</li>
-							if getSiteConfig(data, "developer_email", "") != "" {
+							if data.SiteConfig.DeveloperEmail != "" {
 								<li>
 									<i class="bi bi-envelope-at"></i>
-									<a href={ templpkg.SafeURL("mailto:" + getSiteConfig(data, "developer_email", "")) }>{ getSiteConfig(data, "developer_email", "") }</a>
+									<a href={ templpkg.SafeURL("mailto:" + data.SiteConfig.DeveloperEmail) }>{ data.SiteConfig.DeveloperEmail }</a>
 								</li>
 							}
 						</ul>
-						if getSiteConfig(data, "footer_version", "") != "" {
-							<p class="web-footer-java-version">{ getSiteConfig(data, "footer_version", "") }</p>
+						if data.SiteConfig.FooterVersion != "" {
+							<p class="web-footer-java-version">{ data.SiteConfig.FooterVersion }</p>
 						}
 					</div>
 				</div>
 
 				<div class="web-footer-java-bottom">
-					© { formatInt(currentYear()) } { getSiteConfig(data, "footer_copyright", "Wedding SaaS. All rights reserved.") }
+					© { invitation.FormatInt(invitation.CurrentYear()) } { data.SiteConfig.FooterCopyright }
 				</div>
 			</div>
 		</footer>
 
-		<!-- ============================================ -->
 		<!-- SCRIPTS -->
-		<!-- ============================================ -->
 		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 		<script>
-			// AOS
 			AOS.init({
 				duration: 900,
 				easing: 'ease-out',
@@ -2688,7 +2547,6 @@ templ traditionalJavaPage(
 				return div.innerHTML;
 			}
 
-			// COPY BANK NUMBER
 			window.copyBankNumberFromEl = function(el) {
 				var number = el.getAttribute('data-number');
 				if (!number) return;
@@ -2709,7 +2567,7 @@ templ traditionalJavaPage(
 								icon.style.color = '';
 							}, 1500);
 						}
-					}
+						}
 				};
 				if (navigator.clipboard) {
 					navigator.clipboard.writeText(number).then(doSuccess).catch(function() {

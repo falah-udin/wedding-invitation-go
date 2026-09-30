@@ -5,75 +5,29 @@ import (
 	"io"
 
 	templpkg "github.com/a-h/templ"
+	"wedding-invitation-go/internal/invitation"
 	"wedding-invitation-go/internal/models"
 )
 
-// MuslimElegan — template undangan Muslim Elegan (FULL)
-func MuslimElegan(ctx context.Context, w io.Writer, project models.Project, data map[string]interface{}, guestName string) error {
-	groomName := getStr(data, "groom_name")
-	brideName := getStr(data, "bride_name")
-	groomPhoto := getDefaultPhoto(data, "groom_photo")
-	bridePhoto := getDefaultPhoto(data, "bride_photo")
-	fatherGroomPhoto := getDefaultPhoto(data, "father_groom_photo")
-	motherGroomPhoto := getDefaultPhoto(data, "mother_groom_photo")
-	fatherBridePhoto := getDefaultPhoto(data, "father_bride_photo")
-	motherBridePhoto := getDefaultPhoto(data, "mother_bride_photo")
-	fatherGroomName := getStr(data, "father_groom")
-	motherGroomName := getStr(data, "mother_groom")
-	fatherBrideName := getStr(data, "father_bride")
-	motherBrideName := getStr(data, "mother_bride")
-	eventInstagram := getStr(data, "event_instagram")
-	musicURL := getMusicUrlFromProject(project)
-	isNamedGuest := guestName != "" && guestName != "Tamu Undangan"
-
-	component := muslimEleganPage(
-		project, data, guestName,
-		groomName, brideName,
-		groomPhoto, bridePhoto,
-		fatherGroomPhoto, motherGroomPhoto,
-		fatherBridePhoto, motherBridePhoto,
-		fatherGroomName, motherGroomName,
-		fatherBrideName, motherBrideName,
-		eventInstagram, musicURL, isNamedGuest,
-	)
+// MuslimElegan — template undangan Muslim Elegan
+func MuslimElegan(ctx context.Context, w io.Writer, project models.Project, data *invitation.TemplateData, guestName string) error {
+	component := muslimEleganPage(data)
 	return component.Render(ctx, w)
 }
 
-templ muslimEleganPage(
-	project models.Project,
-	data map[string]interface{},
-	guestName string,
-	groomName string,
-	brideName string,
-	groomPhoto string,
-	bridePhoto string,
-	fatherGroomPhoto string,
-	motherGroomPhoto string,
-	fatherBridePhoto string,
-	motherBridePhoto string,
-	fatherGroomName string,
-	motherGroomName string,
-	fatherBrideName string,
-	motherBrideName string,
-	eventInstagram string,
-	musicURL string,
-	isNamedGuest bool,
-) {
+templ muslimEleganPage(data *invitation.TemplateData) {
 	<!DOCTYPE html>
 	<html lang="id">
 	<head>
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
-		<title>{ groomName } &amp; { brideName } - Muslim Elegan</title>
+		<title>{ data.GroomName } &amp; { data.BrideName } - Muslim Elegan</title>
 
 		<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
 		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 
 		<style>
-			/* ============================================ */
-			/* ROOT VARIABLES */
-			/* ============================================ */
 			:root {
 				--islamic-green: #1a5f3a;
 				--islamic-green-light: #2a7f4a;
@@ -88,7 +42,6 @@ templ muslimEleganPage(
 				--shadow-hover: 0 12px 60px rgba(0,0,0,0.12);
 			}
 
-			/* RESET & BASE */
 			* { margin: 0; padding: 0; box-sizing: border-box; }
 			html { scroll-behavior: smooth; }
 			body {
@@ -101,7 +54,6 @@ templ muslimEleganPage(
 			.container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
 			@media (min-width: 768px) { .container { padding: 0 40px; } }
 
-			/* SECTION HEADER */
 			.section-label {
 				font-family: 'Amiri', serif;
 				font-size: 0.8rem; text-transform: uppercase; letter-spacing: 6px;
@@ -127,7 +79,6 @@ templ muslimEleganPage(
 				.section-subtitle { font-size: 0.85rem; padding: 0 16px; }
 			}
 
-			/* DIVIDER */
 			.divider-gold {
 				display: flex; align-items: center; justify-content: center;
 				gap: 16px; margin: 16px 0;
@@ -138,7 +89,6 @@ templ muslimEleganPage(
 			}
 			.divider-gold i { color: var(--islamic-gold); font-size: 0.8rem; opacity: 0.6; }
 
-			/* TOAST */
 			.toast-container {
 				position: fixed; top: 20px; right: 20px; z-index: 9999;
 				display: flex; flex-direction: column; gap: 8px;
@@ -159,7 +109,6 @@ templ muslimEleganPage(
 				to { transform: translateX(0); opacity: 1; }
 			}
 
-			/* SCROLL INDICATOR */
 			.scroll-indicator {
 				position: absolute; bottom: 28px; left: 50%;
 				transform: translateX(-50%); z-index: 2;
@@ -175,7 +124,6 @@ templ muslimEleganPage(
 				50% { transform: translateY(6px); }
 			}
 
-			/* OVERLAY */
 			#startOverlay {
 				position: fixed; top: 0; left: 0; right: 0; bottom: 0;
 				width: 100vw; height: 100vh;
@@ -235,7 +183,6 @@ templ muslimEleganPage(
 				}
 			}
 
-			/* MUSIC PLAYER */
 			.music-player { position: fixed; bottom: 24px; right: 24px; z-index: 1000; }
 			.music-btn {
 				width: 52px; height: 52px; border-radius: 50%;
@@ -254,7 +201,6 @@ templ muslimEleganPage(
 				100% { box-shadow: 0 0 0 0 rgba(26, 95, 58, 0); }
 			}
 
-            			/* HERO */
 			.hero-islam {
 				min-height: 100vh;
 				display: flex; align-items: center; justify-content: center;
@@ -378,7 +324,6 @@ templ muslimEleganPage(
 				.hero-kaligrafi { font-size: 8rem; }
 			}
 
-			/* COUPLE */
 			.couple-islam-grid {
 				display: grid; grid-template-columns: 1fr 1fr;
 				gap: 40px; align-items: start; margin-top: 20px;
@@ -401,7 +346,6 @@ templ muslimEleganPage(
 				.couple-islam-card .photo { width: 120px !important; height: 120px !important; }
 			}
 
-			/* LOVE STORY */
 			.love-timeline {
 				position: relative; padding-left: 30px;
 				max-width: 600px; margin: 0 auto;
@@ -425,7 +369,6 @@ templ muslimEleganPage(
 				.timeline-item > div { padding: 14px 16px !important; }
 			}
 
-            			/* EVENT */
 			.event-islam-grid {
 				display: grid; grid-template-columns: 1fr 1fr;
 				gap: 24px; margin-top: 10px;
@@ -450,7 +393,6 @@ templ muslimEleganPage(
 				.event-islam-card { padding: 20px 16px !important; }
 			}
 
-			/* GALLERY */
 			.gallery-container {
 				max-width: 900px; margin: 0 auto;
 				position: relative; padding: 0 20px;
@@ -478,15 +420,6 @@ templ muslimEleganPage(
 				transition: transform 0.3s ease;
 			}
 			.swiper-slide:hover .swiper-image { transform: scale(1.02); }
-			.swiper-caption {
-				position: absolute; bottom: 0; left: 0; right: 0;
-				padding: 16px 24px;
-				background: linear-gradient(transparent, rgba(0,0,0,0.7));
-				color: white; font-size: 0.9rem; text-align: center;
-				pointer-events: none; opacity: 0;
-				transition: opacity 0.4s ease;
-			}
-			.swiper-slide:hover .swiper-caption { opacity: 1; }
 			.swiper-button-next, .swiper-button-prev {
 				background: rgba(0,0,0,0.5) !important;
 				width: 44px !important; height: 44px !important;
@@ -526,12 +459,10 @@ templ muslimEleganPage(
 				.swiper-button-next::after, .swiper-button-prev::after {
 					font-size: 12px !important;
 				}
-				.swiper-caption { font-size: 0.75rem; padding: 10px 16px; opacity: 1; }
 				.gallery-container { padding: 0 8px; }
 				.swiper-pagination-bullet { width: 7px; height: 7px; }
 			}
 
-			/* RSVP */
 			#rsvpList { display: flex; flex-direction: column; gap: 10px; }
 			.rsvp-item {
 				background: #ffffff; border: 1px solid #e8e5e0;
@@ -612,7 +543,6 @@ templ muslimEleganPage(
 			}
 			.btn-submit-islam:active { transform: scale(0.98); }
 
-			/* BANK / AMPLOP DIGITAL */
 			.section-bank-islam {
 				padding: 70px 0; background: var(--islamic-cream);
 				position: relative; overflow: hidden;
@@ -739,7 +669,6 @@ templ muslimEleganPage(
 				.section-bank-islam::before { font-size: 12rem; }
 			}
 
-			/* FOOTER TAHAP 1 */
 			.section-footer-islam {
 				padding: 60px 20px 40px;
 				background: linear-gradient(180deg, #0d1f0d 0%, #0a1a0a 100%);
@@ -783,7 +712,6 @@ templ muslimEleganPage(
 				.section-footer-islam::before { font-size: 10rem; }
 			}
 
-			/* FOOTER TAHAP 2 - WEB FOOTER */
 			.web-footer {
 				background: linear-gradient(180deg, #0a1a0a 0%, #050f05 100%);
 				padding: 3rem 0 1.5rem;
@@ -893,11 +821,9 @@ templ muslimEleganPage(
 			}
 		</style>
 	</head>
-	<body data-music-url={ musicURL } data-project-id={ formatUint(project.ID) } data-project-slug={ project.Slug }>
+	<body data-music-url={ data.MusicURL } data-project-id={ invitation.FormatUint(data.Project.ID) } data-project-slug={ data.Project.Slug }>
 
-		<!-- ============================================ -->
 		<!-- OVERLAY START -->
-		<!-- ============================================ -->
 		<div id="startOverlay">
 			<div class="overlay-inner">
 				<div class="bismillah">
@@ -910,7 +836,7 @@ templ muslimEleganPage(
 						Kepada
 					</div>
 					<div style="font-family:'Playfair Display',serif; font-size:1.4rem; color:#e8d5a3; font-weight:600; margin-bottom:4px; line-height:1.3;">
-						{ guestName }
+						{ data.GuestName }
 					</div>
 					<div style="width:40px; height:1px; background:linear-gradient(90deg, transparent, #c9a03d, transparent); margin:10px auto 20px; opacity:0.4;"></div>
 				</div>
@@ -925,18 +851,14 @@ templ muslimEleganPage(
 			</div>
 		</div>
 
-		<!-- ============================================ -->
 		<!-- MUSIC PLAYER -->
-		<!-- ============================================ -->
 		<div class="music-player" id="musicPlayer">
 			<button class="music-btn" id="musicToggle" onclick={ templpkg.JSFuncCall("toggleMusic") }>
 				<i class="bi bi-music-note"></i>
 			</button>
 		</div>
 
-		<!-- ============================================ -->
-		<!-- HERO / COVER -->
-		<!-- ============================================ -->
+		<!-- HERO -->
 		<section class="hero-islam" id="section-hero">
 			<div class="hero-kaligrafi hero-kaligrafi-1">ﷲ</div>
 			<div class="hero-kaligrafi hero-kaligrafi-2">ﷻ</div>
@@ -953,11 +875,11 @@ templ muslimEleganPage(
 				</div>
 
 				<h1 class="hero-couple" style="font-family:'Playfair Display',serif; font-size:3.8rem; font-weight:700; margin-bottom:8px; line-height:1.1; letter-spacing:2px;">
-					<span class="hero-name-border">{ groomName }</span>
+					<span class="hero-name-border">{ data.GroomName }</span>
 					<br/>
 					<span style="color:var(--islamic-gold); font-weight:400; font-size:2.8rem; line-height:1;">&amp;</span>
 					<br/>
-					<span class="hero-name-border">{ brideName }</span>
+					<span class="hero-name-border">{ data.BrideName }</span>
 				</h1>
 
 				<div class="divider-gold">
@@ -969,41 +891,41 @@ templ muslimEleganPage(
 				</div>
 
 				<div class="hero-dates">
-					if showDates(data) == "both" || showDates(data) == "akad" {
+					if data.ShouldShowAkadDate() {
 						<div class="date-item">
 							<i class="bi bi-calendar3"></i>
-							<span>Akad: { getStr(data, "akad_date") }</span>
+							<span>Akad: { data.AkadDate }</span>
 						</div>
 					}
 
-					if showDates(data) == "both" {
+					if data.ShouldShowBothDates() {
 						<span class="date-divider">|</span>
 					}
 
-					if showDates(data) == "both" || showDates(data) == "resepsi" {
+					if data.ShouldShowResepsiDate() {
 						<div class="date-item">
 							<i class="bi bi-calendar-event"></i>
-							<span>{ getResepsiLabel(data) }: { getStr(data, "resepsi_date") }</span>
+							<span>{ data.ResepsiLabelDisplay() }: { data.ResepsiDate }</span>
 						</div>
 					}
 				</div>
 
 				<div class="hero-venue">
-					if showVenue(data) == "both" || showVenue(data) == "akad" {
+					if data.ShouldShowAkadVenue() {
 						<div class="venue-item">
 							<i class="bi bi-geo-alt me-2" style="color:var(--islamic-gold);"></i>
-							<span>Akad: { getStr(data, "akad_venue") }</span>
+							<span>Akad: { data.AkadVenue }</span>
 						</div>
 					}
 
-					if showVenue(data) == "both" {
+					if data.ShouldShowBothVenues() {
 						<div class="venue-divider" style="display:inline-block; margin:0 8px; color:rgba(201,160,61,0.2);">|</div>
 					}
 
-					if showVenue(data) == "both" || showVenue(data) == "resepsi" {
+					if data.ShouldShowResepsiVenue() {
 						<div class="venue-item">
 							<i class="bi bi-geo-alt me-2" style="color:var(--islamic-gold);"></i>
-							<span>{ getResepsiLabel(data) }: { getStr(data, "resepsi_venue") }</span>
+							<span>{ data.ResepsiLabelDisplay() }: { data.ResepsiVenue }</span>
 						</div>
 					}
 				</div>
@@ -1019,9 +941,7 @@ templ muslimEleganPage(
 			</div>
 		</section>
 
-		<!-- ============================================ -->
 		<!-- QURAN VERSE -->
-		<!-- ============================================ -->
 		<section class="section-quran" id="section-quran" style="padding:70px 0; background:var(--islamic-cream); text-align:center;">
 			<div class="container">
 				<div class="quran-verse" data-aos="fade-up">
@@ -1038,9 +958,7 @@ templ muslimEleganPage(
 			</div>
 		</section>
 
-		<!-- ============================================ -->
 		<!-- COUPLE -->
-		<!-- ============================================ -->
 		<section class="section-couple-islam" id="section-couple" style="padding:70px 0; background:var(--white);">
 			<div class="container">
 				<div class="section-label" data-aos="fade-up">PASANGAN</div>
@@ -1053,11 +971,11 @@ templ muslimEleganPage(
 					<!-- GROOM -->
 					<div class="couple-islam-card" data-aos="fade-right" data-aos-delay="100">
 						<div class="photo" style="width:150px; height:150px; margin:0 auto 10px; border-radius:50%; border:3px solid var(--islamic-gold); box-shadow:0 4px 20px rgba(0,0,0,0.06); overflow:hidden;">
-							<img src={ groomPhoto } alt={ groomName } style="width:100%; height:100%; object-fit:cover;"/>
+							<img src={ data.GroomPhotoOrDefault() } alt={ data.GroomName } style="width:100%; height:100%; object-fit:cover;"/>
 						</div>
 
 						<h3 style="font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--islamic-green); margin-bottom:2px;">
-							{ groomName }
+							{ data.GroomName }
 						</h3>
 
 						<div style="width:40px; height:1px; background:var(--islamic-gold); margin:10px auto; opacity:0.2;"></div>
@@ -1065,19 +983,19 @@ templ muslimEleganPage(
 						<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px;">
 							<div>
 								<div style="width:60px; height:60px; border-radius:50%; margin:0 auto 6px; border:2px solid var(--islamic-gold); overflow:hidden; background:#e8e0d8;">
-									<img src={ fatherGroomPhoto } alt={ fatherGroomName } style="width:100%; height:100%; object-fit:cover;"/>
+									<img src={ data.FatherGroomPhotoOrDefault() } alt={ data.FatherGroom } style="width:100%; height:100%; object-fit:cover;"/>
 								</div>
 								<div style="font-size:0.7rem; color:var(--islamic-text); font-weight:500;">
-									{ fatherGroomName }
+									{ data.FatherGroom }
 								</div>
 								<div style="font-size:0.55rem; color:var(--islamic-muted);">Ayah</div>
 							</div>
 							<div>
 								<div style="width:60px; height:60px; border-radius:50%; margin:0 auto 6px; border:2px solid var(--islamic-gold); overflow:hidden; background:#e8e0d8;">
-									<img src={ motherGroomPhoto } alt={ motherGroomName } style="width:100%; height:100%; object-fit:cover;"/>
+									<img src={ data.MotherGroomPhotoOrDefault() } alt={ data.MotherGroom } style="width:100%; height:100%; object-fit:cover;"/>
 								</div>
 								<div style="font-size:0.7rem; color:var(--islamic-text); font-weight:500;">
-									{ motherGroomName }
+									{ data.MotherGroom }
 								</div>
 								<div style="font-size:0.55rem; color:var(--islamic-muted);">Ibu</div>
 							</div>
@@ -1087,11 +1005,11 @@ templ muslimEleganPage(
 					<!-- BRIDE -->
 					<div class="couple-islam-card" data-aos="fade-left" data-aos-delay="150">
 						<div class="photo" style="width:150px; height:150px; margin:0 auto 10px; border-radius:50%; border:3px solid var(--islamic-gold); box-shadow:0 4px 20px rgba(0,0,0,0.06); overflow:hidden;">
-							<img src={ bridePhoto } alt={ brideName } style="width:100%; height:100%; object-fit:cover;"/>
+							<img src={ data.BridePhotoOrDefault() } alt={ data.BrideName } style="width:100%; height:100%; object-fit:cover;"/>
 						</div>
 
 						<h3 style="font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--islamic-green); margin-bottom:2px;">
-							{ brideName }
+							{ data.BrideName }
 						</h3>
 
 						<div style="width:40px; height:1px; background:var(--islamic-gold); margin:10px auto; opacity:0.2;"></div>
@@ -1099,19 +1017,19 @@ templ muslimEleganPage(
 						<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px;">
 							<div>
 								<div style="width:60px; height:60px; border-radius:50%; margin:0 auto 6px; border:2px solid var(--islamic-gold); overflow:hidden; background:#e8e0d8;">
-									<img src={ fatherBridePhoto } alt={ fatherBrideName } style="width:100%; height:100%; object-fit:cover;"/>
+									<img src={ data.FatherBridePhotoOrDefault() } alt={ data.FatherBride } style="width:100%; height:100%; object-fit:cover;"/>
 								</div>
 								<div style="font-size:0.7rem; color:var(--islamic-text); font-weight:500;">
-									{ fatherBrideName }
+									{ data.FatherBride }
 								</div>
 								<div style="font-size:0.55rem; color:var(--islamic-muted);">Ayah</div>
 							</div>
 							<div>
 								<div style="width:60px; height:60px; border-radius:50%; margin:0 auto 6px; border:2px solid var(--islamic-gold); overflow:hidden; background:#e8e0d8;">
-									<img src={ motherBridePhoto } alt={ motherBrideName } style="width:100%; height:100%; object-fit:cover;"/>
+									<img src={ data.MotherBridePhotoOrDefault() } alt={ data.MotherBride } style="width:100%; height:100%; object-fit:cover;"/>
 								</div>
 								<div style="font-size:0.7rem; color:var(--islamic-text); font-weight:500;">
-									{ motherBrideName }
+									{ data.MotherBride }
 								</div>
 								<div style="font-size:0.55rem; color:var(--islamic-muted);">Ibu</div>
 							</div>
@@ -1125,10 +1043,8 @@ templ muslimEleganPage(
 			</div>
 		</section>
 
-		<!-- ============================================ -->
 		<!-- LOVE STORY -->
-		<!-- ============================================ -->
-		if stories := getLoveStories(data); len(stories) > 0 {
+		if len(data.LoveStories) > 0 {
 			<section class="section-love" id="section-love" style="padding:70px 0; background:var(--islamic-cream);">
 				<div class="container">
 					<div class="section-label" data-aos="fade-up">CERITA</div>
@@ -1140,17 +1056,17 @@ templ muslimEleganPage(
 					<div class="love-timeline">
 						<div style="position:absolute; left:8px; top:0; bottom:0; width:2px; background:var(--islamic-gold); opacity:0.2;"></div>
 
-						for index, story := range stories {
-							<div class="timeline-item" data-aos="fade-up" data-aos-delay={ formatInt(80 * (index + 1)) }>
+						for index, story := range data.LoveStories {
+							<div class="timeline-item" data-aos="fade-up" data-aos-delay={ invitation.FormatInt(80 * (index + 1)) }>
 								<div style="position:absolute; left:-22px; top:4px; width:20px; height:20px; background:var(--islamic-gold); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.5rem; color:var(--white); border:2px solid var(--white); box-shadow:0 2px 8px rgba(0,0,0,0.06);">
 									<i class="bi bi-heart-fill" style="font-size:0.4rem;"></i>
 								</div>
 								<div>
 									<h4 style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:600; color:var(--islamic-green); margin-bottom:2px;">
-										{ story["title"] }
+										{ story.Title }
 									</h4>
 									<p style="color:var(--islamic-muted); font-size:0.9rem; margin:0;">
-										{ story["desc"] }
+										{ story.Desc }
 									</p>
 								</div>
 							</div>
@@ -1164,9 +1080,7 @@ templ muslimEleganPage(
 			</section>
 		}
 
-		<!-- ============================================ -->
 		<!-- EVENT -->
-		<!-- ============================================ -->
 		<section class="section-event-islam" id="section-event" style="padding:70px 0; background:var(--white);">
 			<div class="container">
 				<div class="section-label" data-aos="fade-up">
@@ -1203,21 +1117,21 @@ templ muslimEleganPage(
 						<div style="color:var(--islamic-text); font-size:0.9rem; line-height:1.8;">
 							<div style="display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;">
 								<i class="bi bi-calendar3" style="color:var(--islamic-gold); width:18px;"></i>
-								<span>{ getStr(data, "akad_date") }</span>
+								<span>{ data.AkadDate }</span>
 							</div>
 							<div style="display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;">
 								<i class="bi bi-clock" style="color:var(--islamic-gold); width:18px;"></i>
-								<span>Pukul { getStr(data, "akad_time") }</span>
+								<span>Pukul { data.AkadTime }</span>
 							</div>
 							<div style="display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;">
 								<i class="bi bi-geo-alt" style="color:var(--islamic-gold); width:18px;"></i>
-								<span>{ getStr(data, "akad_venue") }</span>
+								<span>{ data.AkadVenue }</span>
 							</div>
 						</div>
 
-						if getStr(data, "maps_url_akad") != "-" {
+						if data.MapsURLAkad != "" {
 							<div style="margin-top:14px;">
-								<a href={ templ.SafeURL(getStr(data, "maps_url_akad")) } target="_blank"
+								<a href={ templpkg.SafeURL(data.MapsURLAkad) } target="_blank"
 								   style="display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg, var(--islamic-green), #0d4a2a); color:white; padding:8px 20px; border-radius:50px; text-decoration:none; font-size:0.75rem; font-weight:500; transition:all 0.3s; border:1px solid rgba(255,255,255,0.05); box-shadow:0 4px 15px rgba(26,95,58,0.2);">
 									<i class="bi bi-geo-alt-fill" style="color:var(--islamic-gold);"></i>
 									<span>Buka Lokasi Akad</span>
@@ -1242,36 +1156,36 @@ templ muslimEleganPage(
 						</div>
 
 						<h3 style="font-family:'Playfair Display',serif; color:var(--islamic-green); margin-bottom:2px; font-size:1.2rem;">
-							{ getResepsiLabel(data) }
+							{ data.ResepsiLabelDisplay() }
 						</h3>
 
-						if isIslamicLabel(data) && getResepsiArabic(data) != "" {
+						if data.IsIslamicResepsi() && data.ResepsiArabic() != "" {
 							<div style="font-family:'Amiri',serif; font-size:0.85rem; color:var(--islamic-gold); margin-bottom:10px; font-style:italic;">
-								{ getResepsiArabic(data) }
+								{ data.ResepsiArabic() }
 							</div>
 						}
 
 						<div style="color:var(--islamic-text); font-size:0.9rem; line-height:1.8;">
 							<div style="display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;">
 								<i class="bi bi-calendar3" style="color:var(--islamic-gold); width:18px;"></i>
-								<span>{ getStr(data, "resepsi_date") }</span>
+								<span>{ data.ResepsiDate }</span>
 							</div>
 							<div style="display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;">
 								<i class="bi bi-clock" style="color:var(--islamic-gold); width:18px;"></i>
-								<span>Pukul { getStr(data, "resepsi_time") }</span>
+								<span>Pukul { data.ResepsiTime }</span>
 							</div>
 							<div style="display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;">
 								<i class="bi bi-geo-alt" style="color:var(--islamic-gold); width:18px;"></i>
-								<span>{ getStr(data, "resepsi_venue") }</span>
+								<span>{ data.ResepsiVenue }</span>
 							</div>
 						</div>
 
-						if getStr(data, "maps_url_resepsi") != "-" {
+						if data.MapsURLResepsi != "" {
 							<div style="margin-top:14px;">
-								<a href={ templ.SafeURL(getStr(data, "maps_url_resepsi")) } target="_blank"
+								<a href={ templpkg.SafeURL(data.MapsURLResepsi) } target="_blank"
 								   style="display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg, var(--islamic-gold), #b8922f); color:var(--islamic-dark); padding:8px 20px; border-radius:50px; text-decoration:none; font-size:0.75rem; font-weight:500; transition:all 0.3s; border:1px solid rgba(255,255,255,0.05); box-shadow:0 4px 15px rgba(201,160,61,0.2);">
 									<i class="bi bi-geo-alt-fill" style="color:var(--islamic-dark);"></i>
-									<span>Buka Lokasi { getResepsiLabel(data) }</span>
+									<span>Buka Lokasi { data.ResepsiLabelDisplay() }</span>
 									<i class="bi bi-box-arrow-up-right" style="font-size:0.6rem; opacity:0.6;"></i>
 								</a>
 							</div>
@@ -1301,10 +1215,8 @@ templ muslimEleganPage(
 			</div>
 		</section>
 
-        		<!-- ============================================ -->
 		<!-- GALLERY -->
-		<!-- ============================================ -->
-		if gallery := getGallery(data); len(gallery) > 0 {
+		if len(data.Gallery) > 0 {
 			<section class="section-gallery" id="section-gallery" style="padding:70px 0; background:var(--islamic-cream);">
 				<div class="container">
 					<div class="section-label" data-aos="fade-up">GALERI</div>
@@ -1318,9 +1230,9 @@ templ muslimEleganPage(
 					<div class="gallery-container">
 						<div class="swiper gallery-swiper">
 							<div class="swiper-wrapper">
-								for index, img := range gallery {
+								for index, img := range data.Gallery {
 									<div class="swiper-slide">
-										<img src={ img } alt={ "Foto " + formatInt(index+1) } class="swiper-image" loading="lazy"/>
+										<img src={ img } alt={ "Foto " + invitation.FormatInt(index+1) } class="swiper-image" loading="lazy"/>
 									</div>
 								}
 							</div>
@@ -1336,9 +1248,7 @@ templ muslimEleganPage(
 			</section>
 		}
 
-		<!-- ============================================ -->
 		<!-- RSVP -->
-		<!-- ============================================ -->
 		<section class="section-rsvp-islam" id="section-rsvp" style="padding:70px 0; background:var(--white);">
 			<div class="container">
 				<div class="section-label" data-aos="fade-up">KONFIRMASI</div>
@@ -1347,10 +1257,10 @@ templ muslimEleganPage(
 					Kami sangat berbahagia jika Anda bisa hadir di hari bahagia kami.
 				</p>
 
-				<form class="rsvp-form" method="POST" action={ templ.SafeURL("/invitation/" + project.Slug + "/rsvp") } data-aos="fade-up" data-aos-delay="150" id="rsvpForm" style="max-width:500px; margin:0 auto;">
-					<input type="hidden" name="project_id" value={ formatUint(project.ID) }/>
+				<form class="rsvp-form" method="POST" action={ templpkg.SafeURL("/invitation/" + data.Project.Slug + "/rsvp") } data-aos="fade-up" data-aos-delay="150" id="rsvpForm" style="max-width:500px; margin:0 auto;">
+					<input type="hidden" name="project_id" value={ invitation.FormatUint(data.Project.ID) }/>
 
-					if hasExistingRsvp(data) {
+					if data.HasExistingRsvp() {
 						<div style="background: rgba(16,185,129,0.08); border: 1px solid #10b981; border-radius: 12px; padding: 14px 18px; margin-bottom: 20px;">
 							<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
 								<i class="bi bi-check-circle-fill" style="color: #10b981; font-size: 1.2rem;"></i>
@@ -1367,8 +1277,8 @@ templ muslimEleganPage(
 							Nama Anda <span style="color:#c0392b;">*</span>
 						</label>
 
-						if isNamedGuest {
-							<input type="text" id="rsvp-name" name="guest_name" value={ guestName } readonly
+						if data.IsNamedGuest {
+							<input type="text" id="rsvp-name" name="guest_name" value={ data.GuestName } readonly
 								style="width:100%; padding:12px 16px; border:1px solid #c9a03d; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:rgba(201,160,61,0.05); color:var(--islamic-green); font-weight:600; cursor:not-allowed;"/>
 							<small style="display:block; margin-top:6px; font-size:0.7rem; color:var(--islamic-muted); font-style:italic;">
 								<i class="bi bi-info-circle me-1"></i>Nama otomatis terisi dari undangan yang Anda terima
@@ -1385,22 +1295,22 @@ templ muslimEleganPage(
 						</label>
 						<select id="rsvp-attendance" name="attendance" required
 							style="width:100%; padding:12px 16px; border:1px solid #e0ddd8; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:var(--white); transition:all 0.3s;">
-							if getExistingRsvpField(data, "attendance", "") == "" {
+							if data.ExistingRsvpField("attendance", "") == "" {
 								<option value="" selected>Pilih konfirmasi</option>
 							} else {
 								<option value="">Pilih konfirmasi</option>
 							}
-							if getExistingRsvpField(data, "attendance", "") == "hadir" {
+							if data.ExistingRsvpField("attendance", "") == "hadir" {
 								<option value="hadir" selected>Hadir</option>
 							} else {
 								<option value="hadir">Hadir</option>
 							}
-							if getExistingRsvpField(data, "attendance", "") == "tidak_hadir" {
+							if data.ExistingRsvpField("attendance", "") == "tidak_hadir" {
 								<option value="tidak_hadir" selected>Tidak Hadir</option>
 							} else {
 								<option value="tidak_hadir">Tidak Hadir</option>
 							}
-							if getExistingRsvpField(data, "attendance", "") == "ragu" {
+							if data.ExistingRsvpField("attendance", "") == "ragu" {
 								<option value="ragu" selected>Ragu-ragu</option>
 							} else {
 								<option value="ragu">Ragu-ragu</option>
@@ -1412,7 +1322,7 @@ templ muslimEleganPage(
 						<label for="rsvp-guests" style="display:block; font-size:0.85rem; font-weight:500; margin-bottom:4px; color:var(--islamic-green);">
 							Jumlah Tamu
 						</label>
-						<input type="number" id="rsvp-guests" name="total_guests" value={ formatInt(getExistingRsvpGuests(data)) } min="1" max="10"
+						<input type="number" id="rsvp-guests" name="total_guests" value={ invitation.FormatInt(data.ExistingRsvpGuests()) } min="1" max="10"
 							style="width:100%; padding:12px 16px; border:1px solid #e0ddd8; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:var(--white); transition:all 0.3s;"/>
 					</div>
 
@@ -1421,7 +1331,7 @@ templ muslimEleganPage(
 							Ucapan &amp; Doa
 						</label>
 						<textarea id="rsvp-message" name="message" rows="3" placeholder="Tuliskan ucapan dan doa untuk pengantin..."
-							style="width:100%; padding:12px 16px; border:1px solid #e0ddd8; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:var(--white); transition:all 0.3s; resize:vertical; min-height:80px;">{ getExistingRsvpField(data, "message", "") }</textarea>
+							style="width:100%; padding:12px 16px; border:1px solid #e0ddd8; border-radius:12px; font-size:1rem; font-family:'Inter',sans-serif; background:var(--white); transition:all 0.3s; resize:vertical; min-height:80px;">{ data.ExistingRsvpField("message", "") }</textarea>
 					</div>
 
 					<button type="submit" class="btn-submit-islam">
@@ -1449,10 +1359,8 @@ templ muslimEleganPage(
 			</div>
 		</section>
 
-		<!-- ============================================ -->
 		<!-- AMPLOP DIGITAL -->
-		<!-- ============================================ -->
-		if showBankAccounts(data) && len(getBankAccounts(data)) > 0 {
+		if data.ShouldShowBankAccounts() && len(data.BankAccounts) > 0 {
 			<section class="section-bank-islam" id="section-bank">
 				<div class="container">
 					<div class="section-label" data-aos="fade-up">
@@ -1467,27 +1375,27 @@ templ muslimEleganPage(
 					</p>
 
 					<div class="bank-grid-islam">
-						for index, account := range getBankAccounts(data) {
-							<div class="bank-card-islam" data-aos="fade-up" data-aos-delay={ formatInt(80 * (index + 1)) }>
-								<span class="bank-type-badge-islam">{ getBankTypeBadge(account) }</span>
+						for index, account := range data.BankAccounts {
+							<div class="bank-card-islam" data-aos="fade-up" data-aos-delay={ invitation.FormatInt(80 * (index + 1)) }>
+								<span class="bank-type-badge-islam">{ invitation.GetBankTypeBadge(account) }</span>
 
 								<div class="bank-logo-islam">
-									if hasCustomIcon(account) {
-										<img src={ "/storage/" + getAccountIconPath(account) } alt={ getAccountBankName(account, data) }/>
+									if invitation.HasCustomIcon(account) {
+										<img src={ invitation.GetAccountIconURL(account) } alt={ invitation.GetAccountBankName(account) }/>
 									} else {
-										<span class="bank-logo-icon">{ getAccountInitial(account, data) }</span>
+										<span class="bank-logo-icon">{ invitation.GetAccountInitial(account) }</span>
 									}
 								</div>
 
-								<div class="bank-name-islam">{ getAccountBankName(account, data) }</div>
+								<div class="bank-name-islam">{ invitation.GetAccountBankName(account) }</div>
 
-								<div class="bank-number-wrapper-islam" data-number={ getAccountNumber(account) } onclick={ templpkg.JSFuncCall("copyBankNumberFromEl", templpkg.JSExpression("this")) }>
-									<span class="bank-number-islam">{ getAccountNumber(account) }</span>
+								<div class="bank-number-wrapper-islam" data-number={ invitation.GetAccountNumber(account) } onclick={ templpkg.JSFuncCall("copyBankNumberFromEl", templpkg.JSExpression("this")) }>
+									<span class="bank-number-islam">{ invitation.GetAccountNumber(account) }</span>
 									<i class="bi bi-clipboard copy-icon-islam"></i>
 								</div>
 
 								<div class="bank-holder-islam">
-									a.n. <strong>{ getAccountName(account) }</strong>
+									a.n. <strong>{ invitation.GetAccountName(account) }</strong>
 								</div>
 							</div>
 						}
@@ -1501,31 +1409,29 @@ templ muslimEleganPage(
 			</section>
 		}
 
-		<!-- ============================================ -->
-		<!-- FOOTER TAHAP 1 - INFO MEMPELAI -->
-		<!-- ============================================ -->
+		<!-- FOOTER TAHAP 1 -->
 		<footer class="section-footer-islam">
 			<div class="footer-inner">
 				<div class="footer-couple">
-					<span>{ groomName }</span>
+					<span>{ data.GroomName }</span>
 					<span class="amp">&amp;</span>
-					<span>{ brideName }</span>
+					<span>{ data.BrideName }</span>
 				</div>
 
 				<div style="width:50px; height:1px; background:rgba(201,160,61,0.3); margin:14px auto;"></div>
 
 				<p style="font-size:0.85rem; margin-bottom:14px; opacity:0.7; font-family:'Amiri',serif;">
-					{ getStr(data, "akad_date") }
+					{ data.AkadDate }
 				</p>
 
 				<div class="footer-social">
-					if eventInstagram != "-" && eventInstagram != "" {
-						<a href={ templ.SafeURL(eventInstagram) } target="_blank" rel="noopener">
+					if data.EventInstagram != "" {
+						<a href={ templpkg.SafeURL(data.EventInstagram) } target="_blank" rel="noopener">
 							<i class="bi bi-instagram"></i>
 						</a>
 					}
-					if getStr(data, "whatsapp") != "-" {
-						<a href={ templ.SafeURL("https://wa.me/" + getStr(data, "whatsapp")) } target="_blank" rel="noopener">
+					if data.Whatsapp != "" {
+						<a href={ templpkg.SafeURL("https://wa.me/" + data.Whatsapp) } target="_blank" rel="noopener">
 							<i class="bi bi-whatsapp"></i>
 						</a>
 					}
@@ -1537,23 +1443,21 @@ templ muslimEleganPage(
 			</div>
 		</footer>
 
-		<!-- ============================================ -->
 		<!-- FOOTER TAHAP 2 - WEB FOOTER -->
-		<!-- ============================================ -->
 		<footer class="web-footer">
 			<div class="container">
 				<div class="row">
 					<div>
 						<a href="/" class="web-footer-brand-link" style="text-decoration:none;">
 							<h5 class="web-footer-brand">
-								if getSiteConfig(data, "site_favicon", "") != "" {
-									<img src={ "/storage/" + getSiteConfig(data, "site_favicon", "") } alt="Logo" style="width: 32px; height: 32px; object-fit: contain; margin-right: 8px; vertical-align: middle;"/>
+								if data.SiteConfig.SiteFavicon != "" {
+									<img src={ "/storage/" + data.SiteConfig.SiteFavicon } alt="Logo" style="width: 32px; height: 32px; object-fit: contain; margin-right: 8px; vertical-align: middle;"/>
 								}
 								<span class="wedding">Wedding</span><span class="saas">SaaS</span>
 							</h5>
 						</a>
 						<p class="web-footer-desc">
-							{ getSiteConfig(data, "footer_description", "Platform undangan pernikahan digital dengan template elegan, RSVP online, guest book, dan galeri foto.") }
+							{ data.SiteConfig.FooterDescription }
 						</p>
 
 						<p class="web-footer-desc mb-2" style="margin-top: 8px;">
@@ -1564,28 +1468,28 @@ templ muslimEleganPage(
 						</p>
 
 						<div class="web-footer-socials">
-							if getSiteConfig(data, "social_instagram", "") != "" {
-								<a href={ templ.SafeURL(getSiteConfig(data, "social_instagram", "")) } target="_blank" rel="noopener" class="web-social-link" title="Instagram">
+							if data.SiteConfig.SocialInstagram != "" {
+								<a href={ templpkg.SafeURL(data.SiteConfig.SocialInstagram) } target="_blank" rel="noopener" class="web-social-link" title="Instagram">
 									<i class="bi bi-instagram"></i>
 								</a>
 							}
-							if getSiteConfig(data, "social_facebook", "") != "" {
-								<a href={ templ.SafeURL(getSiteConfig(data, "social_facebook", "")) } target="_blank" rel="noopener" class="web-social-link" title="Facebook">
+							if data.SiteConfig.SocialFacebook != "" {
+								<a href={ templpkg.SafeURL(data.SiteConfig.SocialFacebook) } target="_blank" rel="noopener" class="web-social-link" title="Facebook">
 									<i class="bi bi-facebook"></i>
 								</a>
 							}
-							if getSiteConfig(data, "social_tiktok", "") != "" {
-								<a href={ templ.SafeURL(getSiteConfig(data, "social_tiktok", "")) } target="_blank" rel="noopener" class="web-social-link" title="TikTok">
+							if data.SiteConfig.SocialTiktok != "" {
+								<a href={ templpkg.SafeURL(data.SiteConfig.SocialTiktok) } target="_blank" rel="noopener" class="web-social-link" title="TikTok">
 									<i class="bi bi-tiktok"></i>
 								</a>
 							}
-							if getSiteConfig(data, "social_youtube", "") != "" {
-								<a href={ templ.SafeURL(getSiteConfig(data, "social_youtube", "")) } target="_blank" rel="noopener" class="web-social-link" title="YouTube">
+							if data.SiteConfig.SocialYoutube != "" {
+								<a href={ templpkg.SafeURL(data.SiteConfig.SocialYoutube) } target="_blank" rel="noopener" class="web-social-link" title="YouTube">
 									<i class="bi bi-youtube"></i>
 								</a>
 							}
-							if getSiteConfig(data, "social_twitter", "") != "" {
-								<a href={ templ.SafeURL(getSiteConfig(data, "social_twitter", "")) } target="_blank" rel="noopener" class="web-social-link" title="Twitter">
+							if data.SiteConfig.SocialTwitter != "" {
+								<a href={ templpkg.SafeURL(data.SiteConfig.SocialTwitter) } target="_blank" rel="noopener" class="web-social-link" title="Twitter">
 									<i class="bi bi-twitter-x"></i>
 								</a>
 							}
@@ -1595,28 +1499,28 @@ templ muslimEleganPage(
 					<div>
 						<h6 class="web-footer-heading">Kontak Kami</h6>
 						<ul class="web-footer-list">
-							if getSiteConfig(data, "contact_email", "") != "" {
+							if data.SiteConfig.ContactEmail != "" {
 								<li>
 									<i class="bi bi-envelope"></i>
-									<a href={ templ.SafeURL("mailto:" + getSiteConfig(data, "contact_email", "")) }>{ getSiteConfig(data, "contact_email", "") }</a>
+									<a href={ templpkg.SafeURL("mailto:" + data.SiteConfig.ContactEmail) }>{ data.SiteConfig.ContactEmail }</a>
 								</li>
 							}
-							if getSiteConfig(data, "contact_phone", "") != "" {
+							if data.SiteConfig.ContactPhone != "" {
 								<li>
 									<i class="bi bi-telephone"></i>
-									<span>{ getSiteConfig(data, "contact_phone", "") }</span>
+									<span>{ data.SiteConfig.ContactPhone }</span>
 								</li>
 							}
-							if getSiteConfig(data, "contact_whatsapp", "") != "" {
+							if data.SiteConfig.ContactWhatsapp != "" {
 								<li>
 									<i class="bi bi-whatsapp"></i>
-									<a href={ templ.SafeURL("https://wa.me/" + getSiteConfig(data, "contact_whatsapp", "")) } target="_blank" rel="noopener">WhatsApp Chat</a>
+									<a href={ templpkg.SafeURL("https://wa.me/" + data.SiteConfig.ContactWhatsapp) } target="_blank" rel="noopener">WhatsApp Chat</a>
 								</li>
 							}
-							if getSiteConfig(data, "contact_address", "") != "" {
+							if data.SiteConfig.ContactAddress != "" {
 								<li>
 									<i class="bi bi-geo-alt"></i>
-									<span>{ getSiteConfig(data, "contact_address", "") }</span>
+									<span>{ data.SiteConfig.ContactAddress }</span>
 								</li>
 							}
 						</ul>
@@ -1626,21 +1530,21 @@ templ muslimEleganPage(
 						<h6 class="web-footer-heading">Dikembangkan Oleh</h6>
 						<p class="web-footer-desc mb-2">
 							<i class="bi bi-code-slash me-1" style="color:var(--islamic-gold);"></i>
-							if getSiteConfig(data, "developer_url", "") != "" {
-								<a href={ templ.SafeURL(getSiteConfig(data, "developer_url", "")) } target="_blank" rel="noopener" class="web-footer-link">{ getSiteConfig(data, "developer_name", "Tim Developer") }</a>
+							if data.SiteConfig.DeveloperUrl != "" {
+								<a href={ templpkg.SafeURL(data.SiteConfig.DeveloperUrl) } target="_blank" rel="noopener" class="web-footer-link">{ data.SiteConfig.DeveloperName }</a>
 							} else {
-								{ getSiteConfig(data, "developer_name", "Tim Developer") }
+								{ data.SiteConfig.DeveloperName }
 							}
 						</p>
-						if getSiteConfig(data, "developer_email", "") != "" {
+						if data.SiteConfig.DeveloperEmail != "" {
 							<p class="web-footer-desc mb-2">
 								<i class="bi bi-envelope-at me-1"></i>
-								<a href={ templ.SafeURL("mailto:" + getSiteConfig(data, "developer_email", "")) } class="web-footer-link">{ getSiteConfig(data, "developer_email", "") }</a>
+								<a href={ templpkg.SafeURL("mailto:" + data.SiteConfig.DeveloperEmail) } class="web-footer-link">{ data.SiteConfig.DeveloperEmail }</a>
 							</p>
 						}
-						if getSiteConfig(data, "footer_version", "") != "" {
+						if data.SiteConfig.FooterVersion != "" {
 							<p class="web-footer-version">
-								<i class="bi bi-tag me-1"></i>{ getSiteConfig(data, "footer_version", "") }
+								<i class="bi bi-tag me-1"></i>{ data.SiteConfig.FooterVersion }
 							</p>
 						}
 					</div>
@@ -1650,20 +1554,17 @@ templ muslimEleganPage(
 
 				<div class="text-center">
 					<p class="web-footer-text">
-						© { formatInt(currentYear()) } { getSiteConfig(data, "footer_copyright", "Wedding SaaS. Platform Undangan Digital. All rights reserved.") }
+						© { invitation.FormatInt(invitation.CurrentYear()) } { data.SiteConfig.FooterCopyright }
 					</p>
 				</div>
 			</div>
 		</footer>
 
-		<!-- ============================================ -->
 		<!-- SCRIPTS -->
-		<!-- ============================================ -->
 		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 		<script>
-			// AOS
 			AOS.init({
 				duration: 800,
 				easing: 'ease-in-out',
@@ -1789,7 +1690,6 @@ templ muslimEleganPage(
 				return div.innerHTML;
 			}
 
-			// COPY BANK NUMBER
 			window.copyBankNumberFromEl = function(el) {
 				var number = el.getAttribute('data-number');
 				if (!number) return;
@@ -1991,4 +1891,3 @@ templ muslimEleganPage(
 	</body>
 	</html>
 }
-
