@@ -13,6 +13,7 @@ import (
 	"wedding-invitation-go/views/invitations/modern_minimalist"
 	"wedding-invitation-go/views/invitations/muslim_elegan"
 	"wedding-invitation-go/views/invitations/rustic_wood"
+	"wedding-invitation-go/views/invitations/sakura_zen"
 	"wedding-invitation-go/views/invitations/traditional_java"
 )
 
@@ -46,6 +47,8 @@ func RenderTemplate(
 		return botanical_garden.BotanicalGarden(ctx, w, project, data, guestName)
 	case "dark_technology":
 		return dark_technology.DarkTechnology(ctx, w, project, data, guestName)
+	case "sakura_zen":
+		return sakura_zen.SakuraZen(ctx, w, project, data, guestName)
 	default:
 		return fmt.Errorf("template %s tidak dikenal", folder)
 	}

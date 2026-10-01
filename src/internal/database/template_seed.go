@@ -463,5 +463,20 @@ func seedTemplates() error {
         }
         log.Println("✅ Template: Dark Technology")
 
+        // ============================================
+        // 8. SAKURA ZEN
+        // ============================================
+        if err := upsertTemplate(
+                "Sakura Zen",
+                "sakura-zen",
+                "sakura-zen",
+                "Tema undangan dengan nuansa Jepang minimalis. Sakura pink, zen rock garden, dan estetika wabi-sabi.",
+                buildSchema(defaultFields, library),
+                8,
+        ); err != nil {
+                return err
+        }
+        log.Println("✅ Template: Sakura Zen")
+
 	return nil
 }
