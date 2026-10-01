@@ -845,3 +845,263 @@ Kalau ada pertanyaan, tanya ke tim. Ingat aturan emas:
     6. Overlay standar: eyebrow + nama mempelai + nama tema kecil
 
 Happy coding! 🎉
+
+
+
+Sip, mantap! 🎯 Jadi sekarang kita catat semua yang barusan kita lakukan ke panduan. Biar tahun depan (atau developer lain) yang bikin tema baru langsung ingat.
+
+Kita tambah 3 hal ke panduan:
+
+    Section baru: "Integrasi Tema Baru ke Wizard Step 3 (Thumbnail)"
+
+    Update checklist: item baru untuk thumbnail
+
+    Update changelog: v3.3
+
+🚀 Step 1 — Tambah section + catatan
+bash
+
+python3 << 'PYEOF'
+path = "/DATA/AppData/wedding-invitation-go/src/notes/PANDUAN-BIKIN-TEMA-v3.2.txt"
+
+with open(path) as f:
+    content = f.read()
+
+# Update versi di header
+content = content.replace(
+    'Versi: 3.2 (setelah overlay personalisasi + fix home card)',
+    'Versi: 3.3 (setelah overlay personalisasi + thumbnail wizard Step 3)'
+)
+content = content.replace(
+    'Terakhir update: Setelah patch 8 tema (overlay standar) + fix template card homepage',
+    'Terakhir update: Setelah tambah thumbnail template di Wizard Step 3'
+)
+
+# Cek apakah section sudah ada
+if 'Integrasi Tema Baru ke Wizard Step 3' in content:
+    print("⚠️  Section thumbnail wizard sudah ada — skip")
+else:
+    catatan = '''
+
+📌 CATATAN PENTING — Integrasi Tema Baru ke Wizard Step 3 (v3.3)
+
+Setiap kali bikin tema baru, JANGAN LUPA integrasi ke 3 tempat:
+
+    1. Homepage (views/guest/home.templ)         ← otomatis pakai tmpl.Thumbnail
+    2. Wizard Step 3 (views/invitation/template.templ) ← WAJIB cek CSS + HTML
+    3. Admin template management (views/admin/)  ← sudah ada upload thumbnail
+
+⚠️ Yang SERING TERLUPA: **Wizard Step 3** — card-nya harus bisa menampilkan
+   thumbnail tema, bukan cuma ikon generik.
+
+
+STRUKTUR HTML DI views/invitation/template.templ (baris ~215):
+
+    <div class="template-card-template">
+        <div class="template-check-badge">
+            <i class="bi bi-check"></i>
+        </div>
+
+        <!-- WAJIB: Thumbnail dengan fallback ikon -->
+        <div class="template-thumbnail">
+            if tmpl.Thumbnail != nil && *tmpl.Thumbnail != "" {
+                <img src={ *tmpl.Thumbnail } alt={ tmpl.Name } loading="lazy"/>
+            } else {
+                <i class="bi bi-brush"></i>
+            }
+        </div>
+
+        <div style="color:white; font-weight:700; font-size:0.9rem;">
+            { tmpl.Name }
+        </div>
+        ...
+    </div>
+
+
+CSS WAJIB (tambah di <style> template.templ):
+
+    .template-thumbnail {
+        width: 100%;
+        height: 120px;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 12px;
+        background: linear-gradient(135deg, #1a1a1a 0%, #262626 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .template-thumbnail img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        transition: transform 0.4s ease;
+    }
+
+    .template-card-wrapper:hover .template-thumbnail img {
+        transform: scale(1.06);
+    }
+
+    .template-thumbnail i {
+        font-size: 2rem;
+        color: #8b5cf6;
+    }
+
+
+CARA UPLOAD THUMBNAIL:
+
+    1. Login sebagai admin
+    2. Buka /admin/templates
+    3. Klik Edit pada template
+    4. Upload file di field "Thumbnail"
+    5. Simpan
+    6. Thumbnail otomatis muncul di homepage card & wizard Step 3
+
+
+FIELD YANG DIPAKAI:
+
+    models.Template.Thumbnail *string  // nullable, tipe pointer
+    tmpl.Thumbnail                     // akses di templ
+    *tmpl.Thumbnail                    // dereference (setelah cek != nil)
+
+
+TROUBLESHOOTING:
+
+Problem                                      | Solusi
+---------------------------------------------|----------------------------------------
+Thumbnail tidak muncul di Step 3             | Cek: tmpl.Thumbnail != nil && *tmpl.Thumbnail != ""
+Thumbnail tidak muncul setelah upload        | Restart container (cache _templ.go)
+Ikon fallback tidak muncul (kosong putih)    | Cek CSS .template-thumbnail i { color: ... }
+Thumbnail gepeng / tidak proporsional        | Cek object-fit: cover (bukan fill)
+Thumbnail blur                               | Upload gambar minimal 800x450px
+Hover tidak zoom                             | Cek .template-card-wrapper:hover .template-thumbnail img
+CSS .template-thumbnail tidak ketemu         | Cek indentasi pakai: sed -n '30,45p' ... | cat -A
+
+
+CHECKLIST TEMA BARU — TAMBAHAN:
+
+    □ Thumbnail tema di-upload via /admin/templates (kalau ada)
+    □ Card di homepage menampilkan thumbnail (cek tmpl.Thumbnail)
+    □ Card di Wizard Step 3 menampilkan thumbnail (template.templ)
+    □ Fallback ikon muncul kalau thumbnail kosong
+    □ Hover thumbnail zoom halus
+    □ Test buka /invitation/create → Step 3 → cek card tema baru
+
+'''
+
+    # Sisipkan sebelum "🚀 Selamat Berkarya!"
+    marker = "🚀 Selamat Berkarya!"
+    if marker in content:
+        content = content.replace(marker, catatan + marker, 1)
+        print("✅ Section thumbnail wizard ditambahkan (sebelum Selamat Berkarya)")
+    else:
+        content = content.rstrip() + catatan
+        print("✅ Section thumbnail wizard ditambahkan (di akhir)")
+
+# Update changelog — tambah v3.3
+old_changelog = 'v3.2 (setelah overlay personalisasi + fix home card)'
+new_changelog = '''v3.3 (setelah tambah thumbnail di wizard Step 3)
+
+Insight baru:
+
+    🔴 Thumbnail template muncul di 2 tempat:
+        - Homepage card (otomatis dari tmpl.Thumbnail)
+        - Wizard Step 3 (WAJIB ditambah manual di template.templ)
+    
+    🔴 Field models.Template.Thumbnail sudah ada (*string, nullable)
+    
+    🔴 CSS .template-thumbnail wajib di template.templ:
+        - height: 120px
+        - object-fit: cover
+        - Hover zoom: transform: scale(1.06)
+    
+    🔴 Cara upload thumbnail via /admin/templates
+    🔴 Field pointer *string perlu cek != nil sebelum dereference
+    
+    🟡 Section baru: "Integrasi Tema Baru ke Wizard Step 3"
+    🟡 Troubleshooting thumbnail: 7 baris
+    🟡 Checklist tambahan: 6 item untuk thumbnail
+
+v3.2 (setelah overlay personalisasi + fix home card)'''
+
+if 'v3.3 (setelah tambah thumbnail' in content:
+    print("⚠️  Changelog v3.3 sudah ada")
+else:
+    content = content.replace(old_changelog, new_changelog, 1)
+    print("✅ Changelog v3.3 ditambahkan")
+
+with open(path, 'w') as f:
+    f.write(content)
+
+print("\n✅ Selesai — panduan diupdate ke v3.3")
+PYEOF
+
+🚀 Step 2 — Verifikasi
+bash
+
+echo "=== Cek versi di header ==="
+head -5 /DATA/AppData/wedding-invitation-go/src/notes/PANDUAN-BIKIN-TEMA-v3.2.txt
+
+echo ""
+echo "=== Cek section baru ==="
+grep -n "Integrasi Tema Baru ke Wizard Step 3\|Thumbnail di Wizard\|v3.3" /DATA/AppData/wedding-invitation-go/src/notes/PANDUAN-BIKIN-TEMA-v3.2.txt
+
+echo ""
+echo "=== Cek ukuran file ==="
+ls -lh /DATA/AppData/wedding-invitation-go/src/notes/PANDUAN-BIKIN-TEMA-v3.2.txt
+wc -l /DATA/AppData/wedding-invitation-go/src/notes/PANDUAN-BIKIN-TEMA-v3.2.txt
+
+🚀 Step 3 — Rename file (opsional)
+
+Karena versi naik ke 3.3, sebaiknya file di-rename juga:
+bash
+
+cd /DATA/AppData/wedding-invitation-go/src/notes
+
+# Rename
+mv PANDUAN-BIKIN-TEMA-v3.2.txt PANDUAN-BIKIN-TEMA-v3.3.txt
+
+# Cek
+ls -la
+
+Tapi ini opsional — kalau mau nama tetap v3.2 (biar simple), biarkan.
+🚀 Step 4 — Commit + push
+bash
+
+cd /DATA/AppData/wedding-invitation-go
+
+# Cek dulu
+git status
+
+# Stage semua perubahan
+git add src/views/invitation/template.templ
+git add src/views/invitation/template_templ.go
+git add src/notes/PANDUAN-BIKIN-TEMA-v3.2.txt
+# atau kalau di-rename:
+# git add src/notes/PANDUAN-BIKIN-TEMA-v3.3.txt
+# git rm src/notes/PANDUAN-BIKIN-TEMA-v3.2.txt
+
+# Commit
+git commit -m "feat(wizard): tambah thumbnail template di Step 3 + update panduan v3.3
+
+- Card Step 3 sekarang menampilkan thumbnail tema (dari tmpl.Thumbnail)
+- Fallback ikon bi-brush kalau thumbnail kosong
+- CSS .template-thumbnail (height 120px, object-fit cover, hover zoom)
+- Panduan v3.3: section 'Integrasi Tema Baru ke Wizard Step 3'
+- Troubleshooting thumbnail: 7 baris
+- Checklist tambahan: 6 item untuk thumbnail"
+
+# Push
+git push origin main
+
+📋 Jalankan Step 1 dulu
+bash
+
+python3 << 'PYEOF'
+# ... (script Step 1 di atas)
+PYEOF
+
+Paste output-nya. Kalau sukses → Step 2 (verifikasi) → Step 4
