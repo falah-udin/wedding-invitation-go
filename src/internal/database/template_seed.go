@@ -448,5 +448,20 @@ func seedTemplates() error {
 	}
 	log.Println("✅ Template: Botanical Garden")
 
+        // ============================================
+        // 7. DARK TECHNOLOGY
+        // ============================================
+        if err := upsertTemplate(
+                "Dark Technology",
+                "dark-technology",
+                "dark-technology",
+                "Tema undangan dengan nuansa futuristik dan teknologi gelap. Cocok untuk pasangan modern yang menyukai estetika cyber.",
+                buildSchema(defaultFields, library),
+                7,
+        ); err != nil {
+                return err
+        }
+        log.Println("✅ Template: Dark Technology")
+
 	return nil
 }

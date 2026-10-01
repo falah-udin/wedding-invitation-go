@@ -8,6 +8,7 @@ import (
 	"wedding-invitation-go/internal/invitation"
 	"wedding-invitation-go/internal/models"
 	"wedding-invitation-go/views/invitations/botanical_garden"
+	"wedding-invitation-go/views/invitations/dark_technology"
 	"wedding-invitation-go/views/invitations/elegant_gold"
 	"wedding-invitation-go/views/invitations/modern_minimalist"
 	"wedding-invitation-go/views/invitations/muslim_elegan"
@@ -43,6 +44,8 @@ func RenderTemplate(
 		return traditional_java.TraditionalJava(ctx, w, project, data, guestName)
 	case "botanical_garden":
 		return botanical_garden.BotanicalGarden(ctx, w, project, data, guestName)
+	case "dark_technology":
+		return dark_technology.DarkTechnology(ctx, w, project, data, guestName)
 	default:
 		return fmt.Errorf("template %s tidak dikenal", folder)
 	}

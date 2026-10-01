@@ -1,0 +1,1764 @@
+package dark_technology
+
+import (
+	"context"
+	"io"
+
+	templpkg "github.com/a-h/templ"
+	"wedding-invitation-go/internal/invitation"
+	"wedding-invitation-go/internal/models"
+	"wedding-invitation-go/views/invitations/shared"
+)
+
+// BotanicalGarden — tema undangan DARK TECHNOLOGY
+func DarkTechnology(ctx context.Context, w io.Writer, project models.Project, data *invitation.TemplateData, guestName string) error {
+	component := darkTechnologyPage(data)
+	return component.Render(ctx, w)
+}
+
+templ darkTechnologyPage(data *invitation.TemplateData) {
+	<!DOCTYPE html>
+	<html lang="id">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
+		<title>{ data.GroomName } &amp; { data.BrideName } - Dark Technology</title>
+
+		if data.SiteConfig.SiteFavicon != "" {
+			<link rel="icon" href={ "/storage/" + data.SiteConfig.SiteFavicon }/>
+			<link rel="apple-touch-icon" href={ "/storage/" + data.SiteConfig.SiteFavicon }/>
+		} else {
+			<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+		}
+
+		<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+
+		<style>
+			/* ============================================ */
+			/* ROOT VARIABLES — CYBER GARDEN */
+			/* ============================================ */
+			:root {
+				--sage: #00d9ff;
+				--sage-dark: #0099b8;
+				--sage-light: #66eaff;
+				--olive: #a855f7;
+				--cream: #06080f;
+				--cream-dark: #0a0e18;
+				--earth: #a855f7;
+				--earth-dark: #0a0a14;
+				--text: #e2e8f0;
+				--text-muted: #94a3b8;
+				--text-light: #64748b;
+				--leaf: #00d9ff;
+				--leaf-light: #66eaff;
+				--white: #ffffff;
+				--shadow: 0 4px 30px rgba(0, 217, 255, 0.08);
+				--shadow-md: 0 8px 40px rgba(0, 217, 255, 0.12);
+			}
+
+			* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+			html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+			body {
+				font-family: 'Inter', sans-serif;
+				background: var(--cream);
+				color: var(--text);
+				line-height: 1.7;
+				overflow-x: hidden;
+				min-height: 100vh;
+				min-height: 100svh;
+			}
+			img { max-width: 100%; height: auto; display: block; }
+
+			.container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+			@media (max-width: 600px) { .container { padding: 0 20px; } }
+
+			/* ============================================ */
+			/* CYBER PATTERN — BACKGROUND */
+			/* ============================================ */
+			.cyber-pattern {
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+				z-index: 0;
+				background-image:
+					linear-gradient(rgba(0, 217, 255, 0.04) 1px, transparent 1px),
+					linear-gradient(90deg, rgba(0, 217, 255, 0.04) 1px, transparent 1px);
+				background-size: 40px 40px;
+			}
+
+			/* ============================================ */
+			/* TYPOGRAPHY */
+			/* ============================================ */
+			.section-label {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.75rem;
+				text-transform: uppercase;
+				letter-spacing: 8px;
+				color: var(--sage);
+				text-align: center;
+				margin-bottom: 16px;
+				font-weight: 600;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 16px;
+			}
+			.section-label::before, .section-label::after {
+				content: '◆';
+				font-size: 0.8rem;
+				opacity: 0.6;
+			}
+			.section-title {
+				font-family: 'Orbitron', sans-serif;
+				font-size: 2.8rem;
+				font-weight: 600;
+				text-align: center;
+				margin-bottom: 16px;
+				color: var(--leaf);
+				line-height: 1.2;
+			}
+			.section-title em {
+				font-style: italic;
+				color: var(--sage);
+				font-weight: 400;
+			}
+			.section-subtitle {
+				font-family: 'JetBrains Mono', monospace;
+				text-align: center;
+				color: var(--text-muted);
+				font-size: 1rem;
+				max-width: 520px;
+				margin: 0 auto 60px;
+				font-style: italic;
+				line-height: 1.8;
+			}
+			@media (max-width: 600px) {
+				.section-title { font-size: 2rem; }
+				.section-subtitle { font-size: 0.9rem; margin-bottom: 40px; }
+			}
+
+			/* ============================================ */
+			/* TOAST */
+			/* ============================================ */
+			.toast-container {
+				position: fixed; top: 20px; right: 20px; z-index: 9999;
+				display: flex; flex-direction: column; gap: 8px;
+			}
+			.toast {
+				background: var(--leaf); color: var(--white);
+				padding: 12px 20px; border-radius: 12px;
+				box-shadow: var(--shadow-md);
+				animation: slideInToast 0.4s ease;
+				min-width: 200px;
+				display: flex; align-items: center; gap: 10px;
+				font-size: 0.85rem;
+				border-left: 4px solid var(--sage);
+			}
+			.toast i { font-size: 1.1rem; }
+			.toast.success i { color: #10b981; }
+			.toast.error i { color: #ef4444; }
+			.toast.info i { color: var(--sage); }
+			@keyframes slideInToast {
+				from { transform: translateX(100%); opacity: 0; }
+				to { transform: translateX(0); opacity: 1; }
+			}
+
+			/* ============================================ */
+			/* OVERLAY START */
+			/* ============================================ */
+			#startOverlay {
+				position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+				width: 100vw; height: 100vh;
+				background: rgba(6, 8, 15, 0.97);
+				z-index: 9999;
+				display: flex; align-items: center; justify-content: center;
+				backdrop-filter: blur(10px);
+				transition: opacity 0.8s ease;
+				cursor: pointer;
+				padding: 24px;
+				overflow-y: auto;
+			}
+			#startOverlay .overlay-inner {
+				text-align: center; max-width: 500px; width: 100%;
+				padding: 20px; margin: auto;
+			}
+			#startOverlay .overlay-leaf {
+				font-size: 3.5rem; color: var(--sage-light);
+				opacity: 0.5; margin-bottom: 16px; display: block;
+			}
+			#startOverlay .overlay-title {
+				font-family: 'Orbitron', sans-serif;
+				font-size: 2.4rem; font-weight: 700;
+				color: var(--sage-light); margin-bottom: 8px; letter-spacing: 3px;
+			}
+			#startOverlay .overlay-subtitle {
+				font-family: 'JetBrains Mono', monospace;
+				color: rgba(255,255,255,0.7);
+				font-size: 1.1rem; margin-bottom: 8px; font-style: italic;
+			}
+			#startOverlay .overlay-divider {
+				width: 60px; height: 1px;
+				background: linear-gradient(90deg, transparent, var(--sage-light), transparent);
+				margin: 16px auto 24px; opacity: 0.4;
+			}
+			#startOverlay .overlay-guest-label {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.7rem; text-transform: uppercase; letter-spacing: 6px;
+				color: var(--sage-light);
+				margin-bottom: 10px; font-style: italic;
+			}
+			#startOverlay .overlay-guest-name {
+				font-family: 'Orbitron', sans-serif;
+				font-size: 1.6rem; font-weight: 600;
+				color: #00d9ff; line-height: 1.3; margin-bottom: 36px; text-shadow: 0 0 30px rgba(0, 217, 255, 0.5);
+			}
+			#startOverlay .btn-start {
+				display: inline-flex; align-items: center; gap: 10px;
+				background: transparent;
+				color: var(--sage);
+				border: 2px solid var(--sage);
+				padding: 16px 44px; border: none; border-radius: 50px;
+				font-family: 'Inter', sans-serif;
+				font-weight: 600; font-size: 0.9rem;
+				cursor: pointer;
+				box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+				transition: all 0.3s;
+				letter-spacing: 1px;
+			}
+			#startOverlay .btn-start:hover {
+				transform: translateY(-2px) scale(1.03);
+				box-shadow: 0 12px 40px rgba(125, 140, 111, 0.4);
+			}
+			#startOverlay .hint {
+				font-size: 0.65rem; opacity: 0.4; margin-top: 20px;
+				letter-spacing: 3px; color: var(--sage-light);
+				text-transform: uppercase;
+			}
+			@media (max-width: 600px) {
+				#startOverlay .overlay-title { font-size: 1.8rem; }
+				#startOverlay .btn-start { padding: 14px 32px; font-size: 0.8rem; width: 100%; max-width: 280px; justify-content: center; }
+			}
+
+			/* ============================================ */
+			/* MUSIC PLAYER */
+			/* ============================================ */
+			.music-player { position: fixed; bottom: 24px; right: 24px; z-index: 1000; }
+			.music-btn {
+				width: 54px; height: 54px; border-radius: 50%;
+				background: linear-gradient(135deg, var(--sage), var(--sage-dark));
+				border: 2px solid var(--sage-light);
+				color: var(--white); font-size: 1.4rem; cursor: pointer;
+				box-shadow: 0 4px 30px rgba(0,0,0,0.15);
+				transition: all 0.3s;
+				display: flex; align-items: center; justify-content: center;
+			}
+			.music-btn:hover { transform: scale(1.05) rotate(-5deg); }
+			.music-btn.playing { animation: pulseBotanical 1.5s infinite; }
+			@keyframes pulseBotanical {
+				0% { box-shadow: 0 0 0 0 rgba(125, 140, 111, 0.4); }
+				70% { box-shadow: 0 0 0 16px rgba(125, 140, 111, 0); }
+				100% { box-shadow: 0 0 0 0 rgba(125, 140, 111, 0); }
+			}
+
+			/* ============================================ */
+			/* HERO — CYBER GARDEN */
+			/* ============================================ */
+			.hero-cyber {
+				position: relative;
+				min-height: 100vh;
+				min-height: 100svh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+				padding: 80px 24px;
+				background: radial-gradient(ellipse at 50% 30%, #0f1420 0%, #06080f 70%);
+				color: var(--white);
+				overflow: hidden;
+			}
+			.hero-cyber::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background:
+					radial-gradient(ellipse at 20% 30%, rgba(163, 177, 151, 0.15) 0%, transparent 50%),
+					radial-gradient(ellipse at 80% 70%, rgba(163, 177, 151, 0.1) 0%, transparent 50%);
+				pointer-events: none;
+			}
+			.hero-cyber::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background-image:
+					radial-gradient(circle at 10% 20%, rgba(163, 177, 151, 0.08) 1px, transparent 1px),
+					radial-gradient(circle at 40% 60%, rgba(163, 177, 151, 0.06) 1px, transparent 1px),
+					radial-gradient(circle at 80% 30%, rgba(163, 177, 151, 0.08) 1px, transparent 1px);
+				background-size: 60px 60px;
+				pointer-events: none;
+			}
+			.hero-cyber .hero-inner {
+				position: relative;
+				z-index: 2;
+				max-width: 720px;
+				width: 100%;
+			}
+			.hero-cyber .hero-leaves {
+				position: absolute;
+				font-size: 6rem;
+				opacity: 0.08;
+				pointer-events: none;
+			}
+			.hero-cyber .hero-leaves-1 { top: -30px; left: -30px; transform: rotate(-20deg); }
+			.hero-cyber .hero-leaves-2 { bottom: -30px; right: -30px; transform: rotate(20deg); }
+			.hero-cyber .hero-leaf-top {
+				font-size: 3rem;
+				margin-bottom: 20px;
+				display: block;
+				opacity: 0.7;
+			}
+			.hero-cyber .hero-eyebrow {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.75rem;
+				text-transform: uppercase;
+				letter-spacing: 10px;
+				color: var(--sage-light);
+				margin-bottom: 24px;
+				font-weight: 500;
+			}
+			.hero-cyber .hero-names {
+				font-family: 'Orbitron', sans-serif;
+				font-size: 4.5rem;
+				font-weight: 600;
+				line-height: 1.05;
+				margin-bottom: 24px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				color: #f5efe0;
+				text-shadow: 0 4px 24px rgba(0,0,0,0.4);
+			}
+			.hero-cyber .hero-names .amp {
+				font-family: 'JetBrains Mono', monospace;
+				font-style: italic;
+				font-size: 2.2rem;
+				color: var(--sage-light);
+				margin: 12px 0;
+				font-weight: 400;
+			}
+			.hero-cyber .hero-divider {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 16px;
+				margin: 24px 0;
+			}
+			.hero-cyber .hero-divider .line {
+				width: 60px;
+				height: 1px;
+				background: linear-gradient(90deg, transparent, var(--sage-light), transparent);
+				opacity: 0.5;
+			}
+			.hero-cyber .hero-divider .ornament {
+				color: var(--sage-light);
+				font-size: 1.1rem;
+				opacity: 0.8;
+			}
+			.hero-cyber .hero-dates {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 1rem;
+				color: var(--sage-light);
+				letter-spacing: 4px;
+				margin-bottom: 32px;
+				font-style: italic;
+			}
+			.hero-cyber .btn-rsvp {
+				display: inline-flex;
+				align-items: center;
+				gap: 10px;
+				background: var(--sage);
+				color: var(--white);
+				padding: 15px 40px;
+				border: none; border-radius: 50px;
+				font-family: 'Inter', sans-serif;
+				font-weight: 600;
+				font-size: 0.85rem;
+				text-decoration: none;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				transition: all 0.3s;
+				cursor: pointer;
+				box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+			}
+			.hero-cyber .btn-rsvp:hover {
+				background: var(--sage-light);
+				transform: translateY(-2px);
+				box-shadow: 0 8px 30px rgba(125, 140, 111, 0.4);
+			}
+			@media (max-width: 700px) {
+				.hero-cyber { padding: 60px 20px; }
+				.hero-cyber .hero-names { font-size: 2.6rem; }
+				.hero-cyber .hero-names .amp { font-size: 1.5rem; }
+				.hero-cyber .hero-leaves { font-size: 3rem; }
+			}
+
+			/* ============================================ */
+			/* OPENING QUOTE */
+			/* ============================================ */
+			.opening-cyber {
+				padding: 100px 24px;
+				background: var(--cream);
+				text-align: center;
+				position: relative;
+				overflow: hidden;
+			}
+			.opening-cyber::before {
+				content: '✦';
+				position: absolute;
+				top: 50%; left: 50%;
+				transform: translate(-50%, -50%);
+				font-family: 'Orbitron', sans-serif;
+				font-size: 20rem;
+				color: rgba(125, 140, 111, 0.04);
+				pointer-events: none;
+			}
+			.opening-cyber .opening-inner {
+				position: relative;
+				z-index: 2;
+				max-width: 640px;
+				margin: 0 auto;
+			}
+			.opening-cyber .opening-icon {
+				font-size: 3rem;
+				color: var(--sage);
+				opacity: 0.4;
+				margin-bottom: 24px;
+				display: block;
+			}
+			.opening-cyber .opening-quote {
+				font-family: 'Orbitron', sans-serif;
+				font-size: 1.5rem;
+				font-style: italic;
+				color: var(--leaf);
+				line-height: 1.7;
+				margin-bottom: 32px;
+			}
+			.opening-cyber .opening-source {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.8rem;
+				text-transform: uppercase;
+				letter-spacing: 6px;
+				color: var(--sage);
+			}
+			@media (max-width: 600px) {
+				.opening-cyber { padding: 80px 20px; }
+				.opening-cyber .opening-quote { font-size: 1.15rem; }
+			}
+
+			/* ============================================ */
+			/* SECTION BASE */
+			/* ============================================ */
+			.section-cyber {
+				padding: 100px 0;
+				background: var(--cream);
+				position: relative;
+			}
+			.section-cyber-alt {
+				padding: 100px 0;
+				background: var(--cream-dark);
+				position: relative;
+			}
+			@media (max-width: 600px) {
+				.section-cyber, .section-cyber-alt { padding: 80px 0; }
+			}
+
+			/* ============================================ */
+			/* COUPLE */
+			/* ============================================ */
+			.couple-cyber-grid {
+				display: grid;
+				grid-template-columns: 1fr auto 1fr;
+				gap: 40px;
+				align-items: center;
+			}
+			@media (max-width: 700px) {
+				.couple-cyber-grid { grid-template-columns: 1fr; gap: 40px; }
+				.couple-cyber-amp { display: none; }
+			}
+			.couple-cyber-card {
+				text-align: center;
+			}
+			.couple-cyber-photo-wrap {
+				position: relative;
+				width: 200px; height: 200px;
+				margin: 0 auto 24px;
+			}
+			.couple-cyber-photo-wrap::before {
+				content: '';
+				position: absolute;
+				inset: -12px;
+				border-radius: 50%;
+				border: 1px dashed var(--sage);
+				opacity: 0.4;
+				animation: rotateLeaf 30s linear infinite;
+			}
+			@keyframes rotateLeaf {
+				from { transform: rotate(0deg); }
+				to { transform: rotate(360deg); }
+			}
+			.couple-cyber-photo {
+				width: 200px; height: 200px;
+				border-radius: 50%;
+				overflow: hidden;
+				border: 4px solid var(--sage);
+				box-shadow: 0 4px 30px rgba(125, 140, 111, 0.15);
+				position: relative; z-index: 1;
+				background: var(--cream-dark);
+			}
+			.couple-cyber-photo img {
+				width: 100%; height: 100%; object-fit: cover;
+			}
+			@media (max-width: 700px) {
+				.couple-cyber-photo-wrap, .couple-cyber-photo { width: 160px; height: 160px; }
+			}
+			.couple-cyber-info h3 {
+				font-family: 'Orbitron', sans-serif;
+				font-size: 1.8rem;
+				font-weight: 600;
+				color: var(--leaf);
+				margin-bottom: 8px;
+			}
+			.couple-cyber-role {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.75rem;
+				text-transform: uppercase;
+				letter-spacing: 4px;
+				color: var(--sage);
+				margin-bottom: 12px;
+			}
+			.couple-cyber-parents-label {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.85rem;
+				color: var(--text-light);
+				font-style: italic;
+				margin-bottom: 4px;
+			}
+			.couple-cyber-parents {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 1rem;
+				color: var(--text);
+				font-style: italic;
+				line-height: 1.6;
+				margin-bottom: 16px;
+			}
+			.couple-cyber-social {
+				display: flex;
+				justify-content: center;
+				gap: 12px;
+				margin-top: 16px;
+			}
+			.couple-cyber-social a {
+				width: 38px; height: 38px;
+				border-radius: 50%;
+				border: 1px solid var(--sage);
+				color: var(--sage);
+				font-size: 0.95rem;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				transition: all 0.3s;
+				text-decoration: none;
+				opacity: 0.7;
+			}
+			.couple-cyber-social a:hover {
+				background: var(--sage);
+				color: var(--white);
+				opacity: 1;
+				transform: translateY(-2px);
+			}
+			.couple-cyber-amp {
+				font-family: 'JetBrains Mono', monospace;
+				font-style: italic;
+				font-size: 2.5rem;
+				color: var(--sage);
+				font-weight: 400;
+			}
+
+			/* ============================================ */
+			/* LOVE STORY */
+			/* ============================================ */
+			.story-cyber-timeline {
+				position: relative;
+				max-width: 640px;
+				margin: 0 auto;
+				padding-left: 40px;
+			}
+			.story-cyber-timeline::before {
+				content: '';
+				position: absolute;
+				left: 12px; top: 0; bottom: 0;
+				width: 2px;
+				background: linear-gradient(180deg, transparent, var(--sage), transparent);
+				opacity: 0.3;
+			}
+			.story-cyber-item {
+				position: relative;
+				margin-bottom: 36px;
+				padding-left: 24px;
+			}
+			.story-cyber-item:last-child { margin-bottom: 0; }
+			.story-cyber-dot {
+				position: absolute;
+				left: -28px; top: 8px;
+				width: 18px; height: 18px;
+				background: var(--sage);
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: var(--white);
+				font-size: 0.6rem;
+			}
+			.story-cyber-content {
+				background: var(--cream-dark);
+				border: 1px solid rgba(125, 140, 111, 0.15);
+				padding: 24px 28px;
+				border-radius: 16px;
+				transition: all 0.3s;
+				box-shadow: var(--shadow);
+			}
+			.story-cyber-item:hover .story-cyber-content {
+				border-color: var(--sage);
+				box-shadow: var(--shadow-md);
+				transform: translateX(4px);
+			}
+			.story-cyber-title {
+				font-family: 'Orbitron', sans-serif;
+				font-size: 1.15rem;
+				font-weight: 600;
+				color: var(--leaf);
+				margin-bottom: 8px;
+			}
+			.story-cyber-desc {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.95rem;
+				color: var(--text-muted);
+				font-style: italic;
+				line-height: 1.7;
+			}
+
+			/* ============================================ */
+			/* EVENT */
+			/* ============================================ */
+			.event-cyber-grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 28px;
+			}
+			@media (max-width: 700px) {
+				.event-cyber-grid { grid-template-columns: 1fr; }
+			}
+			.event-cyber-card {
+				background: var(--cream-dark);
+				border: 1px solid rgba(125, 140, 111, 0.15);
+				border-radius: 20px;
+				padding: 40px 28px;
+				text-align: center;
+				transition: all 0.4s;
+				position: relative;
+				overflow: hidden;
+				box-shadow: var(--shadow);
+			}
+			.event-cyber-card::before {
+				content: '✦';
+				position: absolute;
+				top: 12px; right: 16px;
+				font-size: 2rem;
+				color: var(--sage);
+				opacity: 0.15;
+				font-family: 'Orbitron', sans-serif;
+			}
+			.event-cyber-card:hover {
+				transform: translateY(-4px);
+				box-shadow: var(--shadow-md);
+				border-color: var(--sage);
+			}
+			.event-cyber-icon {
+				width: 68px; height: 68px;
+				background: linear-gradient(135deg, var(--sage-light), var(--sage));
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin: 0 auto 20px;
+				color: var(--white);
+				font-size: 1.6rem;
+			}
+			.event-cyber-title {
+				font-family: 'Orbitron', sans-serif;
+				font-size: 1.5rem;
+				font-weight: 600;
+				color: var(--leaf);
+				margin-bottom: 6px;
+			}
+			.event-cyber-arabic {
+				font-family: 'Amiri', serif;
+				font-size: 0.9rem;
+				color: var(--sage);
+				margin-bottom: 20px;
+				font-style: italic;
+			}
+			.event-cyber-detail {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 1rem;
+				color: var(--text-muted);
+				line-height: 2;
+				margin-bottom: 20px;
+			}
+			.event-cyber-btn {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				color: var(--sage);
+				text-decoration: none;
+				font-size: 0.8rem;
+				font-weight: 600;
+				letter-spacing: 3px;
+				text-transform: uppercase;
+				border-bottom: 1px solid var(--sage);
+				padding-bottom: 4px;
+				transition: all 0.3s;
+			}
+			.event-cyber-btn:hover {
+				color: var(--leaf);
+				gap: 14px;
+			}
+
+			/* ============================================ */
+			/* GALLERY */
+			/* ============================================ */
+			.gallery-cyber-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 16px;
+			}
+			@media (max-width: 600px) {
+				.gallery-cyber-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+			}
+			.gallery-cyber-item {
+				position: relative;
+				aspect-ratio: 1;
+				overflow: hidden;
+				border-radius: 16px;
+				border: 2px solid rgba(125, 140, 111, 0.15);
+				cursor: pointer;
+				transition: all 0.4s;
+			}
+			.gallery-cyber-item:hover {
+				border-color: var(--sage);
+				box-shadow: var(--shadow-md);
+				transform: translateY(-4px);
+			}
+			.gallery-cyber-item img {
+				width: 100%; height: 100%;
+				object-fit: cover;
+				transition: transform 0.6s;
+			}
+			.gallery-cyber-item:hover img { transform: scale(1.06); }
+			.gallery-cyber-item .overlay {
+				position: absolute;
+				inset: 0;
+				background: rgba(45, 58, 36, 0);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: var(--white);
+				font-size: 1.6rem;
+				opacity: 0;
+				transition: all 0.3s;
+			}
+			.gallery-cyber-item:hover .overlay {
+				background: rgba(45, 58, 36, 0.3);
+				opacity: 1;
+			}
+
+			/* ============================================ */
+			/* RSVP */
+			/* ============================================ */
+			.rsvp-form { max-width: 520px; margin: 0 auto; }
+			.form-group { margin-bottom: 20px; text-align: left; }
+			.form-group label {
+				display: block;
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.8rem;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 3px;
+				color: var(--sage);
+				margin-bottom: 8px;
+			}
+			.form-group .required { color: #c0392b; }
+			.form-group input, .form-group select, .form-group textarea {
+				width: 100%;
+				padding: 14px 18px;
+				border: 1px solid rgba(125, 140, 111, 0.3);
+				border-radius: 12px;
+				font-size: 1rem;
+				font-family: 'Inter', sans-serif;
+				background: var(--cream-dark);
+				color: var(--text);
+				transition: all 0.3s;
+			}
+			.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+				outline: none;
+				border-color: var(--sage);
+				box-shadow: 0 0 0 3px rgba(125, 140, 111, 0.1);
+			}
+			.form-group input[readonly] {
+				background: rgba(125, 140, 111, 0.08);
+				color: var(--sage-dark);
+				cursor: not-allowed;
+				font-weight: 500;
+			}
+			.form-group textarea { resize: vertical; min-height: 90px; }
+			.btn-submit {
+				width: 100%;
+				padding: 16px;
+				background: linear-gradient(135deg, var(--sage), var(--sage-dark));
+				color: var(--white);
+				border: none;
+				border-radius: 12px;
+				font-family: 'Inter', sans-serif;
+				font-size: 0.9rem;
+				font-weight: 600;
+				cursor: pointer;
+				transition: all 0.3s;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				margin-top: 8px;
+			}
+			.btn-submit:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 8px 30px rgba(125, 140, 111, 0.3);
+			}
+			.btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+			.rsvp-warning {
+				background: rgba(125, 140, 111, 0.08);
+				border-left: 3px solid var(--sage);
+				padding: 16px 20px;
+				margin-bottom: 24px;
+				border-radius: 8px;
+			}
+			.rsvp-warning-title {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				margin-bottom: 4px;
+			}
+			.rsvp-warning-title i {
+				color: var(--sage);
+				font-size: 1.1rem;
+			}
+			.rsvp-warning-title strong {
+				font-size: 0.9rem;
+				color: var(--leaf);
+				font-weight: 600;
+			}
+			.rsvp-warning p {
+				margin: 0;
+				font-size: 0.82rem;
+				color: var(--text-muted);
+				line-height: 1.6;
+			}
+
+			.rsvp-list-wrap {
+				max-width: 520px;
+				margin: 60px auto 0;
+				padding-top: 32px;
+				border-top: 1px solid rgba(125, 140, 111, 0.2);
+			}
+			.rsvp-list-head {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				margin-bottom: 24px;
+			}
+			.rsvp-list-head h4 {
+				font-family: 'Orbitron', sans-serif;
+				font-size: 1.15rem;
+				font-weight: 600;
+				color: var(--leaf);
+				margin: 0;
+			}
+			.rsvp-count {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.8rem;
+				color: var(--sage);
+				letter-spacing: 2px;
+				text-transform: uppercase;
+			}
+			#rsvpList {
+				display: flex;
+				flex-direction: column;
+				gap: 12px;
+				max-height: 440px;
+				overflow-y: auto;
+			}
+			.rsvp-item {
+				background: var(--cream-dark);
+				border: 1px solid rgba(125, 140, 111, 0.15);
+				border-radius: 12px;
+				padding: 16px 20px;
+				transition: all 0.3s;
+			}
+			.rsvp-item:hover {
+				border-color: var(--sage);
+				box-shadow: 0 4px 20px rgba(125, 140, 111, 0.1);
+			}
+			.rsvp-item .row-main {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				flex-wrap: wrap;
+				gap: 8px;
+				margin-bottom: 6px;
+			}
+			.rsvp-item .guest-name {
+				font-family: 'Orbitron', sans-serif;
+				font-size: 1rem;
+				font-weight: 600;
+				color: var(--leaf);
+			}
+			.rsvp-item .status-badge {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.65rem;
+				padding: 3px 12px;
+				border-radius: 20px;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				font-weight: 600;
+			}
+			.rsvp-item .status-badge.hadir {
+				background: rgba(16, 185, 129, 0.1);
+				color: #059669;
+			}
+			.rsvp-item .status-badge.tidak_hadir {
+				background: rgba(192, 57, 43, 0.1);
+				color: #c0392b;
+			}
+			.rsvp-item .status-badge.ragu {
+				background: rgba(245, 158, 11, 0.12);
+				color: #d97706;
+			}
+			.rsvp-item .row-detail {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 8px;
+			}
+			.rsvp-item .meta-left {
+				display: flex;
+				align-items: center;
+				gap: 14px;
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.78rem;
+				color: var(--text-light);
+				font-style: italic;
+			}
+			.rsvp-item .meta-left span { display: flex; align-items: center; gap: 4px; }
+			.rsvp-item .message {
+				margin-top: 10px;
+				padding: 12px 16px;
+				background: var(--cream-dark);
+				border-left: 3px solid var(--sage);
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.9rem;
+				color: var(--text-muted);
+				font-style: italic;
+				line-height: 1.6;
+				border-radius: 8px;
+			}
+			.rsvp-empty {
+				text-align: center;
+				color: var(--text-light);
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.9rem;
+				font-style: italic;
+				padding: 40px 0;
+			}
+			.rsvp-empty i {
+				display: block;
+				font-size: 1.8rem;
+				margin-bottom: 10px;
+				color: var(--sage);
+				opacity: 0.4;
+			}
+
+			/* ============================================ */
+			/* FOOTER */
+			/* ============================================ */
+			.footer-cyber {
+				padding: 80px 24px 48px;
+				background: linear-gradient(180deg, var(--cream-dark) 0%, var(--cream) 100%);
+				color: var(--cream);
+				text-align: center;
+				position: relative;
+				overflow: hidden;
+			}
+			.footer-cyber::before {
+				content: '◆';
+				position: absolute;
+				top: 50%; left: 50%;
+				transform: translate(-50%, -50%);
+				font-size: 20rem;
+				opacity: 0.03;
+				pointer-events: none;
+			}
+			.footer-cyber-inner {
+				position: relative;
+				z-index: 1;
+				max-width: 640px;
+				margin: 0 auto;
+			}
+			.footer-cyber-icon {
+				font-size: 2.5rem;
+				margin-bottom: 20px;
+				display: block;
+				opacity: 0.6;
+			}
+			.footer-cyber-couple {
+				font-family: 'Orbitron', sans-serif;
+				font-size: 2rem;
+				font-weight: 500;
+				color: var(--cream);
+				margin-bottom: 16px;
+			}
+			.footer-cyber-couple .amp {
+				font-family: 'JetBrains Mono', monospace;
+				font-style: italic;
+				color: var(--sage-light);
+				margin: 0 14px;
+				font-weight: 400;
+			}
+			.footer-cyber-date {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 0.9rem;
+				color: var(--sage-light);
+				letter-spacing: 5px;
+				text-transform: uppercase;
+				margin-bottom: 32px;
+			}
+			.footer-cyber-prayer {
+				font-family: 'Orbitron', sans-serif;
+				font-size: 1rem;
+				font-style: italic;
+				color: var(--sage-light);
+				max-width: 520px;
+				margin: 0 auto;
+				line-height: 1.9;
+			}
+
+			/* ============================================ */
+			/* FOOTER SOCIAL (WAJIB — shared) */
+			/* ============================================ */
+			.footer-social {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 10px;
+				margin-bottom: 24px;
+			}
+			.footer-social a {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				padding: 10px 18px;
+				border: 1px solid rgba(163, 177, 151, 0.3);
+				border-radius: 50px;
+				color: var(--sage-light);
+				text-decoration: none;
+				font-size: 0.8rem;
+				font-weight: 500;
+				transition: all 0.3s;
+				opacity: 0.85;
+				white-space: nowrap;
+			}
+			.footer-social a:hover {
+				background: rgba(163, 177, 151, 0.1);
+				border-color: var(--sage-light);
+				transform: translateY(-2px);
+				opacity: 1;
+			}
+			.footer-social a i {
+				font-size: 1rem;
+			}
+			.footer-social a span {
+				font-size: 0.8rem;
+				font-weight: 500;
+			}
+
+			/* ============================================ */
+			/* WEB FOOTER (WAJIB — shared) */
+			/* ============================================ */
+			.web-footer {
+				background: var(--bg, #06080f);
+				padding: 3rem 0 1.5rem;
+				border-top: 1px solid rgba(125, 140, 111, 0.15);
+				color: rgba(255,255,255,0.6);
+				position: relative;
+			}
+			.web-footer .container {
+				max-width: 1280px !important;
+			}
+			.web-footer-row {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 2rem;
+			}
+			.web-footer-brand {
+				font-family: 'Orbitron', sans-serif;
+				font-size: 1.4rem;
+				font-weight: 700;
+				margin-bottom: 20px;
+				text-decoration: none;
+				display: inline-block;
+			}
+			.web-footer-brand img {
+				display: inline-block !important;
+				vertical-align: middle;
+				margin-right: 8px;
+			}
+			.web-footer-brand .wedding {
+				background: linear-gradient(135deg, #a3b197 0%, #7d8c6f 100%);
+				-webkit-background-clip: text; background-clip: text;
+				color: transparent;
+			}
+			.web-footer-brand .saas { color: var(--sage-light); }
+			.web-footer-desc {
+				color: rgba(255,255,255,0.5); font-size: 0.85rem;
+				line-height: 1.6; margin-bottom: 1rem;
+			}
+			.web-footer-heading {
+				font-family: 'Orbitron', sans-serif;
+				font-size: 0.95rem; font-weight: 600;
+				color: var(--sage-light); margin-bottom: 1rem;
+				position: relative; padding-bottom: 0.5rem;
+			}
+			.web-footer-heading::after {
+				content: ''; position: absolute; bottom: 0; left: 0;
+				width: 30px; height: 2px;
+				background: linear-gradient(90deg, var(--sage-light), transparent);
+			}
+			.web-footer-list { list-style: none; padding: 0; margin: 0; }
+			.web-footer-list li {
+				display: flex; align-items: flex-start;
+				gap: 10px; margin-bottom: 0.65rem;
+				color: rgba(255,255,255,0.55); font-size: 0.85rem;
+			}
+			.web-footer-list li i {
+				color: var(--sage-light); font-size: 1rem;
+				margin-top: 2px; flex-shrink: 0;
+			}
+			.web-footer-list li a, .web-footer-link {
+				color: rgba(255,255,255,0.55); text-decoration: none;
+				transition: color 0.2s;
+			}
+			.web-footer-list li a:hover, .web-footer-link:hover { color: var(--sage-light); }
+			.web-footer-socials {
+				display: flex; gap: 10px;
+				flex-wrap: wrap; margin-top: 0.75rem;
+			}
+			.web-social-link {
+				width: 38px; height: 38px;
+				display: inline-flex; align-items: center; justify-content: center;
+				background: rgba(125, 140, 111, 0.08);
+				border: 1px solid rgba(125, 140, 111, 0.2);
+				border-radius: 10px;
+				color: var(--sage-light); font-size: 1.05rem;
+				transition: all 0.25s; text-decoration: none;
+			}
+			.web-social-link:hover {
+				background: rgba(125, 140, 111, 0.18);
+				border-color: var(--sage-light);
+				color: #ffffff; transform: translateY(-3px);
+			}
+			.web-footer-version {
+				color: rgba(255,255,255,0.35); font-size: 0.75rem;
+				margin: 0; padding: 4px 10px;
+				background: rgba(125, 140, 111, 0.06);
+				border-radius: 6px; display: inline-block;
+			}
+			.web-footer-divider {
+				border: 0; border-top: 1px solid rgba(125, 140, 111, 0.1);
+				margin: 2rem 0 1.25rem;
+			}
+			.web-footer-text {
+				color: rgba(255,255,255,0.35); font-size: 0.8rem;
+				margin: 0; text-align: center;
+			}
+			.web-footer-icon { color: var(--sage-light); }
+			@media (max-width: 768px) {
+				.web-footer { padding: 2.25rem 0 1.25rem; text-align: center; }
+				.web-footer-heading::after { left: 50%; transform: translateX(-50%); }
+				.web-footer-list li { justify-content: center; }
+				.web-footer-socials { justify-content: center; }
+			}
+		</style>
+	</head>
+	<body data-music-url={ data.MusicURL } data-project-id={ invitation.FormatUint(data.Project.ID) } data-project-slug={ data.Project.Slug }>
+
+		<!-- OVERLAY -->
+		<div id="startOverlay">
+			<div class="overlay-inner">
+				<span class="overlay-leaf">◆</span>
+				<h1 class="overlay-title">DARK TECHNOLOGY</h1>
+				<p class="overlay-subtitle">{ data.GroomName } &amp; { data.BrideName }</p>
+				<div class="overlay-divider"></div>
+
+				<div class="overlay-guest-label">
+					{ invitation.GuestGreeting(data.IsNamedGuest) }
+				</div>
+				<div class="overlay-guest-name">{ data.GuestName }</div>
+
+				<button class="btn-start" onclick={ templpkg.JSFuncCall("startMusic") }>
+					<i class="bi bi-shield-check"></i>
+					Buka Undangan
+				</button>
+
+				<p class="hint">[ TAP TO OPEN ]</p>
+			</div>
+		</div>
+
+		<!-- MUSIC PLAYER -->
+		@shared.MusicPlayer()
+
+		<!-- HERO -->
+		<section class="hero-cyber" id="section-hero">
+			<div class="hero-leaves hero-leaves-1">◆</div>
+			<div class="hero-leaves hero-leaves-2">◈</div>
+
+			<div class="hero-inner" data-aos="fade-up" data-aos-duration="1200">
+				<span class="hero-leaf-top">◆</span>
+				<div class="hero-eyebrow">The Wedding Of</div>
+
+				<h1 class="hero-names">
+					<span>{ data.GroomName }</span>
+					<span class="amp">&amp;</span>
+					<span>{ data.BrideName }</span>
+				</h1>
+
+				<div class="hero-divider">
+					<span class="line"></span>
+					<span class="ornament">✦</span>
+					<span class="line"></span>
+				</div>
+
+				<div class="hero-dates">
+					if data.ShouldShowAkadDate() {
+						{ data.AkadDate }
+					}
+					if data.ShouldShowBothDates() {
+						<span> · </span>
+					}
+					if data.ShouldShowResepsiDate() {
+						{ data.ResepsiDate }
+					}
+				</div>
+
+				<button class="btn-rsvp" onclick={ templpkg.JSFuncCall("scrollToSection") }>
+					<i class="bi bi-arrow-down"></i>
+					Lihat Undangan
+				</button>
+			</div>
+		</section>
+
+		<!-- OPENING QUOTE -->
+		<section class="opening-cyber" id="section-opening">
+			<div class="opening-inner" data-aos="fade-up">
+				<span class="opening-icon">✦</span>
+				<div class="opening-quote">
+					"Dengan memohon rahmat dan ridho Tuhan Yang Maha Esa, kami bermaksud menyelenggarakan pernikahan putra-putri kami."
+				</div>
+				<div class="opening-source">The Wedding Of { data.GroomName } &amp; { data.BrideName }</div>
+			</div>
+		</section>
+
+		<!-- COUPLE -->
+		<section class="section-cyber" id="section-couple">
+			<div class="cyber-pattern"></div>
+			<div class="container">
+				<div class="section-label" data-aos="fade-up">Mempelai</div>
+				<h2 class="section-title" data-aos="fade-up" data-aos-delay="50">
+					Two Hearts<br/><em>Connected</em>
+				</h2>
+				<p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+					Dua insan yang dipertemukan dalam koneksi cinta yang tak terputus
+				</p>
+
+				<div class="couple-cyber-grid">
+					<!-- GROOM -->
+					<div class="couple-cyber-card" data-aos="fade-right" data-aos-delay="150">
+						<div class="couple-cyber-photo-wrap">
+							<div class="couple-cyber-photo">
+								<img src={ data.GroomPhotoOrDefault() } alt={ data.GroomName } loading="lazy"/>
+							</div>
+						</div>
+						<div class="couple-cyber-info">
+							<h3>{ data.GroomName }</h3>
+							<div class="couple-cyber-role">⟨ The Groom ⟩</div>
+							<div class="couple-cyber-parents-label">Putra dari</div>
+							<div class="couple-cyber-parents">{ data.ParentsGroom() }</div>
+							if data.GroomInstagram != "" {
+								<div class="couple-cyber-social">
+									<a href={ templpkg.SafeURL(data.GroomInstagram) } target="_blank" rel="noopener">
+										<i class="bi bi-instagram"></i>
+									</a>
+								</div>
+							}
+						</div>
+					</div>
+
+					<div class="couple-cyber-amp" data-aos="zoom-in" data-aos-delay="200">✦</div>
+
+					<!-- BRIDE -->
+					<div class="couple-cyber-card" data-aos="fade-left" data-aos-delay="250">
+						<div class="couple-cyber-photo-wrap">
+							<div class="couple-cyber-photo">
+								<img src={ data.BridePhotoOrDefault() } alt={ data.BrideName } loading="lazy"/>
+							</div>
+						</div>
+						<div class="couple-cyber-info">
+							<h3>{ data.BrideName }</h3>
+							<div class="couple-cyber-role">⟨ The Bride ⟩</div>
+							<div class="couple-cyber-parents-label">Putri dari</div>
+							<div class="couple-cyber-parents">{ data.ParentsBride() }</div>
+							if data.BrideInstagram != "" {
+								<div class="couple-cyber-social">
+									<a href={ templpkg.SafeURL(data.BrideInstagram) } target="_blank" rel="noopener">
+										<i class="bi bi-instagram"></i>
+									</a>
+								</div>
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- LOVE STORY -->
+		if len(data.LoveStories) > 0 {
+			<section class="section-cyber-alt" id="section-love">
+				<div class="container">
+					<div class="section-label" data-aos="fade-up">Our Timeline</div>
+					<h2 class="section-title" data-aos="fade-up" data-aos-delay="50">
+						Log<br/><em>Pertemuan</em>
+					</h2>
+					<p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+						Setiap baris log adalah perjalanan cinta kami
+					</p>
+
+					<div class="story-cyber-timeline">
+						for index, story := range data.LoveStories {
+							<div class="story-cyber-item" data-aos="fade-up" data-aos-delay={ invitation.FormatInt(80 * (index + 1)) }>
+								<div class="story-cyber-dot"><i class="bi bi-cpu"></i></div>
+								<div class="story-cyber-content">
+									<h4 class="story-cyber-title">{ story.Title }</h4>
+									<p class="story-cyber-desc">{ story.Desc }</p>
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+			</section>
+		}
+
+		<!-- EVENT -->
+		<section class="section-cyber" id="section-event">
+			<div class="container">
+				<div class="section-label" data-aos="fade-up">Acara</div>
+				<h2 class="section-title" data-aos="fade-up" data-aos-delay="50">
+					Detail<br/><em>Acara</em>
+				</h2>
+				<p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+					Dengan penuh rasa hormat, kami mengundang Bapak/Ibu/Saudara/i
+				</p>
+
+				<div class="event-cyber-grid">
+					<!-- Akad -->
+					<div class="event-cyber-card" data-aos="fade-up" data-aos-delay="150">
+						<div class="event-cyber-icon"><i class="bi bi-shield-check"></i></div>
+						<h3 class="event-cyber-title">Akad Nikah</h3>
+						<div class="event-cyber-detail">
+							<div>{ data.AkadDate }</div>
+							<div>Pukul { data.AkadTime } WIB</div>
+							<div>{ data.AkadVenue }</div>
+						</div>
+						if data.MapsURLAkad != "" {
+							<a href={ templpkg.SafeURL(data.MapsURLAkad) } target="_blank" rel="noopener" class="event-cyber-btn">
+								<i class="bi bi-geo-alt"></i> Lihat Lokasi
+							</a>
+						}
+					</div>
+
+					<!-- Resepsi -->
+					<div class="event-cyber-card" data-aos="fade-up" data-aos-delay="200">
+						<div class="event-cyber-icon"><i class="bi bi-stars"></i></div>
+						<h3 class="event-cyber-title">{ data.ResepsiLabelDisplay() }</h3>
+						if data.IsIslamicResepsi() && data.ResepsiArabic() != "" {
+							<div class="event-cyber-arabic">{ data.ResepsiArabic() }</div>
+						}
+						<div class="event-cyber-detail">
+							<div>{ data.ResepsiDate }</div>
+							<div>Pukul { data.ResepsiTime } WIB</div>
+							<div>{ data.ResepsiVenue }</div>
+						</div>
+						if data.MapsURLResepsi != "" {
+							<a href={ templpkg.SafeURL(data.MapsURLResepsi) } target="_blank" rel="noopener" class="event-cyber-btn">
+								<i class="bi bi-geo-alt"></i> Lihat Lokasi
+							</a>
+						}
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- GALLERY -->
+		if len(data.Gallery) > 0 {
+			<section class="section-cyber-alt" id="section-gallery">
+				<div class="container">
+					<div class="section-label" data-aos="fade-up">Galeri</div>
+					<h2 class="section-title" data-aos="fade-up" data-aos-delay="50">
+						Visual<br/><em>Moments</em>
+					</h2>
+					<p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+						Kenangan indah yang kami abadikan
+					</p>
+
+					<div class="gallery-cyber-grid">
+						for index, img := range data.Gallery {
+							<div class="gallery-cyber-item" data-aos="fade-up" data-aos-delay={ invitation.FormatInt(60 * ((index % 6) + 1)) }>
+								<img src={ img } alt={ "Foto " + invitation.FormatInt(index+1) } loading="lazy"/>
+								<div class="overlay"><i class="bi bi-zoom-in"></i></div>
+							</div>
+						}
+					</div>
+				</div>
+			</section>
+		}
+
+		<!-- RSVP -->
+		<section class="section-cyber" id="section-rsvp">
+			<div class="container">
+				<div class="section-label" data-aos="fade-up">Konfirmasi</div>
+				<h2 class="section-title" data-aos="fade-up" data-aos-delay="50">
+					Konfirmasi<br/><em>Kehadiran</em>
+				</h2>
+				<p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+					Kami sangat berbahagia jika Anda bisa hadir di hari bahagia kami
+				</p>
+
+				@shared.RSVPForm(data, shared.RSVPTextIndonesia)
+
+				@shared.RSVPListWrap()
+			</div>
+		</section>
+
+		<!-- FOOTER -->
+		<footer class="footer-cyber">
+			<div class="footer-cyber-inner">
+				<span class="footer-cyber-icon">◆</span>
+
+				<div class="footer-cyber-couple">
+					{ data.GroomName }<span class="amp">&amp;</span>{ data.BrideName }
+				</div>
+				<div class="footer-cyber-date">{ data.AkadDate }</div>
+
+				@shared.SocialLinks(data, shared.SocialLinksTextDefault)
+
+				<p class="footer-cyber-prayer">
+					"Terima kasih telah menjadi bagian dari perjalanan digital kami."
+				</p>
+			</div>
+		</footer>
+
+		<!-- WEB FOOTER -->
+		@shared.WebFooter(data, shared.WebFooterTextDefault)
+
+		<!-- SCRIPTS -->
+		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+		<script>
+			AOS.init({
+				duration: 900,
+				easing: 'ease-out',
+				once: true,
+				offset: 60,
+			});
+
+			// MUSIC PLAYER
+			var musicUrl = document.body.dataset.musicUrl || '';
+			var projectID = document.body.dataset.projectId || '';
+			var projectSlug = document.body.dataset.projectSlug || '';
+			var audio = null;
+			var isPlaying = false;
+			var hasStarted = false;
+			var MUSIC_KEY = 'wedding_music_state_' + projectID;
+
+			function initAudio() {
+				if (!musicUrl) return false;
+				if (audio) return true;
+				audio = new Audio(musicUrl);
+				audio.loop = true;
+				audio.volume = 0.5;
+				return true;
+			}
+
+			window.startMusic = function() {
+				if (!initAudio()) {
+					showToast('info', 'Belum ada musik untuk undangan ini');
+					closeOverlay();
+					return;
+				}
+				audio.play().then(function() {
+					isPlaying = true;
+					hasStarted = true;
+					var btn = document.getElementById('musicToggle');
+					if (btn) {
+						btn.innerHTML = '<i class="bi bi-pause-fill"></i>';
+						btn.classList.add('playing');
+					}
+					localStorage.setItem(MUSIC_KEY, 'playing');
+					closeOverlay();
+				}).catch(function(e) {
+					console.log('Play failed:', e);
+					closeOverlay();
+					document.addEventListener('click', function retry() {
+						audio.play().catch(function(){});
+						document.removeEventListener('click', retry);
+					}, { once: true });
+				});
+			};
+
+			function closeOverlay() {
+				var overlay = document.getElementById('startOverlay');
+				if (overlay) {
+					overlay.style.opacity = '0';
+					setTimeout(function() {
+						overlay.style.display = 'none';
+					}, 800);
+				}
+			}
+
+			window.toggleMusic = function() {
+				if (!audio && musicUrl) initAudio();
+				if (!audio) {
+					showToast('info', 'Belum ada musik untuk undangan ini');
+					return;
+				}
+				var btn = document.getElementById('musicToggle');
+				if (isPlaying) {
+					audio.pause();
+					isPlaying = false;
+					btn.innerHTML = '<i class="bi bi-music-note"></i>';
+					btn.classList.remove('playing');
+					localStorage.setItem(MUSIC_KEY, 'paused');
+				} else {
+					audio.play().catch(function(e) {});
+					isPlaying = true;
+					btn.innerHTML = '<i class="bi bi-pause-fill"></i>';
+					btn.classList.add('playing');
+					localStorage.setItem(MUSIC_KEY, 'playing');
+				}
+			};
+
+			document.getElementById('startOverlay')?.addEventListener('click', function(e) {
+				startMusic();
+			});
+			document.getElementById('musicToggle')?.addEventListener('click', function(e) {
+				if (!hasStarted) startMusic();
+			});
+
+			window.scrollToSection = function() {
+				var el = document.getElementById('section-couple');
+				if (el) el.scrollIntoView({ behavior: 'smooth' });
+			};
+
+			function showToast(type, message) {
+				var container = document.querySelector('.toast-container');
+				if (!container) {
+					container = document.createElement('div');
+					container.className = 'toast-container';
+					document.body.appendChild(container);
+				}
+				var toast = document.createElement('div');
+				toast.className = 'toast';
+				var icons = { success: 'bi-check-circle-fill', error: 'bi-x-circle-fill', info: 'bi-info-circle-fill' };
+				toast.innerHTML = '<i class="bi ' + (icons[type] || icons.info) + '"></i><span>' + message + '</span>';
+				container.appendChild(toast);
+				setTimeout(function() {
+					toast.style.opacity = '0';
+					toast.style.transform = 'translateX(100px)';
+					setTimeout(function() { toast.remove(); }, 400);
+				}, 3000);
+			}
+
+			function escapeHtml(text) {
+				if (!text) return '';
+				var div = document.createElement('div');
+				div.textContent = text;
+				return div.innerHTML;
+			}
+
+			window.copyBankNumberFromEl = function(el) {
+				var number = el.getAttribute('data-number');
+				if (!number) return;
+				copyText(number, el);
+			};
+
+			function copyText(number, element) {
+				var doSuccess = function() {
+					showToast('success', 'Nomor rekening dicopy!');
+				};
+				if (navigator.clipboard) {
+					navigator.clipboard.writeText(number).then(doSuccess).catch(function() {
+						fallbackCopy(number, element);
+					});
+				} else {
+					fallbackCopy(number, element);
+				}
+			}
+
+			function fallbackCopy(text, element) {
+				var textarea = document.createElement('textarea');
+				textarea.value = text;
+				textarea.style.position = 'fixed';
+				textarea.style.opacity = '0';
+				document.body.appendChild(textarea);
+				textarea.select();
+				try {
+					document.execCommand('copy');
+					showToast('success', 'Nomor rekening dicopy!');
+				} catch (err) {
+					showToast('error', 'Gagal copy nomor');
+				}
+				document.body.removeChild(textarea);
+			}
+
+			// LIGHTBOX
+			document.addEventListener('DOMContentLoaded', function() {
+				document.querySelectorAll('.gallery-cyber-item').forEach(function(item) {
+					item.addEventListener('click', function() {
+						var img = this.querySelector('img');
+						if (img) {
+							var lb = document.createElement('div');
+							lb.style.cssText = 'position:fixed;inset:0;background:rgba(6,8,15,0.95);z-index:9999;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:20px;';
+							lb.innerHTML = '<span style="position:absolute;top:20px;right:24px;color:#00d9ff;font-size:2rem;cursor:pointer;">&times;</span><img src="' + img.src + '" style="max-width:92%;max-height:92%;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,0.6);border-radius:12px;"/>';
+							document.body.appendChild(lb);
+							lb.addEventListener('click', function(e) {
+								if (e.target === this || e.target.textContent === '×') {
+									this.remove();
+								}
+							});
+						}
+					});
+				});
+			});
+
+			// LOAD RSVP LIST
+			function loadRsvpList() {
+				var listContainer = document.getElementById('rsvpList');
+				var countContainer = document.getElementById('rsvpCount');
+				if (!listContainer) return;
+
+				fetch('/invitation/' + projectSlug + '/rsvp-list')
+					.then(function(r) { return r.json(); })
+					.then(function(data) {
+						if (!data || data.length === 0) {
+							listContainer.innerHTML = '<div class="rsvp-empty"><i class="bi bi-envelope"></i>Belum ada konfirmasi kehadiran</div>';
+							if (countContainer) countContainer.textContent = '0 tamu';
+							return;
+						}
+						var totalGuests = 0;
+						var html = '';
+						data.forEach(function(item) {
+							var statusText = item.attendance === 'hadir' ? 'Hadir' : (item.attendance === 'tidak_hadir' ? 'Tidak Hadir' : 'Ragu');
+							totalGuests += parseInt(item.total_guests || 1);
+							var time = new Date(item.created_at);
+							var timeStr = time.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+							var messageHtml = item.message ? '<div class="message">' + escapeHtml(item.message) + '</div>' : '';
+							html += '<div class="rsvp-item"><div class="row-main"><span class="guest-name">' + escapeHtml(item.guest_name) + '</span><span class="status-badge ' + item.attendance + '">' + statusText + '</span></div><div class="row-detail"><div class="meta-left"><span><i class="bi bi-calendar"></i> ' + timeStr + '</span><span><i class="bi bi-people"></i> ' + (item.total_guests || 1) + ' org</span></div></div>' + messageHtml + '</div>';
+						});
+						listContainer.innerHTML = html;
+						if (countContainer) countContainer.textContent = totalGuests + ' tamu';
+					})
+					.catch(function() {
+						listContainer.innerHTML = '<div class="rsvp-empty"><i class="bi bi-exclamation-triangle"></i>Gagal memuat daftar konfirmasi</div>';
+					});
+			}
+
+			// SUBMIT RSVP
+			document.addEventListener('DOMContentLoaded', function() {
+				var form = document.getElementById('rsvpForm');
+				if (!form) return;
+				form.addEventListener('submit', function(e) {
+					e.preventDefault();
+					var formData = new FormData(form);
+					var btn = form.querySelector('button[type="submit"]');
+					var originalText = btn.innerHTML;
+					btn.disabled = true;
+					btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
+					fetch(form.action, { method: 'POST', body: formData })
+						.then(function(r) { return r.json(); })
+						.then(function(data) {
+							if (data.success) {
+								var isUpdate = data.updated === true;
+								Swal.fire({
+									title: isUpdate ? 'Konfirmasi Diperbarui!' : 'Terima Kasih!',
+									text: data.message,
+									icon: 'success',
+									confirmButtonColor: '#7d8c6f',
+									background: '#f8f5ed',
+									color: '#2d3a24',
+									timer: 2200,
+									timerProgressBar: true,
+									showConfirmButton: false
+								});
+								if (!isUpdate) form.reset();
+								setTimeout(function() { loadRsvpList(); }, 500);
+							} else {
+								Swal.fire({
+									title: 'Gagal!',
+									text: data.message || 'Terjadi kesalahan',
+									icon: 'error',
+									confirmButtonColor: '#7d8c6f',
+									background: '#f8f5ed',
+									color: '#2d3a24'
+								});
+							}
+						})
+						.catch(function() {
+							Swal.fire({
+								title: 'Error!',
+								text: 'Terjadi kesalahan, silakan coba lagi',
+								icon: 'error',
+								confirmButtonColor: '#7d8c6f',
+								background: '#f8f5ed',
+								color: '#2d3a24'
+							});
+						})
+						.finally(function() {
+							btn.disabled = false;
+							btn.innerHTML = originalText;
+						});
+				});
+				loadRsvpList();
+			});
+		</script>
+	</body>
+	</html>
+}
