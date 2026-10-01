@@ -52,6 +52,13 @@ templ rusticWoodPage(data *invitation.TemplateData) {
 			* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 			img { max-width: 100%; height: auto; }
 
+			body.overlay-active {
+				overflow: hidden;
+				position: fixed;
+				width: 100%;
+				height: 100%;
+			}
+
 			/* DATE CARD */
 			.date-card {
 				background: rgba(45, 31, 10, 0.5) !important;
@@ -1640,7 +1647,15 @@ templ rusticWoodPage(data *invitation.TemplateData) {
 		@shared.WebFooter(data, shared.WebFooterTextDefault)
 
 		<!-- SCRIPTS -->
-		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js">
+			// Lock scroll saat overlay tampil
+			document.addEventListener('DOMContentLoaded', function() {
+				var overlay = document.getElementById('startOverlay');
+				if (overlay && overlay.style.display !== 'none') {
+					document.body.classList.add('overlay-active');
+				}
+			});
+			</script>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 		<script>
@@ -1705,9 +1720,11 @@ templ rusticWoodPage(data *invitation.TemplateData) {
 					overlay.style.opacity = '0';
 					setTimeout(function() {
 						overlay.style.display = 'none';
-						document.body.style.overflow = '';
 					}, 800);
 				}
+				document.body.classList.remove('overlay-active');
+				window.scrollTo(0, 0);
+			}
 			}
 
 			window.toggleMusic = function() {

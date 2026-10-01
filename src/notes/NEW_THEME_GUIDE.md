@@ -1,22 +1,26 @@
 📘 PANDUAN BIKIN TEMA BARU — Wedding Invitation Go
-Versi: 3.0 (setelah Fase 2 + tema baru Botanical Garden)
-Terakhir update: Setelah bikin tema Botanical Garden sebagai uji coba
 
+Versi: 3.1 (setelah Fase 2 + Botanical Garden + Dark Technology)
+Terakhir update: Setelah bikin tema Dark Technology + fix bug overlay scroll
 🎯 Tujuan
+
 Panduan ini untuk developer yang mau bikin tema undangan baru di project Wedding Invitation Go. Setelah baca ini, kamu bisa bikin tema baru yang:
 
-Tampil di homepage (pilihan template)
+    Tampil di homepage (pilihan template)
 
-Tampil di wizard Step 3 (pilih template)
+    Tampil di wizard Step 3 (pilih template)
 
-Punya preview /preview/template/:slug
+    Punya preview /preview/template/:slug
 
-Berfungsi penuh (RSVP, music, footer, social links)
+    Berfungsi penuh (RSVP, music, footer, social links, bank accounts)
 
-Cukup 1 file index.templ — tidak perlu helper, tidak perlu komponen manual
+    Anti-error — tidak akan kena bug templ parser
 
-📐 Arsitektur Project
+    Lock scroll overlay — user tidak bisa scroll di belakang overlay
+
+🏗️ Arsitektur Project
 text
+
 wedding-invitation-go/src/
 ├── internal/
 │   ├── invitation/                  ← PACKAGE GLOBAL (data + helper)
@@ -26,7 +30,7 @@ wedding-invitation-go/src/
 │   │
 │   ├── handlers/
 │   │   ├── invitation/show.go       ← render undangan publik
-│   │   └── preview_template.go      ← render preview template
+│   │   └── preview_template.go      ← render preview template (data dummy)
 │   │
 │   ├── models/
 │   │   ├── project.go
@@ -34,35 +38,89 @@ wedding-invitation-go/src/
 │   │   └── bank_account.go
 │   │
 │   ├── services/
-│   │   ├── sitesetting.go
-│   │   ├── template_data.go
-│   │   └── rsvp.go
-│   │
-│   └── database/
-│       └── template_seed.go         ← SEED TEMPLATE + FIELD LIBRARY
+│   ├── database/
+│   │   └── template_seed.go         ← SEED TEMPLATE + FIELD LIBRARY
 │
 ├── views/
 │   ├── invitations/                 ← TEMPLATE UNDANGAN
-│   │   ├── shared/                  ← KOMPONEN SHARED (JANGAN TULIS MANUAL)
-│   │   │   ├── rsvp.templ           ← form RSVP + list
-│   │   │   ├── music_player.templ   ← music player
-│   │   │   ├── web_footer.templ     ← web footer
-│   │   │   └── social_links.templ   ← social links (icon + teks)
+│   │   ├── shared/                  ← KOMPONEN SHARED
+│   │   │   ├── rsvp.templ
+│   │   │   ├── music_player.templ
+│   │   │   ├── web_footer.templ
+│   │   │   └── social_links.templ
 │   │   │
-│   │   ├── rustic_wood/index.templ
-│   │   ├── muslim_elegan/index.templ
-│   │   ├── elegant_gold/index.templ
-│   │   ├── modern_minimalist/index.templ
-│   │   ├── traditional_java/index.templ
-│   │   ├── botanical_garden/index.templ  ← tema baru (contoh)
+│   │   ├── rustic_wood/
+│   │   ├── muslim_elegan/
+│   │   ├── elegant_gold/
+│   │   ├── modern_minimalist/
+│   │   ├── traditional_java/
+│   │   ├── botanical_garden/
+│   │   ├── dark_technology/
 │   │   └── render.go                ← dispatcher (WAJIB DIUPDATE)
 │   │
 │   └── invitation/                  ← WIZARD (JANGAN DISENTUH)
 │
 └── public/storage/                  ← file upload & placeholder
-    └── defaults/                    ← foto placeholder (groom.svg, bride.svg, dll)
+
+🚨 ATURAN PALING PENTING (WAJIB BACA DULU)
+1. ❌ JANGAN PAKAI // DI DALAM TAG HTML
+
+Templ parser Go salah mengira // sebagai awal komentar, bikin error close tag not found.
+
+❌ SALAH:
+html
+
+<div class="role">// The Groom</div>
+<div class="hud">// BUILD v3.0.1</div>
+
+✅ BENAR:
+html
+
+<div class="role">⟨ The Groom ⟩</div>
+<div class="hud">[ BUILD v3.0.1 ]</div>
+<div class="role"># The Groom</div>
+
+Aturan praktis: Apapun teks di dalam <div>...</div>, jangan mulai dengan // atau ada // di posisi mana pun dalam tag.
+2. ❌ JANGAN EDIT PAKAI sed BERULANG
+
+sed -i 'NNNi\...' dan sed -i 'NNNd' berkali-kali = indentasi campur tab/spasi = templ parser gagal.
+
+Penyebab utama cyber_dark gagal total selama 3 jam.
+
+Gunakan:
+
+    Python script dengan .replace() (multi-line safe)
+
+    Editor manual (nano/vim) untuk edit kecil
+
+    sed HANYA untuk rename string sederhana (1x pakai, bukan berulang)
+
+3. ❌ HATI-HATI KARAKTER UNICODE EXOTIC
+
+Beberapa karakter Unicode bikin parser Go bingung:
+Aman ✅	Hindari ❌
+◆ ◈ ● ◦	⎔ ◐ ◑ ◒ ◓
+✦ ✿ ❦ ✧	⏚ ⏛ ⏜
+⟨ ⟩ 「 」	⧉ ⧊ ⧋
+↑ ↓ ← →	⇜ ⇝ ⇞
+
+Kalau error "close tag not found" tapi tag seimbang, ganti karakter exotic.
+4. ❌ JANGAN BUAT FILE DARI NOL
+
+Cara paling aman bikin tema baru: copy dari tema yang sudah proven working.
+
+    Copy dari botanical_garden atau dark_technology (paling baru & stabil)
+
+    Rename package & function
+
+    Baru styling bertahap
+
+5. ❌ JANGAN LUPA RESTART CONTAINER
+
+Setelah templ generate + go build, selalu docker restart wedding-invitation-go-app. Binary lama masih jalan kalau tidak restart.
 🔄 Alur Data Undangan
 text
+
 1. DB: projects (slug, data_undangan JSON, template_specific_data JSON, template_id)
         templates (folder, fields_schema JSON)
 
@@ -83,14 +141,33 @@ text
      @shared.RSVPListWrap()
      @shared.SocialLinks(data, shared.SocialLinksTextDefault)
      @shared.WebFooter(data, shared.WebFooterTextDefault)
-📋 Struct TemplateData — Field yang Tersedia
-Semua field diakses via data.FieldName. Contoh: data.GroomName, data.AkadDate.
 
+Handler Preview Template (/preview/template/:slug)
+
+Handler PreviewTemplate menggunakan data dummy hardcoded dari buildDummyData():
+
+    show_bank_accounts: "yes" (sudah di-set)
+
+    bank_accounts: [...] (4 rekening contoh)
+
+    Foto, love stories, gallery — semua sudah di-set
+
+Artinya: preview template selalu punya data lengkap. Kalau section bank tidak tampil di preview, masalahnya:
+
+    File _templ.go belum di-regenerate → restart container
+
+    Cache browser → Ctrl+Shift+R
+
+    Bug di kode tema
+
+📋 Struct TemplateData — Field yang Tersedia
+
+Semua field diakses via data.FieldName.
 Field Umum (dari data_undangan):
 Field	Tipe	Keterangan
 GroomName	string	Nama mempelai pria
 BrideName	string	Nama mempelai wanita
-GroomPhoto	string	Path foto pria (bisa kosong)
+GroomPhoto	string	Path foto pria
 BridePhoto	string	Path foto wanita
 HeroImage	string	Foto hero/cover
 FatherGroom, MotherGroom	string	Nama orang tua pria
@@ -116,17 +193,18 @@ Field	Tipe	Keterangan
 BankAccounts	[]BankAccount	List rekening (sudah parsed)
 Gallery	[]string	List URL foto galeri
 LoveStories	[]LoveStory	Cerita cinta (Title, Desc)
-SiteConfig	models.Config	Setting situs (favicon, sosmed, dll)
+SiteConfig	models.Config	Setting situs (favicon, sosmed)
 ExistingRsvp	*ExistingRsvp	RSVP tamu (kalau ada)
 Specific	map[string]interface{}	Field dinamis dari template_specific_data
 Project	models.Project	Project data (ID, Slug, dll)
 GuestName	string	Nama tamu (dari ?to=)
 IsNamedGuest	bool	true kalau tamu punya nama
 MusicURL	string	URL musik (sudah full path)
-Method Bantuan (sudah tersedia):
+Method Bantuan:
 go
+
 // Foto dengan fallback default
-data.GroomPhotoOrDefault() string        // fallback ke /storage/defaults/groom.svg
+data.GroomPhotoOrDefault() string
 data.BridePhotoOrDefault() string
 data.FatherGroomPhotoOrDefault() string
 data.MotherGroomPhotoOrDefault() string
@@ -136,12 +214,12 @@ data.HeroImageOr(fallback string) string
 data.HasHeroImage() bool
 
 // Resepsi label
-data.ResepsiLabelDisplay() string  // "Walimatul Ursy", "Resepsi", dll
-data.ResepsiArabic() string        // "وَلِيمَةُ الْعُرْسِ"
-data.IsIslamicResepsi() bool       // true kalau islami
+data.ResepsiLabelDisplay() string
+data.ResepsiArabic() string
+data.IsIslamicResepsi() bool
 
 // Orang tua
-data.ParentsGroom() string  // "Bapak & Ibu" kalau kosong
+data.ParentsGroom() string
 data.ParentsBride() string
 
 // Tampilan
@@ -155,54 +233,33 @@ data.ShouldShowBothVenues() bool
 
 // RSVP
 data.HasExistingRsvp() bool
-data.ExistingRsvpField(key, def string) string  // key: "attendance" / "message"
-data.ExistingRsvpGuests() int                    // fallback 1
-Fungsi Statis (untuk bank & format):
+data.ExistingRsvpField(key, def string) string
+data.ExistingRsvpGuests() int
+
+Fungsi Statis (import "wedding-invitation-go/internal/invitation"):
 go
-// Import: "wedding-invitation-go/internal/invitation"
-invitation.GetBankTypeBadge(acc) string        // "BANK", "E-WALLET", "QRIS", "LAINNYA"
-invitation.GetAccountBankName(acc) string      // "BCA", "Mandiri", dll
-invitation.GetAccountInitial(acc) string       // 2 huruf awal
-invitation.GetAccountNumber(acc) string        // nomor atau "-"
-invitation.GetAccountName(acc) string          // nama atau "-"
+
+// Bank
+invitation.GetBankTypeBadge(acc) string
+invitation.GetAccountBankName(acc) string
+invitation.GetAccountInitial(acc) string
+invitation.GetAccountNumber(acc) string
+invitation.GetAccountName(acc) string
 invitation.HasCustomIcon(acc) bool
-invitation.GetAccountIconURL(acc) string       // full path icon
+invitation.GetAccountIconURL(acc) string
 
 // Format
 invitation.FormatUint(n uint) string
 invitation.FormatInt(n int) string
 invitation.CurrentYear() int
-invitation.GuestGreeting(isNamed bool) string  // "Kepada" / "Salam Hangat untuk"
+invitation.GuestGreeting(isNamed bool) string
+
 📦 Komponen Shared — WAJIB DIPAKAI
-⚠️ ATURAN UTAMA
-JANGAN tulis manual:
 
-❌ Form RSVP (<form class="rsvp-form">...</form>)
-
-❌ List wrapper (<div id="rsvpList">...</div>)
-
-❌ Music player (<div class="music-player">...</div>)
-
-❌ Web footer (<footer class="web-footer">...</footer>)
-
-❌ Social links (<div class="footer-social">...</div>)
-
-GUNAKAN shared:
-
-✅ @shared.RSVPForm(data, text) + @shared.RSVPListWrap()
-
-✅ @shared.MusicPlayer()
-
-✅ @shared.SocialLinks(data, text)
-
-✅ @shared.WebFooter(data, text)
-
-Kenapa? Supaya bug/update cukup di 1 tempat (bukan 6 tema).
-
+⚠️ JANGAN tulis manual form RSVP, music player, web footer, social links. GUNAKAN shared.
 1. @shared.RSVPForm(data, text) + @shared.RSVPListWrap()
-Cara pakai:
-
 templ
+
 <section class="section-rsvp">
     <div class="container">
         <h2>Konfirmasi Kehadiran</h2>
@@ -210,882 +267,700 @@ templ
         @shared.RSVPListWrap()
     </div>
 </section>
-Parameter text:
-
-shared.RSVPTextIndonesia — "Nama Anda", "Kehadiran", "Hadir", dll
-
-shared.RSVPTextJawa — "Nama", "Rawuh", "Mboten Rawuh", dll
-
-Atau custom: shared.RSVPText{LabelName: "...", ...}
 
 ⚠️ WAJIB panggil @shared.RSVPListWrap() SETELAH @shared.RSVPForm().
-
 2. @shared.MusicPlayer()
-Cara pakai (di bawah <body>, setelah overlay):
-
 templ
+
 @shared.MusicPlayer()
-Parameter: tidak ada.
 
-Prasyarat: <body> harus punya data-music-url, data-project-id, data-project-slug:
-
+Prasyarat: <body> harus punya data attribute:
 templ
+
 <body data-music-url={ data.MusicURL } data-project-id={ invitation.FormatUint(data.Project.ID) } data-project-slug={ data.Project.Slug }>
+
 3. @shared.SocialLinks(data, text)
-Cara pakai (di dalam footer undangan):
-
 templ
+
 @shared.SocialLinks(data, shared.SocialLinksTextDefault)
-Parameter text:
 
-shared.SocialLinksTextDefault — "Instagram", "WhatsApp", "YouTube"
-
-Otomatis menampilkan:
-
-Instagram — icon + @handle (extract dari data.EventInstagram)
-
-WhatsApp — icon + nomor (+62 812-3456-7890 dari data.Whatsapp)
-
-YouTube — icon + URL (youtube.com dari data.Youtube)
-
-Tombol hanya muncul kalau field tidak kosong. Kalau Whatsapp kosong → tombol WA hilang otomatis.
-
-CSS wajib:
-
-css
-.footer-social {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 24px;
-}
-.footer-social a {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    border: 1px solid rgba(WARNA, 0.25);
-    border-radius: 50px;
-    color: rgb(WARNA);
-    text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: 500;
-    transition: all 0.3s;
-    opacity: 0.85;
-    white-space: nowrap;
-}
-.footer-social a:hover {
-    background: rgba(WARNA, 0.1);
-    border-color: rgb(WARNA);
-    transform: translateY(-2px);
-    opacity: 1;
-}
-.footer-social a i { font-size: 1rem; }
-.footer-social a span { font-size: 0.8rem; font-weight: 500; }
 4. @shared.WebFooter(data, text)
-Cara pakai (sebelum </body>):
-
 templ
+
 @shared.WebFooter(data, shared.WebFooterTextDefault)
-Parameter text:
 
-shared.WebFooterTextDefault — "Kontak Kami", "Dikembangkan Oleh"
+📐 Struktur Section Standar (WAJIB IKUTI URUTAN)
+text
 
-shared.WebFooterTextShort — "Kontak", "Developer"
+1. Overlay (#startOverlay)         — khusus tema
+2. @shared.MusicPlayer()            — WAJIB
+3. Hero                             — khusus tema
+4. Opening Quote                    — khusus tema
+5. Couple                           — khusus tema
+6. Love Story (if len > 0)          — opsional
+7. Event                            — khusus tema
+8. Gallery (if len > 0)             — opsional
+9. RSVP (@shared.RSVPForm + List)   — WAJIB
+10. Bank / Amplop Digital           — WAJIB kalau ada bank
+11. Footer Undangan                 — khusus tema
+12. @shared.WebFooter()             — WAJIB
+13. Scripts (AOS, Swal, dll)
+
+Section Bank (SERING TERLUPA!)
+templ
+
+<!-- AMPLOP DIGITAL -->
+if data.ShouldShowBankAccounts() && len(data.BankAccounts) > 0 {
+    <section class="section-{TEMA}-alt" id="section-bank">
+        <div class="container">
+            <div class="section-label" data-aos="fade-up">Amplop Digital</div>
+            <h2 class="section-title" data-aos="fade-up" data-aos-delay="50">
+                Kirim<br/><em>Hadiah</em>
+            </h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Doa restu Anda adalah hadiah terindah. Namun jika ingin memberi, kami sediakan:
+            </p>
+
+            <div class="bank-{TEMA}-grid">
+                for index, account := range data.BankAccounts {
+                    <div class="bank-{TEMA}-card" data-aos="fade-up" data-aos-delay={ invitation.FormatInt(80 * (index + 1)) }>
+                        <span class="bank-type-badge">{ invitation.GetBankTypeBadge(account) }</span>
+                        <div class="bank-logo">
+                            if invitation.HasCustomIcon(account) {
+                                <img src={ invitation.GetAccountIconURL(account) } alt={ invitation.GetAccountBankName(account) }/>
+                            } else {
+                                <span class="bank-logo-icon">{ invitation.GetAccountInitial(account) }</span>
+                            }
+                        </div>
+                        <div class="bank-name">{ invitation.GetAccountBankName(account) }</div>
+                        <div class="bank-number-wrapper" data-number={ invitation.GetAccountNumber(account) } onclick={ templpkg.JSFuncCall("copyBankNumberFromEl", templpkg.JSExpression("this")) }>
+                            <span class="bank-number">{ invitation.GetAccountNumber(account) }</span>
+                            <i class="bi bi-clipboard copy-icon"></i>
+                        </div>
+                        <div class="bank-holder">
+                            a.n. <strong>{ invitation.GetAccountName(account) }</strong>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+🔒 Lock Body Scroll Saat Overlay Tampil (WAJIB)
+
+Bug umum: overlay terbuka tapi body di belakang bisa di-scroll.
+CSS (tambah di <style>):
+css
+
+body.overlay-active {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+JavaScript (modifikasi closeOverlay()):
+javascript
+
+function closeOverlay() {
+    var overlay = document.getElementById('startOverlay');
+    if (overlay) {
+        overlay.style.opacity = '0';
+        setTimeout(function() {
+            overlay.style.display = 'none';
+        }, 800);
+    }
+    // Unlock scroll & paksa ke atas
+    document.body.classList.remove('overlay-active');
+    window.scrollTo(0, 0);
+}
+
+JavaScript init (di akhir <script>):
+javascript
+
+document.addEventListener('DOMContentLoaded', function() {
+    var overlay = document.getElementById('startOverlay');
+    if (overlay && overlay.style.display !== 'none') {
+        document.body.classList.add('overlay-active');
+    }
+});
 
 🎨 CSS — Kontrak Class
-Class CSS WAJIB ada di tema baru (shared mengandalkan ini).
-
-RSVP Form:
+Class WAJIB (shared mengandalkan ini):
 css
+
+/* RSVP */
 .rsvp-form { max-width: 520px; margin: 0 auto; }
 .form-group { margin-bottom: 20px; }
-.form-group label { /* label */ }
-.form-group input, .form-group select, .form-group textarea { /* input */ }
+.form-group label { /* ... */ }
+.form-group input, .form-group select, .form-group textarea { /* ... */ }
 .form-group .required { color: #c0392b; }
-.btn-submit { /* tombol submit */ }
-.rsvp-warning { /* warning sudah RSVP */ }
-.rsvp-warning-title { /* judul */ }
-.rsvp-warning-title i { /* icon */ }
-.rsvp-warning p { /* teks */ }
-.rsvp-list-wrap { /* wrapper list */ }
-.rsvp-list-head { /* head list */ }
-.rsvp-list-head h4 { /* judul */ }
-.rsvp-count { /* count badge */ }
-.rsvp-empty { /* list kosong */ }
-.rsvp-item { /* 1 item RSVP */ }
-.rsvp-item .row-main { /* baris utama */ }
-.rsvp-item .guest-name { /* nama tamu */ }
-.rsvp-item .status-badge { /* badge status */ }
+.btn-submit { /* ... */ }
+.rsvp-warning { /* ... */ }
+.rsvp-warning-title { /* ... */ }
+.rsvp-warning p { /* ... */ }
+.rsvp-list-wrap { /* ... */ }
+.rsvp-list-head { /* ... */ }
+.rsvp-count { /* ... */ }
+.rsvp-empty { /* ... */ }
+.rsvp-item { /* ... */ }
+.rsvp-item .row-main { /* ... */ }
+.rsvp-item .guest-name { /* ... */ }
+.rsvp-item .status-badge { /* ... */ }
 .rsvp-item .status-badge.hadir { background: rgba(16,185,129,0.1); color: #059669; }
 .rsvp-item .status-badge.tidak_hadir { background: rgba(192,57,43,0.1); color: #c0392b; }
 .rsvp-item .status-badge.ragu { background: rgba(245,158,11,0.12); color: #d97706; }
-.rsvp-item .row-detail { /* baris detail */ }
-.rsvp-item .meta-left { /* meta kiri */ }
-.rsvp-item .meta-left .time { /* waktu */ }
-.rsvp-item .meta-left .guests { /* jumlah tamu */ }
-.rsvp-item .message { /* pesan */ }
-Copy dari tema lain (contoh: rustic_wood) & adjust warna.
+.rsvp-item .row-detail { /* ... */ }
+.rsvp-item .meta-left { /* ... */ }
+.rsvp-item .message { /* ... */ }
 
-Music Player:
-css
+/* Music Player */
 .music-player { position: fixed; bottom: 24px; right: 24px; z-index: 1000; }
-.music-btn { /* tombol bulat */ }
-.music-btn.playing { /* animasi saat playing */ }
-Web Footer (⚠️ PERHATIAN KHUSUS):
-css
-.web-footer { /* container */ }
+.music-btn { /* ... */ }
+.music-btn.playing { /* ... */ }
 
-/* WAJIB — biar 3 kolom */
-.web-footer-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
+/* Footer Social */
+.footer-social { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+.footer-social a { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border: 1px solid rgba(WARNA, 0.25); border-radius: 50px; color: rgb(WARNA); text-decoration: none; font-size: 0.8rem; font-weight: 500; transition: all 0.3s; opacity: 0.85; white-space: nowrap; }
+.footer-social a:hover { background: rgba(WARNA, 0.1); border-color: rgb(WARNA); transform: translateY(-2px); opacity: 1; }
+.footer-social a i { font-size: 1rem; }
+.footer-social a span { font-size: 0.8rem; font-weight: 500; }
 
-/* WAJIB — biar container cukup lebar untuk 3 kolom */
-.web-footer .container {
-    max-width: 1280px !important;
-}
-
-/* WAJIB — biar logo + teks satu baris */
-.web-footer-brand img {
-    display: inline-block !important;
-    vertical-align: middle;
-    margin-right: 8px;
-}
-
-/* WAJIB — warna icon */
+/* Web Footer (3 baris !important WAJIB) */
+.web-footer .container { max-width: 1280px !important; }
+.web-footer-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+.web-footer-brand img { display: inline-block !important; vertical-align: middle; margin-right: 8px; }
 .web-footer-icon { color: var(--warna-tema); }
 
-/* Sisanya */
-.web-footer-brand { /* brand */ }
-.web-footer-desc { /* deskripsi */ }
-.web-footer-link { /* link */ }
-.web-footer-socials { /* social container */ }
-.web-social-link { /* social link */ }
-.web-footer-heading { /* heading */ }
-.web-footer-list { /* list */ }
-.web-footer-version { /* versi */ }
-.web-footer-divider { /* divider */ }
-.web-footer-text { /* copyright */ }
-⚠️ PENTING: 3 baris !important di atas WAJIB — kalau tidak:
-
-.web-footer .container tanpa !important → footer tetap 1 kolom
-
-.web-footer-brand img tanpa !important → logo & teks atas-bawah
-
-Kontrak --warna-tema: Ganti dengan CSS var tema kamu, misal var(--rustic-gold), var(--gold), var(--accent-light).
-
-Toast (dibuat via JS, CSS perlu):
-css
+/* Toast */
 .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; }
-.toast { /* style */ }
-.toast.success i { color: #10b981; }
-.toast.error i { color: #ef4444; }
-.toast.info i { color: var(--warna-tema); }
-Overlay (khusus tema, tidak shared):
-css
-#startOverlay { /* overlay */ }
-.overlay-inner { /* inner */ }
-.btn-start { /* tombol buka */ }
-📝 JavaScript — Kontrak Fungsi
-⚠️ WAJIB ada di tema baru:
-js
-// Shared panggil:
-window.startMusic = function() { ... }
-window.toggleMusic = function() { ... }
+.toast { /* ... */ }
 
-// HTML tema panggil (nama fungsi bisa di-alias):
-window.scrollToSection = function() { ... }
-JS standar yang bisa copy dari tema lain:
-AOS init — AOS.init({...})
+/* Overlay Scroll Lock */
+body.overlay-active { overflow: hidden; position: fixed; width: 100%; height: 100%; }
 
-Music player — startMusic, toggleMusic, closeOverlay, initAudio, retry
-
-Toast — showToast, escapeHtml
-
-Copy bank — copyBankNumberFromEl, copyText, fallbackCopy
-
-RSVP — loadRsvpList, submit handler
-
-Lightbox — gallery click handler
-
-Scroll helper — scrollToSection
-
-Cara tercepat: Copy dari rustic_wood/index.templ, ganti nama class gallery & section ID.
-
-🚀 CARA BIKIN TEMA BARU (Step-by-Step)
-Step 1: Buat folder & file
+🛠️ CARA BIKIN TEMA BARU (Step-by-Step)
+Step 1: Copy dari Tema Proven
 bash
-mkdir -p /DATA/AppData/wedding-invitation-go/src/views/invitations/tema_baru
-cd /DATA/AppData/wedding-invitation-go/src/views/invitations/tema_baru
-Buat 1 file saja: index.templ
 
-Step 2: Struktur file index.templ
-templ
-package tema_baru
+cd /DATA/AppData/wedding-invitation-go/src/views/invitations
 
-import (
-    "context"
-    "io"
+# Copy dari botanical_garden atau dark_technology
+cp -r botanical_garden tema_baru
 
-    templpkg "github.com/a-h/templ"
-    "wedding-invitation-go/internal/invitation"
-    "wedding-invitation-go/internal/models"
-    "wedding-invitation-go/views/invitations/shared"
-)
+# Hapus file generated
+rm -f tema_baru/index_templ.go
+rm -f tema_baru/*.bak*
 
-// TemaBaru — entry point
-func TemaBaru(ctx context.Context, w io.Writer, project models.Project, data *invitation.TemplateData, guestName string) error {
-    component := temaBaruPage(data)
-    return component.Render(ctx, w)
-}
+Step 2: Rename Package & Function
 
-templ temaBaruPage(data *invitation.TemplateData) {
-    <!DOCTYPE html>
-    <html lang="id">
-    <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>{ data.GroomName } &amp; { data.BrideName } - Tema Baru</title>
+Pakai Python (aman multi-line):
+bash
 
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
-        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+python3 << 'PYEOF'
+path = "/DATA/AppData/wedding-invitation-go/src/views/invitations/tema_baru/index.templ"
+with open(path) as f:
+    content = f.read()
 
-        <style>
-            /* CSS RESET */
-            * { margin: 0; padding: 0; box-sizing: border-box; }
-            html { scroll-behavior: smooth; }
-            body {
-                font-family: 'Inter', sans-serif;
-                background: var(--bg);
-                color: var(--text);
-                line-height: 1.7;
-                overflow-x: hidden;
-            }
-            img { max-width: 100%; height: auto; }
+content = content.replace('package botanical_garden', 'package tema_baru')
+content = content.replace('func BotanicalGarden(', 'func TemaBaru(')
+content = content.replace('botanicalGardenPage(', 'temaBaruPage(')
+content = content.replace('- Botanical Garden</title>', '- Tema Baru</title>')
 
-            /* CSS VARIABLES */
-            :root {
-                --primary: #warna-utama;
-                --accent: #warna-aksen;
-                --bg: #background;
-                --text: #teks;
-                --text-muted: #teks-lembut;
-            }
+with open(path, 'w') as f:
+    f.write(content)
+print("✅ Rename selesai")
+PYEOF
 
-            /* ============================================ */
-            /* CSS TEMA (hero, couple, event, gallery, dll) */
-            /* ============================================ */
-            /* ... desain tema kamu di sini ... */
+Step 3: Verifikasi
+bash
 
-            /* ============================================ */
-            /* RSVP FORM (WAJIB — copy dari rustic_wood) */
-            /* ============================================ */
-            .rsvp-form { max-width: 520px; margin: 0 auto; }
-            .form-group { margin-bottom: 20px; }
-            .form-group label { /* ... */ }
-            .form-group input, .form-group select, .form-group textarea { /* ... */ }
-            .form-group .required { color: #c0392b; }
-            .btn-submit { /* ... */ }
-            .rsvp-warning { /* ... */ }
-            .rsvp-warning-title { /* ... */ }
-            .rsvp-warning p { /* ... */ }
-            .rsvp-list-wrap { /* ... */ }
-            .rsvp-list-head { /* ... */ }
-            .rsvp-count { /* ... */ }
-            .rsvp-empty { /* ... */ }
-            .rsvp-item { /* ... */ }
-            /* dst. (lihat kontrak CSS di atas) */
+docker exec -it wedding-invitation-go-app sh -c "head -1 /app/views/invitations/tema_baru/index.templ"
+docker exec -it wedding-invitation-go-app sh -c "grep -n 'func TemaBaru\|temaBaruPage' /app/views/invitations/tema_baru/index.templ"
 
-            /* ============================================ */
-            /* MUSIC PLAYER (WAJIB) */
-            /* ============================================ */
-            .music-player { position: fixed; bottom: 24px; right: 24px; z-index: 1000; }
-            .music-btn { /* ... */ }
-            .music-btn.playing { /* ... */ }
+Step 4: Generate Awal (WAJIB sukses sebelum lanjut styling)
+bash
 
-            /* ============================================ */
-            /* FOOTER SOCIAL (WAJIB) */
-            /* ============================================ */
-            .footer-social { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
-            .footer-social a { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border: 1px solid rgba(WARNA, 0.25); border-radius: 50px; color: rgb(WARNA); text-decoration: none; font-size: 0.8rem; font-weight: 500; transition: all 0.3s; opacity: 0.85; white-space: nowrap; }
-            .footer-social a:hover { background: rgba(WARNA, 0.1); border-color: rgb(WARNA); transform: translateY(-2px); opacity: 1; }
-            .footer-social a i { font-size: 1rem; }
-            .footer-social a span { font-size: 0.8rem; font-weight: 500; }
+docker exec -it wedding-invitation-go-app sh -c "cd /app && templ generate 2>&1 | grep -iE 'tema_baru|error' | head -5"
+docker exec -it wedding-invitation-go-app sh -c "cd /app && go build ./... 2>&1 | head -10"
 
-            /* ============================================ */
-            /* WEB FOOTER (WAJIB) */
-            /* ============================================ */
-            .web-footer { /* ... */ }
-            .web-footer .container { max-width: 1280px !important; }
-            .web-footer-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
-            .web-footer-brand img { display: inline-block !important; vertical-align: middle; margin-right: 8px; }
-            .web-footer-icon { color: var(--accent); }
-            /* ... dst */
-
-            /* ============================================ */
-            /* TOAST */
-            /* ============================================ */
-            .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; }
-            .toast { /* ... */ }
-
-            /* ============================================ */
-            /* OVERLAY (khusus tema) */
-            /* ============================================ */
-            #startOverlay { /* ... */ }
-        </style>
-    </head>
-    <body data-music-url={ data.MusicURL } data-project-id={ invitation.FormatUint(data.Project.ID) } data-project-slug={ data.Project.Slug }>
-
-        <!-- OVERLAY (khusus tema) -->
-        <div id="startOverlay">
-            <div class="overlay-inner">
-                <!-- desain overlay -->
-                <button class="btn-start" onclick={ templpkg.JSFuncCall("startMusic") }>
-                    Buka Undangan
-                </button>
-            </div>
-        </div>
-
-        <!-- MUSIC PLAYER — WAJIB -->
-        @shared.MusicPlayer()
-
-        <!-- HERO (khusus tema) -->
-        <section class="hero">
-            <!-- desain hero -->
-        </section>
-
-        <!-- COUPLE (khusus tema) -->
-        <section class="section-couple">
-            <!-- desain couple -->
-        </section>
-
-        <!-- LOVE STORY (opsional) -->
-        if len(data.LoveStories) > 0 {
-            <section>
-                for _, story := range data.LoveStories {
-                    <div>{ story.Title } — { story.Desc }</div>
-                }
-            </section>
-        }
-
-        <!-- EVENT -->
-        <section>
-            <div>{ data.AkadDate } — { data.AkadVenue }</div>
-            <div>{ data.ResepsiDate } — { data.ResepsiVenue }</div>
-        </section>
-
-        <!-- GALLERY (opsional) -->
-        if len(data.Gallery) > 0 {
-            <section>
-                for _, img := range data.Gallery {
-                    <img src={ img }/>
-                }
-            </section>
-        }
-
-        <!-- RSVP — WAJIB -->
-        <section class="section-rsvp">
-            <div class="container">
-                <h2>Konfirmasi Kehadiran</h2>
-                @shared.RSVPForm(data, shared.RSVPTextIndonesia)
-                @shared.RSVPListWrap()
-            </div>
-        </section>
-
-        <!-- BANK (opsional) -->
-        if data.ShouldShowBankAccounts() && len(data.BankAccounts) > 0 {
-            <section>
-                for _, acc := range data.BankAccounts {
-                    <div>{ invitation.GetAccountBankName(acc) } — { invitation.GetAccountNumber(acc) }</div>
-                }
-            </section>
-        }
-
-        <!-- FOOTER UNDANGAN (khusus tema) -->
-        <footer class="footer-botanical">
-            <!-- desain footer -->
-            @shared.SocialLinks(data, shared.SocialLinksTextDefault)
-        </footer>
-
-        <!-- WEB FOOTER — WAJIB -->
-        @shared.WebFooter(data, shared.WebFooterTextDefault)
-
-        <!-- SCRIPTS -->
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-            // AOS init
-            AOS.init({ duration: 800, once: true });
-
-            // Music player
-            var musicUrl = document.body.dataset.musicUrl || '';
-            var projectID = document.body.dataset.projectId || '';
-            var projectSlug = document.body.dataset.projectSlug || '';
-            window.startMusic = function() { /* ... */ };
-            window.toggleMusic = function() { /* ... */ };
-
-            // Toast
-            function showToast(type, message) { /* ... */ }
-            function escapeHtml(text) { /* ... */ }
-
-            // Copy bank
-            window.copyBankNumberFromEl = function(el) { /* ... */ };
-
-            // RSVP load & submit
-            function loadRsvpList() { /* ... */ }
-
-            // Lightbox (kalau ada galeri)
-            // ...
-
-            // Scroll helper
-            window.scrollToSection = function() { /* ... */ };
-        </script>
-    </body>
-    </html>
-}
-⚠️ Cara tercepat: Copy dari rustic_wood/index.templ atau botanical_garden/index.templ, rename package & function, adjust CSS warna & ornamen.
-
-Step 3: Register di render.go
-Edit views/invitations/render.go:
-
+⚠️ Kalau generate error di step ini, JANGAN LANJUT styling. Fix dulu.
+Step 5: Register di render.go
 go
-import (
-    "fmt"           // ← WAJIB
-    "io"            // ← WAJIB
-    "net/http"      // ← WAJIB
-    // ⚠️ JANGAN import "context" — tidak dipakai, akan error
 
-    "wedding-invitation-go/internal/invitation"
-    "wedding-invitation-go/internal/models"
-    "wedding-invitation-go/views/invitations/tema_baru"  // ← tambah
-    // ... import tema lain
+import (
+    // ... import lain
+    "wedding-invitation-go/views/invitations/tema_baru"
 )
 
 func RenderTemplate(...) error {
-    // ...
     switch folder {
-    case "rustic_wood": ...
-    case "muslim_elegan": ...
-    case "elegant_gold": ...
-    case "modern_minimalist": ...
-    case "traditional_java": ...
-    case "botanical_garden": ...
-    case "tema_baru":  // ← tambah case ini
+    // ... case lain
+    case "tema_baru":
         return tema_baru.TemaBaru(ctx, w, project, data, guestName)
     default:
         return fmt.Errorf("template %s tidak dikenal", folder)
     }
 }
-⚠️ WARNING: Jangan import "context" di render.go. RenderTemplate pakai r.Context(), tapi signature function tidak perlu import context (karena pakai *http.Request).
 
-Step 4: Register di DB (template_seed.go)
-Buka internal/database/template_seed.go, cari fungsi seedTemplates(), tambah di akhir sebelum return nil:
+⚠️ JANGAN import "context" di render.go — tidak dipakai, akan error.
+Step 6: Register di template_seed.go
 
+Cari seedTemplates() di /app/internal/database/template_seed.go, tambah sebelum return nil:
 go
+
 // ============================================
-// 7. TEMA BARU
+// N. TEMA BARU
 // ============================================
 if err := upsertTemplate(
-    "Tema Baru",               // Nama tampil
-    "tema-baru",               // Slug (URL-friendly)
-    "tema-baru",               // Folder (harus sama dengan nama folder)
-    "Deskripsi singkat tema.", // Deskripsi
+    "Tema Baru",
+    "tema-baru",
+    "tema-baru",
+    "Deskripsi singkat tema.",
     buildSchema(defaultFields, library),
-    7,                         // Order (7 = urutan ke-7)
+    N,   // order
 ); err != nil {
     return err
 }
 log.Println("✅ Template: Tema Baru")
-Cara praktis pakai Python:
 
+Cara aman pakai Python:
 bash
-cd /DATA/AppData/wedding-invitation-go/src
 
 python3 << 'PYEOF'
-path = "internal/database/template_seed.go"
-with open(path, 'r') as f:
+path = "/DATA/AppData/wedding-invitation-go/src/internal/database/template_seed.go"
+with open(path) as f:
     content = f.read()
 
-if 'TEMA BARU' in content:
+if 'Template: Tema Baru' in content:
     print("⚠️  Tema Baru sudah ada di seed")
 else:
-    new_block = """
-	// ============================================
-	// 7. TEMA BARU
-	// ============================================
-	if err := upsertTemplate(
-		"Tema Baru",
-		"tema-baru",
-		"tema-baru",
-		"Deskripsi singkat tema.",
-		buildSchema(defaultFields, library),
-		7,
-	); err != nil {
-		return err
-	}
-	log.Println("✅ Template: Tema Baru")
+    new_block = '''        // ============================================
+        // N. TEMA BARU
+        // ============================================
+        if err := upsertTemplate(
+                "Tema Baru",
+                "tema-baru",
+                "tema-baru",
+                "Deskripsi singkat tema.",
+                buildSchema(defaultFields, library),
+                7,
+        ); err != nil {
+                return err
+        }
+        log.Println("✅ Template: Tema Baru")
 
-	return nil
-}"""
+        return nil
+}'''
     
-    old = "\treturn nil\n}"
+    old = "        return nil\n}"
     idx = content.rfind(old)
-    if idx != -1:
+    if idx == -1:
+        print("❌ Pattern tidak ditemukan")
+    else:
         content = content[:idx] + new_block + content[idx+len(old):]
         with open(path, 'w') as f:
             f.write(content)
         print("✅ Tema Baru ditambahkan ke seedTemplates()")
-    else:
-        print("❌ Pattern tidak ditemukan")
 PYEOF
-Step 5: Build & Restart
+
+Step 7: Build & Restart
 bash
-cd /DATA/AppData/wedding-invitation-go/src
 
-# Generate templ
 docker exec -it wedding-invitation-go-app sh -c "cd /app && templ generate 2>&1 | tail -3"
-
-# Build (WAJIB cek — kalau error, fix dulu)
 docker exec -it wedding-invitation-go-app sh -c "cd /app && go build ./... 2>&1 | head -20"
 
-# Restart (seed otomatis jalan)
+# WAJIB restart supaya seed jalan
 docker restart wedding-invitation-go-app
 sleep 15
 
 # Cek log seed
 docker logs wedding-invitation-go-app 2>&1 | grep -i "template" | tail -10
-Step 6: Seed Template ke DB
-Seed dijalankan otomatis saat startup (lihat main.go). Kalau tidak otomatis, cek DB:
 
+Step 8: Verifikasi di DB
 bash
+
 docker exec wedding-invitation-go-mysql mysql -uwedding_user -pwedding123 wedding_invitation_db -e "
-SELECT id, name, slug, folder, is_active FROM templates ORDER BY id;
+SELECT id, name, slug, folder, \`order\`, is_active FROM templates ORDER BY \`order\`;
 "
-Yang diharapkan: ada row baru dengan slug = tema-baru, folder = tema-baru.
 
-Kalau tidak ada, insert manual via admin panel (/admin/templates → Tambah Template) atau via DB.
+Harus ada row baru dengan slug = tema-baru.
+Step 9: Test Preview
 
-Step 7: Test
-Preview:
+Buka: https://wedding.litebox.my.id/preview/template/tema-baru
+Step 10: Styling Bertahap
 
-text
-https://wedding.litebox.my.id/preview/template/tema-baru
-Wizard:
+Patch satu-satu:
 
-Buka /invitation/create/select-client
+    Ganti CSS variables (:root) → generate → build → restart → cek
 
-Pilih client → Next
+    Ganti font link → generate → build → restart → cek
 
-Isi data umum → Next
+    Ganti ornamen (emoji) → generate → build → restart → cek
 
-Pilih "Tema Baru" → Next
+    Ganti class name (.botanical-* → .tema-*) → generate → build → restart → cek
 
-Isi data spesifik → Next
+    Ganti teks & judul section → generate → build → restart → cek
 
-Preview → Publish
+Setiap patch: generate → build → restart → refresh browser.
 
-Homepage: cek tema baru muncul di pilihan template.
-
+⚠️ JANGAN pakai sed berulang. Pakai Python .replace().
 ✅ Checklist Tema Baru
 File & Registrasi:
 
-□ Folder views/invitations/tema_baru/ dibuat
-□ File index.templ dibuat
-□ func TemaBaru(ctx, w, project, data, guestName) error didefinisikan
-□ templ temaBaruPage(data *invitation.TemplateData) didefinisikan
-□ Import: shared, invitation, templpkg, models
-□ <body> punya data-music-url, data-project-id, data-project-slug
-Shared components:
+    □
 
-□ @shared.MusicPlayer() dipanggil
-□ @shared.RSVPForm(data, shared.RSVPTextIndonesia) dipanggil
-□ @shared.RSVPListWrap() dipanggil SETELAH RSVPForm
-□ @shared.SocialLinks(data, shared.SocialLinksTextDefault) dipanggil di footer undangan
-□ @shared.WebFooter(data, shared.WebFooterTextDefault) dipanggil
+    Folder views/invitations/tema_baru/ dibuat
+    □
+
+    File index.templ dibuat (copy dari tema proven)
+    □
+
+    func TemaBaru(ctx, w, project, data, guestName) error didefinisikan
+    □
+
+    templ temaBaruPage(data *invitation.TemplateData) didefinisikan
+    □
+
+    Import: shared, invitation, templpkg, models
+    □
+
+    <body> punya data-music-url, data-project-id, data-project-slug
+
+Anti-Pattern (WAJIB CEK):
+
+    □
+
+    Tidak ada // di dalam tag HTML
+    □
+
+    Tidak ada karakter Unicode exotic (⎔ ◐ ◑ ◒ ◓)
+    □
+
+    Indentasi konsisten (tab atau spasi, jangan campur)
+    □
+
+    Tidak ada nested <div> dengan indentasi mundur di dalam <if>
+
+Shared Components:
+
+    □
+
+    @shared.MusicPlayer() dipanggil
+    □
+
+    @shared.RSVPForm(data, shared.RSVPTextIndonesia) dipanggil
+    □
+
+    @shared.RSVPListWrap() dipanggil SETELAH RSVPForm
+    □
+
+    @shared.SocialLinks(data, shared.SocialLinksTextDefault) dipanggil di footer
+    □
+
+    @shared.WebFooter(data, shared.WebFooterTextDefault) dipanggil
+
+Section Bank (WAJIB):
+
+    □
+
+    Section "Amplop Digital" ada (setelah RSVP, sebelum Footer)
+    □
+
+    Pakai if data.ShouldShowBankAccounts() && len(data.BankAccounts) > 0
+    □
+
+    Pakai invitation.GetBankTypeBadge() dll
+
+Lock Scroll Overlay:
+
+    □
+
+    CSS body.overlay-active { overflow: hidden; position: fixed; }
+    □
+
+    JS closeOverlay() add classList.remove('overlay-active') + window.scrollTo(0, 0)
+    □
+
+    JS init saat DOMContentLoaded add overlay-active class
+
 CSS WAJIB:
 
-□ .rsvp-form, .form-group, .btn-submit, .rsvp-warning, .rsvp-list-wrap
-□ .music-player, .music-btn
-□ .footer-social, .footer-social a, .footer-social a:hover, .footer-social a i, .footer-social a span
-□ .web-footer, .web-footer-row
-□ .web-footer .container { max-width: 1280px !important }
-□ .web-footer-brand img { display: inline-block !important; vertical-align: middle }
-□ .web-footer-icon { color: var(--warna-tema) }
-□ .toast-container, .toast
+    □
+
+    .rsvp-form, .form-group, .btn-submit, .rsvp-warning, .rsvp-list-wrap
+    □
+
+    .music-player, .music-btn
+    □
+
+    .footer-social, .footer-social a, :hover, a i, a span
+    □
+
+    .web-footer, .web-footer-row
+    □
+
+    .web-footer .container { max-width: 1280px !important }
+    □
+
+    .web-footer-brand img { display: inline-block !important; vertical-align: middle }
+    □
+
+    .web-footer-icon { color: var(--warna-tema) }
+    □
+
+    .toast-container, .toast
+    □
+
+    body.overlay-active
+
 JS WAJIB:
 
-□ window.startMusic, window.toggleMusic
-□ window.scrollToSection (atau alias)
-□ showToast, escapeHtml
-□ copyBankNumberFromEl, copyText, fallbackCopy
-□ loadRsvpList + submit handler
+    □
+
+    window.startMusic, window.toggleMusic
+    □
+
+    window.scrollToSection (atau alias)
+    □
+
+    showToast, escapeHtml
+    □
+
+    copyBankNumberFromEl, copyText, fallbackCopy
+    □
+
+    loadRsvpList + submit handler
+
 Registrasi:
 
-□ render.go diupdate (case baru, JANGAN import "context")
-□ template_seed.go diupdate (upsertTemplate)
+    □
+
+    render.go diupdate (case baru, JANGAN import "context")
+    □
+
+    template_seed.go diupdate (upsertTemplate)
+
 Build & Test:
 
-□ templ generate sukses
-□ go build ./... sukses
-□ Seed template ke DB (auto via restart, atau manual)
-□ Cek DB: SELECT * FROM templates WHERE slug='tema-baru';
-□ Test preview /preview/template/tema-baru
-□ Test wizard create project
-□ Cek tampil di homepage
-□ Cek footer undangan (social links)
-□ Cek web footer (3 kolom)
-🎨 Tips Desain
-CSS Variables — selalu definisikan di :root:
+    □
 
-css
-:root {
-    --primary: #warna-utama;
-    --accent: #warna-aksen;
-    --bg: #background;
-    --text: #teks;
-    --text-muted: #teks-lembut;
-}
-Font — beda per tema:
+    templ generate sukses
+    □
 
-Elegan: Playfair Display, Cormorant Garamond
+    go build ./... sukses
+    □
 
-Modern: Inter, Poppins
+    Container direstart
+    □
 
-Islami: Amiri, Scheherazade
+    Seed template ke DB (auto via restart)
+    □
 
-Adat: serif klasik
+    Cek DB: SELECT * FROM templates WHERE slug='tema-baru';
+    □
 
-Ornamen — beda per tema:
+    Test preview /preview/template/tema-baru
+    □
 
-Rustic: ✦, ❦, ⏚
+    Test wizard create project
+    □
 
-Islami: ﷲ, ﷻ, ❦
+    Cek tampil di homepage
+    □
 
-Minimalis: —, ·, •
+    Cek footer undangan (social links)
+    □
 
-Jawa: ⚜, ❦
+    Cek web footer (3 kolom)
+    □
 
-Botanical: 🌿, 🍃, ✿, ❦
+    Cek section bank muncul (Amplop Digital)
+    □
 
-Test responsive — cek di mobile (max-width 600px) & tablet (600-1024px).
+    Cek overlay: body tidak bisa scroll saat overlay terbuka
+    □
 
-Copy dari tema lain — cara tercepat: copy rustic_wood/index.templ atau botanical_garden/index.templ, ganti nama package & function, adjust CSS warna & ornamen.
+    Cek overlay: klik → mulai dari hero (bukan di tengah)
 
-🚫 Yang TIDAK Boleh Diubah
-❌ Jangan sentuh views/invitation/ — itu wizard, bukan template undangan
-
-❌ Jangan edit file *_templ.go — itu generated, edit .templ saja
-
-❌ Jangan pakai style={ background-image: ... } — templ escape ', pakai <img> tag
-
-❌ Jangan pakai {{ var }} di dalam <script> — templ tidak replace {}, pakai data-* attribute
-
-❌ Jangan tambah helpers.go per tema — semua helper global di internal/invitation/
-
-❌ Jangan import "context" di render.go — tidak dipakai, akan error
-
-❌ Jangan tulis form RSVP / music player / web footer / social links manual — pakai shared
-
-❌ Jangan lupa panggil @shared.RSVPListWrap() setelah @shared.RSVPForm()
-
-❌ Jangan bikin field baru tanpa update getFieldLibrary() — field harus terdaftar
-
-🐛 Debugging Umum
+🐛 Debugging — Problem & Solusi
 Problem	Solusi
+templ generate error "close tag not found"	Cek // di dalam tag HTML — paling sering!
+Error "close tag not found" tapi tag seimbang	Ganti karakter Unicode exotic (⎔ ◐ → ◆ ●)
+Error "close tag not found" berulang	Indentasi campur tab/spasi — pakai Python replace
 templ generate skip file	Hapus _templ.go, generate ulang
-Field tidak tampil	Cek data.FieldName sudah ada di struct? Cek LoadData
-Preview 500 error	Cek log: docker logs wedding-invitation-go-app
-Template tidak muncul di homepage	Cek DB: SELECT * FROM templates WHERE is_active=1;
+Field tidak tampil	Cek data.FieldName ada di struct? Cek LoadData
+Preview 500 error	docker logs wedding-invitation-go-app
+Template tidak muncul di homepage	SELECT * FROM templates WHERE is_active=1;
 Preview blank	Cek error JS di browser console (F12)
-Gambar tidak muncul	Cek path: /storage/... atau URL eksternal
+Gambar tidak muncul	Cek path /storage/... atau URL eksternal
 Music tidak play	Cek data-music-url di <body>, cek console
 Footer 1 kolom, bukan 3	Cek .web-footer .container { max-width: 1280px !important }
 Logo + teks footer atas-bawah	Cek .web-footer-brand img { display: inline-block !important }
 RSVP form hilang	Cek @shared.RSVPForm + @shared.RSVPListWrap dipanggil
 Music player tidak muncul	Cek @shared.MusicPlayer() dipanggil
-Social links tidak muncul	Cek @shared.SocialLinks(data, shared.SocialLinksTextDefault) dipanggil + CSS .footer-social ada
-Social links tumpang tindih	Cek .footer-social a { white-space: nowrap } + hapus CSS .footer-social a versi lama
-CSS .footer-social dobel	Cari .footer-social a { — kalau ada 2, hapus yang versi lama (yang punya width: 40px)
-color: 184, 149, 106 tidak valid	Ganti ke color: rgb(184, 149, 106)
+Social links tidak muncul	Cek @shared.SocialLinks(...) dipanggil + CSS .footer-social ada
+Section bank tidak muncul di preview	Restart container (file _templ.go lama)
+Section bank tidak muncul di undangan	Cek data project: show_bank_accounts = "yes"
+Body bisa di-scroll saat overlay terbuka	Tambah body.overlay-active CSS + JS closeOverlay
+Setelah klik overlay, mulai di tengah	Tambah window.scrollTo(0, 0) di closeOverlay
+sed bikin file rusak	Pakai Python .replace() multi-line
 Build error: "context" imported and not used	Hapus import "context" di render.go
-Build error: "models" imported and not used	Hapus import "models" di shared component
-Seed tidak jalan otomatis	Cek main.go — apakah panggil database.Seed()?
+Seed tidak jalan otomatis	Cek main.go panggil database.Seed()
+🚫 Yang TIDAK Boleh Diubah
+
+    ❌ Jangan sentuh views/invitation/ — itu wizard
+
+    ❌ Jangan edit file *_templ.go — itu generated
+
+    ❌ Jangan pakai style={ background-image: ... } — pakai <img> tag
+
+    ❌ Jangan pakai {{ var }} di dalam <script> — pakai data-* attribute
+
+    ❌ Jangan tambah helpers.go per tema
+
+    ❌ Jangan import "context" di render.go
+
+    ❌ Jangan tulis manual form RSVP / music / footer / social links — pakai shared
+
+    ❌ Jangan lupa @shared.RSVPListWrap() setelah @shared.RSVPForm()
+
+    ❌ Jangan pakai // di dalam tag HTML ← BARU
+
+    ❌ Jangan pakai sed berulang untuk edit file .templ ← BARU
+
+    ❌ Jangan pakai karakter Unicode exotic ⎔ ◐ ◑ ◒ ◓ ← BARU
+
+    ❌ Jangan buat file dari nol — copy dari tema proven ← BARU
+
 📞 Kontak & Referensi
-Repo: https://github.com/falah-udin/wedding-invitation-go
 
-Domain: https://wedding.litebox.my.id
+    Repo: https://github.com/falah-udin/wedding-invitation-go
 
-Preview template: /preview/template/:slug
+    Domain: https://wedding.litebox.my.id
+
+    Preview template: /preview/template/:slug
 
 Contoh tema:
 
-Paling sederhana: views/invitations/rustic_wood/index.templ
+    Paling sederhana: views/invitations/rustic_wood/index.templ
 
-Contoh terbaru: views/invitations/botanical_garden/index.templ
+    Modern: views/invitations/modern_minimalist/index.templ
+
+    Terbaru (dengan HUD & terminal): views/invitations/dark_technology/index.templ
+
+    Dengan section bank lengkap: views/invitations/elegant_gold/index.templ
 
 📋 Ringkasan File yang Perlu Dibuat/Diubah
+
 Untuk bikin tema baru:
 
-views/invitations/tema_baru/index.templ — BARU (~500-1000 baris)
+    views/invitations/tema_baru/index.templ — BARU
 
-views/invitations/render.go — UPDATE (1 case + import)
+    views/invitations/render.go — UPDATE (1 case + import)
 
-internal/database/template_seed.go — UPDATE (1 upsertTemplate)
+    internal/database/template_seed.go — UPDATE (1 upsertTemplate)
 
-Total: 1 file baru + 2 file edit. 🎉
-
+Total: 1 file baru + 2 file edit.
 Estimasi waktu:
 
-Copy dari tema lain: ~10 menit
+    Copy dari tema proven: ~10 menit
 
-Desain dari nol: ~2-4 jam
+    Styling dari nol: ~2-4 jam
 
-Testing: ~15 menit
-
-Selamat berkarya! Kalau ada pertanyaan, tanya ke tim. 🚀
+    Testing: ~15 menit
 
 📌 Changelog
-v3.0 (setelah bikin tema Botanical Garden):
+v3.1 (setelah bikin Dark Technology)
 
-Tambah shared/social_links.templ — komponen shared baru
+Insight baru dari sesi dark_technology:
 
-Tambah section "SocialLinks" di Komponen Shared
+    🔴 Tambah aturan KERAS: Jangan pakai // di dalam tag HTML → penyebab error "close tag not found"
 
-Tambah CSS .footer-social di kontrak CSS
+    🔴 Tambah aturan: Jangan edit pakai sed berulang — pakai Python .replace()
 
-Tambah JS kontrak window.scrollToSection
+    🔴 Tambah aturan: Hindari karakter Unicode exotic (⎔ ◐ ◑ ◒ ◓)
 
-Tambah warning context unused import di render.go
+    🔴 Tambah aturan: Copy dari tema proven, jangan bikin dari nol
 
-Tambah script Python praktis untuk register template_seed.go
+    🔴 Tambah aturan: Selalu restart container setelah templ generate + go build
 
-Tambah debugging: .footer-social dobel, color: rgb() invalid, !important footer
+    🔴 Tambah section: "Lock Body Scroll Saat Overlay Tampil" (fix bug umum)
 
-Update checklist dengan SocialLinks
+    🔴 Tambah section: "Struktur Section Standar" dengan urutan 1-13
 
-Tambah contoh tema terbaru botanical_garden
+    🔴 Tambah section: "Section Bank / Amplop Digital" (sering terlupa)
 
-v2.0 (setelah Fase 2):
+    🔴 Tambah catatan: Handler PreviewTemplate pakai data dummy — kalau bank tidak muncul, restart container
 
-Tambah section "Komponen Shared — WAJIB DIPAKAI"
+    🟡 Update Debugging: 6 baris baru (termasuk "section bank tidak muncul di preview")
 
-Tambah CSS wajib untuk web footer (.web-footer .container !important, .web-footer-brand img !important)
+    🟡 Update Checklist: 5 item baru (anti-pattern, section bank, lock overlay)
 
-Tambah JS kontrak (startMusic, toggleMusic, scrollToSection)
+    🟡 Update Yang TIDAK Boleh Diubah: 4 item baru
 
-Tambah 3 baris debugging footer (1 kolom, logo atas-bawah, dll)
+v3.0 (setelah bikin Botanical Garden)
 
-Update "Yang TIDAK Boleh Diubah" — larangan tulis manual komponen shared
+    Tambah shared/social_links.templ
 
-Update checklist dengan item shared components
+    Tambah section "SocialLinks" di Komponen Shared
 
-v1.0 (setelah Fase 1):
+    Tambah CSS .footer-social di kontrak CSS
 
-Versi awal
+    Tambah JS kontrak window.scrollToSection
 
+    Tambah warning context unused import di render.go
 
+    Tambah debugging: .footer-social dobel, color: rgb() invalid, !important footer
+
+v2.0 (setelah Fase 2)
+
+    Tambah section "Komponen Shared — WAJIB DIPAKAI"
+
+    Tambah CSS wajib untuk web footer
+
+    Tambah JS kontrak
+
+v1.0 (setelah Fase 1)
+
+    Versi awal
 
 📌 Catatan Tambahan — Favicon Dinamis
-Versi: Tambahan setelah v3.0 (belum di-merge ke panduan utama)
-Tanggal: Setelah bikin tema Botanical Garden
 
-Kenapa Perlu?
-Setiap tema undangan wajib punya favicon dinamis — supaya icon kecil di tab browser muncul, konsisten dengan homepage & admin panel.
+Setiap tema undangan wajib punya favicon dinamis. Sisipkan di index.templ setelah </title>:
+templ
 
-Cara Pasang
-Sisipkan di index.templ, setelah </title>, sebelum <link> font:
-
-html
 <title>{ data.GroomName } &amp; { data.BrideName } - Nama Tema</title>
 
-<!-- Favicon Dinamis dari Site Config -->
+<!-- Favicon Dinamis -->
 if data.SiteConfig.SiteFavicon != "" {
     <link rel="icon" href={ "/storage/" + data.SiteConfig.SiteFavicon }/>
     <link rel="apple-touch-icon" href={ "/storage/" + data.SiteConfig.SiteFavicon }/>
 } else {
     <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
 }
-Penjelasan
-Pola ini SAMA dengan yang dipakai di:
 
-views/layouts/staff.templ (baris 18-22)
-
-views/layouts/client.templ
-
-views/layouts/admin.templ
-
-Kenapa pakai if/else? Kalau SiteFavicon kosong, fallback ke /favicon.ico biar tidak 404.
-
-Field SiteFavicon diisi di mana? Admin → Settings → Site Favicon.
-
-Kalau favicon belum muncul di tab browser:
-
-Cek /admin/settings — pastikan "Site Favicon" sudah di-upload
-Refresh dengan Ctrl+F5 (hard refresh)
-Cek tab browser — ada icon kecil di sebelah judul
-Cek Cepat (Terminal)
+Cek semua tema punya favicon:
 bash
-# Cek favicon sudah terpasang di semua tema
+
 cd /DATA/AppData/wedding-invitation-go/src
-for tema in rustic_wood muslim_elegan elegant_gold modern_minimalist traditional_java botanical_garden; do
+for tema in rustic_wood muslim_elegan elegant_gold modern_minimalist traditional_java botanical_garden dark_technology; do
   echo "--- $tema ---"
   grep -c "SiteConfig.SiteFavicon" views/invitations/$tema/index.templ
 done
-Harusnya output 1 di setiap tema.
 
-Checklist Tambahan
-□ Favicon dinamis dari SiteConfig.SiteFavicon ada di <head>
-□ Fallback /favicon.ico kalau SiteFavicon kosong
-□ Favicon muncul di tab browser (setelah upload di Settings)
-□ Konsisten dengan favicon homepage & admin panel
-Debugging
-Problem	Solusi
-Favicon tidak muncul	Cek <link rel="icon"> di <head>
-Favicon muncul default (bukan custom)	Upload favicon di /admin/settings
-Favicon 404	Cek path /storage/... — pastikan file ada
-Favicon muncul di homepage tapi tidak di undangan	Cek if data.SiteConfig.SiteFavicon != "" di index.templ tema
-Favicon muncul di 1 tema tapi tidak di tema lain	Cek semua 6 tema sudah punya blok favicon
-Catatan Teknis
-Jangan hardcode path favicon di tema
+Output harusnya 1 di setiap tema.
+🚀 Selamat Berkarya!
 
-Selalu ambil dari data.SiteConfig.SiteFavicon
+Kalau ada pertanyaan, tanya ke tim. Ingat aturan emas:
 
-Pakai if/else — jangan cuma if (biar ada fallback)
+    Copy dari tema proven — jangan bikin dari nol
 
-Update serentak — kalau nanti ganti pola favicon, ubah di 6 tema + staff.templ + client.templ + admin.templ
+    Jangan pakai // di HTML
 
-Update Changelog (Kalau Mau Di-merge ke Panduan Utama)
-Nanti kalau panduan diupdate ke v3.1, tambahkan di changelog:
+    Generate + build + restart setiap patch
 
-markdown
-**v3.1** (setelah tambah favicon dinamis):
-- Tambah section "Step 2b: Favicon Dinamis (WAJIB)"
-- Update checklist: tambah item favicon
-- Update debugging: favicon tidak muncul
-🎯 Cara Pakai
-Copy semua isi "Catatan Tambahan" di atas
+    Test preview setelah setiap perubahan
 
-Buka src/notes/NEW_THEME_GUIDE.md
-
-Scroll ke paling bawah
-
-Paste di bawah changelog
-
-Save
-
-Commit & push
-
-Command commit:
-
-bash
-cd /DATA/AppData/wedding-invitation-go
-
-git add src/notes/NEW_THEME_GUIDE.md
-git commit -m "docs: add favicon notes to new theme guide"
-git push origin main
+Happy coding! 🎉

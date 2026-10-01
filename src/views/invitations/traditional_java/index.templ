@@ -73,6 +73,13 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 			}
 			img { max-width: 100%; height: auto; display: block; }
 
+			body.overlay-active {
+				overflow: hidden;
+				position: fixed;
+				width: 100%;
+				height: 100%;
+			}
+
 			.container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
 			.container-wide { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 			@media (max-width: 600px) {
@@ -2310,7 +2317,15 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 		@shared.WebFooter(data, shared.WebFooterTextShort)
 
 		<!-- SCRIPTS -->
-		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js">
+			// Lock scroll saat overlay tampil
+			document.addEventListener('DOMContentLoaded', function() {
+				var overlay = document.getElementById('startOverlay');
+				if (overlay && overlay.style.display !== 'none') {
+					document.body.classList.add('overlay-active');
+				}
+			});
+			</script>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 		<script>
@@ -2374,9 +2389,11 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 					overlay.style.opacity = '0';
 					setTimeout(function() {
 						overlay.style.display = 'none';
-						document.body.style.overflow = '';
 					}, 800);
 				}
+				document.body.classList.remove('overlay-active');
+				window.scrollTo(0, 0);
+			}
 			}
 
 			window.toggleMusic = function() {
