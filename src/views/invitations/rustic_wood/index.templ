@@ -267,6 +267,15 @@ templ rusticWoodPage(data *invitation.TemplateData) {
 				background-position: right center;
 			}
 			#startOverlay .btn-start:active { transform: scale(0.95); }
+			#startOverlay .overlay-tema-name {
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 0.7rem;
+				letter-spacing: 4px;
+				text-transform: uppercase;
+				opacity: 0.55;
+				margin-top: 6px;
+				font-style: italic;
+			}
 			#startOverlay .hint {
 				font-size: 0.6rem; opacity: 0.2; margin-top: 18px;
 				letter-spacing: 3px; color: var(--rustic-cream);
@@ -1243,7 +1252,7 @@ templ rusticWoodPage(data *invitation.TemplateData) {
 		<div id="startOverlay">
 			<div class="overlay-inner">
 				<span class="overlay-wood">✦</span>
-				<h1 class="overlay-title">Rustic Wood</h1>
+				<h1 class="overlay-title">The Wedding Of</h1>
 				<p class="overlay-subtitle">{ data.GroomName } &amp; { data.BrideName }</p>
 				<div class="overlay-divider"></div>
 
@@ -1257,6 +1266,8 @@ templ rusticWoodPage(data *invitation.TemplateData) {
 					<i class="bi bi-play-fill me-2"></i>
 					Buka Undangan
 				</button>
+
+				<p class="overlay-tema-name">Undangan Rustic Wood</p>
 
 				<p class="hint">✦ Klik untuk membuka undangan ✦</p>
 			</div>
@@ -1724,7 +1735,6 @@ templ rusticWoodPage(data *invitation.TemplateData) {
 				}
 				document.body.classList.remove('overlay-active');
 				window.scrollTo(0, 0);
-			}
 			}
 
 			window.toggleMusic = function() {

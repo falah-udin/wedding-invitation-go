@@ -1,0 +1,847 @@
+📘 PANDUAN BIKIN TEMA BARU — Wedding Invitation Go
+
+Versi: 3.2 (setelah overlay personalisasi + fix home card)
+Terakhir update: Setelah patch 8 tema (overlay standar) + fix template card homepage
+
+🎯 Tujuan
+
+Panduan ini untuk developer yang mau bikin tema undangan baru di project Wedding Invitation Go. Setelah baca ini, kamu bisa bikin tema baru yang:
+
+    Tampil di homepage (pilihan template)
+    Tampil di wizard Step 3 (pilih template)
+    Punya preview /preview/template/:slug
+    Berfungsi penuh (RSVP, music, footer, social links, bank accounts)
+    Anti-error — tidak akan kena bug templ parser
+    Lock scroll overlay — user tidak bisa scroll di belakang overlay
+    Overlay personalisasi standar (eyebrow, nama mempelai, nama tema)
+
+🚨 ATURAN PALING PENTING (WAJIB BACA DULU)
+
+1. ❌ JANGAN PAKAI // DI DALAM TAG HTML
+
+Templ parser Go salah mengira // sebagai awal komentar, bikin error close tag not found.
+
+❌ SALAH:
+  <div class="role">// The Groom</div>
+  <div class="hud">// BUILD v3.0.1</div>
+
+✅ BENAR:
+  <div class="role">⟨ The Groom ⟩</div>
+  <div class="hud">[ BUILD v3.0.1 ]</div>
+  <div class="role"># The Groom</div>
+
+Aturan praktis: Apapun teks di dalam <div>...</div>, jangan mulai dengan // atau ada // di posisi mana pun dalam tag.
+
+
+2. ❌ JANGAN EDIT PAKAI sed BERULANG
+
+sed -i 'NNNi\...' dan sed -i 'NNNd' berkali-kali = indentasi campur tab/spasi = templ parser gagal.
+
+Penyebab utama cyber_dark gagal total selama 3 jam.
+
+Gunakan:
+    - Python script dengan .replace() (multi-line safe)
+    - Editor manual (nano/vim) untuk edit kecil
+    - sed HANYA untuk rename string sederhana (1x pakai, bukan berulang)
+
+
+3. ❌ HATI-HATI KARAKTER UNICODE EXOTIC
+
+Beberapa karakter Unicode bikin parser Go bingung:
+
+Aman ✅              Hindari ❌
+◆ ◈ ● ◦              ⎔ ◐ ◑ ◒ ◓
+✦ ✿ ❦ ✧              ⏚ ⏛ ⏜
+⟨ ⟩ 「 」             ⧉ ⧊ ⧋
+↑ ↓ ← →              ⇜ ⇝ ⇞
+
+Kalau error "close tag not found" tapi tag seimbang, ganti karakter exotic.
+
+
+4. ❌ JANGAN BUAT FILE DARI NOL
+
+Cara paling aman bikin tema baru: copy dari tema yang sudah proven working.
+
+    - Copy dari sakura_zen, botanical_garden, atau dark_technology (paling baru & stabil)
+    - Rename package & function
+    - Baru styling bertahap
+
+
+5. ❌ JANGAN LUPA RESTART CONTAINER
+
+Setelah templ generate + go build, selalu docker restart wedding-invitation-go-app.
+Binary lama masih jalan kalau tidak restart.
+
+
+6. 🔴 CEK DULU, BARU PATCH (ATURAN BARU v3.2)
+
+JANGAN langsung apply patch ke 8 tema sekaligus. Urutan:
+
+    1. Cek struktur HTML overlay per tema:
+       grep -n 'overlay-title|overlay-couple|btn-start' tema/index.templ
+    2. Lihat blok overlay lengkap:
+       sed -n '/id="startOverlay"/,/Buka Undangan/p' tema/index.templ
+    3. Cek indentasi (tab vs spasi):
+       ... | cat -A
+    4. Kelompokkan tema berdasarkan struktur:
+       - Grup A: struktur sama (h1 + overlay-title) → 1 script loop
+       - Grup B: struktur mirip (div + overlay-title) → 1 script loop
+       - Grup C: struktur beda (muslim_elegan) → manual
+    5. Patch per grup, test per grup, baru lanjut
+
+
+
+📋 Struct TemplateData — Field yang Tersedia
+
+Semua field diakses via data.FieldName.
+
+Field Umum (dari data_undangan):
+    GroomName, BrideName       - Nama mempelai pria/wanita
+    GroomPhoto, BridePhoto     - Path foto mempelai
+    HeroImage                  - Foto hero/cover
+    FatherGroom, MotherGroom   - Nama orang tua pria
+    FatherBride, MotherBride   - Nama orang tua wanita
+    GroomInstagram, BrideInstagram - IG mempelai
+    EventInstagram, Whatsapp, Youtube - Kontak
+    AkadDate, AkadTime, AkadVenue     - Info akad
+    ResepsiDate, ResepsiTime, ResepsiVenue - Info resepsi
+    ResepsiLabel, ResepsiLabelCustom  - Label resepsi
+    MapsURLAkad, MapsURLResepsi       - Link Maps
+    ShowDates, ShowVenue              - Kontrol tampilan
+    ShowBankAccounts                  - "yes"/"no"
+    GroomFamilyOrigin, BrideFamilyOrigin - Asal keluarga
+    KembarMayang                      - "yes"/"no"
+
+Field Parsed (dari JSON):
+    BankAccounts    - []BankAccount (sudah parsed)
+    Gallery         - []string (URL foto galeri)
+    LoveStories     - []LoveStory (Title, Desc)
+    SiteConfig      - models.Config
+    ExistingRsvp    - *ExistingRsvp
+    Specific        - map[string]interface{}
+    Project         - models.Project
+    GuestName       - string (dari ?to=)
+    IsNamedGuest    - bool
+    MusicURL        - string
+
+
+Method Bantuan:
+
+    // Foto dengan fallback default
+    data.GroomPhotoOrDefault() string
+    data.BridePhotoOrDefault() string
+    data.FatherGroomPhotoOrDefault() string
+    data.MotherGroomPhotoOrDefault() string
+    data.FatherBridePhotoOrDefault() string
+    data.MotherBridePhotoOrDefault() string
+    data.HeroImageOr(fallback string) string
+    data.HasHeroImage() bool
+
+    // Resepsi label
+    data.ResepsiLabelDisplay() string
+    data.ResepsiArabic() string
+    data.IsIslamicResepsi() bool
+
+    // Orang tua
+    data.ParentsGroom() string
+    data.ParentsBride() string
+
+    // Tampilan
+    data.ShouldShowBankAccounts() bool
+    data.ShouldShowAkadDate() bool
+    data.ShouldShowResepsiDate() bool
+    data.ShouldShowBothDates() bool
+    data.ShouldShowAkadVenue() bool
+    data.ShouldShowResepsiVenue() bool
+    data.ShouldShowBothVenues() bool
+
+    // RSVP
+    data.HasExistingRsvp() bool
+    data.ExistingRsvpField(key, def string) string
+    data.ExistingRsvpGuests() int
+
+
+Fungsi Statis:
+
+    invitation.GetBankTypeBadge(acc) string
+    invitation.GetAccountBankName(acc) string
+    invitation.GetAccountInitial(acc) string
+    invitation.GetAccountNumber(acc) string
+    invitation.GetAccountName(acc) string
+    invitation.HasCustomIcon(acc) bool
+    invitation.GetAccountIconURL(acc) string
+
+    invitation.FormatUint(n uint) string
+    invitation.FormatInt(n int) string
+    invitation.CurrentYear() int
+    invitation.GuestGreeting(isNamed bool) string
+
+
+📦 Komponen Shared — WAJIB DIPAKAI
+
+⚠️ JANGAN tulis manual form RSVP, music player, web footer, social links. GUNAKAN shared.
+
+1. @shared.RSVPForm(data, text) + @shared.RSVPListWrap()
+    @shared.RSVPForm(data, shared.RSVPTextIndonesia)
+    @shared.RSVPListWrap()
+
+    ⚠️ WAJIB panggil @shared.RSVPListWrap() SETELAH @shared.RSVPForm().
+
+2. @shared.MusicPlayer()
+    Prasyarat: <body> harus punya data attribute:
+    <body data-music-url={ data.MusicURL } data-project-id={ invitation.FormatUint(data.Project.ID) } data-project-slug={ data.Project.Slug }>
+
+3. @shared.SocialLinks(data, text)
+    @shared.SocialLinks(data, shared.SocialLinksTextDefault)
+
+4. @shared.WebFooter(data, text)
+    @shared.WebFooter(data, shared.WebFooterTextDefault)
+
+
+📐 Struktur Overlay Standar (WAJIB — v3.2)
+
+Setiap tema punya overlay (#startOverlay) dengan urutan:
+
+    1. Ornamen/ikon tema (misal 🌸, 🌿, ✦)
+    2. Bismillah (khusus tema Islami)
+    3. Divider (garis pemisah)
+    4. Eyebrow: "The Wedding Of"         ← teks NETRAL
+    5. Nama mempelai (GroomName & BrideName)  ← WAJIB
+    6. Guest label + nama tamu (GuestName)
+    7. Tombol Buka Undangan
+    8. Nama tema: "Undangan {Nama Tema}"  ← WAJIB, kecil di bawah tombol
+
+⚠️ JANGAN tampilkan nama tema sebagai judul besar di overlay.
+   Nama tema hanya sebagai credit kecil di bawah tombol.
+
+Contoh templ:
+
+    <div id="startOverlay">
+        <div class="overlay-inner">
+            <span class="overlay-ikon">🌸</span>
+            <p class="overlay-subtitle">Subtitle tema (opsional)</p>
+            <div class="overlay-divider"></div>
+
+            <div class="overlay-eyebrow">The Wedding Of</div>
+            <div class="overlay-couple">
+                <span>{ data.GroomName }</span>
+                <span class="amp">&amp;</span>
+                <span>{ data.BrideName }</span>
+            </div>
+
+            <div class="overlay-guest-label">
+                { invitation.GuestGreeting(data.IsNamedGuest) }
+            </div>
+            <div class="overlay-guest-name">{ data.GuestName }</div>
+
+            <button class="btn-start" onclick={ templpkg.JSFuncCall("startMusic") }>
+                <i class="bi bi-play-fill"></i>
+                Buka Undangan
+            </button>
+
+            <p class="overlay-tema-name">Undangan {Nama Tema}</p>
+        </div>
+    </div>
+
+
+
+📐 Struktur Section Standar (WAJIB IKUTI URUTAN)
+
+    1. Overlay (#startOverlay)         — khusus tema
+    2. @shared.MusicPlayer()            — WAJIB
+    3. Hero                             — khusus tema
+    4. Opening Quote                    — khusus tema
+    5. Couple                           — khusus tema
+    6. Love Story (if len > 0)          — opsional
+    7. Event                            — khusus tema
+    8. Gallery (if len > 0)             — opsional
+    9. RSVP (@shared.RSVPForm + List)   — WAJIB
+    10. Bank / Amplop Digital           — WAJIB kalau ada bank
+    11. Footer Undangan                 — khusus tema
+    12. @shared.WebFooter()             — WAJIB
+    13. Scripts (AOS, Swal, dll)
+
+
+Section Bank (SERING TERLUPA!)
+
+    if data.ShouldShowBankAccounts() && len(data.BankAccounts) > 0 {
+        <section class="section-{TEMA}-alt" id="section-bank">
+            <div class="container">
+                <div class="section-label" data-aos="fade-up">Amplop Digital</div>
+                <h2 class="section-title" data-aos="fade-up" data-aos-delay="50">
+                    Kirim<br/><em>Hadiah</em>
+                </h2>
+                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                    Doa restu Anda adalah hadiah terindah. Namun jika ingin memberi, kami sediakan:
+                </p>
+
+                <div class="bank-{TEMA}-grid">
+                    for index, account := range data.BankAccounts {
+                        <div class="bank-{TEMA}-card" data-aos="fade-up" data-aos-delay={ invitation.FormatInt(80 * (index + 1)) }>
+                            <span class="bank-type-badge">{ invitation.GetBankTypeBadge(account) }</span>
+                            <div class="bank-logo">
+                                if invitation.HasCustomIcon(account) {
+                                    <img src={ invitation.GetAccountIconURL(account) } alt={ invitation.GetAccountBankName(account) }/>
+                                } else {
+                                    <span class="bank-logo-icon">{ invitation.GetAccountInitial(account) }</span>
+                                }
+                            </div>
+                            <div class="bank-name">{ invitation.GetAccountBankName(account) }</div>
+                            <div class="bank-number-wrapper" data-number={ invitation.GetAccountNumber(account) } onclick={ templpkg.JSFuncCall("copyBankNumberFromEl", templpkg.JSExpression("this")) }>
+                                <span class="bank-number">{ invitation.GetAccountNumber(account) }</span>
+                                <i class="bi bi-clipboard copy-icon"></i>
+                            </div>
+                            <div class="bank-holder">
+                                a.n. <strong>{ invitation.GetAccountName(account) }</strong>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+    }
+
+
+🔒 Lock Body Scroll Saat Overlay Tampil (WAJIB)
+
+Bug umum: overlay terbuka tapi body di belakang bisa di-scroll.
+
+CSS (tambah di <style>):
+
+    body.overlay-active {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+    }
+
+JavaScript (modifikasi closeOverlay()):
+
+    function closeOverlay() {
+        var overlay = document.getElementById('startOverlay');
+        if (overlay) {
+            overlay.style.opacity = '0';
+            setTimeout(function() {
+                overlay.style.display = 'none';
+            }, 800);
+        }
+        // Unlock scroll & paksa ke atas
+        document.body.classList.remove('overlay-active');
+        window.scrollTo(0, 0);
+    }
+
+JavaScript init (di akhir <script>):
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var overlay = document.getElementById('startOverlay');
+        if (overlay && overlay.style.display !== 'none') {
+            document.body.classList.add('overlay-active');
+        }
+    });
+
+
+🎨 CSS — Kontrak Class
+
+/* RSVP */
+.rsvp-form { max-width: 520px; margin: 0 auto; }
+.form-group { margin-bottom: 20px; }
+.form-group .required { color: #c0392b; }
+.btn-submit { /* ... */ }
+.rsvp-warning, .rsvp-warning-title { /* ... */ }
+.rsvp-list-wrap, .rsvp-list-head, .rsvp-count { /* ... */ }
+.rsvp-empty, .rsvp-item, .rsvp-item .row-main { /* ... */ }
+.rsvp-item .guest-name, .rsvp-item .status-badge { /* ... */ }
+.rsvp-item .status-badge.hadir { background: rgba(16,185,129,0.1); color: #059669; }
+.rsvp-item .status-badge.tidak_hadir { background: rgba(192,57,43,0.1); color: #c0392b; }
+.rsvp-item .status-badge.ragu { background: rgba(245,158,11,0.12); color: #d97706; }
+.rsvp-item .row-detail, .rsvp-item .meta-left, .rsvp-item .message { /* ... */ }
+
+/* Music Player */
+.music-player { position: fixed; bottom: 24px; right: 24px; z-index: 1000; }
+.music-btn { /* ... */ }
+.music-btn.playing { /* ... */ }
+
+/* Footer Social */
+.footer-social { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+.footer-social a { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border: 1px solid rgba(WARNA, 0.25); border-radius: 50px; color: rgb(WARNA); text-decoration: none; font-size: 0.8rem; font-weight: 500; transition: all 0.3s; opacity: 0.85; white-space: nowrap; }
+.footer-social a:hover { background: rgba(WARNA, 0.1); border-color: rgb(WARNA); transform: translateY(-2px); opacity: 1; }
+.footer-social a i { font-size: 1rem; }
+.footer-social a span { font-size: 0.8rem; font-weight: 500; }
+
+/* Web Footer (3 baris !important WAJIB) */
+.web-footer .container { max-width: 1280px !important; }
+.web-footer-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+.web-footer-brand img { display: inline-block !important; vertical-align: middle; margin-right: 8px; }
+.web-footer-icon { color: var(--warna-tema); }
+
+/* Toast */
+.toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; }
+.toast { /* ... */ }
+
+/* Overlay Scroll Lock */
+body.overlay-active { overflow: hidden; position: fixed; width: 100%; height: 100%; }
+
+/* Overlay Personalisasi (BARU v3.2) */
+#startOverlay .overlay-couple {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--accent);
+    letter-spacing: 2px;
+    margin-bottom: 28px;
+    line-height: 1.4;
+}
+#startOverlay .overlay-couple .amp {
+    color: var(--accent);
+    margin: 0 10px;
+    font-weight: 300;
+}
+#startOverlay .overlay-couple span { display: inline-block; }
+
+#startOverlay .overlay-tema-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-top: 6px;
+    font-style: italic;
+}
+
+/* Template Card Homepage (BARU v3.2) */
+.template-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.template-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.template-actions { margin-top: auto; }
+.template-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+
+
+🐍 Cara Edit File .templ dengan Python (Aman)
+
+JANGAN pakai sed berulang. Gunakan Python .replace() atau regex.
+
+Template Python untuk edit aman:
+
+    path = "/path/to/index.templ"
+    with open(path) as f:
+        content = f.read()
+
+    if 'target_string' in content:
+        print("⚠️ Sudah ada — skip")
+    else:
+        content = content.replace('old', 'new', 1)
+        with open(path, 'w') as f:
+            f.write(content)
+
+Untuk match dengan indentasi yang tidak pasti — pakai regex:
+
+    import re
+    pattern = re.compile(r'\n(\t+)<div class="target">', re.MULTILINE)
+    match = pattern.search(content)
+    if match:
+        indent = match.group(1)  # auto-detect tab
+        ...
+
+Untuk file .templ dengan tab campur — pakai cat -A dulu:
+
+    docker exec ... sed -n '100,110p' file.templ | cat -A
+    # ^I = tab, $ = akhir baris
+
+
+🛠️ CARA BIKIN TEMA BARU (Step-by-Step)
+
+Step 1: Copy dari Tema Proven
+
+    cd /DATA/AppData/wedding-invitation-go/src/views/invitations
+    cp -r sakura_zen tema_baru
+    rm -f tema_baru/index_templ.go
+    rm -f tema_baru/*.bak*
+
+Step 2: Rename Package & Function
+
+    python3 << 'PYEOF'
+    path = "/DATA/AppData/wedding-invitation-go/src/views/invitations/tema_baru/index.templ"
+    with open(path) as f:
+        content = f.read()
+
+    content = content.replace('package sakura_zen', 'package tema_baru')
+    content = content.replace('func SakuraZen(', 'func TemaBaru(')
+    content = content.replace('sakuraZenPage(', 'temaBaruPage(')
+    content = content.replace('- Sakura Zen</title>', '- Tema Baru</title>')
+
+    with open(path, 'w') as f:
+        f.write(content)
+    print("✅ Rename selesai")
+    PYEOF
+
+Step 3: Verifikasi
+
+    docker exec -it wedding-invitation-go-app sh -c "head -1 /app/views/invitations/tema_baru/index.templ"
+    docker exec -it wedding-invitation-go-app sh -c "grep -n 'func TemaBaru|temaBaruPage' /app/views/invitations/tema_baru/index.templ"
+
+Step 4: Generate Awal (WAJIB sukses sebelum lanjut styling)
+
+    docker exec -it wedding-invitation-go-app sh -c "cd /app && templ generate 2>&1 | grep -iE 'tema_baru|error' | head -5"
+    docker exec -it wedding-invitation-go-app sh -c "cd /app && go build ./... 2>&1 | head -10"
+
+    ⚠️ Kalau generate error di step ini, JANGAN LANJUT styling. Fix dulu.
+
+Step 5: Register di render.go
+
+    import (
+        "wedding-invitation-go/views/invitations/tema_baru"
+    )
+
+    case "tema_baru":
+        return tema_baru.TemaBaru(ctx, w, project, data, guestName)
+
+    ⚠️ JANGAN import "context" di render.go.
+
+Step 6: Register di template_seed.go
+
+    if err := upsertTemplate(
+        "Tema Baru",
+        "tema-baru",
+        "tema-baru",
+        "Deskripsi singkat tema.",
+        buildSchema(defaultFields, library),
+        N,   // order
+    ); err != nil {
+        return err
+    }
+    log.Println("✅ Template: Tema Baru")
+
+Step 7: Build & Restart
+
+    docker exec -it wedding-invitation-go-app sh -c "cd /app && templ generate 2>&1 | tail -3"
+    docker exec -it wedding-invitation-go-app sh -c "cd /app && go build ./... 2>&1 | head -20"
+    docker restart wedding-invitation-go-app
+    sleep 15
+    docker logs wedding-invitation-go-app 2>&1 | grep -i "template" | tail -10
+
+Step 8: Verifikasi di DB
+
+    docker exec wedding-invitation-go-mysql mysql -uwedding_user -pwedding123 wedding_invitation_db -e "
+    SELECT id, name, slug, folder, \`order\`, is_active FROM templates ORDER BY \`order\`;
+    "
+
+Step 9: Test Preview
+    https://wedding.litebox.my.id/preview/template/tema-baru
+
+Step 10: Styling Bertahap
+    Patch satu-satu, tiap patch: generate → build → restart → refresh browser.
+
+    ⚠️ JANGAN pakai sed berulang. Pakai Python .replace().
+
+
+✅ Checklist Tema Baru
+
+File & Registrasi:
+    □ Folder views/invitations/tema_baru/ dibuat
+    □ File index.templ dibuat (copy dari tema proven)
+    □ func TemaBaru(ctx, w, project, data, guestName) error didefinisikan
+    □ templ temaBaruPage(data *invitation.TemplateData) didefinisikan
+    □ Import: shared, invitation, templpkg, models
+    □ <body> punya data-music-url, data-project-id, data-project-slug
+
+Anti-Pattern (WAJIB CEK):
+    □ Tidak ada // di dalam tag HTML
+    □ Tidak ada karakter Unicode exotic (⎔ ◐ ◑ ◒ ◓)
+    □ Indentasi konsisten (tab atau spasi, jangan campur)
+    □ Tidak ada nested <div> dengan indentasi mundur di dalam <if>
+
+Overlay Personalisasi (WAJIB — v3.2):
+    □ Overlay punya eyebrow "The Wedding Of"
+    □ Overlay punya nama mempelai (GroomName & BrideName)
+    □ Overlay TIDAK menampilkan nama tema sebagai judul
+    □ Overlay punya teks "Undangan [Nama Tema]" kecil di bawah tombol
+    □ CSS .overlay-couple ada
+    □ CSS .overlay-tema-name ada
+
+Shared Components:
+    □ @shared.MusicPlayer() dipanggil
+    □ @shared.RSVPForm(data, shared.RSVPTextIndonesia) dipanggil
+    □ @shared.RSVPListWrap() dipanggil SETELAH RSVPForm
+    □ @shared.SocialLinks(data, shared.SocialLinksTextDefault) dipanggil di footer
+    □ @shared.WebFooter(data, shared.WebFooterTextDefault) dipanggil
+
+Section Bank (WAJIB):
+    □ Section "Amplop Digital" ada (setelah RSVP, sebelum Footer)
+    □ Pakai if data.ShouldShowBankAccounts() && len(data.BankAccounts) > 0
+
+Lock Scroll Overlay:
+    □ CSS body.overlay-active { overflow: hidden; position: fixed; }
+    □ JS closeOverlay() add classList.remove('overlay-active') + window.scrollTo(0, 0)
+    □ JS init saat DOMContentLoaded add overlay-active class
+
+CSS WAJIB:
+    □ .rsvp-form, .form-group, .btn-submit, .rsvp-warning, .rsvp-list-wrap
+    □ .music-player, .music-btn
+    □ .footer-social, .footer-social a, :hover, a i, a span
+    □ .web-footer, .web-footer-row
+    □ .web-footer .container { max-width: 1280px !important }
+    □ .web-footer-brand img { display: inline-block !important; vertical-align: middle }
+    □ .web-footer-icon { color: var(--warna-tema) }
+    □ .toast-container, .toast
+    □ body.overlay-active
+    □ .overlay-couple, .overlay-tema-name (v3.2)
+
+JS WAJIB:
+    □ window.startMusic, window.toggleMusic
+    □ window.scrollToSection (atau alias)
+    □ showToast, escapeHtml
+    □ copyBankNumberFromEl, copyText, fallbackCopy
+    □ loadRsvpList + submit handler
+
+Registrasi:
+    □ render.go diupdate (case baru, JANGAN import "context")
+    □ template_seed.go diupdate (upsertTemplate)
+
+Build & Test:
+    □ templ generate sukses
+    □ go build ./... sukses
+    □ Container direstart
+    □ Seed template ke DB
+    □ Cek DB: SELECT * FROM templates WHERE slug='tema-baru';
+    □ Test preview /preview/template/tema-baru
+    □ Test wizard create project
+    □ Cek tampil di homepage
+    □ Cek footer undangan (social links)
+    □ Cek web footer (3 kolom)
+    □ Cek section bank muncul (Amplop Digital)
+    □ Cek overlay: body tidak bisa scroll saat overlay terbuka
+    □ Cek overlay: klik → mulai dari hero (bukan di tengah)
+    □ Cek overlay: eyebrow "The Wedding Of" muncul
+    □ Cek overlay: nama mempelai muncul
+    □ Cek overlay: nama tema muncul kecil di bawah tombol
+
+
+
+🐛 Debugging — Problem & Solusi
+
+Problem                                              | Solusi
+-----------------------------------------------------|------------------------------------------------------
+templ generate error "close tag not found"           | Cek // di dalam tag HTML — paling sering!
+Error "close tag not found" tapi tag seimbang        | Ganti karakter Unicode exotic (⎔ ◐ → ◆ ●)
+Error "close tag not found" berulang                 | Indentasi campur tab/spasi — pakai Python replace
+templ generate skip file                             | Hapus _templ.go, generate ulang
+Field tidak tampil                                   | Cek data.FieldName ada di struct? Cek LoadData
+Preview 500 error                                    | docker logs wedding-invitation-go-app
+Template tidak muncul di homepage                    | SELECT * FROM templates WHERE is_active=1;
+Preview blank                                        | Cek error JS di browser console (F12)
+Gambar tidak muncul                                  | Cek path /storage/... atau URL eksternal
+Music tidak play                                     | Cek data-music-url di <body>, cek console
+Footer 1 kolom, bukan 3                              | Cek .web-footer .container { max-width: 1280px !important }
+Logo + teks footer atas-bawah                        | Cek .web-footer-brand img { display: inline-block !important }
+RSVP form hilang                                     | Cek @shared.RSVPForm + @shared.RSVPListWrap dipanggil
+Music player tidak muncul                            | Cek @shared.MusicPlayer() dipanggil
+Social links tidak muncul                            | Cek @shared.SocialLinks(...) + CSS .footer-social
+Section bank tidak muncul di preview                 | Restart container (file _templ.go lama)
+Section bank tidak muncul di undangan                | Cek data project: show_bank_accounts = "yes"
+Body bisa di-scroll saat overlay terbuka             | Tambah body.overlay-active CSS + JS closeOverlay
+Setelah klik overlay, mulai di tengah                | Tambah window.scrollTo(0, 0) di closeOverlay
+sed bikin file rusak                                 | Pakai Python .replace() multi-line
+Build error: "context" imported and not used         | Hapus import "context" di render.go
+Seed tidak jalan otomatis                            | Cek main.go panggil database.Seed()
+
+🆕 Debug (v3.2):
+
+Problem                                              | Solusi
+-----------------------------------------------------|------------------------------------------------------
+Python patch "anchor tidak ditemukan"                | Indentasi beda (tab vs spasi). Cek pakai cat -A
+Python patch "sudah ada" tapi visual belum berubah   | Cache browser. Hard refresh Ctrl+Shift+R
+CSS sudah di file tapi browser masih lama            | Cache. Ctrl+Shift+R / Incognito / clear cache
+CSS di host beda dengan di container                 | Cek docker inspect mounts. Bind mount harus sinkron
+Tag .templ pakai tab, script pakai spasi             | Pakai regex r'\t+' untuk auto-detect indentasi
+Tombol di homepage numpuk ke atas                    | Tambah white-space: nowrap + flex:1 + min-width:0
+Card template tinggi beda-beda                       | Pakai display:flex; flex-direction:column; height:100%
+Tombol card tidak nempel bawah                       | Pakai margin-top:auto di container tombol
+CSS .overlay-tema-name tidak berindentasi            | Wajar, tapi bisa dirapikan via Python replace
+
+
+🚫 Yang TIDAK Boleh Diubah
+
+    ❌ Jangan sentuh views/invitation/ — itu wizard
+    ❌ Jangan edit file *_templ.go — itu generated
+    ❌ Jangan pakai style={ background-image: ... } — pakai <img> tag
+    ❌ Jangan pakai {{ var }} di dalam <script> — pakai data-* attribute
+    ❌ Jangan tambah helpers.go per tema
+    ❌ Jangan import "context" di render.go
+    ❌ Jangan tulis manual form RSVP / music / footer / social links — pakai shared
+    ❌ Jangan lupa @shared.RSVPListWrap() setelah @shared.RSVPForm()
+    ❌ Jangan pakai // di dalam tag HTML
+    ❌ Jangan pakai sed berulang untuk edit file .templ
+    ❌ Jangan pakai karakter Unicode exotic ⎔ ◐ ◑ ◒ ◓
+    ❌ Jangan buat file dari nol — copy dari tema proven
+    ❌ Jangan patch 8 tema sekaligus tanpa cek struktur dulu (v3.2)
+    ❌ Jangan hard-code indentasi di pattern Python — pakai regex (v3.2)
+    ❌ Jangan tampilkan nama tema sebagai judul besar di overlay (v3.2)
+
+
+📞 Kontak & Referensi
+
+    Repo: https://github.com/falah-udin/wedding-invitation-go
+    Domain: https://wedding.litebox.my.id
+    Preview template: /preview/template/:slug
+
+Contoh tema:
+    - Paling sederhana: views/invitations/rustic_wood/index.templ
+    - Modern: views/invitations/modern_minimalist/index.templ
+    - Terbaru (dengan HUD & terminal): views/invitations/dark_technology/index.templ
+    - Dengan section bank lengkap: views/invitations/elegant_gold/index.templ
+    - Paling baru + overlay lengkap: views/invitations/sakura_zen/index.templ
+
+
+📋 Ringkasan File yang Perlu Dibuat/Diubah
+
+Untuk bikin tema baru:
+    1. views/invitations/tema_baru/index.templ — BARU
+    2. views/invitations/render.go — UPDATE (1 case + import)
+    3. internal/database/template_seed.go — UPDATE (1 upsertTemplate)
+
+Total: 1 file baru + 2 file edit.
+
+Estimasi waktu:
+    - Copy dari tema proven: ~10 menit
+    - Styling dari nol: ~2-4 jam
+    - Testing: ~15 menit
+
+
+📌 Changelog
+
+v3.2 (setelah overlay personalisasi + fix home card)
+
+Insight baru dari sesi patch 8 tema:
+
+    🔴 ATURAN BARU: Overlay personalisasi standar
+        - Eyebrow "The Wedding Of"
+        - Nama mempelai (WAJIB)
+        - Nama tema kecil di bawah tombol (BUKAN judul besar)
+
+    🔴 ATURAN BARU: Cek dulu sebelum patch massal
+        - Kelompokkan tema per struktur
+        - Patch per grup, test per grup
+
+    🔴 ATURAN BARU: Edit file dengan regex fleksibel
+        - Jangan hard-code indentasi
+        - Pakai \t+ untuk match apapun
+
+    🔴 ATURAN BARU: Jangan tampilkan nama tema sebagai judul besar
+
+    🟡 Section baru: Struktur Overlay Standar (8 langkah)
+    🟡 Section baru: CSS Overlay Personalisasi
+    🟡 Section baru: Template Card Homepage (flex + clamp)
+    🟡 Section baru: Cara Edit File .templ dengan Python
+    🟡 Debug baru: 9 baris (anchor, cache, indentasi)
+    🟡 Checklist baru: 6 item overlay personalisasi
+    🟡 Yang TIDAK boleh diubah: 3 item baru
+    🟡 Update tema proven: sakura_zen jadi rujukan utama
+
+v3.1 (setelah bikin Dark Technology)
+
+Insight baru dari sesi dark_technology:
+    🔴 Jangan pakai // di dalam tag HTML
+    🔴 Jangan edit pakai sed berulang — pakai Python .replace()
+    🔴 Hindari karakter Unicode exotic (⎔ ◐ ◑ ◒ ◓)
+    🔴 Copy dari tema proven, jangan bikin dari nol
+    🔴 Selalu restart container setelah templ generate + go build
+    🔴 Tambah section: "Lock Body Scroll Saat Overlay Tampil"
+    🔴 Tambah section: "Struktur Section Standar" (urutan 1-13)
+    🔴 Tambah section: "Section Bank / Amplop Digital"
+    🔴 Tambah catatan: Handler PreviewTemplate pakai data dummy
+    🟡 Update Debugging: 6 baris baru
+    🟡 Update Checklist: 5 item baru
+
+v3.0 (setelah bikin Botanical Garden)
+
+    Tambah shared/social_links.templ
+    Tambah section "SocialLinks" di Komponen Shared
+    Tambah CSS .footer-social di kontrak CSS
+    Tambah JS kontrak window.scrollToSection
+    Tambah warning context unused import di render.go
+
+v2.0 (setelah Fase 2)
+
+    Tambah section "Komponen Shared — WAJIB DIPAKAI"
+    Tambah CSS wajib untuk web footer
+    Tambah JS kontrak
+
+v1.0 (setelah Fase 1)
+
+    Versi awal
+
+
+📌 Catatan Tambahan — Favicon Dinamis
+
+Setiap tema undangan wajib punya favicon dinamis. Sisipkan di index.templ setelah </title>:
+
+    <title>{ data.GroomName } &amp; { data.BrideName } - Nama Tema</title>
+
+    <!-- Favicon Dinamis -->
+    if data.SiteConfig.SiteFavicon != "" {
+        <link rel="icon" href={ "/storage/" + data.SiteConfig.SiteFavicon }/>
+        <link rel="apple-touch-icon" href={ "/storage/" + data.SiteConfig.SiteFavicon }/>
+    } else {
+        <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    }
+
+Cek semua tema punya favicon:
+
+    cd /DATA/AppData/wedding-invitation-go/src
+    for tema in rustic_wood muslim_elegan elegant_gold modern_minimalist traditional_java botanical_garden dark_technology sakura_zen; do
+      echo "--- $tema ---"
+      grep -c "SiteConfig.SiteFavicon" views/invitations/$tema/index.templ
+    done
+
+Output harusnya 1 di setiap tema.
+
+
+📌 Catatan Tambahan — Overlay Personalisasi (v3.2)
+
+Standar overlay di semua tema:
+
+    1. Eyebrow "The Wedding Of" — netral, tidak menyebut nama tema
+    2. Nama mempelai (GroomName & BrideName) — WAJIB
+    3. Nama tema di bawah tombol sebagai credit — kecil, uppercase, opacity 0.55
+
+Format teks:
+    "Undangan [Nama Tema]"
+    Contoh: "Undangan Sakura Zen", "Undangan Muslim Elegan"
+
+CSS class:
+    .overlay-couple — nama mempelai
+    .overlay-couple .amp — simbol &
+    .overlay-tema-name — nama tema di bawah tombol
+
+Alasan:
+    - Nama tema bukan hal penting untuk tamu
+    - Yang penting: nama mempelai (siapa yang menikah)
+    - Nama tema jadi credit kecil (branding)
+    - Konsisten di semua tema
+
+
+🚀 Selamat Berkarya!
+
+Kalau ada pertanyaan, tanya ke tim. Ingat aturan emas:
+
+    1. Copy dari tema proven — jangan bikin dari nol
+    2. Jangan pakai // di HTML
+    3. Generate + build + restart setiap patch
+    4. Test preview setelah setiap perubahan
+    5. Cek dulu sebelum patch massal
+    6. Overlay standar: eyebrow + nama mempelai + nama tema kecil
+
+Happy coding! 🎉

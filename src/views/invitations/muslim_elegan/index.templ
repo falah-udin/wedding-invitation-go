@@ -155,6 +155,32 @@ templ muslimEleganPage(data *invitation.TemplateData) {
 				background: linear-gradient(90deg, transparent, #c9a03d, transparent);
 				margin: 0 auto 14px; opacity: 0.25;
 			}
+			#startOverlay .overlay-eyebrow {
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 0.65rem;
+				text-transform: uppercase;
+				letter-spacing: 8px;
+				color: rgba(232, 213, 163, 0.55);
+				margin-bottom: 12px;
+				font-weight: 500;
+			}
+			#startOverlay .overlay-couple {
+				font-family: 'Playfair Display', serif;
+				font-size: 1.3rem;
+				font-style: italic;
+				color: #c9a03d;
+				letter-spacing: 2px;
+				margin-bottom: 28px;
+				line-height: 1.4;
+			}
+			#startOverlay .overlay-couple .amp {
+				color: #e8d5a3;
+				margin: 0 10px;
+				font-weight: 300;
+			}
+			#startOverlay .overlay-couple span {
+				display: inline-block;
+			}
 			#startOverlay .btn-start {
 				display: inline-block;
 				background: linear-gradient(135deg, #c9a03d, #b8922f);
@@ -946,6 +972,15 @@ templ muslimEleganPage(data *invitation.TemplateData) {
 				</div>
 				<div class="divider"></div>
 
+
+				<div class="overlay-eyebrow">The Wedding Of</div>
+
+				<div class="overlay-couple">
+					<span>{ data.GroomName }</span>
+					<span class="amp">&amp;</span>
+					<span>{ data.BrideName }</span>
+				</div>
+
 				<div class="guest-greeting">
 					<div style="font-size:0.7rem; letter-spacing:4px; text-transform:uppercase; color:rgba(232,213,163,0.5); margin-bottom:8px;">
 						Kepada
@@ -960,6 +995,8 @@ templ muslimEleganPage(data *invitation.TemplateData) {
 					<i class="bi bi-play-fill me-2"></i>
 					Klik untuk membuka undangan
 				</button>
+				<p class="overlay-tema-name">Undangan Muslim Elegan</p>
+
 				<p class="hint">
 					Dengan mengharap ridha Allah
 				</p>

@@ -366,6 +366,11 @@ body {
 /* ============================================ */
 .templates { background: #0f0f0f; }
 
+/* Baris grid: samakan tinggi semua card */
+.templates .row.g-4 {
+    align-items: stretch;
+}
+
 .template-card {
     background: #1a1a1a;
     border: 1px solid #262626;
@@ -373,6 +378,8 @@ body {
     overflow: hidden;
     transition: all 0.3s;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .template-card:hover {
@@ -380,8 +387,10 @@ body {
     border-color: #10b981;
 }
 
+/* Gambar: tinggi fix, tidak melar */
 .template-image {
     height: 180px;
+    flex-shrink: 0;
     background: #0f0f0f;
     display: flex;
     align-items: center;
@@ -394,6 +403,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: top center;
     transition: transform 0.4s ease;
 }
 
@@ -410,14 +420,22 @@ body {
     background: #1a1a1a;
 }
 
+/* Body: flex column, dorong tombol ke bawah */
 .template-body {
     padding: 1.1rem 1.25rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 0;
 }
 
 .template-name {
     font-size: 1.05rem;
     font-weight: 600;
     margin-bottom: 0.4rem;
+    flex-shrink: 0;
+    min-height: 1.5em;
+    line-height: 1.4;
 }
 
 .template-desc {
@@ -425,6 +443,18 @@ body {
     font-size: 0.8rem;
     margin-bottom: 0.9rem;
     line-height: 1.5;
+    flex-grow: 1;
+    min-height: 3em;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Tombol selalu nempel bawah */
+.template-body .d-flex {
+    margin-top: auto;
+    flex-shrink: 0;
 }
 
 /* ============================================ */
@@ -836,6 +866,9 @@ body {
         text-align: center;
     }
     .feature-card { padding: 1.25rem 1rem; }
+    .template-image { height: 150px; }
+    .template-name { font-size: 1rem; }
+    .template-desc { font-size: 0.75rem; -webkit-line-clamp: 2; min-height: 2.4em; }
     .footer {
         padding: 2.25rem 0 1.25rem;
         text-align: center;
@@ -871,4 +904,56 @@ body {
         animation-duration: 0.01ms !important;
         transition-duration: 0.01ms !important;
     }
+}
+
+/* ============================================ */
+/* TEMPLATE ACTION BUTTONS */
+/* ============================================ */
+.template-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+    flex-shrink: 0;
+}
+.btn-template {
+    flex: 1;
+    min-width: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+.btn-template i { font-size: 0.9rem; flex-shrink: 0; }
+.btn-template span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.btn-template-outline {
+    background: transparent;
+    border: 1px solid #2a2a2a;
+    color: #e5e7eb;
+}
+.btn-template-outline:hover {
+    border-color: #10b981;
+    color: #10b981;
+    background: #1a1a1a;
+}
+.btn-template-primary {
+    background: #10b981;
+    border: 1px solid #10b981;
+    color: #ffffff;
+}
+.btn-template-primary:hover {
+    background: #059669;
+    border-color: #059669;
+    color: #ffffff;
+}
+@media (max-width: 400px) {
+    .template-actions { flex-direction: column; gap: 6px; }
+    .btn-template { padding: 9px 12px; font-size: 0.78rem; }
 }

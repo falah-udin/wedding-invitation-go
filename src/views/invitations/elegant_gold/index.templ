@@ -266,6 +266,15 @@ templ elegantGoldPage(data *invitation.TemplateData) {
 				background-position: right center;
 			}
 			#startOverlay .btn-start:active { transform: scale(0.95); }
+			#startOverlay .overlay-tema-name {
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 0.7rem;
+				letter-spacing: 4px;
+				text-transform: uppercase;
+				opacity: 0.55;
+				margin-top: 6px;
+				font-style: italic;
+			}
 			#startOverlay .hint {
 				font-size: 0.6rem; opacity: 0.2; margin-top: 18px;
 				letter-spacing: 2px; color: var(--text-light);
@@ -1203,7 +1212,7 @@ templ elegantGoldPage(data *invitation.TemplateData) {
 			<div class="overlay-inner">
 				<span class="overlay-ornament">✦</span>
 
-				<h1 class="overlay-title">Elegant Gold</h1>
+				<h1 class="overlay-title">The Wedding Of</h1>
 
 				<p class="overlay-subtitle">
 					{ data.GroomName } &amp; { data.BrideName }
@@ -1221,6 +1230,8 @@ templ elegantGoldPage(data *invitation.TemplateData) {
 					<i class="bi bi-play-fill me-2"></i>
 					Buka Undangan
 				</button>
+
+				<p class="overlay-tema-name">Undangan Elegant Gold</p>
 
 				<p class="hint">✦ Klik untuk membuka undangan ✦</p>
 			</div>
@@ -1648,7 +1659,6 @@ templ elegantGoldPage(data *invitation.TemplateData) {
 				}
 				document.body.classList.remove('overlay-active');
 				window.scrollTo(0, 0);
-			}
 			}
 
 			window.toggleMusic = function() {

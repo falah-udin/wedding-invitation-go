@@ -300,6 +300,35 @@ templ sakuraZenPage(data *invitation.TemplateData) {
 				background: var(--sakura-dark);
 				box-shadow: 0 8px 30px rgba(248, 181, 196, 0.4);
 			}
+			#startOverlay .overlay-tema-name {
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 0.7rem;
+				color: var(--ink-muted);
+				letter-spacing: 4px;
+				text-transform: uppercase;
+				opacity: 0.55;
+				margin-top: 6px;
+				font-style: italic;
+			}
+			#startOverlay .overlay-couple {
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 1.35rem;
+				font-style: italic;
+				color: var(--sakura-dark);
+				letter-spacing: 2px;
+				margin: 4px 0 32px;
+				opacity: 0.9;
+				line-height: 1.4;
+			}
+			#startOverlay .overlay-couple .amp {
+				color: var(--sakura);
+				font-weight: 300;
+				margin: 0 10px;
+				font-style: italic;
+			}
+			#startOverlay .overlay-couple span {
+				display: inline-block;
+			}
 			#startOverlay .hint {
 				font-family: 'Noto Serif JP', serif;
 				font-size: 0.65rem;
@@ -1547,8 +1576,14 @@ templ sakuraZenPage(data *invitation.TemplateData) {
 		<div id="startOverlay">
 			<div class="overlay-inner">
 				<span class="overlay-sakura">🌸</span>
-				<h1 class="overlay-title">Sakura Zen</h1>
+				<h1 class="overlay-title">The Wedding Of</h1>
 				<p class="overlay-subtitle">桜 ・ 禅</p>
+
+				<div class="overlay-couple">
+					<span>{ data.GroomName }</span>
+					<span class="amp">&amp;</span>
+					<span>{ data.BrideName }</span>
+				</div>
 				<div class="overlay-divider"></div>
 
 				<div class="overlay-guest-label">
@@ -1560,6 +1595,8 @@ templ sakuraZenPage(data *invitation.TemplateData) {
 					<i class="bi bi-flower1"></i>
 					Buka Undangan
 				</button>
+
+				<p class="overlay-tema-name">Undangan Sakura Zen</p>
 
 				<p class="hint">お 楽 し み に</p>
 			</div>

@@ -278,6 +278,15 @@ templ modernMinimalistPage(data *invitation.TemplateData) {
 				background: var(--accent);
 				color: var(--white);
 			}
+			#startOverlay .overlay-tema-name {
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 0.7rem;
+				letter-spacing: 4px;
+				text-transform: uppercase;
+				opacity: 0.55;
+				margin-top: 6px;
+				font-style: italic;
+			}
 			#startOverlay .hint {
 				font-size: 0.6rem;
 				color: rgba(255, 255, 255, 0.4);
@@ -1463,6 +1472,8 @@ templ modernMinimalistPage(data *invitation.TemplateData) {
 					Buka Undangan
 				</button>
 
+				<p class="overlay-tema-name">Undangan Modern Minimalist</p>
+
 				<p class="hint">Tap untuk membuka undangan</p>
 			</div>
 		</div>
@@ -1859,7 +1870,6 @@ templ modernMinimalistPage(data *invitation.TemplateData) {
 				}
 				document.body.classList.remove('overlay-active');
 				window.scrollTo(0, 0);
-			}
 			}
 
 			window.toggleMusic = function() {

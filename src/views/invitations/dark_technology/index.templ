@@ -241,6 +241,15 @@ templ darkTechnologyPage(data *invitation.TemplateData) {
 				transform: translateY(-2px) scale(1.03);
 				box-shadow: 0 12px 40px rgba(125, 140, 111, 0.4);
 			}
+			#startOverlay .overlay-tema-name {
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 0.7rem;
+				letter-spacing: 4px;
+				text-transform: uppercase;
+				opacity: 0.55;
+				margin-top: 6px;
+				font-style: italic;
+			}
 			#startOverlay .hint {
 				font-size: 0.65rem; opacity: 0.4; margin-top: 20px;
 				letter-spacing: 3px; color: var(--sage-light);
@@ -1458,7 +1467,7 @@ templ darkTechnologyPage(data *invitation.TemplateData) {
 		<div id="startOverlay">
 			<div class="overlay-inner">
 				<span class="overlay-leaf">◆</span>
-				<h1 class="overlay-title">DARK TECHNOLOGY</h1>
+				<h1 class="overlay-title">The Wedding Of</h1>
 				<p class="overlay-subtitle">{ data.GroomName } &amp; { data.BrideName }</p>
 				<div class="overlay-divider"></div>
 
@@ -1471,6 +1480,8 @@ templ darkTechnologyPage(data *invitation.TemplateData) {
 					<i class="bi bi-shield-check"></i>
 					Buka Undangan
 				</button>
+
+				<p class="overlay-tema-name">Undangan Dark Technology</p>
 
 				<p class="hint">[ TAP TO OPEN ]</p>
 			</div>

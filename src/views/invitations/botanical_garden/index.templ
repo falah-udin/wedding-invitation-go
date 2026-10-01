@@ -237,6 +237,16 @@ templ botanicalGardenPage(data *invitation.TemplateData) {
 				transform: translateY(-2px) scale(1.03);
 				box-shadow: 0 12px 40px rgba(125, 140, 111, 0.4);
 			}
+			#startOverlay .overlay-tema-name {
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 0.7rem;
+				color: var(--ink-muted);
+				letter-spacing: 4px;
+				text-transform: uppercase;
+				opacity: 0.55;
+				margin-top: 6px;
+				font-style: italic;
+			}
 			#startOverlay .hint {
 				font-size: 0.65rem; opacity: 0.4; margin-top: 20px;
 				letter-spacing: 3px; color: var(--sage-light);
@@ -1319,7 +1329,7 @@ templ botanicalGardenPage(data *invitation.TemplateData) {
 		<div id="startOverlay">
 			<div class="overlay-inner">
 				<span class="overlay-leaf">🌿</span>
-				<h1 class="overlay-title">Botanical Garden</h1>
+				<h1 class="overlay-title">The Wedding Of</h1>
 				<p class="overlay-subtitle">{ data.GroomName } &amp; { data.BrideName }</p>
 				<div class="overlay-divider"></div>
 
@@ -1334,6 +1344,8 @@ templ botanicalGardenPage(data *invitation.TemplateData) {
 				</button>
 
 				<p class="hint">Tap untuk membuka undangan</p>
+
+				<p class="overlay-tema-name">Undangan Botanical Garden</p>
 			</div>
 		</div>
 

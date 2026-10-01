@@ -79,3 +79,13 @@ notes/
 # Pengecualian: notes project (panduan, dokumentasi)
 !src/notes/
 !src/notes/**
+
+# ============================================
+# Core dump — JANGAN commit!
+# Berisi memory snapshot, bisa ada secret
+# ============================================
+core
+core.*
+*.core
+src/core
+**/core

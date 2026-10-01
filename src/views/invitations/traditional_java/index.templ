@@ -348,6 +348,15 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				background-position: right center;
 				box-shadow: 0 12px 40px rgba(184, 134, 11, 0.4);
 			}
+			#startOverlay .overlay-tema-name {
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 0.7rem;
+				letter-spacing: 4px;
+				text-transform: uppercase;
+				opacity: 0.55;
+				margin-top: 6px;
+				font-style: italic;
+			}
 			#startOverlay .hint {
 				font-family: 'Cormorant Garamond', serif;
 				font-size: 0.65rem;
@@ -1879,6 +1888,8 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 					Buka Undangan
 				</button>
 
+				<p class="overlay-tema-name">Undangan Traditional Java</p>
+
 				<p class="hint">Tap untuk membuka undangan</p>
 			</div>
 		</div>
@@ -2393,7 +2404,6 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				}
 				document.body.classList.remove('overlay-active');
 				window.scrollTo(0, 0);
-			}
 			}
 
 			window.toggleMusic = function() {
