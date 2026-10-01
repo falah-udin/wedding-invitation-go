@@ -529,6 +529,7 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				color: var(--gold);
 				font-size: 1rem;
 				opacity: 0.8;
+				white-space: nowrap;
 			}
 			.hero-java .hero-dates {
 				display: flex;
@@ -1571,32 +1572,7 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				margin-bottom: 32px;
 				font-style: italic;
 			}
-			.footer-java-social {
-				display: flex;
-				justify-content: center;
-				gap: 16px;
-				margin-bottom: 32px;
-			}
-			.footer-java-social a {
-				width: 42px;
-				height: 42px;
-				border-radius: 50%;
-				border: 1px solid var(--gold);
-				color: var(--gold-pale);
-				font-size: 1rem;
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-				transition: all 0.3s;
-				text-decoration: none;
-				opacity: 0.7;
-			}
-			.footer-java-social a:hover {
-				background: var(--gold);
-				color: var(--ink);
-				opacity: 1;
-				transform: translateY(-3px);
-			}
+			
 			.footer-java-pepindhan {
 				font-family: 'Playfair Display', serif;
 				font-size: 1rem;
@@ -1816,6 +1792,44 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				display: inline-block !important;
 				vertical-align: middle;
 				margin-right: 8px;
+			}
+
+		
+			/* Footer Social — icon + teks (shared) */
+			.footer-social {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 10px;
+				margin-bottom: 24px;
+			}
+			.footer-social a {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				padding: 10px 18px;
+				border: 1px solid rgba(184, 134, 11, 0.25);
+				border-radius: 50px;
+				color: rgb(184, 134, 11);
+				text-decoration: none;
+				font-size: 0.8rem;
+				font-weight: 500;
+				transition: all 0.3s;
+				opacity: 0.8;
+			}
+			.footer-social a:hover {
+				background: rgba(184, 134, 11, 0.1);
+				border-color: rgb(184, 134, 11);
+				transform: translateY(-2px);
+				opacity: 1;
+			}
+			.footer-social a i {
+				font-size: 1rem;
+			}
+			.footer-social a span {
+				font-size: 0.8rem;
+				font-weight: 500;
 			}
 
 		</style>
@@ -2274,23 +2288,7 @@ templ traditionalJavaPage(data *invitation.TemplateData) {
 				<div class="footer-java-divider"></div>
 				<div class="footer-java-date">{ data.AkadDate }</div>
 
-				<div class="footer-java-social">
-					if data.EventInstagram != "" {
-						<a href={ templpkg.SafeURL(data.EventInstagram) } target="_blank" rel="noopener">
-							<i class="bi bi-instagram"></i>
-						</a>
-					}
-					if data.Whatsapp != "" {
-						<a href={ templpkg.SafeURL("https://wa.me/" + data.Whatsapp) } target="_blank" rel="noopener">
-							<i class="bi bi-whatsapp"></i>
-						</a>
-					}
-					if data.Youtube != "" {
-						<a href={ templpkg.SafeURL(data.Youtube) } target="_blank" rel="noopener">
-							<i class="bi bi-youtube"></i>
-						</a>
-					}
-				</div>
+				@shared.SocialLinks(data, shared.SocialLinksTextDefault)
 
 				<p class="footer-java-pepindhan">
 					"Kaya dene surya lan candra, tansah madhangi jagad kanthi katresnan lan kabagyan."

@@ -1,0 +1,177 @@
+package shared
+
+import (
+	"strings"
+
+	templpkg "github.com/a-h/templ"
+	"wedding-invitation-go/internal/invitation"
+)
+
+// ============================================
+// SOCIAL LINKS TEXT — teks label fallback
+// ============================================
+
+type SocialLinksText struct {
+	Instagram string
+	WhatsApp  string
+	YouTube   string
+}
+
+var SocialLinksTextDefault = SocialLinksText{
+	Instagram: "Instagram",
+	WhatsApp:  "WhatsApp",
+	YouTube:   "YouTube",
+}
+
+// ============================================
+// HELPER: Ekstrak info dari URL
+// ============================================
+
+// getInstagramHandle — extract @username dari URL IG
+// Contoh: "https://instagram.com/wedding_event" → "@wedding_event"
+func getInstagramHandle(url string) string {
+	if url == "" {
+		return ""
+	}
+	// Hapus trailing slash
+	url = strings.TrimSuffix(url, "/")
+	// Hapus query string
+	if idx := strings.Index(url, "?"); idx != -1 {
+		url = url[:idx]
+	}
+	// Ambil bagian setelah "/"
+	parts := strings.Split(url, "/")
+	if len(parts) == 0 {
+		return ""
+	}
+	handle := parts[len(parts)-1]
+	if handle == "" {
+		return ""
+	}
+	// Kalau bukan @, tambahkan @
+	if !strings.HasPrefix(handle, "@") {
+		handle = "@" + handle
+	}
+	return handle
+}
+
+// getWhatsAppNumber — format nomor WA
+// Contoh: "6281234567890" → "+62 812-3456-7890"
+func getWhatsAppNumber(phone string) string {
+	if phone == "" {
+		return ""
+	}
+	// Hapus non-digit
+	var digits []rune
+	for _, c := range phone {
+		if c >= '0' && c <= '9' {
+			digits = append(digits, c)
+		}
+	}
+	phone = string(digits)
+	if phone == "" {
+		return ""
+	}
+	// Kalau mulai dengan 0, ganti 62
+	if strings.HasPrefix(phone, "0") {
+		phone = "62" + phone[1:]
+	}
+	// Kalau tidak mulai dengan +, tambahkan +
+	if !strings.HasPrefix(phone, "+") {
+		phone = "+" + phone
+	}
+	// Format: +62 812-3456-7890
+	// Ambil kode negara (2-3 digit awal)
+	if len(phone) < 4 {
+		return phone
+	}
+	// Kode negara: +62 (2 digit setelah +)
+	countryCode := phone[:3]  // "+62"
+	rest := phone[3:]         // "81234567890"
+	
+	// Bagi rest jadi grup: 3-4-4
+	var formatted strings.Builder
+	formatted.WriteString(countryCode)
+	formatted.WriteString(" ")
+	
+	if len(rest) >= 3 {
+		formatted.WriteString(rest[:3])
+		rest = rest[3:]
+		if len(rest) > 0 {
+			formatted.WriteString("-")
+		}
+	}
+	if len(rest) >= 4 {
+		formatted.WriteString(rest[:4])
+		rest = rest[4:]
+		if len(rest) > 0 {
+			formatted.WriteString("-")
+		}
+	}
+	if len(rest) > 0 {
+		formatted.WriteString(rest)
+	}
+	
+	return formatted.String()
+}
+
+// getYouTubeDisplay — extract display text dari URL YouTube
+// Contoh: "https://youtube.com/watch?v=xxx" → "youtube.com" atau nama channel
+func getYouTubeDisplay(url string) string {
+	if url == "" {
+		return ""
+	}
+	// Coba extract nama channel dari format:
+	// - https://youtube.com/@channelname
+	// - https://youtube.com/c/channelname
+	// - https://youtube.com/channel/UC...
+	if strings.Contains(url, "/@") {
+		parts := strings.Split(url, "/@")
+		if len(parts) > 1 {
+			name := parts[1]
+			if idx := strings.IndexAny(name, "/?"); idx != -1 {
+				name = name[:idx]
+			}
+			return "@" + name
+		}
+	}
+	if strings.Contains(url, "/c/") {
+		parts := strings.Split(url, "/c/")
+		if len(parts) > 1 {
+			name := parts[1]
+			if idx := strings.IndexAny(name, "/?"); idx != -1 {
+				name = name[:idx]
+			}
+			return name
+		}
+	}
+	// Fallback: "youtube.com"
+	return "youtube.com"
+}
+
+// ============================================
+// SOCIAL LINKS — icon + teks dinamis
+// ============================================
+
+templ SocialLinks(data *invitation.TemplateData, text SocialLinksText) {
+	<div class="footer-social">
+		if data.EventInstagram != "" {
+			<a href={ templpkg.SafeURL(data.EventInstagram) } target="_blank" rel="noopener" title="Instagram Acara">
+				<i class="bi bi-instagram"></i>
+				<span>{ getInstagramHandle(data.EventInstagram) }</span>
+			</a>
+		}
+		if data.Whatsapp != "" {
+			<a href={ templpkg.SafeURL("https://wa.me/" + data.Whatsapp) } target="_blank" rel="noopener" title="WhatsApp">
+				<i class="bi bi-whatsapp"></i>
+				<span>{ getWhatsAppNumber(data.Whatsapp) }</span>
+			</a>
+		}
+		if data.Youtube != "" {
+			<a href={ templpkg.SafeURL(data.Youtube) } target="_blank" rel="noopener" title="YouTube">
+				<i class="bi bi-youtube"></i>
+				<span>{ getYouTubeDisplay(data.Youtube) }</span>
+			</a>
+		}
+	</div>
+}

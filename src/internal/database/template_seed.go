@@ -432,5 +432,21 @@ func seedTemplates() error {
 	}
 	log.Println("✅ Template: Muslim Elegan")
 
+
+	// ============================================
+	// 6. BOTANICAL GARDEN
+	// ============================================
+	if err := upsertTemplate(
+		"Botanical Garden",
+		"botanical-garden",
+		"botanical-garden",
+		"Tema undangan dengan nuansa taman botani, hijau alami, dan ornamen daun. Cocok untuk pernikahan outdoor atau garden party.",
+		buildSchema(defaultFields, library),
+		6,
+	); err != nil {
+		return err
+	}
+	log.Println("✅ Template: Botanical Garden")
+
 	return nil
 }

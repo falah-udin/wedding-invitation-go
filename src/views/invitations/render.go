@@ -1,13 +1,13 @@
 package invitations
 
 import (
-	"context"
 	"fmt"
 	"io"
 	"net/http"
 
 	"wedding-invitation-go/internal/invitation"
 	"wedding-invitation-go/internal/models"
+	"wedding-invitation-go/views/invitations/botanical_garden"
 	"wedding-invitation-go/views/invitations/elegant_gold"
 	"wedding-invitation-go/views/invitations/modern_minimalist"
 	"wedding-invitation-go/views/invitations/muslim_elegan"
@@ -41,6 +41,8 @@ func RenderTemplate(
 		return modern_minimalist.ModernMinimalist(ctx, w, project, data, guestName)
 	case "traditional_java":
 		return traditional_java.TraditionalJava(ctx, w, project, data, guestName)
+	case "botanical_garden":
+		return botanical_garden.BotanicalGarden(ctx, w, project, data, guestName)
 	default:
 		return fmt.Errorf("template %s tidak dikenal", folder)
 	}
@@ -56,9 +58,4 @@ func normalizeFolder(folder string) string {
 		}
 	}
 	return result
-}
-
-func renderStub(ctx context.Context, w io.Writer, name string) error {
-	_, err := fmt.Fprintf(w, "<html><body><h1>%s — Coming Soon</h1></body></html>", name)
-	return err
 }

@@ -1184,31 +1184,7 @@ templ modernMinimalistPage(data *invitation.TemplateData) {
 				text-transform: uppercase;
 				margin-bottom: 32px;
 			}
-			.footer-mini-social {
-				display: flex;
-				justify-content: center;
-				gap: 16px;
-				margin-bottom: 32px;
-			}
-			.footer-mini-social a {
-				width: 40px;
-				height: 40px;
-				border-radius: 50%;
-				border: 1px solid var(--line-strong);
-				color: var(--text-muted);
-				font-size: 1rem;
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-				transition: all 0.3s;
-				text-decoration: none;
-			}
-			.footer-mini-social a:hover {
-				background: var(--accent);
-				border-color: var(--accent);
-				color: var(--white);
-				transform: translateY(-2px);
-			}
+			
 			.footer-mini-prayer {
 				font-family: 'Playfair Display', serif;
 				font-size: 0.95rem;
@@ -1402,6 +1378,45 @@ templ modernMinimalistPage(data *invitation.TemplateData) {
 				display: inline-block !important;
 				vertical-align: middle;
 				margin-right: 8px;
+			}
+
+		
+			/* Footer Social — icon + teks (shared) */
+			.footer-social {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 10px;
+				margin-bottom: 24px;
+			}
+			.footer-social a {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				padding: 10px 18px;
+				border: 1px solid rgba(125, 140, 125, 0.25);
+				border-radius: 50px;
+				color: rgb(125, 140, 125);
+				text-decoration: none;
+				font-size: 0.8rem;
+				font-weight: 500;
+				transition: all 0.3s;
+				opacity: 0.8;
+				white-space: nowrap;
+			}
+			.footer-social a:hover {
+				background: rgba(125, 140, 125, 0.1);
+				border-color: rgb(125, 140, 125);
+				transform: translateY(-2px);
+				opacity: 1;
+			}
+			.footer-social a i {
+				font-size: 1rem;
+			}
+			.footer-social a span {
+				font-size: 0.8rem;
+				font-weight: 500;
 			}
 
 		</style>
@@ -1743,23 +1758,7 @@ templ modernMinimalistPage(data *invitation.TemplateData) {
 			<div class="footer-mini-divider"></div>
 			<div class="footer-mini-date">{ data.AkadDate }</div>
 
-			<div class="footer-mini-social">
-				if data.EventInstagram != "" {
-					<a href={ templpkg.SafeURL(data.EventInstagram) } target="_blank" rel="noopener">
-						<i class="bi bi-instagram"></i>
-					</a>
-				}
-				if data.Whatsapp != "" {
-					<a href={ templpkg.SafeURL("https://wa.me/" + data.Whatsapp) } target="_blank" rel="noopener">
-						<i class="bi bi-whatsapp"></i>
-					</a>
-				}
-				if data.Youtube != "" {
-					<a href={ templpkg.SafeURL(data.Youtube) } target="_blank" rel="noopener">
-						<i class="bi bi-youtube"></i>
-					</a>
-				}
-			</div>
+			@shared.SocialLinks(data, shared.SocialLinksTextDefault)
 
 			<p class="footer-mini-prayer">
 				"Merupakan suatu kebahagiaan bagi kami apabila Anda berkenan hadir dan memberikan doa restu"

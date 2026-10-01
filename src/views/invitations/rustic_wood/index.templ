@@ -955,17 +955,43 @@ templ rusticWoodPage(data *invitation.TemplateData) {
 				opacity: 0.5; font-weight: 300;
 				color: rgba(255,255,255,0.7); font-style: italic;
 			}
-			.footer-social { display: flex; justify-content: center; gap: 16px; margin-bottom: 16px; }
+			.footer-social {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 10px;
+				margin-bottom: 24px;
+			}
 			.footer-social a {
-				color: rgba(255,255,255,0.35); font-size: 1.2rem;
-				transition: all 0.3s; display: inline-flex; align-items: center; justify-content: center;
-				width: 40px; height: 40px; border-radius: 50%;
-				border: 1px solid rgba(184, 149, 106, 0.15);
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				padding: 10px 18px;
+				border: 1px solid rgba(184, 149, 106, 0.25);
+				border-radius: 50px;
+				color: rgb(184, 149, 106);
+				text-decoration: none;
+				font-size: 0.8rem;
+				font-weight: 500;
+				transition: all 0.3s;
+				opacity: 0.8;
 			}
 			.footer-social a:hover {
-				color: var(--rustic-gold); border-color: var(--rustic-gold);
-				transform: translateY(-3px); background: rgba(184, 149, 106, 0.05);
+				background: rgba(184, 149, 106, 0.1);
+				border-color: rgb(184, 149, 106);
+				transform: translateY(-2px);
+				opacity: 1;
 			}
+			.footer-social a i {
+				font-size: 1rem;
+			}
+			.footer-social a span {
+				font-size: 0.8rem;
+				font-weight: 500;
+			}
+			
+			
 			.footer-prayer {
 				font-family: 'Cormorant Garamond', serif;
 				font-size: 0.8rem; font-style: italic;
@@ -1596,14 +1622,7 @@ templ rusticWoodPage(data *invitation.TemplateData) {
 				</div>
 				<div class="footer-divider"></div>
 				<p class="footer-date">{ data.AkadDate }</p>
-				<div class="footer-social">
-					if data.EventInstagram != "" {
-						<a href={ templpkg.SafeURL(data.EventInstagram) } target="_blank"><i class="bi bi-instagram"></i></a>
-					}
-					if data.Whatsapp != "" {
-						<a href={ templpkg.SafeURL("https://wa.me/" + data.Whatsapp) } target="_blank"><i class="bi bi-whatsapp"></i></a>
-					}
-				</div>
+				@shared.SocialLinks(data, shared.SocialLinksTextDefault)
 				<p class="footer-prayer">
 					"Dua hati yang diikat dalam cinta dan doa"
 				</p>
