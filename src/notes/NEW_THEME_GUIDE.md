@@ -1,22 +1,25 @@
 📘 PANDUAN BIKIN TEMA BARU — Wedding Invitation Go
-🎯 Tujuan
+Versi: 2.0 (setelah Fase 2 — Shared Components)
+Terakhir update: Setelah migrasi RSVP, Music Player, Web Footer ke shared
 
+🎯 Tujuan
 Panduan ini untuk developer yang mau bikin tema undangan baru di project Wedding Invitation Go. Setelah baca ini, kamu bisa bikin tema baru yang:
 
-    Tampil di homepage (pilihan template)
+Tampil di homepage (pilihan template)
 
-    Tampil di wizard Step 3 (pilih template)
+Tampil di wizard Step 3 (pilih template)
 
-    Punya preview /preview/template/:slug
+Punya preview /preview/template/:slug
 
-    Berfungsi penuh (RSVP, music, footer, dll)
+Berfungsi penuh (RSVP, music, footer, dll)
 
-📐 Arsitektur Project (Ringkas)
+Cukup 1 file index.templ — tidak perlu helper, tidak perlu komponen
+
+📐 Arsitektur Project
 text
-
 wedding-invitation-go/src/
 ├── internal/
-│   ├── invitation/                  ← PACKAGE BARU (data + helper global)
+│   ├── invitation/                  ← PACKAGE GLOBAL (data + helper)
 │   │   ├── data.go                  ← struct TemplateData
 │   │   ├── loader.go                ← LoadData()
 │   │   └── helpers.go               ← method & fungsi global
@@ -40,7 +43,7 @@ wedding-invitation-go/src/
 │
 ├── views/
 │   ├── invitations/                 ← TEMPLATE UNDANGAN
-│   │   ├── shared/                  ← KOMPONEN SHARED
+│   │   ├── shared/                  ← KOMPONEN SHARED (JANGAN TULIS MANUAL)
 │   │   │   ├── rsvp.templ           ← form RSVP + list
 │   │   │   ├── music_player.templ   ← music player
 │   │   │   └── web_footer.templ     ← web footer
@@ -53,14 +56,11 @@ wedding-invitation-go/src/
 │   │   └── render.go                ← dispatcher (WAJIB DIUPDATE)
 │   │
 │   └── invitation/                  ← WIZARD (JANGAN DISENTUH)
-│       └── ...
 │
 └── public/storage/                  ← file upload & placeholder
-    └── defaults/                    ← foto placeholder
-
+    └── defaults/                    ← foto placeholder (groom.svg, bride.svg, dll)
 🔄 Alur Data Undangan
 text
-
 1. DB: projects (slug, data_undangan JSON, template_specific_data JSON, template_id)
         templates (folder, fields_schema JSON)
 
@@ -72,14 +72,17 @@ text
 3. render.go dispatcher:
    - Cek project.Template.Folder → panggil tema sesuai
 
-4. Tema:
+4. Tema (index.templ):
    - Terima *TemplateData
    - Akses field: data.GroomName, data.AkadDate, dll
-   - Panggil shared: @shared.RSVPForm(data, ...), @shared.MusicPlayer(), @shared.WebFooter(data, ...)
-
+   - Panggil shared components (WAJIB):
+     @shared.MusicPlayer()
+     @shared.RSVPForm(data, shared.RSVPTextIndonesia)
+     @shared.RSVPListWrap()
+     @shared.WebFooter(data, shared.WebFooterTextDefault)
 📋 Struct TemplateData — Field yang Tersedia
-
 Semua field diakses via data.FieldName. Contoh: data.GroomName, data.AkadDate.
+
 Field Umum (dari data_undangan):
 Field	Tipe	Keterangan
 GroomName	string	Nama mempelai pria
@@ -105,7 +108,7 @@ ShowVenue	string	"both", "akad", "resepsi", "none"
 ShowBankAccounts	string	"yes", "no"
 GroomFamilyOrigin, BrideFamilyOrigin	string	Asal keluarga (untuk adat)
 KembarMayang	string	"yes", "no"
-Field Parsed (dari JSON, sudah jadi struct/slice):
+Field Parsed (dari JSON):
 Field	Tipe	Keterangan
 BankAccounts	[]BankAccount	List rekening (sudah parsed)
 Gallery	[]string	List URL foto galeri
@@ -119,7 +122,6 @@ IsNamedGuest	bool	true kalau tamu punya nama
 MusicURL	string	URL musik (sudah full path)
 Method Bantuan (sudah tersedia):
 go
-
 // Foto dengan fallback default
 data.GroomPhotoOrDefault() string        // fallback ke /storage/defaults/groom.svg
 data.BridePhotoOrDefault() string
@@ -127,20 +129,20 @@ data.FatherGroomPhotoOrDefault() string
 data.MotherGroomPhotoOrDefault() string
 data.FatherBridePhotoOrDefault() string
 data.MotherBridePhotoOrDefault() string
-data.HeroImageOr(fallback string) string // HeroImage atau fallback
+data.HeroImageOr(fallback string) string
 data.HasHeroImage() bool
 
 // Resepsi label
-data.ResepsiLabelDisplay() string  // "Walimatul Ursy", "Resepsi", dll (human-readable)
-data.ResepsiArabic() string        // "وَلِيمَةُ الْعُرْسِ" (kalau islami)
-data.IsIslamicResepsi() bool       // true kalau "walimatul_ursy" atau "walimah"
+data.ResepsiLabelDisplay() string  // "Walimatul Ursy", "Resepsi", dll
+data.ResepsiArabic() string        // "وَلِيمَةُ الْعُرْسِ"
+data.IsIslamicResepsi() bool       // true kalau islami
 
 // Orang tua
 data.ParentsGroom() string  // "Bapak & Ibu" kalau kosong
 data.ParentsBride() string
 
 // Tampilan
-data.ShouldShowBankAccounts() bool  // true kalau ShowBankAccounts == "yes"
+data.ShouldShowBankAccounts() bool
 data.ShouldShowAkadDate() bool
 data.ShouldShowResepsiDate() bool
 data.ShouldShowBothDates() bool
@@ -152,10 +154,8 @@ data.ShouldShowBothVenues() bool
 data.HasExistingRsvp() bool
 data.ExistingRsvpField(key, def string) string  // key: "attendance" / "message"
 data.ExistingRsvpGuests() int                    // fallback 1
-
 Fungsi Statis (untuk bank & format):
 go
-
 // Import: "wedding-invitation-go/internal/invitation"
 invitation.GetBankTypeBadge(acc) string        // "BANK", "E-WALLET", "QRIS", "LAINNYA"
 invitation.GetAccountBankName(acc) string      // "BCA", "Mandiri", dll
@@ -170,37 +170,76 @@ invitation.FormatUint(n uint) string
 invitation.FormatInt(n int) string
 invitation.CurrentYear() int
 invitation.GuestGreeting(isNamed bool) string  // "Kepada" / "Salam Hangat untuk"
-
 📦 Komponen Shared — WAJIB DIPAKAI
-1. @shared.RSVPForm(data, text)
+⚠️ ATURAN UTAMA
+JANGAN tulis manual:
 
-Form RSVP + list. Parameter text:
+❌ Form RSVP (<form class="rsvp-form">...</form>)
 
-    shared.RSVPTextIndonesia — "Nama Anda", "Kehadiran", "Hadir", dll
+❌ List wrapper (<div id="rsvpList">...</div>)
 
-    shared.RSVPTextJawa — "Nama", "Rawuh", "Mboten Rawuh", dll
+❌ Music player (<div class="music-player">...</div>)
 
-Atau buat custom shared.RSVPText{...}.
-2. @shared.RSVPListWrap()
+❌ Web footer (<footer class="web-footer">...</footer>)
 
-Wrapper untuk list konfirmasi di bawah form. Wajib dipanggil setelah RSVPForm.
-3. @shared.MusicPlayer()
+GUNAKAN shared:
 
-Music player tombol bulat di kanan bawah.
-4. @shared.WebFooter(data, text)
+✅ @shared.RSVPForm(data, text) + @shared.RSVPListWrap()
 
-Footer web (brand, kontak, developer). Parameter text:
+✅ @shared.MusicPlayer()
 
-    shared.WebFooterTextDefault — "Kontak Kami", "Dikembangkan Oleh"
+✅ @shared.WebFooter(data, text)
 
-    shared.WebFooterTextShort — "Kontak", "Developer"
+Kenapa? Supaya bug/update cukup di 1 tempat (bukan 5 tema).
+
+1. @shared.RSVPForm(data, text) + @shared.RSVPListWrap()
+Cara pakai:
+
+templ
+<section class="section-rsvp">
+    <div class="container">
+        <h2>Konfirmasi Kehadiran</h2>
+        @shared.RSVPForm(data, shared.RSVPTextIndonesia)
+        @shared.RSVPListWrap()
+    </div>
+</section>
+Parameter text:
+
+shared.RSVPTextIndonesia — "Nama Anda", "Kehadiran", "Hadir", dll
+
+shared.RSVPTextJawa — "Nama", "Rawuh", "Mboten Rawuh", dll
+
+Atau custom: shared.RSVPText{LabelName: "...", ...}
+
+⚠️ WAJIB panggil @shared.RSVPListWrap() SETELAH @shared.RSVPForm() — karena list konfirmasi di bawah form.
+
+2. @shared.MusicPlayer()
+Cara pakai (di bawah <body>, setelah overlay):
+
+templ
+@shared.MusicPlayer()
+Parameter: tidak ada. Cukup panggil.
+
+Prasyarat: <body> harus punya data-music-url, data-project-id, data-project-slug:
+
+templ
+<body data-music-url={ data.MusicURL } data-project-id={ invitation.FormatUint(data.Project.ID) } data-project-slug={ data.Project.Slug }>
+3. @shared.WebFooter(data, text)
+Cara pakai (sebelum </body>):
+
+templ
+@shared.WebFooter(data, shared.WebFooterTextDefault)
+Parameter text:
+
+shared.WebFooterTextDefault — "Kontak Kami", "Dikembangkan Oleh"
+
+shared.WebFooterTextShort — "Kontak", "Developer"
 
 🎨 CSS — Kontrak Class
+Class CSS WAJIB ada di tema baru (shared mengandalkan ini).
 
-Class CSS WAJIB ada di tema baru (shared mengandalkan ini):
 RSVP Form:
 css
-
 .rsvp-form { /* style form */ }
 .form-group { /* field group */ }
 .form-group label { /* label */ }
@@ -228,19 +267,40 @@ css
 .rsvp-item .meta-left .time { /* waktu */ }
 .rsvp-item .meta-left .guests { /* jumlah tamu */ }
 .rsvp-item .message { /* pesan */ }
+Copy dari tema lain (contoh: rustic_wood) & adjust warna.
 
 Music Player:
 css
-
 .music-player { position: fixed; bottom: 24px; right: 24px; z-index: 1000; }
 .music-btn { /* tombol bulat */ }
 .music-btn.playing { /* animasi saat playing */ }
-
-Web Footer:
+Web Footer (⚠️ PERHATIAN KHUSUS):
 css
-
 .web-footer { /* container */ }
-.web-footer-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+
+/* WAJIB — biar 3 kolom */
+.web-footer-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+/* WAJIB — biar container cukup lebar untuk 3 kolom */
+.web-footer .container {
+    max-width: 1280px !important;
+}
+
+/* WAJIB — biar logo + teks satu baris */
+.web-footer-brand img {
+    display: inline-block !important;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+/* WAJIB — warna icon */
+.web-footer-icon { color: var(--warna-tema); }
+
+/* Sisanya */
 .web-footer-brand { /* brand */ }
 .web-footer-brand .wedding { /* warna */ }
 .web-footer-brand .saas { /* warna */ }
@@ -255,450 +315,443 @@ css
 .web-footer-version { /* versi */ }
 .web-footer-divider { /* divider */ }
 .web-footer-text { /* copyright */ }
-.web-footer-icon { color: var(--warna-tema); }
+⚠️ PENTING: 3 baris !important di atas WAJIB — kalau tidak:
 
-Toast (dibuat via JS, tapi CSS perlu):
+.web-footer .container tanpa !important → footer tetap 1 kolom (karena .container global lebih dulu)
+
+.web-footer-brand img tanpa !important → logo & teks atas-bawah (karena img { display: block } global)
+
+Kontrak --warna-tema: Ganti dengan CSS var tema kamu, misal var(--rustic-gold), var(--gold), var(--accent-light).
+
+Toast (dibuat via JS, CSS perlu):
 css
-
 .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; }
 .toast { /* style */ }
 .toast.success i { color: #10b981; }
 .toast.error i { color: #ef4444; }
 .toast.info i { color: var(--warna-tema); }
-
 Overlay (khusus tema, tidak shared):
 css
-
 #startOverlay { /* overlay */ }
 .overlay-inner { /* inner */ }
 .btn-start { /* tombol buka */ }
-
 📝 JavaScript — Kontrak Fungsi
-
-JS WAJIB ada di tema baru (dipanggil shared & HTML):
-Wajib karena shared panggil:
+⚠️ WAJIB ada di tema baru:
 js
+// Shared panggil:
+window.startMusic = function() { ... }
+window.toggleMusic = function() { ... }
 
-window.startMusic = function() { ... }    // dipanggil dari overlay + music player
-window.toggleMusic = function() { ... }   // dipanggil dari music player
-
-Wajib karena HTML tema panggil:
-js
-
-window.scrollToSection = function() { ... } // untuk tombol scroll (bisa di-alias)
-
+// HTML tema panggil (nama fungsi bisa di-alias):
+window.scrollToSection = function() { ... }
+window.scrollToCouple = function() { ... }  // atau nama lain
+window.scrollToOpening = function() { ... }
 JS standar yang bisa copy dari tema lain:
+AOS init — AOS.init({...})
 
-    AOS init
+Music player — startMusic, toggleMusic, closeOverlay, initAudio, retry
 
-    Music player (startMusic, toggleMusic, closeOverlay, initAudio, retry)
+Toast — showToast, escapeHtml
 
-    Toast (showToast, escapeHtml)
+Copy bank — copyBankNumberFromEl, copyText, fallbackCopy
 
-    Copy bank (copyBankNumberFromEl, copyText, fallbackCopy)
+RSVP — loadRsvpList, submit handler
 
-    RSVP load + submit (loadRsvpList)
+Lightbox — gallery click handler
 
-    Lightbox
+Scroll helper — scrollToSection
 
-    Scroll helper
+Cara termudah: Copy dari rustic_wood/index.templ, ganti nama class gallery & section ID.
 
-Cara termudah: copy dari rustic_wood/index.templ, ganti nama class gallery & section ID.
 🚀 CARA BIKIN TEMA BARU (Step-by-Step)
 Step 1: Buat folder & file
 bash
-
 mkdir -p /DATA/AppData/wedding-invitation-go/src/views/invitations/tema_baru
 cd /DATA/AppData/wedding-invitation-go/src/views/invitations/tema_baru
-
 Buat 1 file saja: index.templ
+
 Step 2: Struktur file index.templ
 templ
-
 package tema_baru
 
 import (
-	"context"
-	"io"
+    "context"
+    "io"
 
-	templpkg "github.com/a-h/templ"
-	"wedding-invitation-go/internal/invitation"
-	"wedding-invitation-go/internal/models"
-	"wedding-invitation-go/views/invitations/shared"
+    templpkg "github.com/a-h/templ"
+    "wedding-invitation-go/internal/invitation"
+    "wedding-invitation-go/internal/models"
+    "wedding-invitation-go/views/invitations/shared"
 )
 
-// TemaBaru — fungsi entry point
+// TemaBaru — entry point
 func TemaBaru(ctx context.Context, w io.Writer, project models.Project, data *invitation.TemplateData, guestName string) error {
-	component := temaBaruPage(data)
-	return component.Render(ctx, w)
+    component := temaBaruPage(data)
+    return component.Render(ctx, w)
 }
 
 templ temaBaruPage(data *invitation.TemplateData) {
-	<!DOCTYPE html>
-	<html lang="id">
-	<head>
-		<meta charset="UTF-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<title>{ data.GroomName } &amp; { data.BrideName } - Tema Baru</title>
-		
-		<!-- Fonts, CSS libraries (bootstrap-icons, AOS) -->
-		<link href="https://fonts.googleapis.com/css2?family=..." rel="stylesheet"/>
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
-		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
-		
-		<style>
-			/* CSS RESET */
-			* { margin: 0; padding: 0; box-sizing: border-box; }
-			body { font-family: 'Inter', sans-serif; background: var(--bg); }
-			
-			/* CSS VARIABLES */
-			:root {
-				--warna-tema: #...;
-				/* ... */
-			}
-			
-			/* CSS TEMA (contoh: .hero, .couple, dll) */
-			/* WAJIB: RSVP, music player, web footer — copy dari tema lain & adjust warna */
-			/* ... */
-		</style>
-	</head>
-	<body data-music-url={ data.MusicURL } data-project-id={ invitation.FormatUint(data.Project.ID) } data-project-slug={ data.Project.Slug }>
+    <!DOCTYPE html>
+    <html lang="id">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>{ data.GroomName } &amp; { data.BrideName } - Tema Baru</title>
 
-		<!-- OVERLAY -->
-		<div id="startOverlay">
-			...desain overlay tema baru...
-		</div>
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 
-		<!-- MUSIC PLAYER — WAJIB -->
-		@shared.MusicPlayer()
+        <style>
+            /* CSS RESET */
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            html { scroll-behavior: smooth; }
+            body {
+                font-family: 'Inter', sans-serif;
+                background: var(--bg);
+                color: var(--text);
+                line-height: 1.7;
+                overflow-x: hidden;
+            }
+            img { max-width: 100%; height: auto; }
 
-		<!-- HERO -->
-		<section class="hero">
-			...desain hero tema baru...
-		</section>
+            /* CSS VARIABLES */
+            :root {
+                --primary: #warna-utama;
+                --accent: #warna-aksen;
+                --bg: #background;
+                --text: #teks;
+                --text-muted: #teks-lembut;
+            }
 
-		<!-- COUPLE -->
-		<section class="section-couple">
-			...desain couple tema baru...
-		</section>
+            /* CSS TEMA (hero, couple, event, gallery, dll) */
+            /* ... */
 
-		<!-- LOVE STORY (opsional) -->
-		if len(data.LoveStories) > 0 {
-			<section>
-				for _, story := range data.LoveStories {
-					<div>{ story.Title } — { story.Desc }</div>
-				}
-			</section>
-		}
+            /* ============================================ */
+            /* RSVP FORM (WAJIB — copy dari tema lain) */
+            /* ============================================ */
+            .rsvp-form { /* ... */ }
+            .form-group { /* ... */ }
+            /* dst. (lihat kontrak CSS di atas) */
 
-		<!-- EVENT -->
-		<section>
-			<div>{ data.AkadDate } — { data.AkadVenue }</div>
-			<div>{ data.ResepsiDate } — { data.ResepsiVenue }</div>
-		</section>
+            /* ============================================ */
+            /* MUSIC PLAYER (WAJIB) */
+            /* ============================================ */
+            .music-player { position: fixed; bottom: 24px; right: 24px; z-index: 1000; }
+            .music-btn { /* ... */ }
+            .music-btn.playing { /* ... */ }
 
-		<!-- GALLERY (opsional) -->
-		if len(data.Gallery) > 0 {
-			<section>
-				for _, img := range data.Gallery {
-					<img src={ img }/>
-				}
-			</section>
-		}
+            /* ============================================ */
+            /* WEB FOOTER (WAJIB) */
+            /* ============================================ */
+            .web-footer { /* ... */ }
+            .web-footer-row {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 2rem;
+            }
+            .web-footer .container {
+                max-width: 1280px !important;
+            }
+            .web-footer-brand img {
+                display: inline-block !important;
+                vertical-align: middle;
+                margin-right: 8px;
+            }
+            .web-footer-icon { color: var(--accent); }
+            /* ... dst */
 
-		<!-- RSVP — WAJIB -->
-		<section class="section-rsvp">
-			<div class="container">
-				<h2>Konfirmasi Kehadiran</h2>
-				@shared.RSVPForm(data, shared.RSVPTextIndonesia)
-				@shared.RSVPListWrap()
-			</div>
-		</section>
+            /* ============================================ */
+            /* TOAST */
+            /* ============================================ */
+            .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; }
+            .toast { /* ... */ }
 
-		<!-- BANK / AMPLOP DIGITAL (opsional) -->
-		if data.ShouldShowBankAccounts() && len(data.BankAccounts) > 0 {
-			<section>
-				for _, acc := range data.BankAccounts {
-					<div>{ invitation.GetAccountBankName(acc) } — { invitation.GetAccountNumber(acc) }</div>
-				}
-			</section>
-		}
+            /* ============================================ */
+            /* OVERLAY (khusus tema) */
+            /* ============================================ */
+            #startOverlay { /* ... */ }
+        </style>
+    </head>
+    <body data-music-url={ data.MusicURL } data-project-id={ invitation.FormatUint(data.Project.ID) } data-project-slug={ data.Project.Slug }>
 
-		<!-- WEB FOOTER — WAJIB -->
-		@shared.WebFooter(data, shared.WebFooterTextDefault)
+        <!-- OVERLAY (khusus tema) -->
+        <div id="startOverlay">
+            <!-- desain overlay -->
+            <button class="btn-start" onclick={ templpkg.JSFuncCall("startMusic") }>
+                Buka Undangan
+            </button>
+        </div>
 
-		<!-- SCRIPTS — copy dari tema lain, adjust -->
-		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-		<script>
-			// AOS init
-			// Music player
-			// Toast
-			// Copy bank
-			// RSVP load & submit
-			// Lightbox
-			// Scroll helper
-		</script>
-	</body>
-	</html>
+        <!-- MUSIC PLAYER — WAJIB -->
+        @shared.MusicPlayer()
+
+        <!-- HERO (khusus tema) -->
+        <section class="hero">
+            <!-- desain hero -->
+        </section>
+
+        <!-- COUPLE (khusus tema) -->
+        <section class="section-couple">
+            <!-- desain couple -->
+        </section>
+
+        <!-- LOVE STORY (opsional) -->
+        if len(data.LoveStories) > 0 {
+            <section>
+                for _, story := range data.LoveStories {
+                    <div>{ story.Title } — { story.Desc }</div>
+                }
+            </section>
+        }
+
+        <!-- EVENT -->
+        <section>
+            <div>{ data.AkadDate } — { data.AkadVenue }</div>
+            <div>{ data.ResepsiDate } — { data.ResepsiVenue }</div>
+        </section>
+
+        <!-- GALLERY (opsional) -->
+        if len(data.Gallery) > 0 {
+            <section>
+                for _, img := range data.Gallery {
+                    <img src={ img }/>
+                }
+            </section>
+        }
+
+        <!-- RSVP — WAJIB -->
+        <section class="section-rsvp">
+            <div class="container">
+                <h2>Konfirmasi Kehadiran</h2>
+                @shared.RSVPForm(data, shared.RSVPTextIndonesia)
+                @shared.RSVPListWrap()
+            </div>
+        </section>
+
+        <!-- BANK (opsional) -->
+        if data.ShouldShowBankAccounts() && len(data.BankAccounts) > 0 {
+            <section>
+                for _, acc := range data.BankAccounts {
+                    <div>{ invitation.GetAccountBankName(acc) } — { invitation.GetAccountNumber(acc) }</div>
+                }
+            </section>
+        }
+
+        <!-- WEB FOOTER — WAJIB -->
+        @shared.WebFooter(data, shared.WebFooterTextDefault)
+
+        <!-- SCRIPTS -->
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            // AOS init
+            AOS.init({ duration: 800, once: true });
+
+            // Music player
+            var musicUrl = document.body.dataset.musicUrl || '';
+            var projectID = document.body.dataset.projectId || '';
+            var projectSlug = document.body.dataset.projectSlug || '';
+            window.startMusic = function() { /* ... */ };
+            window.toggleMusic = function() { /* ... */ };
+
+            // Toast
+            function showToast(type, message) { /* ... */ }
+            function escapeHtml(text) { /* ... */ }
+
+            // Copy bank
+            window.copyBankNumberFromEl = function(el) { /* ... */ };
+
+            // RSVP load & submit
+            function loadRsvpList() { /* ... */ }
+
+            // Lightbox (kalau ada galeri)
+            // ...
+
+            // Scroll helper
+            window.scrollToSection = function() { /* ... */ };
+        </script>
+    </body>
+    </html>
 }
+⚠️ Cara tercepat: copy rustic_wood/index.templ, rename package & function, adjust CSS warna & ornamen.
 
 Step 3: Register di render.go
-
 Edit views/invitations/render.go:
-go
 
+go
 import (
-	// ... import lain
-	"wedding-invitation-go/views/invitations/tema_baru"  // ← tambah ini
+    // ... import lain
+    "wedding-invitation-go/views/invitations/tema_baru"
 )
 
 func RenderTemplate(...) error {
-	// ...
-	switch folder {
-	case "rustic_wood": ...
-	case "muslim_elegan": ...
-	case "elegant_gold": ...
-	case "modern_minimalist": ...
-	case "traditional_java": ...
-	case "tema_baru":  // ← tambah case ini
-		return tema_baru.TemaBaru(ctx, w, project, data, guestName)
-	default:
-		return fmt.Errorf("template %s tidak dikenal", folder)
-	}
+    // ...
+    switch folder {
+    case "rustic_wood": ...
+    case "muslim_elegan": ...
+    case "elegant_gold": ...
+    case "modern_minimalist": ...
+    case "traditional_java": ...
+    case "tema_baru":  // ← tambah case ini
+        return tema_baru.TemaBaru(ctx, w, project, data, guestName)
+    default:
+        return fmt.Errorf("template %s tidak dikenal", folder)
+    }
 }
-
 Step 4: Register di DB (template_seed.go)
+Buka internal/database/template_seed.go, cari fungsi seedTemplates(), tambah di akhir:
 
-Buka file: internal/database/template_seed.go
-
-Cari fungsi seedTemplates() — tambah di akhir:
 go
-
 // ============================================
 // 6. TEMA BARU
 // ============================================
 temaBaruFields := []string{}
 for _, f := range defaultFields {
-	temaBaruFields = append(temaBaruFields, f)
-	// Tambah field unik kalau perlu:
-	// if f == "mother_bride" {
-	//     temaBaruFields = append(temaBaruFields, "field_unik_tema_baru")
-	// }
+    temaBaruFields = append(temaBaruFields, f)
 }
 if err := upsertTemplate(
-	"Tema Baru",              // Nama tampil
-	"tema-baru",              // Slug (URL-friendly, huruf kecil, tanda hubung)
-	"tema_baru",              // Folder (harus sama dengan nama folder di views/invitations/)
-	"Deskripsi singkat tema.", // Deskripsi tampil di pilihan template
-	buildSchema(temaBaruFields, library),
-	6,                        // Order (urutan di pilihan template)
+    "Tema Baru",               // Nama tampil
+    "tema-baru",               // Slug (URL-friendly)
+    "tema_baru",               // Folder (harus sama dengan nama folder)
+    "Deskripsi singkat tema.", // Deskripsi
+    buildSchema(temaBaruFields, library),
+    6,                         // Order
 ); err != nil {
-	return err
+    return err
 }
 log.Println("✅ Template: Tema Baru")
-
-Kalau field unik baru, tambahkan dulu di getFieldLibrary():
-go
-
-func getFieldLibrary() map[string]FieldDef {
-	return map[string]FieldDef{
-		// ... field yang sudah ada
-		"field_unik_tema_baru": {
-			"name":        "field_unik_tema_baru",
-			"label":       "Label Field Unik",
-			"type":        "text",  // atau "file", "select", "repeater"
-			"required":    false,
-			"placeholder": "Contoh: ...",
-			"group":       "🎨 Khusus Tema Baru",
-			"description": "Deskripsi field",
-		},
-	}
-}
+Kalau field unik baru, tambahkan dulu di getFieldLibrary().
 
 Step 5: Build & Restart
 bash
-
 cd /DATA/AppData/wedding-invitation-go/src
 
-# Generate templ
 docker exec -it wedding-invitation-go-app sh -c "cd /app && templ generate 2>&1 | tail -3"
-
-# Build
 docker exec -it wedding-invitation-go-app sh -c "cd /app && go build ./... 2>&1 | head -20"
-
-# Restart
 docker restart wedding-invitation-go-app
 sleep 10
+Step 6: Seed Template ke DB
+Seed dijalankan otomatis saat startup. Kalau tidak otomatis:
 
-Step 6: Seed template ke DB
-
-Seed dijalankan otomatis saat startup (lihat main.go). Kalau tidak otomatis, jalankan manual:
 bash
-
 docker exec -it wedding-invitation-go-app sh -c "cd /app && go run cmd/seed/main.go"
-# atau cara lain sesuai setup kamu
+Atau via admin panel: /admin/templates → Tambah Template.
 
-Atau langsung insert via DB:
-bash
-
-docker exec wedding-invitation-go-mysql mysql -uwedding_user -pwedding123 wedding_invitation_db -e "
-INSERT INTO templates (name, slug, folder, sections, description, fields, fields_schema, is_active, \`order\`, created_at, updated_at)
-VALUES (
-  'Tema Baru',
-  'tema-baru',
-  'tema_baru',
-  '[\"cover\",\"couple\",\"event\",\"gallery\",\"rsvp\"]',
-  'Deskripsi singkat tema.',
-  '[]',
-  '[]',
-  1,
-  6,
-  NOW(),
-  NOW()
-);
-"
-
-Atau lewat admin panel: /admin/templates → Tambah Template.
 Step 7: Test
+Preview:
 
-    Test preview:
-    text
+text
+https://wedding.litebox.my.id/preview/template/tema-baru
+Wizard:
 
-    https://wedding.litebox.my.id/preview/template/tema-baru
+Buka /invitation/create/select-client
 
-    Test bikin project baru pakai template ini via wizard:
+Pilih client → Next
 
-        Buka /invitation/create/select-client
+Isi data umum → Next
 
-        Pilih client → Next
+Pilih "Tema Baru" → Next
 
-        Isi data umum → Next
+Isi data spesifik → Next
 
-        Pilih "Tema Baru" → Next
+Preview → Publish
 
-        Isi data spesifik (kalau ada) → Next
-
-        Preview → Publish
-
-    Cek di homepage — pastikan tema baru muncul di pilihan template.
+Homepage: cek tema baru muncul di pilihan template.
 
 ✅ Checklist Tema Baru
+□ Folder views/invitations/tema_baru/ dibuat
+□ File index.templ dibuat
+□ func TemaBaru(ctx, w, project, data, guestName) error didefinisikan
+□ templ temaBaruPage(data *invitation.TemplateData) didefinisikan
+□ Import: shared, invitation, templpkg
+□ <body> punya data-music-url, data-project-id, data-project-slug
+Shared components:
 
-    □
+□ @shared.MusicPlayer() dipanggil
+□ @shared.RSVPForm(data, shared.RSVPTextIndonesia) dipanggil
+□ @shared.RSVPListWrap() dipanggil SETELAH RSVPForm
+□ @shared.WebFooter(data, shared.WebFooterTextDefault) dipanggil
+CSS WAJIB:
 
-    Folder views/invitations/tema_baru/ dibuat
-    □
+□ .rsvp-form, .form-group, .btn-submit, .rsvp-warning, .rsvp-list-wrap
+□ .music-player, .music-btn
+□ .web-footer, .web-footer-row
+□ .web-footer .container { max-width: 1280px !important }
+□ .web-footer-brand img { display: inline-block !important; vertical-align: middle }
+□ .web-footer-icon { color: var(--warna-tema) }
+□ .toast-container, .toast
+JS WAJIB:
 
-    File index.templ dibuat
-    □
+□ window.startMusic, window.toggleMusic
+□ window.scrollToSection (atau alias)
+□ showToast, escapeHtml
+□ copyBankNumberFromEl, copyText, fallbackCopy
+□ loadRsvpList + submit handler
+Registrasi:
 
-    func TemaBaru(ctx, w, project, data, guestName) error didefinisikan
-    □
+□ render.go diupdate (case baru)
+□ template_seed.go diupdate (upsertTemplate)
+Build & Test:
 
-    templ temaBaruPage(data *invitation.TemplateData) didefinisikan
-    □
-
-    Import: shared, invitation, templpkg
-    □
-
-    <body> punya data-music-url, data-project-id, data-project-slug
-    □
-
-    @shared.MusicPlayer() dipanggil
-    □
-
-    @shared.RSVPForm(data, shared.RSVPTextIndonesia) dipanggil
-    □
-
-    @shared.RSVPListWrap() dipanggil setelah form
-    □
-
-    @shared.WebFooter(data, shared.WebFooterTextDefault) dipanggil
-    □
-
-    CSS: rsvp-form, form-group, btn-submit, rsvp-warning, rsvp-list-wrap, web-footer-*, music-player, toast-container didefinisikan
-    □
-
-    CSS: .web-footer-icon { color: var(--warna-tema); }
-    □
-
-    JS: startMusic, toggleMusic, showToast, escapeHtml, copyBankNumberFromEl, loadRsvpList, dll
-    □
-
-    render.go diupdate (case baru)
-    □
-
-    template_seed.go diupdate (upsertTemplate)
-    □
-
-    templ generate sukses
-    □
-
-    go build ./... sukses
-    □
-
-    Seed template ke DB
-    □
-
-    Test preview /preview/template/:slug
-    □
-
-    Test wizard create project
-    □
-
-    Cek tampil di homepage
-
+□ templ generate sukses
+□ go build ./... sukses
+□ Seed template ke DB
+□ Test preview /preview/template/:slug
+□ Test wizard create project
+□ Cek tampil di homepage
 🎨 Tips Desain
+CSS Variables — selalu definisikan di :root:
 
-    CSS Variables — selalu definisikan di :root untuk warna tema:
-    css
+css
+:root {
+    --primary: #warna-utama;
+    --accent: #warna-aksen;
+    --bg: #background;
+    --text: #teks;
+    --text-muted: #teks-lembut;
+}
+Font — beda per tema:
 
-    :root {
-        --primary: #warna-utama;
-        --accent: #warna-aksen;
-        --bg: #background;
-        --text: #teks;
-        --text-muted: #teks-lembut;
-    }
+Elegan: Playfair Display, Cormorant Garamond
 
-    Font — beda per tema, pilih yang sesuai karakter:
+Modern: Inter, Poppins
 
-        Elegan: Playfair Display, Cormorant Garamond
+Islami: Amiri, Scheherazade
 
-        Modern: Inter, Poppins
+Adat: serif klasik
 
-        Islami: Amiri, Scheherazade
+Ornamen — beda per tema:
 
-        Adat: serif klasik
+Rustic: ✦, ❦, ⏚
 
-    Ornamen — beda per tema:
+Islami: ﷲ, ﷻ, ❦
 
-        Rustic: ✦, ❦, ⏚
+Minimalis: —, ·, •
 
-        Islami: ﷲ, ﷻ, ❦
+Jawa: ⚜, ❦
 
-        Minimalis: —, ·, •
+Test responsive — cek di mobile (max-width 600px) & tablet (600-1024px).
 
-        Jawa: ⚜, ❦
-
-    Section unik tema — kalau tema baru punya section khusus (misal "Prosesi Adat"), taruh hanya di tema baru — tidak perlu di-share.
-
-    Test responsive — cek di mobile (max-width 600px) & tablet (600-1024px).
+Copy dari tema lain — cara tercepat: copy rustic_wood/index.templ, ganti nama package & function, adjust CSS warna & ornamen.
 
 🚫 Yang TIDAK Boleh Diubah
+❌ Jangan sentuh views/invitation/ — itu wizard, bukan template undangan
 
-    Jangan sentuh views/invitation/ — itu wizard, bukan template undangan
+❌ Jangan edit file *_templ.go — itu generated, edit .templ saja
 
-    Jangan edit file *_templ.go — itu generated, edit .templ saja
+❌ Jangan pakai style={ background-image: ... } — templ escape ', pakai <img> tag
 
-    Jangan pakai style={ background-image: ... } — templ escape ', pakai <img> tag
+❌ Jangan pakai {{ var }} di dalam <script> — templ tidak replace {}, pakai data-* attribute
 
-    Jangan pakai {{ var }} di dalam <script> — templ tidak replace {}, pakai data-* attribute
+❌ Jangan tambah helpers.go per tema — semua helper global di internal/invitation/
 
-    Jangan tambah helpers.go per tema — semua helper sudah global di internal/invitation/
+❌ Jangan tulis form RSVP / music player / web footer manual — pakai shared
 
-    Jangan bikin field baru tanpa update getFieldLibrary() — field harus terdaftar
+❌ Jangan lupa panggil @shared.RSVPListWrap() setelah @shared.RSVPForm()
+
+❌ Jangan bikin field baru tanpa update getFieldLibrary() — field harus terdaftar
 
 🐛 Debugging Umum
 Problem	Solusi
@@ -706,29 +759,51 @@ templ generate skip file	Hapus _templ.go, generate ulang
 Field tidak tampil	Cek data.FieldName sudah ada di struct? Cek LoadData
 Preview 500 error	Cek log: docker logs wedding-invitation-go-app
 Template tidak muncul di homepage	Cek DB: SELECT * FROM templates WHERE is_active=1;
-Template tidak muncul di wizard	Sama — cek DB
 Preview blank	Cek error JS di browser console (F12)
 Gambar tidak muncul	Cek path: /storage/... atau URL eksternal
 Music tidak play	Cek data-music-url di <body>, cek console
+Footer 1 kolom, bukan 3	Cek .web-footer .container { max-width: 1280px !important }
+Logo + teks footer atas-bawah	Cek .web-footer-brand img { display: inline-block !important }
+RSVP form hilang	Cek @shared.RSVPForm + @shared.RSVPListWrap dipanggil
+Music player tidak muncul	Cek @shared.MusicPlayer() dipanggil
 📞 Kontak & Referensi
+Repo: https://github.com/falah-udin/wedding-invitation-go
 
-    Repo: https://github.com/falah-udin/wedding-invitation-go
+Domain: https://wedding.litebox.my.id
 
-    Domain: https://wedding.litebox.my.id
+Preview template: /preview/template/:slug
 
-    Preview template: /preview/template/:slug
+Contoh tema: views/invitations/rustic_wood/index.templ (paling sederhana)
 
-    Contoh tema: lihat views/invitations/rustic_wood/index.templ (paling sederhana)
-
-Selamat berkarya! Kalau ada pertanyaan, tanya ke tim. 🚀
 📋 Ringkasan File yang Perlu Dibuat/Diubah
-
 Untuk bikin tema baru:
 
-    views/invitations/tema_baru/index.templ — BARU (~500-1000 baris)
+views/invitations/tema_baru/index.templ — BARU (~500-1000 baris)
 
-    views/invitations/render.go — UPDATE (1 case)
+views/invitations/render.go — UPDATE (1 case)
 
-    internal/database/template_seed.go — UPDATE (1 upsertTemplate + opsional field library)
+internal/database/template_seed.go — UPDATE (1 upsertTemplate)
 
 Total: 1 file baru + 2 file edit. 🎉
+
+Selamat berkarya! Kalau ada pertanyaan, tanya ke tim. 🚀
+
+📌 Changelog
+v2.0 (setelah Fase 2):
+
+Tambah section "Komponen Shared — WAJIB DIPAKAI"
+
+Tambah CSS wajib untuk web footer (.web-footer .container !important, .web-footer-brand img !important)
+
+Tambah JS kontrak (startMusic, toggleMusic, scrollToSection)
+
+Tambah 3 baris debugging footer (1 kolom, logo atas-bawah, dll)
+
+Update "Yang TIDAK Boleh Diubah" — larangan tulis manual komponen shared
+
+Update checklist dengan item shared components
+
+v1.0 (setelah Fase 1):
+
+Versi awal
+
