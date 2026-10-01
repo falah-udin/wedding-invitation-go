@@ -989,3 +989,103 @@ v1.0 (setelah Fase 1):
 
 Versi awal
 
+
+
+📌 Catatan Tambahan — Favicon Dinamis
+Versi: Tambahan setelah v3.0 (belum di-merge ke panduan utama)
+Tanggal: Setelah bikin tema Botanical Garden
+
+Kenapa Perlu?
+Setiap tema undangan wajib punya favicon dinamis — supaya icon kecil di tab browser muncul, konsisten dengan homepage & admin panel.
+
+Cara Pasang
+Sisipkan di index.templ, setelah </title>, sebelum <link> font:
+
+html
+<title>{ data.GroomName } &amp; { data.BrideName } - Nama Tema</title>
+
+<!-- Favicon Dinamis dari Site Config -->
+if data.SiteConfig.SiteFavicon != "" {
+    <link rel="icon" href={ "/storage/" + data.SiteConfig.SiteFavicon }/>
+    <link rel="apple-touch-icon" href={ "/storage/" + data.SiteConfig.SiteFavicon }/>
+} else {
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+}
+Penjelasan
+Pola ini SAMA dengan yang dipakai di:
+
+views/layouts/staff.templ (baris 18-22)
+
+views/layouts/client.templ
+
+views/layouts/admin.templ
+
+Kenapa pakai if/else? Kalau SiteFavicon kosong, fallback ke /favicon.ico biar tidak 404.
+
+Field SiteFavicon diisi di mana? Admin → Settings → Site Favicon.
+
+Kalau favicon belum muncul di tab browser:
+
+Cek /admin/settings — pastikan "Site Favicon" sudah di-upload
+Refresh dengan Ctrl+F5 (hard refresh)
+Cek tab browser — ada icon kecil di sebelah judul
+Cek Cepat (Terminal)
+bash
+# Cek favicon sudah terpasang di semua tema
+cd /DATA/AppData/wedding-invitation-go/src
+for tema in rustic_wood muslim_elegan elegant_gold modern_minimalist traditional_java botanical_garden; do
+  echo "--- $tema ---"
+  grep -c "SiteConfig.SiteFavicon" views/invitations/$tema/index.templ
+done
+Harusnya output 1 di setiap tema.
+
+Checklist Tambahan
+□ Favicon dinamis dari SiteConfig.SiteFavicon ada di <head>
+□ Fallback /favicon.ico kalau SiteFavicon kosong
+□ Favicon muncul di tab browser (setelah upload di Settings)
+□ Konsisten dengan favicon homepage & admin panel
+Debugging
+Problem	Solusi
+Favicon tidak muncul	Cek <link rel="icon"> di <head>
+Favicon muncul default (bukan custom)	Upload favicon di /admin/settings
+Favicon 404	Cek path /storage/... — pastikan file ada
+Favicon muncul di homepage tapi tidak di undangan	Cek if data.SiteConfig.SiteFavicon != "" di index.templ tema
+Favicon muncul di 1 tema tapi tidak di tema lain	Cek semua 6 tema sudah punya blok favicon
+Catatan Teknis
+Jangan hardcode path favicon di tema
+
+Selalu ambil dari data.SiteConfig.SiteFavicon
+
+Pakai if/else — jangan cuma if (biar ada fallback)
+
+Update serentak — kalau nanti ganti pola favicon, ubah di 6 tema + staff.templ + client.templ + admin.templ
+
+Update Changelog (Kalau Mau Di-merge ke Panduan Utama)
+Nanti kalau panduan diupdate ke v3.1, tambahkan di changelog:
+
+markdown
+**v3.1** (setelah tambah favicon dinamis):
+- Tambah section "Step 2b: Favicon Dinamis (WAJIB)"
+- Update checklist: tambah item favicon
+- Update debugging: favicon tidak muncul
+🎯 Cara Pakai
+Copy semua isi "Catatan Tambahan" di atas
+
+Buka src/notes/NEW_THEME_GUIDE.md
+
+Scroll ke paling bawah
+
+Paste di bawah changelog
+
+Save
+
+Commit & push
+
+Command commit:
+
+bash
+cd /DATA/AppData/wedding-invitation-go
+
+git add src/notes/NEW_THEME_GUIDE.md
+git commit -m "docs: add favicon notes to new theme guide"
+git push origin main

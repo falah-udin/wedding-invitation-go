@@ -71,98 +71,139 @@ func botanicalGardenPage(data *invitation.TemplateData) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, " - Botanical Garden</title><link href=\"https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap\" rel=\"stylesheet\"><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css\"><link href=\"https://unpkg.com/aos@2.3.1/dist/aos.css\" rel=\"stylesheet\"><style>\n\t\t\t/* ============================================ */\n\t\t\t/* ROOT VARIABLES — BOTANICAL GARDEN */\n\t\t\t/* ============================================ */\n\t\t\t:root {\n\t\t\t\t--sage: #7d8c6f;\n\t\t\t\t--sage-dark: #5a6b4d;\n\t\t\t\t--sage-light: #a3b197;\n\t\t\t\t--olive: #6b7a4d;\n\t\t\t\t--cream: #f8f5ed;\n\t\t\t\t--cream-dark: #ede7d8;\n\t\t\t\t--earth: #5d4e3a;\n\t\t\t\t--earth-dark: #3d3226;\n\t\t\t\t--text: #2d3a24;\n\t\t\t\t--text-muted: #6b7a5d;\n\t\t\t\t--text-light: #8a9980;\n\t\t\t\t--leaf: #4a5d3a;\n\t\t\t\t--leaf-light: #7d8c6f;\n\t\t\t\t--white: #ffffff;\n\t\t\t\t--shadow: 0 4px 30px rgba(45, 58, 36, 0.08);\n\t\t\t\t--shadow-md: 0 8px 40px rgba(45, 58, 36, 0.12);\n\t\t\t}\n\n\t\t\t* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }\n\t\t\thtml { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }\n\t\t\tbody {\n\t\t\t\tfont-family: 'Inter', sans-serif;\n\t\t\t\tbackground: var(--cream);\n\t\t\t\tcolor: var(--text);\n\t\t\t\tline-height: 1.7;\n\t\t\t\toverflow-x: hidden;\n\t\t\t\tmin-height: 100vh;\n\t\t\t\tmin-height: 100svh;\n\t\t\t}\n\t\t\timg { max-width: 100%; height: auto; display: block; }\n\n\t\t\t.container { max-width: 720px; margin: 0 auto; padding: 0 24px; }\n\t\t\t@media (max-width: 600px) { .container { padding: 0 20px; } }\n\n\t\t\t/* ============================================ */\n\t\t\t/* BOTANICAL PATTERN — BACKGROUND */\n\t\t\t/* ============================================ */\n\t\t\t.botanical-pattern {\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\tpointer-events: none;\n\t\t\t\tz-index: 0;\n\t\t\t\tbackground-image:\n\t\t\t\t\tradial-gradient(circle at 20px 20px, rgba(125, 140, 111, 0.06) 2px, transparent 3px),\n\t\t\t\t\tradial-gradient(circle at 60px 60px, rgba(125, 140, 111, 0.04) 2px, transparent 3px);\n\t\t\t\tbackground-size: 80px 80px;\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* TYPOGRAPHY */\n\t\t\t/* ============================================ */\n\t\t\t.section-label {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.75rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 8px;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\ttext-align: center;\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tgap: 16px;\n\t\t\t}\n\t\t\t.section-label::before, .section-label::after {\n\t\t\t\tcontent: '🌿';\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\topacity: 0.6;\n\t\t\t}\n\t\t\t.section-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 2.8rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\ttext-align: center;\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t\tcolor: var(--leaf);\n\t\t\t\tline-height: 1.2;\n\t\t\t}\n\t\t\t.section-title em {\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\tfont-weight: 400;\n\t\t\t}\n\t\t\t.section-subtitle {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\ttext-align: center;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-size: 1rem;\n\t\t\t\tmax-width: 520px;\n\t\t\t\tmargin: 0 auto 60px;\n\t\t\t\tfont-style: italic;\n\t\t\t\tline-height: 1.8;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.section-title { font-size: 2rem; }\n\t\t\t\t.section-subtitle { font-size: 0.9rem; margin-bottom: 40px; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* TOAST */\n\t\t\t/* ============================================ */\n\t\t\t.toast-container {\n\t\t\t\tposition: fixed; top: 20px; right: 20px; z-index: 9999;\n\t\t\t\tdisplay: flex; flex-direction: column; gap: 8px;\n\t\t\t}\n\t\t\t.toast {\n\t\t\t\tbackground: var(--leaf); color: var(--white);\n\t\t\t\tpadding: 12px 20px; border-radius: 12px;\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\tanimation: slideInToast 0.4s ease;\n\t\t\t\tmin-width: 200px;\n\t\t\t\tdisplay: flex; align-items: center; gap: 10px;\n\t\t\t\tfont-size: 0.85rem;\n\t\t\t\tborder-left: 4px solid var(--sage);\n\t\t\t}\n\t\t\t.toast i { font-size: 1.1rem; }\n\t\t\t.toast.success i { color: #10b981; }\n\t\t\t.toast.error i { color: #ef4444; }\n\t\t\t.toast.info i { color: var(--sage); }\n\t\t\t@keyframes slideInToast {\n\t\t\t\tfrom { transform: translateX(100%); opacity: 0; }\n\t\t\t\tto { transform: translateX(0); opacity: 1; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* OVERLAY START */\n\t\t\t/* ============================================ */\n\t\t\t#startOverlay {\n\t\t\t\tposition: fixed; top: 0; left: 0; right: 0; bottom: 0;\n\t\t\t\twidth: 100vw; height: 100vh;\n\t\t\t\tbackground: rgba(45, 58, 36, 0.94);\n\t\t\t\tz-index: 9999;\n\t\t\t\tdisplay: flex; align-items: center; justify-content: center;\n\t\t\t\tbackdrop-filter: blur(10px);\n\t\t\t\ttransition: opacity 0.8s ease;\n\t\t\t\tcursor: pointer;\n\t\t\t\tpadding: 24px;\n\t\t\t\toverflow-y: auto;\n\t\t\t}\n\t\t\t#startOverlay .overlay-inner {\n\t\t\t\ttext-align: center; max-width: 500px; width: 100%;\n\t\t\t\tpadding: 20px; margin: auto;\n\t\t\t}\n\t\t\t#startOverlay .overlay-leaf {\n\t\t\t\tfont-size: 3.5rem; color: var(--sage-light);\n\t\t\t\topacity: 0.5; margin-bottom: 16px; display: block;\n\t\t\t}\n\t\t\t#startOverlay .overlay-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 2.4rem; font-weight: 700;\n\t\t\t\tcolor: var(--sage-light); margin-bottom: 8px; letter-spacing: 3px;\n\t\t\t}\n\t\t\t#startOverlay .overlay-subtitle {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tcolor: rgba(255,255,255,0.7);\n\t\t\t\tfont-size: 1.1rem; margin-bottom: 8px; font-style: italic;\n\t\t\t}\n\t\t\t#startOverlay .overlay-divider {\n\t\t\t\twidth: 60px; height: 1px;\n\t\t\t\tbackground: linear-gradient(90deg, transparent, var(--sage-light), transparent);\n\t\t\t\tmargin: 16px auto 24px; opacity: 0.4;\n\t\t\t}\n\t\t\t#startOverlay .overlay-guest-label {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.7rem; text-transform: uppercase; letter-spacing: 6px;\n\t\t\t\tcolor: var(--sage-light);\n\t\t\t\tmargin-bottom: 10px; font-style: italic;\n\t\t\t}\n\t\t\t#startOverlay .overlay-guest-name {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.6rem; font-weight: 600;\n\t\t\t\tcolor: #f5efe0; line-height: 1.3; margin-bottom: 36px;\n\t\t\t}\n\t\t\t#startOverlay .btn-start {\n\t\t\t\tdisplay: inline-flex; align-items: center; gap: 10px;\n\t\t\t\tbackground: linear-gradient(135deg, var(--sage), var(--sage-dark));\n\t\t\t\tcolor: var(--white);\n\t\t\t\tpadding: 16px 44px; border: none; border-radius: 50px;\n\t\t\t\tfont-family: 'Inter', sans-serif;\n\t\t\t\tfont-weight: 600; font-size: 0.9rem;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbox-shadow: 0 8px 30px rgba(0,0,0,0.3);\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tletter-spacing: 1px;\n\t\t\t}\n\t\t\t#startOverlay .btn-start:hover {\n\t\t\t\ttransform: translateY(-2px) scale(1.03);\n\t\t\t\tbox-shadow: 0 12px 40px rgba(125, 140, 111, 0.4);\n\t\t\t}\n\t\t\t#startOverlay .hint {\n\t\t\t\tfont-size: 0.65rem; opacity: 0.4; margin-top: 20px;\n\t\t\t\tletter-spacing: 3px; color: var(--sage-light);\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t#startOverlay .overlay-title { font-size: 1.8rem; }\n\t\t\t\t#startOverlay .btn-start { padding: 14px 32px; font-size: 0.8rem; width: 100%; max-width: 280px; justify-content: center; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* MUSIC PLAYER */\n\t\t\t/* ============================================ */\n\t\t\t.music-player { position: fixed; bottom: 24px; right: 24px; z-index: 1000; }\n\t\t\t.music-btn {\n\t\t\t\twidth: 54px; height: 54px; border-radius: 50%;\n\t\t\t\tbackground: linear-gradient(135deg, var(--sage), var(--sage-dark));\n\t\t\t\tborder: 2px solid var(--sage-light);\n\t\t\t\tcolor: var(--white); font-size: 1.4rem; cursor: pointer;\n\t\t\t\tbox-shadow: 0 4px 30px rgba(0,0,0,0.15);\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tdisplay: flex; align-items: center; justify-content: center;\n\t\t\t}\n\t\t\t.music-btn:hover { transform: scale(1.05) rotate(-5deg); }\n\t\t\t.music-btn.playing { animation: pulseBotanical 1.5s infinite; }\n\t\t\t@keyframes pulseBotanical {\n\t\t\t\t0% { box-shadow: 0 0 0 0 rgba(125, 140, 111, 0.4); }\n\t\t\t\t70% { box-shadow: 0 0 0 16px rgba(125, 140, 111, 0); }\n\t\t\t\t100% { box-shadow: 0 0 0 0 rgba(125, 140, 111, 0); }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* HERO — BOTANICAL GARDEN */\n\t\t\t/* ============================================ */\n\t\t\t.hero-botanical {\n\t\t\t\tposition: relative;\n\t\t\t\tmin-height: 100vh;\n\t\t\t\tmin-height: 100svh;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\ttext-align: center;\n\t\t\t\tpadding: 80px 24px;\n\t\t\t\tbackground: linear-gradient(135deg, #2d3a24 0%, #4a5d3a 50%, #2d3a24 100%);\n\t\t\t\tcolor: var(--white);\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.hero-botanical::before {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\tbackground:\n\t\t\t\t\tradial-gradient(ellipse at 20% 30%, rgba(163, 177, 151, 0.15) 0%, transparent 50%),\n\t\t\t\t\tradial-gradient(ellipse at 80% 70%, rgba(163, 177, 151, 0.1) 0%, transparent 50%);\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.hero-botanical::after {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\tbackground-image:\n\t\t\t\t\tradial-gradient(circle at 10% 20%, rgba(163, 177, 151, 0.08) 1px, transparent 1px),\n\t\t\t\t\tradial-gradient(circle at 40% 60%, rgba(163, 177, 151, 0.06) 1px, transparent 1px),\n\t\t\t\t\tradial-gradient(circle at 80% 30%, rgba(163, 177, 151, 0.08) 1px, transparent 1px);\n\t\t\t\tbackground-size: 60px 60px;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.hero-botanical .hero-inner {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 2;\n\t\t\t\tmax-width: 720px;\n\t\t\t\twidth: 100%;\n\t\t\t}\n\t\t\t.hero-botanical .hero-leaves {\n\t\t\t\tposition: absolute;\n\t\t\t\tfont-size: 6rem;\n\t\t\t\topacity: 0.08;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.hero-botanical .hero-leaves-1 { top: -30px; left: -30px; transform: rotate(-20deg); }\n\t\t\t.hero-botanical .hero-leaves-2 { bottom: -30px; right: -30px; transform: rotate(20deg); }\n\t\t\t.hero-botanical .hero-leaf-top {\n\t\t\t\tfont-size: 3rem;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tdisplay: block;\n\t\t\t\topacity: 0.7;\n\t\t\t}\n\t\t\t.hero-botanical .hero-eyebrow {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.75rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 10px;\n\t\t\t\tcolor: var(--sage-light);\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.hero-botanical .hero-names {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 4.5rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tline-height: 1.05;\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\talign-items: center;\n\t\t\t\tcolor: #f5efe0;\n\t\t\t\ttext-shadow: 0 4px 24px rgba(0,0,0,0.4);\n\t\t\t}\n\t\t\t.hero-botanical .hero-names .amp {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-style: italic;\n\t\t\t\tfont-size: 2.2rem;\n\t\t\t\tcolor: var(--sage-light);\n\t\t\t\tmargin: 12px 0;\n\t\t\t\tfont-weight: 400;\n\t\t\t}\n\t\t\t.hero-botanical .hero-divider {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tgap: 16px;\n\t\t\t\tmargin: 24px 0;\n\t\t\t}\n\t\t\t.hero-botanical .hero-divider .line {\n\t\t\t\twidth: 60px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: linear-gradient(90deg, transparent, var(--sage-light), transparent);\n\t\t\t\topacity: 0.5;\n\t\t\t}\n\t\t\t.hero-botanical .hero-divider .ornament {\n\t\t\t\tcolor: var(--sage-light);\n\t\t\t\tfont-size: 1.1rem;\n\t\t\t\topacity: 0.8;\n\t\t\t}\n\t\t\t.hero-botanical .hero-dates {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 1rem;\n\t\t\t\tcolor: var(--sage-light);\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t.hero-botanical .btn-rsvp {\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 10px;\n\t\t\t\tbackground: var(--sage);\n\t\t\t\tcolor: var(--white);\n\t\t\t\tpadding: 15px 40px;\n\t\t\t\tborder: none; border-radius: 50px;\n\t\t\t\tfont-family: 'Inter', sans-serif;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tfont-size: 0.85rem;\n\t\t\t\ttext-decoration: none;\n\t\t\t\tletter-spacing: 2px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbox-shadow: 0 4px 20px rgba(0,0,0,0.2);\n\t\t\t}\n\t\t\t.hero-botanical .btn-rsvp:hover {\n\t\t\t\tbackground: var(--sage-light);\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t\tbox-shadow: 0 8px 30px rgba(125, 140, 111, 0.4);\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.hero-botanical { padding: 60px 20px; }\n\t\t\t\t.hero-botanical .hero-names { font-size: 2.6rem; }\n\t\t\t\t.hero-botanical .hero-names .amp { font-size: 1.5rem; }\n\t\t\t\t.hero-botanical .hero-leaves { font-size: 3rem; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* OPENING QUOTE */\n\t\t\t/* ============================================ */\n\t\t\t.opening-botanical {\n\t\t\t\tpadding: 100px 24px;\n\t\t\t\tbackground: var(--cream);\n\t\t\t\ttext-align: center;\n\t\t\t\tposition: relative;\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.opening-botanical::before {\n\t\t\t\tcontent: '❦';\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 50%; left: 50%;\n\t\t\t\ttransform: translate(-50%, -50%);\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 20rem;\n\t\t\t\tcolor: rgba(125, 140, 111, 0.04);\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.opening-botanical .opening-inner {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 2;\n\t\t\t\tmax-width: 640px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t\t.opening-botanical .opening-icon {\n\t\t\t\tfont-size: 3rem;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\topacity: 0.4;\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t\tdisplay: block;\n\t\t\t}\n\t\t\t.opening-botanical .opening-quote {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.5rem;\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--leaf);\n\t\t\t\tline-height: 1.7;\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t}\n\t\t\t.opening-botanical .opening-source {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 6px;\n\t\t\t\tcolor: var(--sage);\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.opening-botanical { padding: 80px 20px; }\n\t\t\t\t.opening-botanical .opening-quote { font-size: 1.15rem; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* SECTION BASE */\n\t\t\t/* ============================================ */\n\t\t\t.section-botanical {\n\t\t\t\tpadding: 100px 0;\n\t\t\t\tbackground: var(--cream);\n\t\t\t\tposition: relative;\n\t\t\t}\n\t\t\t.section-botanical-alt {\n\t\t\t\tpadding: 100px 0;\n\t\t\t\tbackground: var(--cream-dark);\n\t\t\t\tposition: relative;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.section-botanical, .section-botanical-alt { padding: 80px 0; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* COUPLE */\n\t\t\t/* ============================================ */\n\t\t\t.couple-botanical-grid {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: 1fr auto 1fr;\n\t\t\t\tgap: 40px;\n\t\t\t\talign-items: center;\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.couple-botanical-grid { grid-template-columns: 1fr; gap: 40px; }\n\t\t\t\t.couple-botanical-amp { display: none; }\n\t\t\t}\n\t\t\t.couple-botanical-card {\n\t\t\t\ttext-align: center;\n\t\t\t}\n\t\t\t.couple-botanical-photo-wrap {\n\t\t\t\tposition: relative;\n\t\t\t\twidth: 200px; height: 200px;\n\t\t\t\tmargin: 0 auto 24px;\n\t\t\t}\n\t\t\t.couple-botanical-photo-wrap::before {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: -12px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px dashed var(--sage);\n\t\t\t\topacity: 0.4;\n\t\t\t\tanimation: rotateLeaf 30s linear infinite;\n\t\t\t}\n\t\t\t@keyframes rotateLeaf {\n\t\t\t\tfrom { transform: rotate(0deg); }\n\t\t\t\tto { transform: rotate(360deg); }\n\t\t\t}\n\t\t\t.couple-botanical-photo {\n\t\t\t\twidth: 200px; height: 200px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\toverflow: hidden;\n\t\t\t\tborder: 4px solid var(--sage);\n\t\t\t\tbox-shadow: 0 4px 30px rgba(125, 140, 111, 0.15);\n\t\t\t\tposition: relative; z-index: 1;\n\t\t\t\tbackground: var(--cream-dark);\n\t\t\t}\n\t\t\t.couple-botanical-photo img {\n\t\t\t\twidth: 100%; height: 100%; object-fit: cover;\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.couple-botanical-photo-wrap, .couple-botanical-photo { width: 160px; height: 160px; }\n\t\t\t}\n\t\t\t.couple-botanical-info h3 {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.8rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcolor: var(--leaf);\n\t\t\t\tmargin-bottom: 8px;\n\t\t\t}\n\t\t\t.couple-botanical-role {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.75rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\tmargin-bottom: 12px;\n\t\t\t}\n\t\t\t.couple-botanical-parents-label {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.85rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tfont-style: italic;\n\t\t\t\tmargin-bottom: 4px;\n\t\t\t}\n\t\t\t.couple-botanical-parents {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 1rem;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tfont-style: italic;\n\t\t\t\tline-height: 1.6;\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t}\n\t\t\t.couple-botanical-social {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: center;\n\t\t\t\tgap: 12px;\n\t\t\t\tmargin-top: 16px;\n\t\t\t}\n\t\t\t.couple-botanical-social a {\n\t\t\t\twidth: 38px; height: 38px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid var(--sage);\n\t\t\t\tcolor: var(--sage);\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\ttext-decoration: none;\n\t\t\t\topacity: 0.7;\n\t\t\t}\n\t\t\t.couple-botanical-social a:hover {\n\t\t\t\tbackground: var(--sage);\n\t\t\t\tcolor: var(--white);\n\t\t\t\topacity: 1;\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t}\n\t\t\t.couple-botanical-amp {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-style: italic;\n\t\t\t\tfont-size: 2.5rem;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\tfont-weight: 400;\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* LOVE STORY */\n\t\t\t/* ============================================ */\n\t\t\t.story-botanical-timeline {\n\t\t\t\tposition: relative;\n\t\t\t\tmax-width: 640px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t\tpadding-left: 40px;\n\t\t\t}\n\t\t\t.story-botanical-timeline::before {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\tleft: 12px; top: 0; bottom: 0;\n\t\t\t\twidth: 2px;\n\t\t\t\tbackground: linear-gradient(180deg, transparent, var(--sage), transparent);\n\t\t\t\topacity: 0.3;\n\t\t\t}\n\t\t\t.story-botanical-item {\n\t\t\t\tposition: relative;\n\t\t\t\tmargin-bottom: 36px;\n\t\t\t\tpadding-left: 24px;\n\t\t\t}\n\t\t\t.story-botanical-item:last-child { margin-bottom: 0; }\n\t\t\t.story-botanical-dot {\n\t\t\t\tposition: absolute;\n\t\t\t\tleft: -28px; top: 8px;\n\t\t\t\twidth: 18px; height: 18px;\n\t\t\t\tbackground: var(--sage);\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tcolor: var(--white);\n\t\t\t\tfont-size: 0.6rem;\n\t\t\t}\n\t\t\t.story-botanical-content {\n\t\t\t\tbackground: var(--white);\n\t\t\t\tborder: 1px solid rgba(125, 140, 111, 0.15);\n\t\t\t\tpadding: 24px 28px;\n\t\t\t\tborder-radius: 16px;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tbox-shadow: var(--shadow);\n\t\t\t}\n\t\t\t.story-botanical-item:hover .story-botanical-content {\n\t\t\t\tborder-color: var(--sage);\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\ttransform: translateX(4px);\n\t\t\t}\n\t\t\t.story-botanical-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.15rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcolor: var(--leaf);\n\t\t\t\tmargin-bottom: 8px;\n\t\t\t}\n\t\t\t.story-botanical-desc {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-style: italic;\n\t\t\t\tline-height: 1.7;\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* EVENT */\n\t\t\t/* ============================================ */\n\t\t\t.event-botanical-grid {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: 1fr 1fr;\n\t\t\t\tgap: 28px;\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.event-botanical-grid { grid-template-columns: 1fr; }\n\t\t\t}\n\t\t\t.event-botanical-card {\n\t\t\t\tbackground: var(--white);\n\t\t\t\tborder: 1px solid rgba(125, 140, 111, 0.15);\n\t\t\t\tborder-radius: 20px;\n\t\t\t\tpadding: 40px 28px;\n\t\t\t\ttext-align: center;\n\t\t\t\ttransition: all 0.4s;\n\t\t\t\tposition: relative;\n\t\t\t\toverflow: hidden;\n\t\t\t\tbox-shadow: var(--shadow);\n\t\t\t}\n\t\t\t.event-botanical-card::before {\n\t\t\t\tcontent: '❦';\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 12px; right: 16px;\n\t\t\t\tfont-size: 2rem;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\topacity: 0.15;\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t}\n\t\t\t.event-botanical-card:hover {\n\t\t\t\ttransform: translateY(-4px);\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\tborder-color: var(--sage);\n\t\t\t}\n\t\t\t.event-botanical-icon {\n\t\t\t\twidth: 68px; height: 68px;\n\t\t\t\tbackground: linear-gradient(135deg, var(--sage-light), var(--sage));\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tmargin: 0 auto 20px;\n\t\t\t\tcolor: var(--white);\n\t\t\t\tfont-size: 1.6rem;\n\t\t\t}\n\t\t\t.event-botanical-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.5rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcolor: var(--leaf);\n\t\t\t\tmargin-bottom: 6px;\n\t\t\t}\n\t\t\t.event-botanical-arabic {\n\t\t\t\tfont-family: 'Amiri', serif;\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t.event-botanical-detail {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 1rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tline-height: 2;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t}\n\t\t\t.event-botanical-btn {\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 8px;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\ttext-decoration: none;\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tborder-bottom: 1px solid var(--sage);\n\t\t\t\tpadding-bottom: 4px;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t}\n\t\t\t.event-botanical-btn:hover {\n\t\t\t\tcolor: var(--leaf);\n\t\t\t\tgap: 14px;\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* GALLERY */\n\t\t\t/* ============================================ */\n\t\t\t.gallery-botanical-grid {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: repeat(3, 1fr);\n\t\t\t\tgap: 16px;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.gallery-botanical-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }\n\t\t\t}\n\t\t\t.gallery-botanical-item {\n\t\t\t\tposition: relative;\n\t\t\t\taspect-ratio: 1;\n\t\t\t\toverflow: hidden;\n\t\t\t\tborder-radius: 16px;\n\t\t\t\tborder: 2px solid rgba(125, 140, 111, 0.15);\n\t\t\t\tcursor: pointer;\n\t\t\t\ttransition: all 0.4s;\n\t\t\t}\n\t\t\t.gallery-botanical-item:hover {\n\t\t\t\tborder-color: var(--sage);\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\ttransform: translateY(-4px);\n\t\t\t}\n\t\t\t.gallery-botanical-item img {\n\t\t\t\twidth: 100%; height: 100%;\n\t\t\t\tobject-fit: cover;\n\t\t\t\ttransition: transform 0.6s;\n\t\t\t}\n\t\t\t.gallery-botanical-item:hover img { transform: scale(1.06); }\n\t\t\t.gallery-botanical-item .overlay {\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\tbackground: rgba(45, 58, 36, 0);\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tcolor: var(--white);\n\t\t\t\tfont-size: 1.6rem;\n\t\t\t\topacity: 0;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t}\n\t\t\t.gallery-botanical-item:hover .overlay {\n\t\t\t\tbackground: rgba(45, 58, 36, 0.3);\n\t\t\t\topacity: 1;\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* RSVP */\n\t\t\t/* ============================================ */\n\t\t\t.rsvp-form { max-width: 520px; margin: 0 auto; }\n\t\t\t.form-group { margin-bottom: 20px; text-align: left; }\n\t\t\t.form-group label {\n\t\t\t\tdisplay: block;\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\tmargin-bottom: 8px;\n\t\t\t}\n\t\t\t.form-group .required { color: #c0392b; }\n\t\t\t.form-group input, .form-group select, .form-group textarea {\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding: 14px 18px;\n\t\t\t\tborder: 1px solid rgba(125, 140, 111, 0.3);\n\t\t\t\tborder-radius: 12px;\n\t\t\t\tfont-size: 1rem;\n\t\t\t\tfont-family: 'Inter', sans-serif;\n\t\t\t\tbackground: var(--white);\n\t\t\t\tcolor: var(--text);\n\t\t\t\ttransition: all 0.3s;\n\t\t\t}\n\t\t\t.form-group input:focus, .form-group select:focus, .form-group textarea:focus {\n\t\t\t\toutline: none;\n\t\t\t\tborder-color: var(--sage);\n\t\t\t\tbox-shadow: 0 0 0 3px rgba(125, 140, 111, 0.1);\n\t\t\t}\n\t\t\t.form-group input[readonly] {\n\t\t\t\tbackground: rgba(125, 140, 111, 0.08);\n\t\t\t\tcolor: var(--sage-dark);\n\t\t\t\tcursor: not-allowed;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.form-group textarea { resize: vertical; min-height: 90px; }\n\t\t\t.btn-submit {\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding: 16px;\n\t\t\t\tbackground: linear-gradient(135deg, var(--sage), var(--sage-dark));\n\t\t\t\tcolor: var(--white);\n\t\t\t\tborder: none;\n\t\t\t\tborder-radius: 12px;\n\t\t\t\tfont-family: 'Inter', sans-serif;\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcursor: pointer;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tletter-spacing: 2px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tmargin-top: 8px;\n\t\t\t}\n\t\t\t.btn-submit:hover {\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t\tbox-shadow: 0 8px 30px rgba(125, 140, 111, 0.3);\n\t\t\t}\n\t\t\t.btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }\n\n\t\t\t.rsvp-warning {\n\t\t\t\tbackground: rgba(125, 140, 111, 0.08);\n\t\t\t\tborder-left: 3px solid var(--sage);\n\t\t\t\tpadding: 16px 20px;\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t\tborder-radius: 8px;\n\t\t\t}\n\t\t\t.rsvp-warning-title {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 8px;\n\t\t\t\tmargin-bottom: 4px;\n\t\t\t}\n\t\t\t.rsvp-warning-title i {\n\t\t\t\tcolor: var(--sage);\n\t\t\t\tfont-size: 1.1rem;\n\t\t\t}\n\t\t\t.rsvp-warning-title strong {\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tcolor: var(--leaf);\n\t\t\t\tfont-weight: 600;\n\t\t\t}\n\t\t\t.rsvp-warning p {\n\t\t\t\tmargin: 0;\n\t\t\t\tfont-size: 0.82rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tline-height: 1.6;\n\t\t\t}\n\n\t\t\t.rsvp-list-wrap {\n\t\t\t\tmax-width: 520px;\n\t\t\t\tmargin: 60px auto 0;\n\t\t\t\tpadding-top: 32px;\n\t\t\t\tborder-top: 1px solid rgba(125, 140, 111, 0.2);\n\t\t\t}\n\t\t\t.rsvp-list-head {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: baseline;\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t}\n\t\t\t.rsvp-list-head h4 {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.15rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcolor: var(--leaf);\n\t\t\t\tmargin: 0;\n\t\t\t}\n\t\t\t.rsvp-count {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\tletter-spacing: 2px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t\t#rsvpList {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tgap: 12px;\n\t\t\t\tmax-height: 440px;\n\t\t\t\toverflow-y: auto;\n\t\t\t}\n\t\t\t.rsvp-item {\n\t\t\t\tbackground: var(--white);\n\t\t\t\tborder: 1px solid rgba(125, 140, 111, 0.15);\n\t\t\t\tborder-radius: 12px;\n\t\t\t\tpadding: 16px 20px;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t}\n\t\t\t.rsvp-item:hover {\n\t\t\t\tborder-color: var(--sage);\n\t\t\t\tbox-shadow: 0 4px 20px rgba(125, 140, 111, 0.1);\n\t\t\t}\n\t\t\t.rsvp-item .row-main {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: baseline;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\tgap: 8px;\n\t\t\t\tmargin-bottom: 6px;\n\t\t\t}\n\t\t\t.rsvp-item .guest-name {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcolor: var(--leaf);\n\t\t\t}\n\t\t\t.rsvp-item .status-badge {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.65rem;\n\t\t\t\tpadding: 3px 12px;\n\t\t\t\tborder-radius: 20px;\n\t\t\t\tletter-spacing: 2px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tfont-weight: 600;\n\t\t\t}\n\t\t\t.rsvp-item .status-badge.hadir {\n\t\t\t\tbackground: rgba(16, 185, 129, 0.1);\n\t\t\t\tcolor: #059669;\n\t\t\t}\n\t\t\t.rsvp-item .status-badge.tidak_hadir {\n\t\t\t\tbackground: rgba(192, 57, 43, 0.1);\n\t\t\t\tcolor: #c0392b;\n\t\t\t}\n\t\t\t.rsvp-item .status-badge.ragu {\n\t\t\t\tbackground: rgba(245, 158, 11, 0.12);\n\t\t\t\tcolor: #d97706;\n\t\t\t}\n\t\t\t.rsvp-item .row-detail {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: center;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\tgap: 8px;\n\t\t\t}\n\t\t\t.rsvp-item .meta-left {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 14px;\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.78rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t.rsvp-item .meta-left span { display: flex; align-items: center; gap: 4px; }\n\t\t\t.rsvp-item .message {\n\t\t\t\tmargin-top: 10px;\n\t\t\t\tpadding: 12px 16px;\n\t\t\t\tbackground: var(--cream-dark);\n\t\t\t\tborder-left: 3px solid var(--sage);\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-style: italic;\n\t\t\t\tline-height: 1.6;\n\t\t\t\tborder-radius: 8px;\n\t\t\t}\n\t\t\t.rsvp-empty {\n\t\t\t\ttext-align: center;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tfont-style: italic;\n\t\t\t\tpadding: 40px 0;\n\t\t\t}\n\t\t\t.rsvp-empty i {\n\t\t\t\tdisplay: block;\n\t\t\t\tfont-size: 1.8rem;\n\t\t\t\tmargin-bottom: 10px;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\topacity: 0.4;\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* FOOTER */\n\t\t\t/* ============================================ */\n\t\t\t.footer-botanical {\n\t\t\t\tpadding: 80px 24px 48px;\n\t\t\t\tbackground: linear-gradient(180deg, var(--leaf) 0%, var(--earth-dark) 100%);\n\t\t\t\tcolor: var(--cream);\n\t\t\t\ttext-align: center;\n\t\t\t\tposition: relative;\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.footer-botanical::before {\n\t\t\t\tcontent: '🌿';\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 50%; left: 50%;\n\t\t\t\ttransform: translate(-50%, -50%);\n\t\t\t\tfont-size: 20rem;\n\t\t\t\topacity: 0.03;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.footer-botanical-inner {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 1;\n\t\t\t\tmax-width: 640px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t\t.footer-botanical-icon {\n\t\t\t\tfont-size: 2.5rem;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tdisplay: block;\n\t\t\t\topacity: 0.6;\n\t\t\t}\n\t\t\t.footer-botanical-couple {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 2rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tcolor: var(--cream);\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t}\n\t\t\t.footer-botanical-couple .amp {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--sage-light);\n\t\t\t\tmargin: 0 14px;\n\t\t\t\tfont-weight: 400;\n\t\t\t}\n\t\t\t.footer-botanical-date {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tcolor: var(--sage-light);\n\t\t\t\tletter-spacing: 5px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t}\n\t\t\t.footer-botanical-prayer {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1rem;\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--sage-light);\n\t\t\t\tmax-width: 520px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t\tline-height: 1.9;\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* FOOTER SOCIAL (WAJIB — shared) */\n\t\t\t/* ============================================ */\n\t\t\t.footer-social {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: center;\n\t\t\t\talign-items: center;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\tgap: 10px;\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t}\n\t\t\t.footer-social a {\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 8px;\n\t\t\t\tpadding: 10px 18px;\n\t\t\t\tborder: 1px solid rgba(163, 177, 151, 0.3);\n\t\t\t\tborder-radius: 50px;\n\t\t\t\tcolor: var(--sage-light);\n\t\t\t\ttext-decoration: none;\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\topacity: 0.85;\n\t\t\t\twhite-space: nowrap;\n\t\t\t}\n\t\t\t.footer-social a:hover {\n\t\t\t\tbackground: rgba(163, 177, 151, 0.1);\n\t\t\t\tborder-color: var(--sage-light);\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t\topacity: 1;\n\t\t\t}\n\t\t\t.footer-social a i {\n\t\t\t\tfont-size: 1rem;\n\t\t\t}\n\t\t\t.footer-social a span {\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* WEB FOOTER (WAJIB — shared) */\n\t\t\t/* ============================================ */\n\t\t\t.web-footer {\n\t\t\t\tbackground: linear-gradient(180deg, #1a2016 0%, #0d120a 100%);\n\t\t\t\tpadding: 3rem 0 1.5rem;\n\t\t\t\tborder-top: 1px solid rgba(125, 140, 111, 0.15);\n\t\t\t\tcolor: rgba(255,255,255,0.6);\n\t\t\t\tposition: relative;\n\t\t\t}\n\t\t\t.web-footer .container {\n\t\t\t\tmax-width: 1280px !important;\n\t\t\t}\n\t\t\t.web-footer-row {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: repeat(auto-fit, minmax(250px, 1fr));\n\t\t\t\tgap: 2rem;\n\t\t\t}\n\t\t\t.web-footer-brand {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.4rem;\n\t\t\t\tfont-weight: 700;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\ttext-decoration: none;\n\t\t\t\tdisplay: inline-block;\n\t\t\t}\n\t\t\t.web-footer-brand img {\n\t\t\t\tdisplay: inline-block !important;\n\t\t\t\tvertical-align: middle;\n\t\t\t\tmargin-right: 8px;\n\t\t\t}\n\t\t\t.web-footer-brand .wedding {\n\t\t\t\tbackground: linear-gradient(135deg, #a3b197 0%, #7d8c6f 100%);\n\t\t\t\t-webkit-background-clip: text; background-clip: text;\n\t\t\t\tcolor: transparent;\n\t\t\t}\n\t\t\t.web-footer-brand .saas { color: var(--sage-light); }\n\t\t\t.web-footer-desc {\n\t\t\t\tcolor: rgba(255,255,255,0.5); font-size: 0.85rem;\n\t\t\t\tline-height: 1.6; margin-bottom: 1rem;\n\t\t\t}\n\t\t\t.web-footer-heading {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 0.95rem; font-weight: 600;\n\t\t\t\tcolor: var(--sage-light); margin-bottom: 1rem;\n\t\t\t\tposition: relative; padding-bottom: 0.5rem;\n\t\t\t}\n\t\t\t.web-footer-heading::after {\n\t\t\t\tcontent: ''; position: absolute; bottom: 0; left: 0;\n\t\t\t\twidth: 30px; height: 2px;\n\t\t\t\tbackground: linear-gradient(90deg, var(--sage-light), transparent);\n\t\t\t}\n\t\t\t.web-footer-list { list-style: none; padding: 0; margin: 0; }\n\t\t\t.web-footer-list li {\n\t\t\t\tdisplay: flex; align-items: flex-start;\n\t\t\t\tgap: 10px; margin-bottom: 0.65rem;\n\t\t\t\tcolor: rgba(255,255,255,0.55); font-size: 0.85rem;\n\t\t\t}\n\t\t\t.web-footer-list li i {\n\t\t\t\tcolor: var(--sage-light); font-size: 1rem;\n\t\t\t\tmargin-top: 2px; flex-shrink: 0;\n\t\t\t}\n\t\t\t.web-footer-list li a, .web-footer-link {\n\t\t\t\tcolor: rgba(255,255,255,0.55); text-decoration: none;\n\t\t\t\ttransition: color 0.2s;\n\t\t\t}\n\t\t\t.web-footer-list li a:hover, .web-footer-link:hover { color: var(--sage-light); }\n\t\t\t.web-footer-socials {\n\t\t\t\tdisplay: flex; gap: 10px;\n\t\t\t\tflex-wrap: wrap; margin-top: 0.75rem;\n\t\t\t}\n\t\t\t.web-social-link {\n\t\t\t\twidth: 38px; height: 38px;\n\t\t\t\tdisplay: inline-flex; align-items: center; justify-content: center;\n\t\t\t\tbackground: rgba(125, 140, 111, 0.08);\n\t\t\t\tborder: 1px solid rgba(125, 140, 111, 0.2);\n\t\t\t\tborder-radius: 10px;\n\t\t\t\tcolor: var(--sage-light); font-size: 1.05rem;\n\t\t\t\ttransition: all 0.25s; text-decoration: none;\n\t\t\t}\n\t\t\t.web-social-link:hover {\n\t\t\t\tbackground: rgba(125, 140, 111, 0.18);\n\t\t\t\tborder-color: var(--sage-light);\n\t\t\t\tcolor: #ffffff; transform: translateY(-3px);\n\t\t\t}\n\t\t\t.web-footer-version {\n\t\t\t\tcolor: rgba(255,255,255,0.35); font-size: 0.75rem;\n\t\t\t\tmargin: 0; padding: 4px 10px;\n\t\t\t\tbackground: rgba(125, 140, 111, 0.06);\n\t\t\t\tborder-radius: 6px; display: inline-block;\n\t\t\t}\n\t\t\t.web-footer-divider {\n\t\t\t\tborder: 0; border-top: 1px solid rgba(125, 140, 111, 0.1);\n\t\t\t\tmargin: 2rem 0 1.25rem;\n\t\t\t}\n\t\t\t.web-footer-text {\n\t\t\t\tcolor: rgba(255,255,255,0.35); font-size: 0.8rem;\n\t\t\t\tmargin: 0; text-align: center;\n\t\t\t}\n\t\t\t.web-footer-icon { color: var(--sage-light); }\n\t\t\t@media (max-width: 768px) {\n\t\t\t\t.web-footer { padding: 2.25rem 0 1.25rem; text-align: center; }\n\t\t\t\t.web-footer-heading::after { left: 50%; transform: translateX(-50%); }\n\t\t\t\t.web-footer-list li { justify-content: center; }\n\t\t\t\t.web-footer-socials { justify-content: center; }\n\t\t\t}\n\t\t</style></head><body data-music-url=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, " - Botanical Garden</title>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var4 string
-		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.MusicURL)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1204, Col: 37}
+		if data.SiteConfig.SiteFavicon != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<link rel=\"icon\" href=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var4 templ.SafeURL
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinURLErrs("/storage/" + data.SiteConfig.SiteFavicon)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 28, Col: 68}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "\"><link rel=\"apple-touch-icon\" href=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var5 templ.SafeURL
+			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinURLErrs("/storage/" + data.SiteConfig.SiteFavicon)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 29, Col: 80}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		} else {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "<link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var4)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "\" data-project-id=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var5 string
-		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.FormatUint(data.Project.ID))
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1204, Col: 96}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var5)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "\" data-project-slug=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "<link href=\"https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap\" rel=\"stylesheet\"><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css\"><link href=\"https://unpkg.com/aos@2.3.1/dist/aos.css\" rel=\"stylesheet\"><style>\n\t\t\t/* ============================================ */\n\t\t\t/* ROOT VARIABLES — BOTANICAL GARDEN */\n\t\t\t/* ============================================ */\n\t\t\t:root {\n\t\t\t\t--sage: #7d8c6f;\n\t\t\t\t--sage-dark: #5a6b4d;\n\t\t\t\t--sage-light: #a3b197;\n\t\t\t\t--olive: #6b7a4d;\n\t\t\t\t--cream: #f8f5ed;\n\t\t\t\t--cream-dark: #ede7d8;\n\t\t\t\t--earth: #5d4e3a;\n\t\t\t\t--earth-dark: #3d3226;\n\t\t\t\t--text: #2d3a24;\n\t\t\t\t--text-muted: #6b7a5d;\n\t\t\t\t--text-light: #8a9980;\n\t\t\t\t--leaf: #4a5d3a;\n\t\t\t\t--leaf-light: #7d8c6f;\n\t\t\t\t--white: #ffffff;\n\t\t\t\t--shadow: 0 4px 30px rgba(45, 58, 36, 0.08);\n\t\t\t\t--shadow-md: 0 8px 40px rgba(45, 58, 36, 0.12);\n\t\t\t}\n\n\t\t\t* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }\n\t\t\thtml { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }\n\t\t\tbody {\n\t\t\t\tfont-family: 'Inter', sans-serif;\n\t\t\t\tbackground: var(--cream);\n\t\t\t\tcolor: var(--text);\n\t\t\t\tline-height: 1.7;\n\t\t\t\toverflow-x: hidden;\n\t\t\t\tmin-height: 100vh;\n\t\t\t\tmin-height: 100svh;\n\t\t\t}\n\t\t\timg { max-width: 100%; height: auto; display: block; }\n\n\t\t\t.container { max-width: 720px; margin: 0 auto; padding: 0 24px; }\n\t\t\t@media (max-width: 600px) { .container { padding: 0 20px; } }\n\n\t\t\t/* ============================================ */\n\t\t\t/* BOTANICAL PATTERN — BACKGROUND */\n\t\t\t/* ============================================ */\n\t\t\t.botanical-pattern {\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\tpointer-events: none;\n\t\t\t\tz-index: 0;\n\t\t\t\tbackground-image:\n\t\t\t\t\tradial-gradient(circle at 20px 20px, rgba(125, 140, 111, 0.06) 2px, transparent 3px),\n\t\t\t\t\tradial-gradient(circle at 60px 60px, rgba(125, 140, 111, 0.04) 2px, transparent 3px);\n\t\t\t\tbackground-size: 80px 80px;\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* TYPOGRAPHY */\n\t\t\t/* ============================================ */\n\t\t\t.section-label {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.75rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 8px;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\ttext-align: center;\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tgap: 16px;\n\t\t\t}\n\t\t\t.section-label::before, .section-label::after {\n\t\t\t\tcontent: '🌿';\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\topacity: 0.6;\n\t\t\t}\n\t\t\t.section-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 2.8rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\ttext-align: center;\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t\tcolor: var(--leaf);\n\t\t\t\tline-height: 1.2;\n\t\t\t}\n\t\t\t.section-title em {\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\tfont-weight: 400;\n\t\t\t}\n\t\t\t.section-subtitle {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\ttext-align: center;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-size: 1rem;\n\t\t\t\tmax-width: 520px;\n\t\t\t\tmargin: 0 auto 60px;\n\t\t\t\tfont-style: italic;\n\t\t\t\tline-height: 1.8;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.section-title { font-size: 2rem; }\n\t\t\t\t.section-subtitle { font-size: 0.9rem; margin-bottom: 40px; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* TOAST */\n\t\t\t/* ============================================ */\n\t\t\t.toast-container {\n\t\t\t\tposition: fixed; top: 20px; right: 20px; z-index: 9999;\n\t\t\t\tdisplay: flex; flex-direction: column; gap: 8px;\n\t\t\t}\n\t\t\t.toast {\n\t\t\t\tbackground: var(--leaf); color: var(--white);\n\t\t\t\tpadding: 12px 20px; border-radius: 12px;\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\tanimation: slideInToast 0.4s ease;\n\t\t\t\tmin-width: 200px;\n\t\t\t\tdisplay: flex; align-items: center; gap: 10px;\n\t\t\t\tfont-size: 0.85rem;\n\t\t\t\tborder-left: 4px solid var(--sage);\n\t\t\t}\n\t\t\t.toast i { font-size: 1.1rem; }\n\t\t\t.toast.success i { color: #10b981; }\n\t\t\t.toast.error i { color: #ef4444; }\n\t\t\t.toast.info i { color: var(--sage); }\n\t\t\t@keyframes slideInToast {\n\t\t\t\tfrom { transform: translateX(100%); opacity: 0; }\n\t\t\t\tto { transform: translateX(0); opacity: 1; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* OVERLAY START */\n\t\t\t/* ============================================ */\n\t\t\t#startOverlay {\n\t\t\t\tposition: fixed; top: 0; left: 0; right: 0; bottom: 0;\n\t\t\t\twidth: 100vw; height: 100vh;\n\t\t\t\tbackground: rgba(45, 58, 36, 0.94);\n\t\t\t\tz-index: 9999;\n\t\t\t\tdisplay: flex; align-items: center; justify-content: center;\n\t\t\t\tbackdrop-filter: blur(10px);\n\t\t\t\ttransition: opacity 0.8s ease;\n\t\t\t\tcursor: pointer;\n\t\t\t\tpadding: 24px;\n\t\t\t\toverflow-y: auto;\n\t\t\t}\n\t\t\t#startOverlay .overlay-inner {\n\t\t\t\ttext-align: center; max-width: 500px; width: 100%;\n\t\t\t\tpadding: 20px; margin: auto;\n\t\t\t}\n\t\t\t#startOverlay .overlay-leaf {\n\t\t\t\tfont-size: 3.5rem; color: var(--sage-light);\n\t\t\t\topacity: 0.5; margin-bottom: 16px; display: block;\n\t\t\t}\n\t\t\t#startOverlay .overlay-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 2.4rem; font-weight: 700;\n\t\t\t\tcolor: var(--sage-light); margin-bottom: 8px; letter-spacing: 3px;\n\t\t\t}\n\t\t\t#startOverlay .overlay-subtitle {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tcolor: rgba(255,255,255,0.7);\n\t\t\t\tfont-size: 1.1rem; margin-bottom: 8px; font-style: italic;\n\t\t\t}\n\t\t\t#startOverlay .overlay-divider {\n\t\t\t\twidth: 60px; height: 1px;\n\t\t\t\tbackground: linear-gradient(90deg, transparent, var(--sage-light), transparent);\n\t\t\t\tmargin: 16px auto 24px; opacity: 0.4;\n\t\t\t}\n\t\t\t#startOverlay .overlay-guest-label {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.7rem; text-transform: uppercase; letter-spacing: 6px;\n\t\t\t\tcolor: var(--sage-light);\n\t\t\t\tmargin-bottom: 10px; font-style: italic;\n\t\t\t}\n\t\t\t#startOverlay .overlay-guest-name {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.6rem; font-weight: 600;\n\t\t\t\tcolor: #f5efe0; line-height: 1.3; margin-bottom: 36px;\n\t\t\t}\n\t\t\t#startOverlay .btn-start {\n\t\t\t\tdisplay: inline-flex; align-items: center; gap: 10px;\n\t\t\t\tbackground: linear-gradient(135deg, var(--sage), var(--sage-dark));\n\t\t\t\tcolor: var(--white);\n\t\t\t\tpadding: 16px 44px; border: none; border-radius: 50px;\n\t\t\t\tfont-family: 'Inter', sans-serif;\n\t\t\t\tfont-weight: 600; font-size: 0.9rem;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbox-shadow: 0 8px 30px rgba(0,0,0,0.3);\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tletter-spacing: 1px;\n\t\t\t}\n\t\t\t#startOverlay .btn-start:hover {\n\t\t\t\ttransform: translateY(-2px) scale(1.03);\n\t\t\t\tbox-shadow: 0 12px 40px rgba(125, 140, 111, 0.4);\n\t\t\t}\n\t\t\t#startOverlay .hint {\n\t\t\t\tfont-size: 0.65rem; opacity: 0.4; margin-top: 20px;\n\t\t\t\tletter-spacing: 3px; color: var(--sage-light);\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t#startOverlay .overlay-title { font-size: 1.8rem; }\n\t\t\t\t#startOverlay .btn-start { padding: 14px 32px; font-size: 0.8rem; width: 100%; max-width: 280px; justify-content: center; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* MUSIC PLAYER */\n\t\t\t/* ============================================ */\n\t\t\t.music-player { position: fixed; bottom: 24px; right: 24px; z-index: 1000; }\n\t\t\t.music-btn {\n\t\t\t\twidth: 54px; height: 54px; border-radius: 50%;\n\t\t\t\tbackground: linear-gradient(135deg, var(--sage), var(--sage-dark));\n\t\t\t\tborder: 2px solid var(--sage-light);\n\t\t\t\tcolor: var(--white); font-size: 1.4rem; cursor: pointer;\n\t\t\t\tbox-shadow: 0 4px 30px rgba(0,0,0,0.15);\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tdisplay: flex; align-items: center; justify-content: center;\n\t\t\t}\n\t\t\t.music-btn:hover { transform: scale(1.05) rotate(-5deg); }\n\t\t\t.music-btn.playing { animation: pulseBotanical 1.5s infinite; }\n\t\t\t@keyframes pulseBotanical {\n\t\t\t\t0% { box-shadow: 0 0 0 0 rgba(125, 140, 111, 0.4); }\n\t\t\t\t70% { box-shadow: 0 0 0 16px rgba(125, 140, 111, 0); }\n\t\t\t\t100% { box-shadow: 0 0 0 0 rgba(125, 140, 111, 0); }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* HERO — BOTANICAL GARDEN */\n\t\t\t/* ============================================ */\n\t\t\t.hero-botanical {\n\t\t\t\tposition: relative;\n\t\t\t\tmin-height: 100vh;\n\t\t\t\tmin-height: 100svh;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\ttext-align: center;\n\t\t\t\tpadding: 80px 24px;\n\t\t\t\tbackground: linear-gradient(135deg, #2d3a24 0%, #4a5d3a 50%, #2d3a24 100%);\n\t\t\t\tcolor: var(--white);\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.hero-botanical::before {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\tbackground:\n\t\t\t\t\tradial-gradient(ellipse at 20% 30%, rgba(163, 177, 151, 0.15) 0%, transparent 50%),\n\t\t\t\t\tradial-gradient(ellipse at 80% 70%, rgba(163, 177, 151, 0.1) 0%, transparent 50%);\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.hero-botanical::after {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\tbackground-image:\n\t\t\t\t\tradial-gradient(circle at 10% 20%, rgba(163, 177, 151, 0.08) 1px, transparent 1px),\n\t\t\t\t\tradial-gradient(circle at 40% 60%, rgba(163, 177, 151, 0.06) 1px, transparent 1px),\n\t\t\t\t\tradial-gradient(circle at 80% 30%, rgba(163, 177, 151, 0.08) 1px, transparent 1px);\n\t\t\t\tbackground-size: 60px 60px;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.hero-botanical .hero-inner {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 2;\n\t\t\t\tmax-width: 720px;\n\t\t\t\twidth: 100%;\n\t\t\t}\n\t\t\t.hero-botanical .hero-leaves {\n\t\t\t\tposition: absolute;\n\t\t\t\tfont-size: 6rem;\n\t\t\t\topacity: 0.08;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.hero-botanical .hero-leaves-1 { top: -30px; left: -30px; transform: rotate(-20deg); }\n\t\t\t.hero-botanical .hero-leaves-2 { bottom: -30px; right: -30px; transform: rotate(20deg); }\n\t\t\t.hero-botanical .hero-leaf-top {\n\t\t\t\tfont-size: 3rem;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tdisplay: block;\n\t\t\t\topacity: 0.7;\n\t\t\t}\n\t\t\t.hero-botanical .hero-eyebrow {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.75rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 10px;\n\t\t\t\tcolor: var(--sage-light);\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.hero-botanical .hero-names {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 4.5rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tline-height: 1.05;\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\talign-items: center;\n\t\t\t\tcolor: #f5efe0;\n\t\t\t\ttext-shadow: 0 4px 24px rgba(0,0,0,0.4);\n\t\t\t}\n\t\t\t.hero-botanical .hero-names .amp {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-style: italic;\n\t\t\t\tfont-size: 2.2rem;\n\t\t\t\tcolor: var(--sage-light);\n\t\t\t\tmargin: 12px 0;\n\t\t\t\tfont-weight: 400;\n\t\t\t}\n\t\t\t.hero-botanical .hero-divider {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tgap: 16px;\n\t\t\t\tmargin: 24px 0;\n\t\t\t}\n\t\t\t.hero-botanical .hero-divider .line {\n\t\t\t\twidth: 60px;\n\t\t\t\theight: 1px;\n\t\t\t\tbackground: linear-gradient(90deg, transparent, var(--sage-light), transparent);\n\t\t\t\topacity: 0.5;\n\t\t\t}\n\t\t\t.hero-botanical .hero-divider .ornament {\n\t\t\t\tcolor: var(--sage-light);\n\t\t\t\tfont-size: 1.1rem;\n\t\t\t\topacity: 0.8;\n\t\t\t}\n\t\t\t.hero-botanical .hero-dates {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 1rem;\n\t\t\t\tcolor: var(--sage-light);\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t.hero-botanical .btn-rsvp {\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 10px;\n\t\t\t\tbackground: var(--sage);\n\t\t\t\tcolor: var(--white);\n\t\t\t\tpadding: 15px 40px;\n\t\t\t\tborder: none; border-radius: 50px;\n\t\t\t\tfont-family: 'Inter', sans-serif;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tfont-size: 0.85rem;\n\t\t\t\ttext-decoration: none;\n\t\t\t\tletter-spacing: 2px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tcursor: pointer;\n\t\t\t\tbox-shadow: 0 4px 20px rgba(0,0,0,0.2);\n\t\t\t}\n\t\t\t.hero-botanical .btn-rsvp:hover {\n\t\t\t\tbackground: var(--sage-light);\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t\tbox-shadow: 0 8px 30px rgba(125, 140, 111, 0.4);\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.hero-botanical { padding: 60px 20px; }\n\t\t\t\t.hero-botanical .hero-names { font-size: 2.6rem; }\n\t\t\t\t.hero-botanical .hero-names .amp { font-size: 1.5rem; }\n\t\t\t\t.hero-botanical .hero-leaves { font-size: 3rem; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* OPENING QUOTE */\n\t\t\t/* ============================================ */\n\t\t\t.opening-botanical {\n\t\t\t\tpadding: 100px 24px;\n\t\t\t\tbackground: var(--cream);\n\t\t\t\ttext-align: center;\n\t\t\t\tposition: relative;\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.opening-botanical::before {\n\t\t\t\tcontent: '❦';\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 50%; left: 50%;\n\t\t\t\ttransform: translate(-50%, -50%);\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 20rem;\n\t\t\t\tcolor: rgba(125, 140, 111, 0.04);\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.opening-botanical .opening-inner {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 2;\n\t\t\t\tmax-width: 640px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t\t.opening-botanical .opening-icon {\n\t\t\t\tfont-size: 3rem;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\topacity: 0.4;\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t\tdisplay: block;\n\t\t\t}\n\t\t\t.opening-botanical .opening-quote {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.5rem;\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--leaf);\n\t\t\t\tline-height: 1.7;\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t}\n\t\t\t.opening-botanical .opening-source {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 6px;\n\t\t\t\tcolor: var(--sage);\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.opening-botanical { padding: 80px 20px; }\n\t\t\t\t.opening-botanical .opening-quote { font-size: 1.15rem; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* SECTION BASE */\n\t\t\t/* ============================================ */\n\t\t\t.section-botanical {\n\t\t\t\tpadding: 100px 0;\n\t\t\t\tbackground: var(--cream);\n\t\t\t\tposition: relative;\n\t\t\t}\n\t\t\t.section-botanical-alt {\n\t\t\t\tpadding: 100px 0;\n\t\t\t\tbackground: var(--cream-dark);\n\t\t\t\tposition: relative;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.section-botanical, .section-botanical-alt { padding: 80px 0; }\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* COUPLE */\n\t\t\t/* ============================================ */\n\t\t\t.couple-botanical-grid {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: 1fr auto 1fr;\n\t\t\t\tgap: 40px;\n\t\t\t\talign-items: center;\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.couple-botanical-grid { grid-template-columns: 1fr; gap: 40px; }\n\t\t\t\t.couple-botanical-amp { display: none; }\n\t\t\t}\n\t\t\t.couple-botanical-card {\n\t\t\t\ttext-align: center;\n\t\t\t}\n\t\t\t.couple-botanical-photo-wrap {\n\t\t\t\tposition: relative;\n\t\t\t\twidth: 200px; height: 200px;\n\t\t\t\tmargin: 0 auto 24px;\n\t\t\t}\n\t\t\t.couple-botanical-photo-wrap::before {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: -12px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px dashed var(--sage);\n\t\t\t\topacity: 0.4;\n\t\t\t\tanimation: rotateLeaf 30s linear infinite;\n\t\t\t}\n\t\t\t@keyframes rotateLeaf {\n\t\t\t\tfrom { transform: rotate(0deg); }\n\t\t\t\tto { transform: rotate(360deg); }\n\t\t\t}\n\t\t\t.couple-botanical-photo {\n\t\t\t\twidth: 200px; height: 200px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\toverflow: hidden;\n\t\t\t\tborder: 4px solid var(--sage);\n\t\t\t\tbox-shadow: 0 4px 30px rgba(125, 140, 111, 0.15);\n\t\t\t\tposition: relative; z-index: 1;\n\t\t\t\tbackground: var(--cream-dark);\n\t\t\t}\n\t\t\t.couple-botanical-photo img {\n\t\t\t\twidth: 100%; height: 100%; object-fit: cover;\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.couple-botanical-photo-wrap, .couple-botanical-photo { width: 160px; height: 160px; }\n\t\t\t}\n\t\t\t.couple-botanical-info h3 {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.8rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcolor: var(--leaf);\n\t\t\t\tmargin-bottom: 8px;\n\t\t\t}\n\t\t\t.couple-botanical-role {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.75rem;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 4px;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\tmargin-bottom: 12px;\n\t\t\t}\n\t\t\t.couple-botanical-parents-label {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.85rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tfont-style: italic;\n\t\t\t\tmargin-bottom: 4px;\n\t\t\t}\n\t\t\t.couple-botanical-parents {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 1rem;\n\t\t\t\tcolor: var(--text);\n\t\t\t\tfont-style: italic;\n\t\t\t\tline-height: 1.6;\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t}\n\t\t\t.couple-botanical-social {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: center;\n\t\t\t\tgap: 12px;\n\t\t\t\tmargin-top: 16px;\n\t\t\t}\n\t\t\t.couple-botanical-social a {\n\t\t\t\twidth: 38px; height: 38px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tborder: 1px solid var(--sage);\n\t\t\t\tcolor: var(--sage);\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\ttext-decoration: none;\n\t\t\t\topacity: 0.7;\n\t\t\t}\n\t\t\t.couple-botanical-social a:hover {\n\t\t\t\tbackground: var(--sage);\n\t\t\t\tcolor: var(--white);\n\t\t\t\topacity: 1;\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t}\n\t\t\t.couple-botanical-amp {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-style: italic;\n\t\t\t\tfont-size: 2.5rem;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\tfont-weight: 400;\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* LOVE STORY */\n\t\t\t/* ============================================ */\n\t\t\t.story-botanical-timeline {\n\t\t\t\tposition: relative;\n\t\t\t\tmax-width: 640px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t\tpadding-left: 40px;\n\t\t\t}\n\t\t\t.story-botanical-timeline::before {\n\t\t\t\tcontent: '';\n\t\t\t\tposition: absolute;\n\t\t\t\tleft: 12px; top: 0; bottom: 0;\n\t\t\t\twidth: 2px;\n\t\t\t\tbackground: linear-gradient(180deg, transparent, var(--sage), transparent);\n\t\t\t\topacity: 0.3;\n\t\t\t}\n\t\t\t.story-botanical-item {\n\t\t\t\tposition: relative;\n\t\t\t\tmargin-bottom: 36px;\n\t\t\t\tpadding-left: 24px;\n\t\t\t}\n\t\t\t.story-botanical-item:last-child { margin-bottom: 0; }\n\t\t\t.story-botanical-dot {\n\t\t\t\tposition: absolute;\n\t\t\t\tleft: -28px; top: 8px;\n\t\t\t\twidth: 18px; height: 18px;\n\t\t\t\tbackground: var(--sage);\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tcolor: var(--white);\n\t\t\t\tfont-size: 0.6rem;\n\t\t\t}\n\t\t\t.story-botanical-content {\n\t\t\t\tbackground: var(--white);\n\t\t\t\tborder: 1px solid rgba(125, 140, 111, 0.15);\n\t\t\t\tpadding: 24px 28px;\n\t\t\t\tborder-radius: 16px;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tbox-shadow: var(--shadow);\n\t\t\t}\n\t\t\t.story-botanical-item:hover .story-botanical-content {\n\t\t\t\tborder-color: var(--sage);\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\ttransform: translateX(4px);\n\t\t\t}\n\t\t\t.story-botanical-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.15rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcolor: var(--leaf);\n\t\t\t\tmargin-bottom: 8px;\n\t\t\t}\n\t\t\t.story-botanical-desc {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.95rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-style: italic;\n\t\t\t\tline-height: 1.7;\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* EVENT */\n\t\t\t/* ============================================ */\n\t\t\t.event-botanical-grid {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: 1fr 1fr;\n\t\t\t\tgap: 28px;\n\t\t\t}\n\t\t\t@media (max-width: 700px) {\n\t\t\t\t.event-botanical-grid { grid-template-columns: 1fr; }\n\t\t\t}\n\t\t\t.event-botanical-card {\n\t\t\t\tbackground: var(--white);\n\t\t\t\tborder: 1px solid rgba(125, 140, 111, 0.15);\n\t\t\t\tborder-radius: 20px;\n\t\t\t\tpadding: 40px 28px;\n\t\t\t\ttext-align: center;\n\t\t\t\ttransition: all 0.4s;\n\t\t\t\tposition: relative;\n\t\t\t\toverflow: hidden;\n\t\t\t\tbox-shadow: var(--shadow);\n\t\t\t}\n\t\t\t.event-botanical-card::before {\n\t\t\t\tcontent: '❦';\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 12px; right: 16px;\n\t\t\t\tfont-size: 2rem;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\topacity: 0.15;\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t}\n\t\t\t.event-botanical-card:hover {\n\t\t\t\ttransform: translateY(-4px);\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\tborder-color: var(--sage);\n\t\t\t}\n\t\t\t.event-botanical-icon {\n\t\t\t\twidth: 68px; height: 68px;\n\t\t\t\tbackground: linear-gradient(135deg, var(--sage-light), var(--sage));\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tmargin: 0 auto 20px;\n\t\t\t\tcolor: var(--white);\n\t\t\t\tfont-size: 1.6rem;\n\t\t\t}\n\t\t\t.event-botanical-title {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.5rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcolor: var(--leaf);\n\t\t\t\tmargin-bottom: 6px;\n\t\t\t}\n\t\t\t.event-botanical-arabic {\n\t\t\t\tfont-family: 'Amiri', serif;\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t.event-botanical-detail {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 1rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tline-height: 2;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t}\n\t\t\t.event-botanical-btn {\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 8px;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\ttext-decoration: none;\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tborder-bottom: 1px solid var(--sage);\n\t\t\t\tpadding-bottom: 4px;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t}\n\t\t\t.event-botanical-btn:hover {\n\t\t\t\tcolor: var(--leaf);\n\t\t\t\tgap: 14px;\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* GALLERY */\n\t\t\t/* ============================================ */\n\t\t\t.gallery-botanical-grid {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: repeat(3, 1fr);\n\t\t\t\tgap: 16px;\n\t\t\t}\n\t\t\t@media (max-width: 600px) {\n\t\t\t\t.gallery-botanical-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }\n\t\t\t}\n\t\t\t.gallery-botanical-item {\n\t\t\t\tposition: relative;\n\t\t\t\taspect-ratio: 1;\n\t\t\t\toverflow: hidden;\n\t\t\t\tborder-radius: 16px;\n\t\t\t\tborder: 2px solid rgba(125, 140, 111, 0.15);\n\t\t\t\tcursor: pointer;\n\t\t\t\ttransition: all 0.4s;\n\t\t\t}\n\t\t\t.gallery-botanical-item:hover {\n\t\t\t\tborder-color: var(--sage);\n\t\t\t\tbox-shadow: var(--shadow-md);\n\t\t\t\ttransform: translateY(-4px);\n\t\t\t}\n\t\t\t.gallery-botanical-item img {\n\t\t\t\twidth: 100%; height: 100%;\n\t\t\t\tobject-fit: cover;\n\t\t\t\ttransition: transform 0.6s;\n\t\t\t}\n\t\t\t.gallery-botanical-item:hover img { transform: scale(1.06); }\n\t\t\t.gallery-botanical-item .overlay {\n\t\t\t\tposition: absolute;\n\t\t\t\tinset: 0;\n\t\t\t\tbackground: rgba(45, 58, 36, 0);\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\tcolor: var(--white);\n\t\t\t\tfont-size: 1.6rem;\n\t\t\t\topacity: 0;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t}\n\t\t\t.gallery-botanical-item:hover .overlay {\n\t\t\t\tbackground: rgba(45, 58, 36, 0.3);\n\t\t\t\topacity: 1;\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* RSVP */\n\t\t\t/* ============================================ */\n\t\t\t.rsvp-form { max-width: 520px; margin: 0 auto; }\n\t\t\t.form-group { margin-bottom: 20px; text-align: left; }\n\t\t\t.form-group label {\n\t\t\t\tdisplay: block;\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tletter-spacing: 3px;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\tmargin-bottom: 8px;\n\t\t\t}\n\t\t\t.form-group .required { color: #c0392b; }\n\t\t\t.form-group input, .form-group select, .form-group textarea {\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding: 14px 18px;\n\t\t\t\tborder: 1px solid rgba(125, 140, 111, 0.3);\n\t\t\t\tborder-radius: 12px;\n\t\t\t\tfont-size: 1rem;\n\t\t\t\tfont-family: 'Inter', sans-serif;\n\t\t\t\tbackground: var(--white);\n\t\t\t\tcolor: var(--text);\n\t\t\t\ttransition: all 0.3s;\n\t\t\t}\n\t\t\t.form-group input:focus, .form-group select:focus, .form-group textarea:focus {\n\t\t\t\toutline: none;\n\t\t\t\tborder-color: var(--sage);\n\t\t\t\tbox-shadow: 0 0 0 3px rgba(125, 140, 111, 0.1);\n\t\t\t}\n\t\t\t.form-group input[readonly] {\n\t\t\t\tbackground: rgba(125, 140, 111, 0.08);\n\t\t\t\tcolor: var(--sage-dark);\n\t\t\t\tcursor: not-allowed;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\t\t\t.form-group textarea { resize: vertical; min-height: 90px; }\n\t\t\t.btn-submit {\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding: 16px;\n\t\t\t\tbackground: linear-gradient(135deg, var(--sage), var(--sage-dark));\n\t\t\t\tcolor: var(--white);\n\t\t\t\tborder: none;\n\t\t\t\tborder-radius: 12px;\n\t\t\t\tfont-family: 'Inter', sans-serif;\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcursor: pointer;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\tletter-spacing: 2px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tmargin-top: 8px;\n\t\t\t}\n\t\t\t.btn-submit:hover {\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t\tbox-shadow: 0 8px 30px rgba(125, 140, 111, 0.3);\n\t\t\t}\n\t\t\t.btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }\n\n\t\t\t.rsvp-warning {\n\t\t\t\tbackground: rgba(125, 140, 111, 0.08);\n\t\t\t\tborder-left: 3px solid var(--sage);\n\t\t\t\tpadding: 16px 20px;\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t\tborder-radius: 8px;\n\t\t\t}\n\t\t\t.rsvp-warning-title {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 8px;\n\t\t\t\tmargin-bottom: 4px;\n\t\t\t}\n\t\t\t.rsvp-warning-title i {\n\t\t\t\tcolor: var(--sage);\n\t\t\t\tfont-size: 1.1rem;\n\t\t\t}\n\t\t\t.rsvp-warning-title strong {\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tcolor: var(--leaf);\n\t\t\t\tfont-weight: 600;\n\t\t\t}\n\t\t\t.rsvp-warning p {\n\t\t\t\tmargin: 0;\n\t\t\t\tfont-size: 0.82rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tline-height: 1.6;\n\t\t\t}\n\n\t\t\t.rsvp-list-wrap {\n\t\t\t\tmax-width: 520px;\n\t\t\t\tmargin: 60px auto 0;\n\t\t\t\tpadding-top: 32px;\n\t\t\t\tborder-top: 1px solid rgba(125, 140, 111, 0.2);\n\t\t\t}\n\t\t\t.rsvp-list-head {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: baseline;\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t}\n\t\t\t.rsvp-list-head h4 {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.15rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcolor: var(--leaf);\n\t\t\t\tmargin: 0;\n\t\t\t}\n\t\t\t.rsvp-count {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\tletter-spacing: 2px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t\t#rsvpList {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\tgap: 12px;\n\t\t\t\tmax-height: 440px;\n\t\t\t\toverflow-y: auto;\n\t\t\t}\n\t\t\t.rsvp-item {\n\t\t\t\tbackground: var(--white);\n\t\t\t\tborder: 1px solid rgba(125, 140, 111, 0.15);\n\t\t\t\tborder-radius: 12px;\n\t\t\t\tpadding: 16px 20px;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t}\n\t\t\t.rsvp-item:hover {\n\t\t\t\tborder-color: var(--sage);\n\t\t\t\tbox-shadow: 0 4px 20px rgba(125, 140, 111, 0.1);\n\t\t\t}\n\t\t\t.rsvp-item .row-main {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: baseline;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\tgap: 8px;\n\t\t\t\tmargin-bottom: 6px;\n\t\t\t}\n\t\t\t.rsvp-item .guest-name {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1rem;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcolor: var(--leaf);\n\t\t\t}\n\t\t\t.rsvp-item .status-badge {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.65rem;\n\t\t\t\tpadding: 3px 12px;\n\t\t\t\tborder-radius: 20px;\n\t\t\t\tletter-spacing: 2px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tfont-weight: 600;\n\t\t\t}\n\t\t\t.rsvp-item .status-badge.hadir {\n\t\t\t\tbackground: rgba(16, 185, 129, 0.1);\n\t\t\t\tcolor: #059669;\n\t\t\t}\n\t\t\t.rsvp-item .status-badge.tidak_hadir {\n\t\t\t\tbackground: rgba(192, 57, 43, 0.1);\n\t\t\t\tcolor: #c0392b;\n\t\t\t}\n\t\t\t.rsvp-item .status-badge.ragu {\n\t\t\t\tbackground: rgba(245, 158, 11, 0.12);\n\t\t\t\tcolor: #d97706;\n\t\t\t}\n\t\t\t.rsvp-item .row-detail {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: center;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\tgap: 8px;\n\t\t\t}\n\t\t\t.rsvp-item .meta-left {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 14px;\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.78rem;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tfont-style: italic;\n\t\t\t}\n\t\t\t.rsvp-item .meta-left span { display: flex; align-items: center; gap: 4px; }\n\t\t\t.rsvp-item .message {\n\t\t\t\tmargin-top: 10px;\n\t\t\t\tpadding: 12px 16px;\n\t\t\t\tbackground: var(--cream-dark);\n\t\t\t\tborder-left: 3px solid var(--sage);\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tcolor: var(--text-muted);\n\t\t\t\tfont-style: italic;\n\t\t\t\tline-height: 1.6;\n\t\t\t\tborder-radius: 8px;\n\t\t\t}\n\t\t\t.rsvp-empty {\n\t\t\t\ttext-align: center;\n\t\t\t\tcolor: var(--text-light);\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tfont-style: italic;\n\t\t\t\tpadding: 40px 0;\n\t\t\t}\n\t\t\t.rsvp-empty i {\n\t\t\t\tdisplay: block;\n\t\t\t\tfont-size: 1.8rem;\n\t\t\t\tmargin-bottom: 10px;\n\t\t\t\tcolor: var(--sage);\n\t\t\t\topacity: 0.4;\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* FOOTER */\n\t\t\t/* ============================================ */\n\t\t\t.footer-botanical {\n\t\t\t\tpadding: 80px 24px 48px;\n\t\t\t\tbackground: linear-gradient(180deg, var(--leaf) 0%, var(--earth-dark) 100%);\n\t\t\t\tcolor: var(--cream);\n\t\t\t\ttext-align: center;\n\t\t\t\tposition: relative;\n\t\t\t\toverflow: hidden;\n\t\t\t}\n\t\t\t.footer-botanical::before {\n\t\t\t\tcontent: '🌿';\n\t\t\t\tposition: absolute;\n\t\t\t\ttop: 50%; left: 50%;\n\t\t\t\ttransform: translate(-50%, -50%);\n\t\t\t\tfont-size: 20rem;\n\t\t\t\topacity: 0.03;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n\t\t\t.footer-botanical-inner {\n\t\t\t\tposition: relative;\n\t\t\t\tz-index: 1;\n\t\t\t\tmax-width: 640px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t\t.footer-botanical-icon {\n\t\t\t\tfont-size: 2.5rem;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\tdisplay: block;\n\t\t\t\topacity: 0.6;\n\t\t\t}\n\t\t\t.footer-botanical-couple {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 2rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tcolor: var(--cream);\n\t\t\t\tmargin-bottom: 16px;\n\t\t\t}\n\t\t\t.footer-botanical-couple .amp {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--sage-light);\n\t\t\t\tmargin: 0 14px;\n\t\t\t\tfont-weight: 400;\n\t\t\t}\n\t\t\t.footer-botanical-date {\n\t\t\t\tfont-family: 'Cormorant Garamond', serif;\n\t\t\t\tfont-size: 0.9rem;\n\t\t\t\tcolor: var(--sage-light);\n\t\t\t\tletter-spacing: 5px;\n\t\t\t\ttext-transform: uppercase;\n\t\t\t\tmargin-bottom: 32px;\n\t\t\t}\n\t\t\t.footer-botanical-prayer {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1rem;\n\t\t\t\tfont-style: italic;\n\t\t\t\tcolor: var(--sage-light);\n\t\t\t\tmax-width: 520px;\n\t\t\t\tmargin: 0 auto;\n\t\t\t\tline-height: 1.9;\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* FOOTER SOCIAL (WAJIB — shared) */\n\t\t\t/* ============================================ */\n\t\t\t.footer-social {\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: center;\n\t\t\t\talign-items: center;\n\t\t\t\tflex-wrap: wrap;\n\t\t\t\tgap: 10px;\n\t\t\t\tmargin-bottom: 24px;\n\t\t\t}\n\t\t\t.footer-social a {\n\t\t\t\tdisplay: inline-flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 8px;\n\t\t\t\tpadding: 10px 18px;\n\t\t\t\tborder: 1px solid rgba(163, 177, 151, 0.3);\n\t\t\t\tborder-radius: 50px;\n\t\t\t\tcolor: var(--sage-light);\n\t\t\t\ttext-decoration: none;\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t\ttransition: all 0.3s;\n\t\t\t\topacity: 0.85;\n\t\t\t\twhite-space: nowrap;\n\t\t\t}\n\t\t\t.footer-social a:hover {\n\t\t\t\tbackground: rgba(163, 177, 151, 0.1);\n\t\t\t\tborder-color: var(--sage-light);\n\t\t\t\ttransform: translateY(-2px);\n\t\t\t\topacity: 1;\n\t\t\t}\n\t\t\t.footer-social a i {\n\t\t\t\tfont-size: 1rem;\n\t\t\t}\n\t\t\t.footer-social a span {\n\t\t\t\tfont-size: 0.8rem;\n\t\t\t\tfont-weight: 500;\n\t\t\t}\n\n\t\t\t/* ============================================ */\n\t\t\t/* WEB FOOTER (WAJIB — shared) */\n\t\t\t/* ============================================ */\n\t\t\t.web-footer {\n\t\t\t\tbackground: linear-gradient(180deg, #1a2016 0%, #0d120a 100%);\n\t\t\t\tpadding: 3rem 0 1.5rem;\n\t\t\t\tborder-top: 1px solid rgba(125, 140, 111, 0.15);\n\t\t\t\tcolor: rgba(255,255,255,0.6);\n\t\t\t\tposition: relative;\n\t\t\t}\n\t\t\t.web-footer .container {\n\t\t\t\tmax-width: 1280px !important;\n\t\t\t}\n\t\t\t.web-footer-row {\n\t\t\t\tdisplay: grid;\n\t\t\t\tgrid-template-columns: repeat(auto-fit, minmax(250px, 1fr));\n\t\t\t\tgap: 2rem;\n\t\t\t}\n\t\t\t.web-footer-brand {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 1.4rem;\n\t\t\t\tfont-weight: 700;\n\t\t\t\tmargin-bottom: 20px;\n\t\t\t\ttext-decoration: none;\n\t\t\t\tdisplay: inline-block;\n\t\t\t}\n\t\t\t.web-footer-brand img {\n\t\t\t\tdisplay: inline-block !important;\n\t\t\t\tvertical-align: middle;\n\t\t\t\tmargin-right: 8px;\n\t\t\t}\n\t\t\t.web-footer-brand .wedding {\n\t\t\t\tbackground: linear-gradient(135deg, #a3b197 0%, #7d8c6f 100%);\n\t\t\t\t-webkit-background-clip: text; background-clip: text;\n\t\t\t\tcolor: transparent;\n\t\t\t}\n\t\t\t.web-footer-brand .saas { color: var(--sage-light); }\n\t\t\t.web-footer-desc {\n\t\t\t\tcolor: rgba(255,255,255,0.5); font-size: 0.85rem;\n\t\t\t\tline-height: 1.6; margin-bottom: 1rem;\n\t\t\t}\n\t\t\t.web-footer-heading {\n\t\t\t\tfont-family: 'Playfair Display', serif;\n\t\t\t\tfont-size: 0.95rem; font-weight: 600;\n\t\t\t\tcolor: var(--sage-light); margin-bottom: 1rem;\n\t\t\t\tposition: relative; padding-bottom: 0.5rem;\n\t\t\t}\n\t\t\t.web-footer-heading::after {\n\t\t\t\tcontent: ''; position: absolute; bottom: 0; left: 0;\n\t\t\t\twidth: 30px; height: 2px;\n\t\t\t\tbackground: linear-gradient(90deg, var(--sage-light), transparent);\n\t\t\t}\n\t\t\t.web-footer-list { list-style: none; padding: 0; margin: 0; }\n\t\t\t.web-footer-list li {\n\t\t\t\tdisplay: flex; align-items: flex-start;\n\t\t\t\tgap: 10px; margin-bottom: 0.65rem;\n\t\t\t\tcolor: rgba(255,255,255,0.55); font-size: 0.85rem;\n\t\t\t}\n\t\t\t.web-footer-list li i {\n\t\t\t\tcolor: var(--sage-light); font-size: 1rem;\n\t\t\t\tmargin-top: 2px; flex-shrink: 0;\n\t\t\t}\n\t\t\t.web-footer-list li a, .web-footer-link {\n\t\t\t\tcolor: rgba(255,255,255,0.55); text-decoration: none;\n\t\t\t\ttransition: color 0.2s;\n\t\t\t}\n\t\t\t.web-footer-list li a:hover, .web-footer-link:hover { color: var(--sage-light); }\n\t\t\t.web-footer-socials {\n\t\t\t\tdisplay: flex; gap: 10px;\n\t\t\t\tflex-wrap: wrap; margin-top: 0.75rem;\n\t\t\t}\n\t\t\t.web-social-link {\n\t\t\t\twidth: 38px; height: 38px;\n\t\t\t\tdisplay: inline-flex; align-items: center; justify-content: center;\n\t\t\t\tbackground: rgba(125, 140, 111, 0.08);\n\t\t\t\tborder: 1px solid rgba(125, 140, 111, 0.2);\n\t\t\t\tborder-radius: 10px;\n\t\t\t\tcolor: var(--sage-light); font-size: 1.05rem;\n\t\t\t\ttransition: all 0.25s; text-decoration: none;\n\t\t\t}\n\t\t\t.web-social-link:hover {\n\t\t\t\tbackground: rgba(125, 140, 111, 0.18);\n\t\t\t\tborder-color: var(--sage-light);\n\t\t\t\tcolor: #ffffff; transform: translateY(-3px);\n\t\t\t}\n\t\t\t.web-footer-version {\n\t\t\t\tcolor: rgba(255,255,255,0.35); font-size: 0.75rem;\n\t\t\t\tmargin: 0; padding: 4px 10px;\n\t\t\t\tbackground: rgba(125, 140, 111, 0.06);\n\t\t\t\tborder-radius: 6px; display: inline-block;\n\t\t\t}\n\t\t\t.web-footer-divider {\n\t\t\t\tborder: 0; border-top: 1px solid rgba(125, 140, 111, 0.1);\n\t\t\t\tmargin: 2rem 0 1.25rem;\n\t\t\t}\n\t\t\t.web-footer-text {\n\t\t\t\tcolor: rgba(255,255,255,0.35); font-size: 0.8rem;\n\t\t\t\tmargin: 0; text-align: center;\n\t\t\t}\n\t\t\t.web-footer-icon { color: var(--sage-light); }\n\t\t\t@media (max-width: 768px) {\n\t\t\t\t.web-footer { padding: 2.25rem 0 1.25rem; text-align: center; }\n\t\t\t\t.web-footer-heading::after { left: 50%; transform: translateX(-50%); }\n\t\t\t\t.web-footer-list li { justify-content: center; }\n\t\t\t\t.web-footer-socials { justify-content: center; }\n\t\t\t}\n\t\t</style></head><body data-music-url=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var6 string
-		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.Project.Slug)
+		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.MusicURL)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1204, Col: 136}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1211, Col: 37}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var6)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "\"><!-- OVERLAY --><div id=\"startOverlay\"><div class=\"overlay-inner\"><span class=\"overlay-leaf\">🌿</span><h1 class=\"overlay-title\">Botanical Garden</h1><p class=\"overlay-subtitle\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "\" data-project-id=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var7 string
-		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(data.GroomName)
+		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.FormatUint(data.Project.ID))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1211, Col: 48}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1211, Col: 96}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var7)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, " &amp; ")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "\" data-project-slug=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var8 string
-		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(data.BrideName)
+		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.Project.Slug)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1211, Col: 73}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1211, Col: 136}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var8)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "</p><div class=\"overlay-divider\"></div><div class=\"overlay-guest-label\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "\"><!-- OVERLAY --><div id=\"startOverlay\"><div class=\"overlay-inner\"><span class=\"overlay-leaf\">🌿</span><h1 class=\"overlay-title\">Botanical Garden</h1><p class=\"overlay-subtitle\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var9 string
-		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(invitation.GuestGreeting(data.IsNamedGuest))
+		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(data.GroomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1215, Col: 50}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1218, Col: 48}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "</div><div class=\"overlay-guest-name\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, " &amp; ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var10 string
-		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(data.GuestName)
+		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(data.BrideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1217, Col: 52}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1218, Col: 73}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "</div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "</p><div class=\"overlay-divider\"></div><div class=\"overlay-guest-label\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var11 string
+		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(invitation.GuestGreeting(data.IsNamedGuest))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1222, Col: 50}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "</div><div class=\"overlay-guest-name\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var12 string
+		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(data.GuestName)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1224, Col: 52}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -170,16 +211,16 @@ func botanicalGardenPage(data *invitation.TemplateData) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<button class=\"btn-start\" onclick=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "<button class=\"btn-start\" onclick=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var11 templ.ComponentScript = templpkg.JSFuncCall("startMusic")
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var11.Call)
+		var templ_7745c5c3_Var13 templ.ComponentScript = templpkg.JSFuncCall("startMusic")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var13.Call)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "\"><i class=\"bi bi-flower1\"></i> Buka Undangan</button><p class=\"hint\">Tap untuk membuka undangan</p></div></div><!-- MUSIC PLAYER -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "\"><i class=\"bi bi-flower1\"></i> Buka Undangan</button><p class=\"hint\">Tap untuk membuka undangan</p></div></div><!-- MUSIC PLAYER -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -187,69 +228,69 @@ func botanicalGardenPage(data *invitation.TemplateData) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "<!-- HERO --><section class=\"hero-botanical\" id=\"section-hero\"><div class=\"hero-leaves hero-leaves-1\">🌿</div><div class=\"hero-leaves hero-leaves-2\">🍃</div><div class=\"hero-inner\" data-aos=\"fade-up\" data-aos-duration=\"1200\"><span class=\"hero-leaf-top\">✿</span><div class=\"hero-eyebrow\">The Wedding Of</div><h1 class=\"hero-names\"><span>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "<!-- HERO --><section class=\"hero-botanical\" id=\"section-hero\"><div class=\"hero-leaves hero-leaves-1\">🌿</div><div class=\"hero-leaves hero-leaves-2\">🍃</div><div class=\"hero-inner\" data-aos=\"fade-up\" data-aos-duration=\"1200\"><span class=\"hero-leaf-top\">✿</span><div class=\"hero-eyebrow\">The Wedding Of</div><h1 class=\"hero-names\"><span>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var12 string
-		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(data.GroomName)
+		var templ_7745c5c3_Var14 string
+		templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(data.GroomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1241, Col: 27}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1248, Col: 27}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "</span> <span class=\"amp\">&amp;</span> <span>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var13 string
-		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(data.BrideName)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1243, Col: 27}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "</span> <span class=\"amp\">&amp;</span> <span>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "</span></h1><div class=\"hero-divider\"><span class=\"line\"></span> <span class=\"ornament\">❦</span> <span class=\"line\"></span></div><div class=\"hero-dates\">")
+		var templ_7745c5c3_Var15 string
+		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(data.BrideName)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1250, Col: 27}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "</span></h1><div class=\"hero-divider\"><span class=\"line\"></span> <span class=\"ornament\">❦</span> <span class=\"line\"></span></div><div class=\"hero-dates\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if data.ShouldShowAkadDate() {
-			var templ_7745c5c3_Var14 string
-			templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(data.AkadDate)
+			var templ_7745c5c3_Var16 string
+			templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(data.AkadDate)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1254, Col: 21}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1261, Col: 21}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, " ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, " ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
 		if data.ShouldShowBothDates() {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "<span>· </span> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "<span>· </span> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
 		if data.ShouldShowResepsiDate() {
-			var templ_7745c5c3_Var15 string
-			templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiDate)
+			var templ_7745c5c3_Var17 string
+			templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiDate)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1260, Col: 24}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1267, Col: 24}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "</div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -257,470 +298,470 @@ func botanicalGardenPage(data *invitation.TemplateData) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "<button class=\"btn-rsvp\" onclick=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "<button class=\"btn-rsvp\" onclick=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var16 templ.ComponentScript = templpkg.JSFuncCall("scrollToSection")
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var16.Call)
+		var templ_7745c5c3_Var18 templ.ComponentScript = templpkg.JSFuncCall("scrollToSection")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var18.Call)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "\"><i class=\"bi bi-leaf\"></i> Lihat Undangan</button></div></section><!-- OPENING QUOTE --><section class=\"opening-botanical\" id=\"section-opening\"><div class=\"opening-inner\" data-aos=\"fade-up\"><span class=\"opening-icon\">❦</span><div class=\"opening-quote\">\"Dengan memohon rahmat dan ridho Tuhan Yang Maha Esa, kami bermaksud menyelenggarakan pernikahan putra-putri kami.\"</div><div class=\"opening-source\">The Wedding Of ")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var17 string
-		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(data.GroomName)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1278, Col: 63}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, " &amp; ")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var18 string
-		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(data.BrideName)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1278, Col: 88}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "</div></div></section><!-- COUPLE --><section class=\"section-botanical\" id=\"section-couple\"><div class=\"botanical-pattern\"></div><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">Mempelai</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Dua Hati<br><em>yang bersemi</em></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Seperti bunga yang tumbuh di taman, cinta kami bersemi indah</p><div class=\"couple-botanical-grid\"><!-- GROOM --><div class=\"couple-botanical-card\" data-aos=\"fade-right\" data-aos-delay=\"150\"><div class=\"couple-botanical-photo-wrap\"><div class=\"couple-botanical-photo\"><img src=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "\"><i class=\"bi bi-leaf\"></i> Lihat Undangan</button></div></section><!-- OPENING QUOTE --><section class=\"opening-botanical\" id=\"section-opening\"><div class=\"opening-inner\" data-aos=\"fade-up\"><span class=\"opening-icon\">❦</span><div class=\"opening-quote\">\"Dengan memohon rahmat dan ridho Tuhan Yang Maha Esa, kami bermaksud menyelenggarakan pernikahan putra-putri kami.\"</div><div class=\"opening-source\">The Wedding Of ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var19 string
-		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.GroomPhotoOrDefault())
+		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(data.GroomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1299, Col: 45}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1285, Col: 63}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var19)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "\" alt=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, " &amp; ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var20 string
-		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.GroomName)
+		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(data.BrideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1299, Col: 68}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1285, Col: 88}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var20)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "\" loading=\"lazy\"></div></div><div class=\"couple-botanical-info\"><h3>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "</div></div></section><!-- COUPLE --><section class=\"section-botanical\" id=\"section-couple\"><div class=\"botanical-pattern\"></div><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">Mempelai</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Dua Hati<br><em>yang bersemi</em></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Seperti bunga yang tumbuh di taman, cinta kami bersemi indah</p><div class=\"couple-botanical-grid\"><!-- GROOM --><div class=\"couple-botanical-card\" data-aos=\"fade-right\" data-aos-delay=\"150\"><div class=\"couple-botanical-photo-wrap\"><div class=\"couple-botanical-photo\"><img src=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var21 string
-		templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs(data.GroomName)
+		templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.GroomPhotoOrDefault())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1303, Col: 27}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1306, Col: 45}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var21)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "</h3><div class=\"couple-botanical-role\">Mempelai Pria</div><div class=\"couple-botanical-parents-label\">Putra dari</div><div class=\"couple-botanical-parents\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "\" alt=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var22 string
-		templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.JoinStringErrs(data.ParentsGroom())
+		templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.GroomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1306, Col: 66}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1306, Col: 68}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var22))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "</div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var22)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if data.GroomInstagram != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "<div class=\"couple-botanical-social\"><a href=\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var23 templ.SafeURL
-			templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.GroomInstagram))
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1309, Col: 56}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "\" target=\"_blank\" rel=\"noopener\"><i class=\"bi bi-instagram\"></i></a></div>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "\" loading=\"lazy\"></div></div><div class=\"couple-botanical-info\"><h3>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "</div></div><div class=\"couple-botanical-amp\" data-aos=\"zoom-in\" data-aos-delay=\"200\">❦</div><!-- BRIDE --><div class=\"couple-botanical-card\" data-aos=\"fade-left\" data-aos-delay=\"250\"><div class=\"couple-botanical-photo-wrap\"><div class=\"couple-botanical-photo\"><img src=\"")
+		var templ_7745c5c3_Var23 string
+		templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs(data.GroomName)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1310, Col: 27}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "</h3><div class=\"couple-botanical-role\">Mempelai Pria</div><div class=\"couple-botanical-parents-label\">Putra dari</div><div class=\"couple-botanical-parents\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var24 string
-		templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.BridePhotoOrDefault())
+		templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(data.ParentsGroom())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1323, Col: 45}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1313, Col: 66}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var24)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "\" alt=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var25 string
-		templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.BrideName)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1323, Col: 68}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var25)
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "\" loading=\"lazy\"></div></div><div class=\"couple-botanical-info\"><h3>")
+		if data.GroomInstagram != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "<div class=\"couple-botanical-social\"><a href=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var25 templ.SafeURL
+			templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.GroomInstagram))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1316, Col: 56}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "\" target=\"_blank\" rel=\"noopener\"><i class=\"bi bi-instagram\"></i></a></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "</div></div><div class=\"couple-botanical-amp\" data-aos=\"zoom-in\" data-aos-delay=\"200\">❦</div><!-- BRIDE --><div class=\"couple-botanical-card\" data-aos=\"fade-left\" data-aos-delay=\"250\"><div class=\"couple-botanical-photo-wrap\"><div class=\"couple-botanical-photo\"><img src=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var26 string
-		templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.JoinStringErrs(data.BrideName)
+		templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.BridePhotoOrDefault())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1327, Col: 27}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1330, Col: 45}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var26))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var26)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "</h3><div class=\"couple-botanical-role\">Mempelai Wanita</div><div class=\"couple-botanical-parents-label\">Putri dari</div><div class=\"couple-botanical-parents\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "\" alt=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var27 string
-		templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.JoinStringErrs(data.ParentsBride())
+		templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.ResolveAttributeValue(data.BrideName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1330, Col: 66}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1330, Col: 68}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var27))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var27)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "</div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "\" loading=\"lazy\"></div></div><div class=\"couple-botanical-info\"><h3>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var28 string
+		templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.JoinStringErrs(data.BrideName)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1334, Col: 27}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var28))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "</h3><div class=\"couple-botanical-role\">Mempelai Wanita</div><div class=\"couple-botanical-parents-label\">Putri dari</div><div class=\"couple-botanical-parents\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var29 string
+		templ_7745c5c3_Var29, templ_7745c5c3_Err = templ.JoinStringErrs(data.ParentsBride())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1337, Col: 66}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var29))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if data.BrideInstagram != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "<div class=\"couple-botanical-social\"><a href=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "<div class=\"couple-botanical-social\"><a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var28 templ.SafeURL
-			templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.BrideInstagram))
+			var templ_7745c5c3_Var30 templ.SafeURL
+			templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.BrideInstagram))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1333, Col: 56}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1340, Col: 56}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var28))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var30))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "\" target=\"_blank\" rel=\"noopener\"><i class=\"bi bi-instagram\"></i></a></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "\" target=\"_blank\" rel=\"noopener\"><i class=\"bi bi-instagram\"></i></a></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "</div></div></div></div></section><!-- LOVE STORY -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "</div></div></div></div></section><!-- LOVE STORY -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if len(data.LoveStories) > 0 {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "<section class=\"section-botanical-alt\" id=\"section-love\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">Cerita Kami</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Perjalanan<br><em>yang tumbuh</em></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Setiap momen adalah benih yang tumbuh menjadi cinta</p><div class=\"story-botanical-timeline\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "<section class=\"section-botanical-alt\" id=\"section-love\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">Cerita Kami</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Perjalanan<br><em>yang tumbuh</em></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Setiap momen adalah benih yang tumbuh menjadi cinta</p><div class=\"story-botanical-timeline\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			for index, story := range data.LoveStories {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "<div class=\"story-botanical-item\" data-aos=\"fade-up\" data-aos-delay=\"")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var29 string
-				templ_7745c5c3_Var29, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.FormatInt(80 * (index + 1)))
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1358, Col: 115}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var29)
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "\"><div class=\"story-botanical-dot\"><i class=\"bi bi-flower2\"></i></div><div class=\"story-botanical-content\"><h4 class=\"story-botanical-title\">")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var30 string
-				templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.JoinStringErrs(story.Title)
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1361, Col: 56}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var30))
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "</h4><p class=\"story-botanical-desc\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "<div class=\"story-botanical-item\" data-aos=\"fade-up\" data-aos-delay=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var31 string
-				templ_7745c5c3_Var31, templ_7745c5c3_Err = templ.JoinStringErrs(story.Desc)
+				templ_7745c5c3_Var31, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.FormatInt(80 * (index + 1)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1362, Col: 53}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1365, Col: 115}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var31))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var31)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "</p></div></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "\"><div class=\"story-botanical-dot\"><i class=\"bi bi-flower2\"></i></div><div class=\"story-botanical-content\"><h4 class=\"story-botanical-title\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var32 string
+				templ_7745c5c3_Var32, templ_7745c5c3_Err = templ.JoinStringErrs(story.Title)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1368, Col: 56}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var32))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, "</h4><p class=\"story-botanical-desc\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var33 string
+				templ_7745c5c3_Var33, templ_7745c5c3_Err = templ.JoinStringErrs(story.Desc)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1369, Col: 53}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var33))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 46, "</p></div></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "</div></div></section>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 47, "</div></div></section>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "<!-- EVENT --><section class=\"section-botanical\" id=\"section-event\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">Acara</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Rangkaian<br><em>acara</em></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Dengan penuh rasa hormat, kami mengundang Bapak/Ibu/Saudara/i</p><div class=\"event-botanical-grid\"><!-- Akad --><div class=\"event-botanical-card\" data-aos=\"fade-up\" data-aos-delay=\"150\"><div class=\"event-botanical-icon\"><i class=\"bi bi-flower1\"></i></div><h3 class=\"event-botanical-title\">Akad Nikah</h3><div class=\"event-botanical-detail\"><div>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var32 string
-		templ_7745c5c3_Var32, templ_7745c5c3_Err = templ.JoinStringErrs(data.AkadDate)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1388, Col: 27}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var32))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "</div><div>Pukul ")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var33 string
-		templ_7745c5c3_Var33, templ_7745c5c3_Err = templ.JoinStringErrs(data.AkadTime)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1389, Col: 33}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var33))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, " WIB</div><div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 48, "<!-- EVENT --><section class=\"section-botanical\" id=\"section-event\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">Acara</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Rangkaian<br><em>acara</em></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Dengan penuh rasa hormat, kami mengundang Bapak/Ibu/Saudara/i</p><div class=\"event-botanical-grid\"><!-- Akad --><div class=\"event-botanical-card\" data-aos=\"fade-up\" data-aos-delay=\"150\"><div class=\"event-botanical-icon\"><i class=\"bi bi-flower1\"></i></div><h3 class=\"event-botanical-title\">Akad Nikah</h3><div class=\"event-botanical-detail\"><div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var34 string
-		templ_7745c5c3_Var34, templ_7745c5c3_Err = templ.JoinStringErrs(data.AkadVenue)
+		templ_7745c5c3_Var34, templ_7745c5c3_Err = templ.JoinStringErrs(data.AkadDate)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1390, Col: 28}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1395, Col: 27}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var34))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 46, "</div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 49, "</div><div>Pukul ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if data.MapsURLAkad != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 47, "<a href=\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var35 templ.SafeURL
-			templ_7745c5c3_Var35, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.MapsURLAkad))
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1393, Col: 51}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var35))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 48, "\" target=\"_blank\" rel=\"noopener\" class=\"event-botanical-btn\"><i class=\"bi bi-geo-alt\"></i> Lihat Lokasi</a>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
+		var templ_7745c5c3_Var35 string
+		templ_7745c5c3_Var35, templ_7745c5c3_Err = templ.JoinStringErrs(data.AkadTime)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1396, Col: 33}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 49, "</div><!-- Resepsi --><div class=\"event-botanical-card\" data-aos=\"fade-up\" data-aos-delay=\"200\"><div class=\"event-botanical-icon\"><i class=\"bi bi-flower3\"></i></div><h3 class=\"event-botanical-title\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var35))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 50, " WIB</div><div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var36 string
-		templ_7745c5c3_Var36, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiLabelDisplay())
+		templ_7745c5c3_Var36, templ_7745c5c3_Err = templ.JoinStringErrs(data.AkadVenue)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1402, Col: 68}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1397, Col: 28}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var36))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 50, "</h3>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 51, "</div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if data.IsIslamicResepsi() && data.ResepsiArabic() != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 51, "<div class=\"event-botanical-arabic\">")
+		if data.MapsURLAkad != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 52, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var37 string
-			templ_7745c5c3_Var37, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiArabic())
+			var templ_7745c5c3_Var37 templ.SafeURL
+			templ_7745c5c3_Var37, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.MapsURLAkad))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1404, Col: 65}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1400, Col: 51}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var37))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 52, "</div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 53, "\" target=\"_blank\" rel=\"noopener\" class=\"event-botanical-btn\"><i class=\"bi bi-geo-alt\"></i> Lihat Lokasi</a>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 53, "<div class=\"event-botanical-detail\"><div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 54, "</div><!-- Resepsi --><div class=\"event-botanical-card\" data-aos=\"fade-up\" data-aos-delay=\"200\"><div class=\"event-botanical-icon\"><i class=\"bi bi-flower3\"></i></div><h3 class=\"event-botanical-title\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var38 string
-		templ_7745c5c3_Var38, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiDate)
+		templ_7745c5c3_Var38, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiLabelDisplay())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1407, Col: 30}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1409, Col: 68}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var38))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 54, "</div><div>Pukul ")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 55, "</h3>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var39 string
-		templ_7745c5c3_Var39, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiTime)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1408, Col: 36}
+		if data.IsIslamicResepsi() && data.ResepsiArabic() != "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 56, "<div class=\"event-botanical-arabic\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var39 string
+			templ_7745c5c3_Var39, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiArabic())
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1411, Col: 65}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var39))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 57, "</div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var39))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 55, " WIB</div><div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 58, "<div class=\"event-botanical-detail\"><div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var40 string
-		templ_7745c5c3_Var40, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiVenue)
+		templ_7745c5c3_Var40, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiDate)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1409, Col: 31}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1414, Col: 30}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var40))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 56, "</div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 59, "</div><div>Pukul ")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var41 string
+		templ_7745c5c3_Var41, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiTime)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1415, Col: 36}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var41))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 60, " WIB</div><div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var42 string
+		templ_7745c5c3_Var42, templ_7745c5c3_Err = templ.JoinStringErrs(data.ResepsiVenue)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1416, Col: 31}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var42))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 61, "</div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if data.MapsURLResepsi != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 57, "<a href=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 62, "<a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var41 templ.SafeURL
-			templ_7745c5c3_Var41, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.MapsURLResepsi))
+			var templ_7745c5c3_Var43 templ.SafeURL
+			templ_7745c5c3_Var43, templ_7745c5c3_Err = templ.JoinURLErrs(templpkg.SafeURL(data.MapsURLResepsi))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1412, Col: 54}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1419, Col: 54}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var41))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var43))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 58, "\" target=\"_blank\" rel=\"noopener\" class=\"event-botanical-btn\"><i class=\"bi bi-geo-alt\"></i> Lihat Lokasi</a>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 63, "\" target=\"_blank\" rel=\"noopener\" class=\"event-botanical-btn\"><i class=\"bi bi-geo-alt\"></i> Lihat Lokasi</a>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 59, "</div></div></div></section><!-- GALLERY -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 64, "</div></div></div></section><!-- GALLERY -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if len(data.Gallery) > 0 {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 60, "<section class=\"section-botanical-alt\" id=\"section-gallery\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">Galeri</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Momen<br><em>yang berbunga</em></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Kenangan indah yang kami abadikan</p><div class=\"gallery-botanical-grid\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 65, "<section class=\"section-botanical-alt\" id=\"section-gallery\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">Galeri</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Momen<br><em>yang berbunga</em></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Kenangan indah yang kami abadikan</p><div class=\"gallery-botanical-grid\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			for index, img := range data.Gallery {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 61, "<div class=\"gallery-botanical-item\" data-aos=\"fade-up\" data-aos-delay=\"")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var42 string
-				templ_7745c5c3_Var42, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.FormatInt(60 * ((index % 6) + 1)))
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1435, Col: 123}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var42)
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 62, "\"><img src=\"")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var43 string
-				templ_7745c5c3_Var43, templ_7745c5c3_Err = templ.ResolveAttributeValue(img)
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1436, Col: 22}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var43)
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 63, "\" alt=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 66, "<div class=\"gallery-botanical-item\" data-aos=\"fade-up\" data-aos-delay=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var44 string
-				templ_7745c5c3_Var44, templ_7745c5c3_Err = templ.ResolveAttributeValue("Foto " + invitation.FormatInt(index+1))
+				templ_7745c5c3_Var44, templ_7745c5c3_Err = templ.ResolveAttributeValue(invitation.FormatInt(60 * ((index % 6) + 1)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1436, Col: 70}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1442, Col: 123}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var44)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 64, "\" loading=\"lazy\"><div class=\"overlay\"><i class=\"bi bi-zoom-in\"></i></div></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 67, "\"><img src=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var45 string
+				templ_7745c5c3_Var45, templ_7745c5c3_Err = templ.ResolveAttributeValue(img)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1443, Col: 22}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var45)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 68, "\" alt=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var46 string
+				templ_7745c5c3_Var46, templ_7745c5c3_Err = templ.ResolveAttributeValue("Foto " + invitation.FormatInt(index+1))
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1443, Col: 70}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var46)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 69, "\" loading=\"lazy\"><div class=\"overlay\"><i class=\"bi bi-zoom-in\"></i></div></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 65, "</div></div></section>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 70, "</div></div></section>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 66, "<!-- RSVP --><section class=\"section-botanical\" id=\"section-rsvp\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">Konfirmasi</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Kehadiran<br><em>Anda</em></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Kami sangat berbahagia jika Anda bisa hadir di hari bahagia kami</p>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 71, "<!-- RSVP --><section class=\"section-botanical\" id=\"section-rsvp\"><div class=\"container\"><div class=\"section-label\" data-aos=\"fade-up\">Konfirmasi</div><h2 class=\"section-title\" data-aos=\"fade-up\" data-aos-delay=\"50\">Kehadiran<br><em>Anda</em></h2><p class=\"section-subtitle\" data-aos=\"fade-up\" data-aos-delay=\"100\">Kami sangat berbahagia jika Anda bisa hadir di hari bahagia kami</p>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -732,46 +773,46 @@ func botanicalGardenPage(data *invitation.TemplateData) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 67, "</div></section><!-- FOOTER --><footer class=\"footer-botanical\"><div class=\"footer-botanical-inner\"><span class=\"footer-botanical-icon\">🌿</span><div class=\"footer-botanical-couple\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var45 string
-		templ_7745c5c3_Var45, templ_7745c5c3_Err = templ.JoinStringErrs(data.GroomName)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1468, Col: 21}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var45))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 68, "<span class=\"amp\">&amp;</span>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var46 string
-		templ_7745c5c3_Var46, templ_7745c5c3_Err = templ.JoinStringErrs(data.BrideName)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1468, Col: 69}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var46))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 69, "</div><div class=\"footer-botanical-date\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 72, "</div></section><!-- FOOTER --><footer class=\"footer-botanical\"><div class=\"footer-botanical-inner\"><span class=\"footer-botanical-icon\">🌿</span><div class=\"footer-botanical-couple\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var47 string
-		templ_7745c5c3_Var47, templ_7745c5c3_Err = templ.JoinStringErrs(data.AkadDate)
+		templ_7745c5c3_Var47, templ_7745c5c3_Err = templ.JoinStringErrs(data.GroomName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1470, Col: 54}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1475, Col: 21}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var47))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 70, "</div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 73, "<span class=\"amp\">&amp;</span>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var48 string
+		templ_7745c5c3_Var48, templ_7745c5c3_Err = templ.JoinStringErrs(data.BrideName)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1475, Col: 69}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var48))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 74, "</div><div class=\"footer-botanical-date\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var49 string
+		templ_7745c5c3_Var49, templ_7745c5c3_Err = templ.JoinStringErrs(data.AkadDate)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitations/botanical_garden/index.templ`, Line: 1477, Col: 54}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var49))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 75, "</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -779,7 +820,7 @@ func botanicalGardenPage(data *invitation.TemplateData) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 71, "<p class=\"footer-botanical-prayer\">\"Seperti bunga yang mekar di taman, cinta kami tumbuh indah dalam restu-Nya.\"</p></div></footer><!-- WEB FOOTER -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 76, "<p class=\"footer-botanical-prayer\">\"Seperti bunga yang mekar di taman, cinta kami tumbuh indah dalam restu-Nya.\"</p></div></footer><!-- WEB FOOTER -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -787,7 +828,7 @@ func botanicalGardenPage(data *invitation.TemplateData) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 72, "<!-- SCRIPTS --><script src=\"https://unpkg.com/aos@2.3.1/dist/aos.js\"></script><script src=\"https://cdn.jsdelivr.net/npm/sweetalert2@11\"></script><script>\n\t\t\tAOS.init({\n\t\t\t\tduration: 900,\n\t\t\t\teasing: 'ease-out',\n\t\t\t\tonce: true,\n\t\t\t\toffset: 60,\n\t\t\t});\n\n\t\t\t// MUSIC PLAYER\n\t\t\tvar musicUrl = document.body.dataset.musicUrl || '';\n\t\t\tvar projectID = document.body.dataset.projectId || '';\n\t\t\tvar projectSlug = document.body.dataset.projectSlug || '';\n\t\t\tvar audio = null;\n\t\t\tvar isPlaying = false;\n\t\t\tvar hasStarted = false;\n\t\t\tvar MUSIC_KEY = 'wedding_music_state_' + projectID;\n\n\t\t\tfunction initAudio() {\n\t\t\t\tif (!musicUrl) return false;\n\t\t\t\tif (audio) return true;\n\t\t\t\taudio = new Audio(musicUrl);\n\t\t\t\taudio.loop = true;\n\t\t\t\taudio.volume = 0.5;\n\t\t\t\treturn true;\n\t\t\t}\n\n\t\t\twindow.startMusic = function() {\n\t\t\t\tif (!initAudio()) {\n\t\t\t\t\tshowToast('info', 'Belum ada musik untuk undangan ini');\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\taudio.play().then(function() {\n\t\t\t\t\tisPlaying = true;\n\t\t\t\t\thasStarted = true;\n\t\t\t\t\tvar btn = document.getElementById('musicToggle');\n\t\t\t\t\tif (btn) {\n\t\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-pause-fill\"></i>';\n\t\t\t\t\t\tbtn.classList.add('playing');\n\t\t\t\t\t}\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'playing');\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t}).catch(function(e) {\n\t\t\t\t\tconsole.log('Play failed:', e);\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t\tdocument.addEventListener('click', function retry() {\n\t\t\t\t\t\taudio.play().catch(function(){});\n\t\t\t\t\t\tdocument.removeEventListener('click', retry);\n\t\t\t\t\t}, { once: true });\n\t\t\t\t});\n\t\t\t};\n\n\t\t\tfunction closeOverlay() {\n\t\t\t\tvar overlay = document.getElementById('startOverlay');\n\t\t\t\tif (overlay) {\n\t\t\t\t\toverlay.style.opacity = '0';\n\t\t\t\t\tsetTimeout(function() {\n\t\t\t\t\t\toverlay.style.display = 'none';\n\t\t\t\t\t}, 800);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\twindow.toggleMusic = function() {\n\t\t\t\tif (!audio && musicUrl) initAudio();\n\t\t\t\tif (!audio) {\n\t\t\t\t\tshowToast('info', 'Belum ada musik untuk undangan ini');\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\tvar btn = document.getElementById('musicToggle');\n\t\t\t\tif (isPlaying) {\n\t\t\t\t\taudio.pause();\n\t\t\t\t\tisPlaying = false;\n\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-music-note\"></i>';\n\t\t\t\t\tbtn.classList.remove('playing');\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'paused');\n\t\t\t\t} else {\n\t\t\t\t\taudio.play().catch(function(e) {});\n\t\t\t\t\tisPlaying = true;\n\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-pause-fill\"></i>';\n\t\t\t\t\tbtn.classList.add('playing');\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'playing');\n\t\t\t\t}\n\t\t\t};\n\n\t\t\tdocument.getElementById('startOverlay')?.addEventListener('click', function(e) {\n\t\t\t\tstartMusic();\n\t\t\t});\n\t\t\tdocument.getElementById('musicToggle')?.addEventListener('click', function(e) {\n\t\t\t\tif (!hasStarted) startMusic();\n\t\t\t});\n\n\t\t\twindow.scrollToSection = function() {\n\t\t\t\tvar el = document.getElementById('section-couple');\n\t\t\t\tif (el) el.scrollIntoView({ behavior: 'smooth' });\n\t\t\t};\n\n\t\t\tfunction showToast(type, message) {\n\t\t\t\tvar container = document.querySelector('.toast-container');\n\t\t\t\tif (!container) {\n\t\t\t\t\tcontainer = document.createElement('div');\n\t\t\t\t\tcontainer.className = 'toast-container';\n\t\t\t\t\tdocument.body.appendChild(container);\n\t\t\t\t}\n\t\t\t\tvar toast = document.createElement('div');\n\t\t\t\ttoast.className = 'toast';\n\t\t\t\tvar icons = { success: 'bi-check-circle-fill', error: 'bi-x-circle-fill', info: 'bi-info-circle-fill' };\n\t\t\t\ttoast.innerHTML = '<i class=\"bi ' + (icons[type] || icons.info) + '\"></i><span>' + message + '</span>';\n\t\t\t\tcontainer.appendChild(toast);\n\t\t\t\tsetTimeout(function() {\n\t\t\t\t\ttoast.style.opacity = '0';\n\t\t\t\t\ttoast.style.transform = 'translateX(100px)';\n\t\t\t\t\tsetTimeout(function() { toast.remove(); }, 400);\n\t\t\t\t}, 3000);\n\t\t\t}\n\n\t\t\tfunction escapeHtml(text) {\n\t\t\t\tif (!text) return '';\n\t\t\t\tvar div = document.createElement('div');\n\t\t\t\tdiv.textContent = text;\n\t\t\t\treturn div.innerHTML;\n\t\t\t}\n\n\t\t\twindow.copyBankNumberFromEl = function(el) {\n\t\t\t\tvar number = el.getAttribute('data-number');\n\t\t\t\tif (!number) return;\n\t\t\t\tcopyText(number, el);\n\t\t\t};\n\n\t\t\tfunction copyText(number, element) {\n\t\t\t\tvar doSuccess = function() {\n\t\t\t\t\tshowToast('success', 'Nomor rekening dicopy!');\n\t\t\t\t};\n\t\t\t\tif (navigator.clipboard) {\n\t\t\t\t\tnavigator.clipboard.writeText(number).then(doSuccess).catch(function() {\n\t\t\t\t\t\tfallbackCopy(number, element);\n\t\t\t\t\t});\n\t\t\t\t} else {\n\t\t\t\t\tfallbackCopy(number, element);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tfunction fallbackCopy(text, element) {\n\t\t\t\tvar textarea = document.createElement('textarea');\n\t\t\t\ttextarea.value = text;\n\t\t\t\ttextarea.style.position = 'fixed';\n\t\t\t\ttextarea.style.opacity = '0';\n\t\t\t\tdocument.body.appendChild(textarea);\n\t\t\t\ttextarea.select();\n\t\t\t\ttry {\n\t\t\t\t\tdocument.execCommand('copy');\n\t\t\t\t\tshowToast('success', 'Nomor rekening dicopy!');\n\t\t\t\t} catch (err) {\n\t\t\t\t\tshowToast('error', 'Gagal copy nomor');\n\t\t\t\t}\n\t\t\t\tdocument.body.removeChild(textarea);\n\t\t\t}\n\n\t\t\t// LIGHTBOX\n\t\t\tdocument.addEventListener('DOMContentLoaded', function() {\n\t\t\t\tdocument.querySelectorAll('.gallery-botanical-item').forEach(function(item) {\n\t\t\t\t\titem.addEventListener('click', function() {\n\t\t\t\t\t\tvar img = this.querySelector('img');\n\t\t\t\t\t\tif (img) {\n\t\t\t\t\t\t\tvar lb = document.createElement('div');\n\t\t\t\t\t\t\tlb.style.cssText = 'position:fixed;inset:0;background:rgba(45,58,36,0.94);z-index:9999;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:20px;';\n\t\t\t\t\t\t\tlb.innerHTML = '<span style=\"position:absolute;top:20px;right:24px;color:#a3b197;font-size:2rem;cursor:pointer;\">&times;</span><img src=\"' + img.src + '\" style=\"max-width:92%;max-height:92%;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,0.6);border-radius:12px;\"/>';\n\t\t\t\t\t\t\tdocument.body.appendChild(lb);\n\t\t\t\t\t\t\tlb.addEventListener('click', function(e) {\n\t\t\t\t\t\t\t\tif (e.target === this || e.target.textContent === '×') {\n\t\t\t\t\t\t\t\t\tthis.remove();\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t}\n\t\t\t\t\t});\n\t\t\t\t});\n\t\t\t});\n\n\t\t\t// LOAD RSVP LIST\n\t\t\tfunction loadRsvpList() {\n\t\t\t\tvar listContainer = document.getElementById('rsvpList');\n\t\t\t\tvar countContainer = document.getElementById('rsvpCount');\n\t\t\t\tif (!listContainer) return;\n\n\t\t\t\tfetch('/invitation/' + projectSlug + '/rsvp-list')\n\t\t\t\t\t.then(function(r) { return r.json(); })\n\t\t\t\t\t.then(function(data) {\n\t\t\t\t\t\tif (!data || data.length === 0) {\n\t\t\t\t\t\t\tlistContainer.innerHTML = '<div class=\"rsvp-empty\"><i class=\"bi bi-envelope\"></i>Belum ada konfirmasi kehadiran</div>';\n\t\t\t\t\t\t\tif (countContainer) countContainer.textContent = '0 tamu';\n\t\t\t\t\t\t\treturn;\n\t\t\t\t\t\t}\n\t\t\t\t\t\tvar totalGuests = 0;\n\t\t\t\t\t\tvar html = '';\n\t\t\t\t\t\tdata.forEach(function(item) {\n\t\t\t\t\t\t\tvar statusText = item.attendance === 'hadir' ? 'Hadir' : (item.attendance === 'tidak_hadir' ? 'Tidak Hadir' : 'Ragu');\n\t\t\t\t\t\t\ttotalGuests += parseInt(item.total_guests || 1);\n\t\t\t\t\t\t\tvar time = new Date(item.created_at);\n\t\t\t\t\t\t\tvar timeStr = time.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });\n\t\t\t\t\t\t\tvar messageHtml = item.message ? '<div class=\"message\">' + escapeHtml(item.message) + '</div>' : '';\n\t\t\t\t\t\t\thtml += '<div class=\"rsvp-item\"><div class=\"row-main\"><span class=\"guest-name\">' + escapeHtml(item.guest_name) + '</span><span class=\"status-badge ' + item.attendance + '\">' + statusText + '</span></div><div class=\"row-detail\"><div class=\"meta-left\"><span><i class=\"bi bi-calendar\"></i> ' + timeStr + '</span><span><i class=\"bi bi-people\"></i> ' + (item.total_guests || 1) + ' org</span></div></div>' + messageHtml + '</div>';\n\t\t\t\t\t\t});\n\t\t\t\t\t\tlistContainer.innerHTML = html;\n\t\t\t\t\t\tif (countContainer) countContainer.textContent = totalGuests + ' tamu';\n\t\t\t\t\t})\n\t\t\t\t\t.catch(function() {\n\t\t\t\t\t\tlistContainer.innerHTML = '<div class=\"rsvp-empty\"><i class=\"bi bi-exclamation-triangle\"></i>Gagal memuat daftar konfirmasi</div>';\n\t\t\t\t\t});\n\t\t\t}\n\n\t\t\t// SUBMIT RSVP\n\t\t\tdocument.addEventListener('DOMContentLoaded', function() {\n\t\t\t\tvar form = document.getElementById('rsvpForm');\n\t\t\t\tif (!form) return;\n\t\t\t\tform.addEventListener('submit', function(e) {\n\t\t\t\t\te.preventDefault();\n\t\t\t\t\tvar formData = new FormData(form);\n\t\t\t\t\tvar btn = form.querySelector('button[type=\"submit\"]');\n\t\t\t\t\tvar originalText = btn.innerHTML;\n\t\t\t\t\tbtn.disabled = true;\n\t\t\t\t\tbtn.innerHTML = '<span class=\"spinner-border spinner-border-sm me-2\"></span>Mengirim...';\n\t\t\t\t\tfetch(form.action, { method: 'POST', body: formData })\n\t\t\t\t\t\t.then(function(r) { return r.json(); })\n\t\t\t\t\t\t.then(function(data) {\n\t\t\t\t\t\t\tif (data.success) {\n\t\t\t\t\t\t\t\tvar isUpdate = data.updated === true;\n\t\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\t\ttitle: isUpdate ? 'Konfirmasi Diperbarui!' : 'Terima Kasih!',\n\t\t\t\t\t\t\t\t\ttext: data.message,\n\t\t\t\t\t\t\t\t\ticon: 'success',\n\t\t\t\t\t\t\t\t\tconfirmButtonColor: '#7d8c6f',\n\t\t\t\t\t\t\t\t\tbackground: '#f8f5ed',\n\t\t\t\t\t\t\t\t\tcolor: '#2d3a24',\n\t\t\t\t\t\t\t\t\ttimer: 2200,\n\t\t\t\t\t\t\t\t\ttimerProgressBar: true,\n\t\t\t\t\t\t\t\t\tshowConfirmButton: false\n\t\t\t\t\t\t\t\t});\n\t\t\t\t\t\t\t\tif (!isUpdate) form.reset();\n\t\t\t\t\t\t\t\tsetTimeout(function() { loadRsvpList(); }, 500);\n\t\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\t\ttitle: 'Gagal!',\n\t\t\t\t\t\t\t\t\ttext: data.message || 'Terjadi kesalahan',\n\t\t\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\t\t\tconfirmButtonColor: '#7d8c6f',\n\t\t\t\t\t\t\t\t\tbackground: '#f8f5ed',\n\t\t\t\t\t\t\t\t\tcolor: '#2d3a24'\n\t\t\t\t\t\t\t\t});\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t})\n\t\t\t\t\t\t.catch(function() {\n\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\ttitle: 'Error!',\n\t\t\t\t\t\t\t\ttext: 'Terjadi kesalahan, silakan coba lagi',\n\t\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\t\tconfirmButtonColor: '#7d8c6f',\n\t\t\t\t\t\t\t\tbackground: '#f8f5ed',\n\t\t\t\t\t\t\t\tcolor: '#2d3a24'\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t})\n\t\t\t\t\t\t.finally(function() {\n\t\t\t\t\t\t\tbtn.disabled = false;\n\t\t\t\t\t\t\tbtn.innerHTML = originalText;\n\t\t\t\t\t\t});\n\t\t\t\t});\n\t\t\t\tloadRsvpList();\n\t\t\t});\n\t\t</script></body></html>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 77, "<!-- SCRIPTS --><script src=\"https://unpkg.com/aos@2.3.1/dist/aos.js\"></script><script src=\"https://cdn.jsdelivr.net/npm/sweetalert2@11\"></script><script>\n\t\t\tAOS.init({\n\t\t\t\tduration: 900,\n\t\t\t\teasing: 'ease-out',\n\t\t\t\tonce: true,\n\t\t\t\toffset: 60,\n\t\t\t});\n\n\t\t\t// MUSIC PLAYER\n\t\t\tvar musicUrl = document.body.dataset.musicUrl || '';\n\t\t\tvar projectID = document.body.dataset.projectId || '';\n\t\t\tvar projectSlug = document.body.dataset.projectSlug || '';\n\t\t\tvar audio = null;\n\t\t\tvar isPlaying = false;\n\t\t\tvar hasStarted = false;\n\t\t\tvar MUSIC_KEY = 'wedding_music_state_' + projectID;\n\n\t\t\tfunction initAudio() {\n\t\t\t\tif (!musicUrl) return false;\n\t\t\t\tif (audio) return true;\n\t\t\t\taudio = new Audio(musicUrl);\n\t\t\t\taudio.loop = true;\n\t\t\t\taudio.volume = 0.5;\n\t\t\t\treturn true;\n\t\t\t}\n\n\t\t\twindow.startMusic = function() {\n\t\t\t\tif (!initAudio()) {\n\t\t\t\t\tshowToast('info', 'Belum ada musik untuk undangan ini');\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\taudio.play().then(function() {\n\t\t\t\t\tisPlaying = true;\n\t\t\t\t\thasStarted = true;\n\t\t\t\t\tvar btn = document.getElementById('musicToggle');\n\t\t\t\t\tif (btn) {\n\t\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-pause-fill\"></i>';\n\t\t\t\t\t\tbtn.classList.add('playing');\n\t\t\t\t\t}\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'playing');\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t}).catch(function(e) {\n\t\t\t\t\tconsole.log('Play failed:', e);\n\t\t\t\t\tcloseOverlay();\n\t\t\t\t\tdocument.addEventListener('click', function retry() {\n\t\t\t\t\t\taudio.play().catch(function(){});\n\t\t\t\t\t\tdocument.removeEventListener('click', retry);\n\t\t\t\t\t}, { once: true });\n\t\t\t\t});\n\t\t\t};\n\n\t\t\tfunction closeOverlay() {\n\t\t\t\tvar overlay = document.getElementById('startOverlay');\n\t\t\t\tif (overlay) {\n\t\t\t\t\toverlay.style.opacity = '0';\n\t\t\t\t\tsetTimeout(function() {\n\t\t\t\t\t\toverlay.style.display = 'none';\n\t\t\t\t\t}, 800);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\twindow.toggleMusic = function() {\n\t\t\t\tif (!audio && musicUrl) initAudio();\n\t\t\t\tif (!audio) {\n\t\t\t\t\tshowToast('info', 'Belum ada musik untuk undangan ini');\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\tvar btn = document.getElementById('musicToggle');\n\t\t\t\tif (isPlaying) {\n\t\t\t\t\taudio.pause();\n\t\t\t\t\tisPlaying = false;\n\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-music-note\"></i>';\n\t\t\t\t\tbtn.classList.remove('playing');\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'paused');\n\t\t\t\t} else {\n\t\t\t\t\taudio.play().catch(function(e) {});\n\t\t\t\t\tisPlaying = true;\n\t\t\t\t\tbtn.innerHTML = '<i class=\"bi bi-pause-fill\"></i>';\n\t\t\t\t\tbtn.classList.add('playing');\n\t\t\t\t\tlocalStorage.setItem(MUSIC_KEY, 'playing');\n\t\t\t\t}\n\t\t\t};\n\n\t\t\tdocument.getElementById('startOverlay')?.addEventListener('click', function(e) {\n\t\t\t\tstartMusic();\n\t\t\t});\n\t\t\tdocument.getElementById('musicToggle')?.addEventListener('click', function(e) {\n\t\t\t\tif (!hasStarted) startMusic();\n\t\t\t});\n\n\t\t\twindow.scrollToSection = function() {\n\t\t\t\tvar el = document.getElementById('section-couple');\n\t\t\t\tif (el) el.scrollIntoView({ behavior: 'smooth' });\n\t\t\t};\n\n\t\t\tfunction showToast(type, message) {\n\t\t\t\tvar container = document.querySelector('.toast-container');\n\t\t\t\tif (!container) {\n\t\t\t\t\tcontainer = document.createElement('div');\n\t\t\t\t\tcontainer.className = 'toast-container';\n\t\t\t\t\tdocument.body.appendChild(container);\n\t\t\t\t}\n\t\t\t\tvar toast = document.createElement('div');\n\t\t\t\ttoast.className = 'toast';\n\t\t\t\tvar icons = { success: 'bi-check-circle-fill', error: 'bi-x-circle-fill', info: 'bi-info-circle-fill' };\n\t\t\t\ttoast.innerHTML = '<i class=\"bi ' + (icons[type] || icons.info) + '\"></i><span>' + message + '</span>';\n\t\t\t\tcontainer.appendChild(toast);\n\t\t\t\tsetTimeout(function() {\n\t\t\t\t\ttoast.style.opacity = '0';\n\t\t\t\t\ttoast.style.transform = 'translateX(100px)';\n\t\t\t\t\tsetTimeout(function() { toast.remove(); }, 400);\n\t\t\t\t}, 3000);\n\t\t\t}\n\n\t\t\tfunction escapeHtml(text) {\n\t\t\t\tif (!text) return '';\n\t\t\t\tvar div = document.createElement('div');\n\t\t\t\tdiv.textContent = text;\n\t\t\t\treturn div.innerHTML;\n\t\t\t}\n\n\t\t\twindow.copyBankNumberFromEl = function(el) {\n\t\t\t\tvar number = el.getAttribute('data-number');\n\t\t\t\tif (!number) return;\n\t\t\t\tcopyText(number, el);\n\t\t\t};\n\n\t\t\tfunction copyText(number, element) {\n\t\t\t\tvar doSuccess = function() {\n\t\t\t\t\tshowToast('success', 'Nomor rekening dicopy!');\n\t\t\t\t};\n\t\t\t\tif (navigator.clipboard) {\n\t\t\t\t\tnavigator.clipboard.writeText(number).then(doSuccess).catch(function() {\n\t\t\t\t\t\tfallbackCopy(number, element);\n\t\t\t\t\t});\n\t\t\t\t} else {\n\t\t\t\t\tfallbackCopy(number, element);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tfunction fallbackCopy(text, element) {\n\t\t\t\tvar textarea = document.createElement('textarea');\n\t\t\t\ttextarea.value = text;\n\t\t\t\ttextarea.style.position = 'fixed';\n\t\t\t\ttextarea.style.opacity = '0';\n\t\t\t\tdocument.body.appendChild(textarea);\n\t\t\t\ttextarea.select();\n\t\t\t\ttry {\n\t\t\t\t\tdocument.execCommand('copy');\n\t\t\t\t\tshowToast('success', 'Nomor rekening dicopy!');\n\t\t\t\t} catch (err) {\n\t\t\t\t\tshowToast('error', 'Gagal copy nomor');\n\t\t\t\t}\n\t\t\t\tdocument.body.removeChild(textarea);\n\t\t\t}\n\n\t\t\t// LIGHTBOX\n\t\t\tdocument.addEventListener('DOMContentLoaded', function() {\n\t\t\t\tdocument.querySelectorAll('.gallery-botanical-item').forEach(function(item) {\n\t\t\t\t\titem.addEventListener('click', function() {\n\t\t\t\t\t\tvar img = this.querySelector('img');\n\t\t\t\t\t\tif (img) {\n\t\t\t\t\t\t\tvar lb = document.createElement('div');\n\t\t\t\t\t\t\tlb.style.cssText = 'position:fixed;inset:0;background:rgba(45,58,36,0.94);z-index:9999;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:20px;';\n\t\t\t\t\t\t\tlb.innerHTML = '<span style=\"position:absolute;top:20px;right:24px;color:#a3b197;font-size:2rem;cursor:pointer;\">&times;</span><img src=\"' + img.src + '\" style=\"max-width:92%;max-height:92%;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,0.6);border-radius:12px;\"/>';\n\t\t\t\t\t\t\tdocument.body.appendChild(lb);\n\t\t\t\t\t\t\tlb.addEventListener('click', function(e) {\n\t\t\t\t\t\t\t\tif (e.target === this || e.target.textContent === '×') {\n\t\t\t\t\t\t\t\t\tthis.remove();\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t}\n\t\t\t\t\t});\n\t\t\t\t});\n\t\t\t});\n\n\t\t\t// LOAD RSVP LIST\n\t\t\tfunction loadRsvpList() {\n\t\t\t\tvar listContainer = document.getElementById('rsvpList');\n\t\t\t\tvar countContainer = document.getElementById('rsvpCount');\n\t\t\t\tif (!listContainer) return;\n\n\t\t\t\tfetch('/invitation/' + projectSlug + '/rsvp-list')\n\t\t\t\t\t.then(function(r) { return r.json(); })\n\t\t\t\t\t.then(function(data) {\n\t\t\t\t\t\tif (!data || data.length === 0) {\n\t\t\t\t\t\t\tlistContainer.innerHTML = '<div class=\"rsvp-empty\"><i class=\"bi bi-envelope\"></i>Belum ada konfirmasi kehadiran</div>';\n\t\t\t\t\t\t\tif (countContainer) countContainer.textContent = '0 tamu';\n\t\t\t\t\t\t\treturn;\n\t\t\t\t\t\t}\n\t\t\t\t\t\tvar totalGuests = 0;\n\t\t\t\t\t\tvar html = '';\n\t\t\t\t\t\tdata.forEach(function(item) {\n\t\t\t\t\t\t\tvar statusText = item.attendance === 'hadir' ? 'Hadir' : (item.attendance === 'tidak_hadir' ? 'Tidak Hadir' : 'Ragu');\n\t\t\t\t\t\t\ttotalGuests += parseInt(item.total_guests || 1);\n\t\t\t\t\t\t\tvar time = new Date(item.created_at);\n\t\t\t\t\t\t\tvar timeStr = time.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });\n\t\t\t\t\t\t\tvar messageHtml = item.message ? '<div class=\"message\">' + escapeHtml(item.message) + '</div>' : '';\n\t\t\t\t\t\t\thtml += '<div class=\"rsvp-item\"><div class=\"row-main\"><span class=\"guest-name\">' + escapeHtml(item.guest_name) + '</span><span class=\"status-badge ' + item.attendance + '\">' + statusText + '</span></div><div class=\"row-detail\"><div class=\"meta-left\"><span><i class=\"bi bi-calendar\"></i> ' + timeStr + '</span><span><i class=\"bi bi-people\"></i> ' + (item.total_guests || 1) + ' org</span></div></div>' + messageHtml + '</div>';\n\t\t\t\t\t\t});\n\t\t\t\t\t\tlistContainer.innerHTML = html;\n\t\t\t\t\t\tif (countContainer) countContainer.textContent = totalGuests + ' tamu';\n\t\t\t\t\t})\n\t\t\t\t\t.catch(function() {\n\t\t\t\t\t\tlistContainer.innerHTML = '<div class=\"rsvp-empty\"><i class=\"bi bi-exclamation-triangle\"></i>Gagal memuat daftar konfirmasi</div>';\n\t\t\t\t\t});\n\t\t\t}\n\n\t\t\t// SUBMIT RSVP\n\t\t\tdocument.addEventListener('DOMContentLoaded', function() {\n\t\t\t\tvar form = document.getElementById('rsvpForm');\n\t\t\t\tif (!form) return;\n\t\t\t\tform.addEventListener('submit', function(e) {\n\t\t\t\t\te.preventDefault();\n\t\t\t\t\tvar formData = new FormData(form);\n\t\t\t\t\tvar btn = form.querySelector('button[type=\"submit\"]');\n\t\t\t\t\tvar originalText = btn.innerHTML;\n\t\t\t\t\tbtn.disabled = true;\n\t\t\t\t\tbtn.innerHTML = '<span class=\"spinner-border spinner-border-sm me-2\"></span>Mengirim...';\n\t\t\t\t\tfetch(form.action, { method: 'POST', body: formData })\n\t\t\t\t\t\t.then(function(r) { return r.json(); })\n\t\t\t\t\t\t.then(function(data) {\n\t\t\t\t\t\t\tif (data.success) {\n\t\t\t\t\t\t\t\tvar isUpdate = data.updated === true;\n\t\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\t\ttitle: isUpdate ? 'Konfirmasi Diperbarui!' : 'Terima Kasih!',\n\t\t\t\t\t\t\t\t\ttext: data.message,\n\t\t\t\t\t\t\t\t\ticon: 'success',\n\t\t\t\t\t\t\t\t\tconfirmButtonColor: '#7d8c6f',\n\t\t\t\t\t\t\t\t\tbackground: '#f8f5ed',\n\t\t\t\t\t\t\t\t\tcolor: '#2d3a24',\n\t\t\t\t\t\t\t\t\ttimer: 2200,\n\t\t\t\t\t\t\t\t\ttimerProgressBar: true,\n\t\t\t\t\t\t\t\t\tshowConfirmButton: false\n\t\t\t\t\t\t\t\t});\n\t\t\t\t\t\t\t\tif (!isUpdate) form.reset();\n\t\t\t\t\t\t\t\tsetTimeout(function() { loadRsvpList(); }, 500);\n\t\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\t\ttitle: 'Gagal!',\n\t\t\t\t\t\t\t\t\ttext: data.message || 'Terjadi kesalahan',\n\t\t\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\t\t\tconfirmButtonColor: '#7d8c6f',\n\t\t\t\t\t\t\t\t\tbackground: '#f8f5ed',\n\t\t\t\t\t\t\t\t\tcolor: '#2d3a24'\n\t\t\t\t\t\t\t\t});\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t})\n\t\t\t\t\t\t.catch(function() {\n\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\ttitle: 'Error!',\n\t\t\t\t\t\t\t\ttext: 'Terjadi kesalahan, silakan coba lagi',\n\t\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\t\tconfirmButtonColor: '#7d8c6f',\n\t\t\t\t\t\t\t\tbackground: '#f8f5ed',\n\t\t\t\t\t\t\t\tcolor: '#2d3a24'\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t})\n\t\t\t\t\t\t.finally(function() {\n\t\t\t\t\t\t\tbtn.disabled = false;\n\t\t\t\t\t\t\tbtn.innerHTML = originalText;\n\t\t\t\t\t\t});\n\t\t\t\t});\n\t\t\t\tloadRsvpList();\n\t\t\t});\n\t\t</script></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
