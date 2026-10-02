@@ -50,6 +50,7 @@ func Register(r *gin.Engine) {
 		staff.GET("/share", staffHandlers.ShareIndex)
 		staff.GET("/projects", staffHandlers.ProjectIndex)
 		staff.GET("/projects/:id", staffHandlers.ProjectShow)
+                staff.POST("/projects/:id/change-template", staffHandlers.ProjectChangeTemplate)
 		staff.GET("/rsvp", staffHandlers.RsvpListIndex)
 		staff.GET("/projects/:id/rsvp", staffHandlers.RsvpProjectIndex)
 		staff.DELETE("/projects/:id/rsvp/:rsvpId", staffHandlers.RsvpDelete)
@@ -67,6 +68,7 @@ func Register(r *gin.Engine) {
 		client.GET("/dashboard", clientHandlers.Dashboard)
 		client.GET("/wedding", clientHandlers.WeddingIndex)
 		client.DELETE("/wedding/:id", clientHandlers.WeddingDestroy)
+                client.POST("/wedding/:id/change-template", clientHandlers.WeddingChangeTemplate)
 
 		// Reservasi
 		client.GET("/reservations", clientHandlers.ReservationIndex)
@@ -116,6 +118,7 @@ func Register(r *gin.Engine) {
 		admin.GET("/projects", adminHandlers.ProjectIndex)
 		admin.GET("/projects/:id", adminHandlers.ProjectShow)
 		admin.POST("/projects/:id/delete", adminHandlers.ProjectDelete)
+                admin.POST("/projects/:id/change-template", adminHandlers.ProjectChangeTemplate)
 
 		// RSVP
 		admin.GET("/projects/:id/rsvp", adminHandlers.RsvpIndex)

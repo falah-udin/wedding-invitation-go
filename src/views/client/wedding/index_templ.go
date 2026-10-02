@@ -13,11 +13,12 @@ import (
 )
 
 type WeddingData struct {
-	User     models.User
-	Setting  models.Config
-	Projects []models.Project
-	Success  string
-	Error    string
+	User      models.User
+	Setting   models.Config
+	Projects  []models.Project
+	Templates []models.Template
+	Success   string
+	Error     string
 }
 
 func WeddingPage(data WeddingData) templ.Component {
@@ -41,7 +42,7 @@ func WeddingPage(data WeddingData) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t.card-project {\n\t\t\tbackground: #1a1a1a;\n\t\t\tborder: 1px solid #2a2a2a;\n\t\t\tborder-radius: 14px;\n\t\t\tpadding: 18px 22px;\n\t\t\ttransition: all 0.2s ease;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: space-between;\n\t\t\talign-items: center;\n\t\t\tflex-wrap: wrap;\n\t\t\tgap: 12px;\n\t\t}\n\t\t.card-project:hover {\n\t\t\tborder-color: #10b981;\n\t\t\ttransform: translateY(-2px);\n\t\t\tbox-shadow: 0 8px 25px rgba(16, 185, 129, 0.08);\n\t\t}\n\t\t.card-project .title {\n\t\t\tcolor: white;\n\t\t\tfont-weight: 600;\n\t\t\tfont-size: 1.05rem;\n\t\t\tmargin-bottom: 6px;\n\t\t}\n\t\t.card-project .meta {\n\t\t\tcolor: #9ca3af;\n\t\t\tfont-size: 0.8rem;\n\t\t\tdisplay: flex;\n\t\t\tgap: 12px;\n\t\t\tflex-wrap: wrap;\n\t\t\talign-items: center;\n\t\t}\n\t\t.badge-status {\n\t\t\tfont-size: 0.65rem;\n\t\t\tpadding: 3px 10px;\n\t\t\tborder-radius: 10px;\n\t\t\tfont-weight: 600;\n\t\t\ttext-transform: uppercase;\n\t\t\tletter-spacing: 0.5px;\n\t\t}\n\t\t.badge-status.published { background: #10b981; color: white; }\n\t\t.badge-status.draft { background: #f59e0b; color: #1a1a1a; }\n\t\t.badge-status.archived { background: #6b7280; color: white; }\n\n\t\t.btn-action {\n\t\t\tborder: none;\n\t\t\tpadding: 6px 14px;\n\t\t\tborder-radius: 8px;\n\t\t\tfont-size: 0.78rem;\n\t\t\tfont-weight: 600;\n\t\t\tcursor: pointer;\n\t\t\tdisplay: inline-flex;\n\t\t\talign-items: center;\n\t\t\tgap: 4px;\n\t\t\ttext-decoration: none;\n\t\t\ttransition: all 0.2s;\n\t\t}\n\t\t.btn-action:hover { filter: brightness(1.15); }\n\t\t.btn-share { background: #25D366; color: white; }\n\t\t.btn-copy { background: #10b981; color: white; }\n\t\t.btn-view { background: #8b5cf6; color: white; }\n\t\t.btn-edit { background: #f59e0b; color: #1a1a1a; }\n\t\t.btn-delete { background: #ef4444; color: white; }\n\n\t\t.empty-state {\n\t\t\ttext-align: center;\n\t\t\tpadding: 60px 20px;\n\t\t\tcolor: #6b7280;\n\t\t}\n\t\t.empty-state i {\n\t\t\tfont-size: 3.5rem;\n\t\t\tdisplay: block;\n\t\t\tmargin-bottom: 16px;\n\t\t\topacity: 0.3;\n\t\t}\n\t</style><div class=\"d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3\"><div><h2 class=\"fw-bold mb-1\" style=\"color: #10b981;\"><i class=\"bi bi-envelope-paper me-2\"></i>Undangan Saya</h2><p class=\"text-secondary m-0\">Kelola semua undangan pernikahan Anda</p></div><a href=\"/invitation/create/select-client\" class=\"btn\" style=\"background: linear-gradient(135deg, #10b981 0%, #34d399 100%); color: white; border: none; padding: 10px 24px; border-radius: 12px; font-weight: 600;\"><i class=\"bi bi-plus-lg me-2\"></i>Buat Undangan</a></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t.card-project {\n\t\t\tbackground: #1a1a1a;\n\t\t\tborder: 1px solid #2a2a2a;\n\t\t\tborder-radius: 14px;\n\t\t\tpadding: 18px 22px;\n\t\t\ttransition: all 0.2s ease;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: space-between;\n\t\t\talign-items: center;\n\t\t\tflex-wrap: wrap;\n\t\t\tgap: 12px;\n\t\t}\n\t\t.card-project:hover {\n\t\t\tborder-color: #10b981;\n\t\t\ttransform: translateY(-2px);\n\t\t\tbox-shadow: 0 8px 25px rgba(16, 185, 129, 0.08);\n\t\t}\n\t\t.card-project .title {\n\t\t\tcolor: white;\n\t\t\tfont-weight: 600;\n\t\t\tfont-size: 1.05rem;\n\t\t\tmargin-bottom: 6px;\n\t\t}\n\t\t.card-project .meta {\n\t\t\tcolor: #9ca3af;\n\t\t\tfont-size: 0.8rem;\n\t\t\tdisplay: flex;\n\t\t\tgap: 12px;\n\t\t\tflex-wrap: wrap;\n\t\t\talign-items: center;\n\t\t}\n\t\t.badge-status {\n\t\t\tfont-size: 0.65rem;\n\t\t\tpadding: 3px 10px;\n\t\t\tborder-radius: 10px;\n\t\t\tfont-weight: 600;\n\t\t\ttext-transform: uppercase;\n\t\t\tletter-spacing: 0.5px;\n\t\t}\n\t\t.badge-status.published { background: #10b981; color: white; }\n\t\t.badge-status.draft { background: #f59e0b; color: #1a1a1a; }\n\t\t.badge-status.archived { background: #6b7280; color: white; }\n\n\t\t.btn-action {\n\t\t\tborder: none;\n\t\t\tpadding: 6px 14px;\n\t\t\tborder-radius: 8px;\n\t\t\tfont-size: 0.78rem;\n\t\t\tfont-weight: 600;\n\t\t\tcursor: pointer;\n\t\t\tdisplay: inline-flex;\n\t\t\talign-items: center;\n\t\t\tgap: 4px;\n\t\t\ttext-decoration: none;\n\t\t\ttransition: all 0.2s;\n\t\t}\n\t\t.btn-action:hover { filter: brightness(1.15); }\n\t\t.btn-share { background: #25D366; color: white; }\n\t\t.btn-copy { background: #10b981; color: white; }\n\t\t.btn-view { background: #8b5cf6; color: white; }\n\t\t.btn-edit { background: #f59e0b; color: #1a1a1a; }\n\t\t.btn-delete { background: #ef4444; color: white; }\n\n\t\t.empty-state {\n\t\t\ttext-align: center;\n\t\t\tpadding: 60px 20px;\n\t\t\tcolor: #6b7280;\n\t\t}\n\t\t.empty-state i {\n\t\t\tfont-size: 3.5rem;\n\t\t\tdisplay: block;\n\t\t\tmargin-bottom: 16px;\n\t\t\topacity: 0.3;\n\t\t}\n\t</style><!-- CSS MODAL GANTI TEMA --><style>\n\t\t.btn-change-template {\n\t\t\tbackground: #8b5cf6;\n\t\t\tcolor: white;\n\t\t}\n\n\t\t.template-modal-overlay {\n\t\t\tdisplay: none;\n\t\t\tposition: fixed;\n\t\t\ttop: 0; left: 0; right: 0; bottom: 0;\n\t\t\tbackground: rgba(0, 0, 0, 0.85);\n\t\t\tz-index: 99999;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\tpadding: 20px;\n\t\t\toverflow-y: auto;\n\t\t}\n\n\t\t.template-modal-overlay.active {\n\t\t\tdisplay: flex;\n\t\t}\n\n\t\t.template-modal-content {\n\t\t\tbackground: #1a1a1a;\n\t\t\tborder: 1px solid #2a2a2a;\n\t\t\tborder-radius: 20px;\n\t\t\tpadding: 24px;\n\t\t\tmax-width: 1000px;\n\t\t\twidth: 100%;\n\t\t\tmax-height: 90vh;\n\t\t\toverflow-y: auto;\n\t\t\tposition: relative;\n\t\t}\n\n\t\t.template-modal-close {\n\t\t\tposition: absolute;\n\t\t\ttop: 16px; right: 16px;\n\t\t\twidth: 36px; height: 36px;\n\t\t\tbackground: #2a2a2a;\n\t\t\tborder: none;\n\t\t\tborder-radius: 50%;\n\t\t\tcolor: #9ca3af;\n\t\t\tcursor: pointer;\n\t\t\tfont-size: 1.1rem;\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\ttransition: all 0.2s;\n\t\t}\n\n\t\t.template-modal-close:hover {\n\t\t\tbackground: #ef4444;\n\t\t\tcolor: white;\n\t\t}\n\n\t\t.template-modal-title {\n\t\t\tcolor: white;\n\t\t\tfont-size: 1.3rem;\n\t\t\tfont-weight: 700;\n\t\t\tmargin-bottom: 6px;\n\t\t}\n\n\t\t.template-modal-subtitle {\n\t\t\tcolor: #9ca3af;\n\t\t\tfont-size: 0.85rem;\n\t\t\tmargin-bottom: 20px;\n\t\t}\n\n\t\t.template-modal-grid {\n\t\t\tdisplay: grid;\n\t\t\tgrid-template-columns: repeat(auto-fill, minmax(180px, 1fr));\n\t\t\tgap: 16px;\n\t\t\tmargin-bottom: 20px;\n\t\t}\n\n\t\t.template-modal-card {\n\t\t\tbackground: #0f0f0f;\n\t\t\tborder: 2px solid #2a2a2a;\n\t\t\tborder-radius: 14px;\n\t\t\tpadding: 12px;\n\t\t\tcursor: pointer;\n\t\t\ttransition: all 0.2s;\n\t\t\tposition: relative;\n\t\t}\n\n\t\t.template-modal-card:hover {\n\t\t\tborder-color: #8b5cf6;\n\t\t\ttransform: translateY(-2px);\n\t\t\tbox-shadow: 0 8px 20px rgba(139, 92, 246, 0.15);\n\t\t}\n\n\t\t.template-modal-card.selected {\n\t\t\tborder-color: #8b5cf6;\n\t\t\tbackground: rgba(139, 92, 246, 0.08);\n\t\t\tbox-shadow: 0 0 0 1px #8b5cf6;\n\t\t}\n\n\t\t.template-modal-thumb {\n\t\t\twidth: 100%;\n\t\t\theight: 110px;\n\t\t\tborder-radius: 10px;\n\t\t\toverflow: hidden;\n\t\t\tmargin-bottom: 10px;\n\t\t\tbackground: linear-gradient(135deg, #1a1a1a 0%, #262626 100%);\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t}\n\n\t\t.template-modal-thumb img {\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tobject-fit: cover;\n\t\t\tobject-position: top center;\n\t\t\ttransition: transform 0.4s ease;\n\t\t}\n\n\t\t.template-modal-card:hover .template-modal-thumb img {\n\t\t\ttransform: scale(1.06);\n\t\t}\n\n\t\t.template-modal-thumb i {\n\t\t\tfont-size: 2rem;\n\t\t\tcolor: #8b5cf6;\n\t\t}\n\n\t\t.template-modal-name {\n\t\t\tcolor: white;\n\t\t\tfont-weight: 700;\n\t\t\tfont-size: 0.85rem;\n\t\t\ttext-align: center;\n\t\t\tmargin-bottom: 4px;\n\t\t}\n\n\t\t.template-modal-desc {\n\t\t\tcolor: #9ca3af;\n\t\t\tfont-size: 0.7rem;\n\t\t\ttext-align: center;\n\t\t\tline-height: 1.4;\n\t\t\tdisplay: -webkit-box;\n\t\t\t-webkit-line-clamp: 2;\n\t\t\t-webkit-box-orient: vertical;\n\t\t\toverflow: hidden;\n\t\t}\n\n\t\t.template-modal-check {\n\t\t\tdisplay: none;\n\t\t\tposition: absolute;\n\t\t\ttop: 8px;\n\t\t\tright: 8px;\n\t\t\twidth: 26px;\n\t\t\theight: 26px;\n\t\t\tbackground: #8b5cf6;\n\t\t\tborder-radius: 50%;\n\t\t\tcolor: white;\n\t\t\tfont-size: 0.85rem;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\tz-index: 10;\n\t\t\tbox-shadow: 0 2px 8px rgba(139, 92, 246, 0.5);\n\t\t}\n\n\t\t.template-modal-card.selected .template-modal-check {\n\t\t\tdisplay: flex;\n\t\t}\n\n\t\t.template-modal-actions {\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: flex-end;\n\t\t\tgap: 10px;\n\t\t}\n\n\t\t.template-modal-btn {\n\t\t\tpadding: 10px 24px;\n\t\t\tborder-radius: 10px;\n\t\t\tfont-weight: 600;\n\t\t\tfont-size: 0.85rem;\n\t\t\tborder: none;\n\t\t\tcursor: pointer;\n\t\t\ttransition: all 0.2s;\n\t\t}\n\n\t\t.template-modal-btn-cancel {\n\t\t\tbackground: #2a2a2a;\n\t\t\tcolor: #9ca3af;\n\t\t}\n\n\t\t.template-modal-btn-cancel:hover {\n\t\t\tbackground: #3a3a3a;\n\t\t\tcolor: white;\n\t\t}\n\n\t\t.template-modal-btn-save {\n\t\t\tbackground: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);\n\t\t\tcolor: white;\n\t\t}\n\n\t\t.template-modal-btn-save:hover {\n\t\t\tfilter: brightness(1.1);\n\t\t\ttransform: translateY(-1px);\n\t\t}\n\n\t\t.template-modal-btn-save:disabled {\n\t\t\topacity: 0.5;\n\t\t\tcursor: not-allowed;\n\t\t\ttransform: none;\n\t\t}\n\t</style><div class=\"d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3\"><div><h2 class=\"fw-bold mb-1\" style=\"color: #10b981;\"><i class=\"bi bi-envelope-paper me-2\"></i>Undangan Saya</h2><p class=\"text-secondary m-0\">Kelola semua undangan pernikahan Anda</p></div><a href=\"/invitation/create/select-client\" class=\"btn\" style=\"background: linear-gradient(135deg, #10b981 0%, #34d399 100%); color: white; border: none; padding: 10px 24px; border-radius: 12px; font-weight: 600;\"><i class=\"bi bi-plus-lg me-2\"></i>Buat Undangan</a></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -53,7 +54,7 @@ func WeddingPage(data WeddingData) templ.Component {
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(data.Success)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 111, Col: 17}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 322, Col: 17}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -72,7 +73,7 @@ func WeddingPage(data WeddingData) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(data.Error)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 119, Col: 15}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 330, Col: 15}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -100,7 +101,7 @@ func WeddingPage(data WeddingData) templ.Component {
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(p.Title)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 132, Col: 17}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 343, Col: 17}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 				if templ_7745c5c3_Err != nil {
@@ -135,7 +136,7 @@ func WeddingPage(data WeddingData) templ.Component {
 				var templ_7745c5c3_Var7 string
 				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(p.Status)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 135, Col: 59}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 346, Col: 59}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 				if templ_7745c5c3_Err != nil {
@@ -148,7 +149,7 @@ func WeddingPage(data WeddingData) templ.Component {
 				var templ_7745c5c3_Var8 string
 				templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(formatNumber(p.TotalViews))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 136, Col: 72}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 347, Col: 72}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 				if templ_7745c5c3_Err != nil {
@@ -161,7 +162,7 @@ func WeddingPage(data WeddingData) templ.Component {
 				var templ_7745c5c3_Var9 string
 				templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(formatNumber(p.TotalRsvp))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 137, Col: 74}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 348, Col: 74}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 				if templ_7745c5c3_Err != nil {
@@ -174,7 +175,7 @@ func WeddingPage(data WeddingData) templ.Component {
 				var templ_7745c5c3_Var10 string
 				templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(p.CreatedAt.Format("02 Jan 2006"))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 138, Col: 84}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 349, Col: 84}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 				if templ_7745c5c3_Err != nil {
@@ -192,7 +193,7 @@ func WeddingPage(data WeddingData) templ.Component {
 					var templ_7745c5c3_Var11 templ.SafeURL
 					templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL("/share/invitation/" + formatUint(p.ID)))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 143, Col: 68}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 354, Col: 68}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 					if templ_7745c5c3_Err != nil {
@@ -205,7 +206,7 @@ func WeddingPage(data WeddingData) templ.Component {
 					var templ_7745c5c3_Var12 string
 					templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.ResolveAttributeValue("/invitation/" + p.Slug)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 150, Col: 44}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 361, Col: 44}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var12)
 					if templ_7745c5c3_Err != nil {
@@ -223,7 +224,7 @@ func WeddingPage(data WeddingData) templ.Component {
 				var templ_7745c5c3_Var13 templ.SafeURL
 				templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL("/invitation/" + p.Slug))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 155, Col: 51}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 366, Col: 51}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 				if templ_7745c5c3_Err != nil {
@@ -236,64 +237,210 @@ func WeddingPage(data WeddingData) templ.Component {
 				var templ_7745c5c3_Var14 templ.SafeURL
 				templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL("/invitation/create/edit/" + formatUint(p.ID)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 160, Col: 73}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 371, Col: 73}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "\" class=\"btn-action btn-edit\"><i class=\"bi bi-pencil\"></i> Edit</a> ")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "\" class=\"btn-action btn-edit\"><i class=\"bi bi-pencil\"></i> Edit</a> <button type=\"button\" class=\"btn-action btn-change-template\" data-id=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var15 string
+				templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatUint(p.ID))
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 378, Col: 34}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var15)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "\" data-title=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var16 string
+				templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.ResolveAttributeValue(p.Title)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 379, Col: 28}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var16)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "\" data-current=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var17 string
+				templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatUint(p.TemplateID))
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 380, Col: 47}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var17)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "\" onclick=\"openTemplateModal(this)\"><i class=\"bi bi-palette\"></i> Ganti Tema</button> ")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				if p.Status == "draft" {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "<button type=\"button\" class=\"btn-action btn-delete\" data-id=\"")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "<button type=\"button\" class=\"btn-action btn-delete\" data-id=\"")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					var templ_7745c5c3_Var15 string
-					templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatUint(p.ID))
+					var templ_7745c5c3_Var18 string
+					templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatUint(p.ID))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 167, Col: 35}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 387, Col: 35}
 					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var15)
-					if templ_7745c5c3_Err != nil {
-						return templ_7745c5c3_Err
-					}
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "\" data-title=\"")
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var18)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					var templ_7745c5c3_Var16 string
-					templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.ResolveAttributeValue(p.Title)
-					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 168, Col: 29}
-					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var16)
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "\" data-title=\"")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "\" onclick=\"deleteBtn(this)\"><i class=\"bi bi-trash\"></i> Hapus</button>")
+					var templ_7745c5c3_Var19 string
+					templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.ResolveAttributeValue(p.Title)
+					if templ_7745c5c3_Err != nil {
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 388, Col: 29}
+					}
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var19)
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "\" onclick=\"deleteBtn(this)\"><i class=\"bi bi-trash\"></i> Hapus</button>")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "</div></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "</div></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "</div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "</div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		} else {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "<div class=\"empty-state\"><i class=\"bi bi-inbox\"></i><p>Belum ada undangan. Buat undangan pertama Anda!</p><a href=\"/invitation/create/select-client\" class=\"btn\" style=\"background: #10b981; color: white; border: none; padding: 10px 24px; border-radius: 12px; font-weight: 600;\"><i class=\"bi bi-plus-lg me-2\"></i>Buat Undangan Sekarang</a></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "<div class=\"empty-state\"><i class=\"bi bi-inbox\"></i><p>Belum ada undangan. Buat undangan pertama Anda!</p><a href=\"/invitation/create/select-client\" class=\"btn\" style=\"background: #10b981; color: white; border: none; padding: 10px 24px; border-radius: 12px; font-weight: 600;\"><i class=\"bi bi-plus-lg me-2\"></i>Buat Undangan Sekarang</a></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "</div><script>\n\t\tfunction copyBtn(btn) {\n\t\t\tconst link = window.location.origin + btn.dataset.link;\n\t\t\tif (navigator.clipboard && navigator.clipboard.writeText) {\n\t\t\t\tnavigator.clipboard.writeText(link).then(() => showCopySuccess(link)).catch(() => fallbackCopy(link));\n\t\t\t} else {\n\t\t\t\tfallbackCopy(link);\n\t\t\t}\n\t\t}\n\n\t\tfunction showCopySuccess(link) {\n\t\t\tSwal.fire({\n\t\t\t\ttitle: 'Link Tersalin!',\n\t\t\t\thtml: '<div style=\"word-break:break-all; font-size:0.85rem;\">' + link + '</div>',\n\t\t\t\ticon: 'success',\n\t\t\t\ttimer: 3000,\n\t\t\t\tshowConfirmButton: true,\n\t\t\t\tconfirmButtonColor: '#10b981',\n\t\t\t\tbackground: '#1e1e1e',\n\t\t\t\tcolor: '#ffffff',\n\t\t\t\tconfirmButtonText: 'OK'\n\t\t\t});\n\t\t}\n\n\t\tfunction fallbackCopy(text) {\n\t\t\tconst ta = document.createElement('textarea');\n\t\t\tta.value = text;\n\t\t\tta.style.position = 'fixed';\n\t\t\tta.style.left = '-9999px';\n\t\t\tdocument.body.appendChild(ta);\n\t\t\tta.select();\n\t\t\ttry {\n\t\t\t\tdocument.execCommand('copy');\n\t\t\t\tshowCopySuccess(text);\n\t\t\t} catch (e) {\n\t\t\t\tSwal.fire({\n\t\t\t\t\ttitle: 'Gagal Menyalin',\n\t\t\t\t\thtml: '<code style=\"background:#0f0f0f;padding:6px;border-radius:4px;word-break:break-all;\">' + text + '</code>',\n\t\t\t\t\ticon: 'error',\n\t\t\t\t\tconfirmButtonColor: '#10b981',\n\t\t\t\t\tbackground: '#1e1e1e',\n\t\t\t\t\tcolor: '#ffffff'\n\t\t\t\t});\n\t\t\t}\n\t\t\tdocument.body.removeChild(ta);\n\t\t}\n\n\t\tfunction deleteBtn(btn) {\n\t\t\tconst id = btn.dataset.id;\n\t\t\tconst title = btn.dataset.title;\n\n\t\t\tSwal.fire({\n\t\t\t\ttitle: 'Hapus Undangan?',\n\t\t\t\thtml: 'Yakin hapus <strong style=\"color:#ef4444;\">' + title + '</strong>?<br>Data tidak dapat dikembalikan!',\n\t\t\t\ticon: 'warning',\n\t\t\t\tshowCancelButton: true,\n\t\t\t\tconfirmButtonColor: '#ef4444',\n\t\t\t\tcancelButtonColor: '#6b7280',\n\t\t\t\tconfirmButtonText: 'Ya, Hapus!',\n\t\t\t\tcancelButtonText: 'Batal',\n\t\t\t\tbackground: '#1e1e1e',\n\t\t\t\tcolor: '#ffffff'\n\t\t\t}).then((result) => {\n\t\t\t\tif (result.isConfirmed) {\n\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\ttitle: 'Menghapus...',\n\t\t\t\t\t\ttext: 'Mohon tunggu',\n\t\t\t\t\t\tallowOutsideClick: false,\n\t\t\t\t\t\tdidOpen: () => { Swal.showLoading(); },\n\t\t\t\t\t\tbackground: '#1e1e1e',\n\t\t\t\t\t\tcolor: '#ffffff'\n\t\t\t\t\t});\n\n\t\t\t\t\tfetch('/client/wedding/' + id, {\n\t\t\t\t\t\tmethod: 'DELETE',\n\t\t\t\t\t\theaders: {\n\t\t\t\t\t\t\t'X-Requested-With': 'XMLHttpRequest',\n\t\t\t\t\t\t\t'Accept': 'application/json'\n\t\t\t\t\t\t}\n\t\t\t\t\t})\n\t\t\t\t\t.then(r => r.json())\n\t\t\t\t\t.then(data => {\n\t\t\t\t\t\tif (data.success) {\n\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\ttitle: 'Berhasil!',\n\t\t\t\t\t\t\t\ttext: data.message,\n\t\t\t\t\t\t\t\ticon: 'success',\n\t\t\t\t\t\t\t\tconfirmButtonColor: '#10b981',\n\t\t\t\t\t\t\t\tbackground: '#1e1e1e',\n\t\t\t\t\t\t\t\tcolor: '#ffffff',\n\t\t\t\t\t\t\t\ttimer: 1500,\n\t\t\t\t\t\t\t\ttimerProgressBar: true,\n\t\t\t\t\t\t\t\tshowConfirmButton: false\n\t\t\t\t\t\t\t}).then(() => window.location.reload());\n\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\ttitle: 'Gagal!',\n\t\t\t\t\t\t\t\ttext: data.message || 'Terjadi kesalahan',\n\t\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\t\tconfirmButtonColor: '#10b981',\n\t\t\t\t\t\t\t\tbackground: '#1e1e1e',\n\t\t\t\t\t\t\t\tcolor: '#ffffff'\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t}\n\t\t\t\t\t})\n\t\t\t\t\t.catch(err => {\n\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\ttitle: 'Error!',\n\t\t\t\t\t\t\ttext: 'Terjadi kesalahan: ' + err.message,\n\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\tconfirmButtonColor: '#10b981',\n\t\t\t\t\t\t\tbackground: '#1e1e1e',\n\t\t\t\t\t\t\tcolor: '#ffffff'\n\t\t\t\t\t\t});\n\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t});\n\t\t}\n\t</script>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "</div><!-- MODAL GANTI TEMA --><div class=\"template-modal-overlay\" id=\"templateModal\" onclick=\"closeTemplateModalOnOverlay(event)\"><div class=\"template-modal-content\"><button type=\"button\" class=\"template-modal-close\" onclick=\"closeTemplateModal()\"><i class=\"bi bi-x-lg\"></i></button><h3 class=\"template-modal-title\"><i class=\"bi bi-palette me-2\" style=\"color:#8b5cf6;\"></i>Ganti Tema Undangan</h3><p class=\"template-modal-subtitle\">Pilih tema baru untuk <strong id=\"modalProjectTitle\" style=\"color:white;\">undangan ini</strong></p><div class=\"template-modal-grid\" id=\"templateModalGrid\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if len(data.Templates) > 0 {
+			for _, tmpl := range data.Templates {
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "<div class=\"template-modal-card\" data-template-id=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var20 string
+				templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatUint(tmpl.ID))
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 428, Col: 49}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var20)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "\" onclick=\"selectTemplateCard(this)\"><div class=\"template-modal-check\"><i class=\"bi bi-check\"></i></div><div class=\"template-modal-thumb\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				if tmpl.Thumbnail != nil && *tmpl.Thumbnail != "" {
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "<img src=\"")
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+					var templ_7745c5c3_Var21 string
+					templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.ResolveAttributeValue(*tmpl.Thumbnail)
+					if templ_7745c5c3_Err != nil {
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 435, Col: 35}
+					}
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var21)
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "\" alt=\"")
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+					var templ_7745c5c3_Var22 string
+					templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.ResolveAttributeValue(tmpl.Name)
+					if templ_7745c5c3_Err != nil {
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 435, Col: 53}
+					}
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var22)
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "\" loading=\"lazy\">")
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+				} else {
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "<i class=\"bi bi-brush\"></i>")
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "</div><div class=\"template-modal-name\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var23 string
+				templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs(tmpl.Name)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 440, Col: 51}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "</div>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				if tmpl.Description != nil {
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "<div class=\"template-modal-desc\">")
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+					var templ_7745c5c3_Var24 string
+					templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(*tmpl.Description)
+					if templ_7745c5c3_Err != nil {
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/client/wedding/index.templ`, Line: 442, Col: 60}
+					}
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "</div>")
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "</div>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+		} else {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "<p style=\"color:#9ca3af; grid-column: 1 / -1; text-align:center;\">Belum ada template tersedia</p>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "</div><div class=\"template-modal-actions\"><button type=\"button\" class=\"template-modal-btn template-modal-btn-cancel\" onclick=\"closeTemplateModal()\">Batal</button> <button type=\"button\" class=\"template-modal-btn template-modal-btn-save\" id=\"templateModalSaveBtn\" onclick=\"submitChangeTemplate()\" disabled><i class=\"bi bi-check-lg me-1\"></i>Simpan Perubahan</button></div></div></div><script>\n\t\tfunction copyBtn(btn) {\n\t\t\tconst link = window.location.origin + btn.dataset.link;\n\t\t\tif (navigator.clipboard && navigator.clipboard.writeText) {\n\t\t\t\tnavigator.clipboard.writeText(link).then(() => showCopySuccess(link)).catch(() => fallbackCopy(link));\n\t\t\t} else {\n\t\t\t\tfallbackCopy(link);\n\t\t\t}\n\t\t}\n\n\t\tfunction showCopySuccess(link) {\n\t\t\tSwal.fire({\n\t\t\t\ttitle: 'Link Tersalin!',\n\t\t\t\thtml: '<div style=\"word-break:break-all; font-size:0.85rem;\">' + link + '</div>',\n\t\t\t\ticon: 'success',\n\t\t\t\ttimer: 3000,\n\t\t\t\tshowConfirmButton: true,\n\t\t\t\tconfirmButtonColor: '#10b981',\n\t\t\t\tbackground: '#1e1e1e',\n\t\t\t\tcolor: '#ffffff',\n\t\t\t\tconfirmButtonText: 'OK'\n\t\t\t});\n\t\t}\n\n\t\tfunction fallbackCopy(text) {\n\t\t\tconst ta = document.createElement('textarea');\n\t\t\tta.value = text;\n\t\t\tta.style.position = 'fixed';\n\t\t\tta.style.left = '-9999px';\n\t\t\tdocument.body.appendChild(ta);\n\t\t\tta.select();\n\t\t\ttry {\n\t\t\t\tdocument.execCommand('copy');\n\t\t\t\tshowCopySuccess(text);\n\t\t\t} catch (e) {\n\t\t\t\tSwal.fire({\n\t\t\t\t\ttitle: 'Gagal Menyalin',\n\t\t\t\t\thtml: '<code style=\"background:#0f0f0f;padding:6px;border-radius:4px;word-break:break-all;\">' + text + '</code>',\n\t\t\t\t\ticon: 'error',\n\t\t\t\t\tconfirmButtonColor: '#10b981',\n\t\t\t\t\tbackground: '#1e1e1e',\n\t\t\t\t\tcolor: '#ffffff'\n\t\t\t\t});\n\t\t\t}\n\t\t\tdocument.body.removeChild(ta);\n\t\t}\n\n\t\tfunction deleteBtn(btn) {\n\t\t\tconst id = btn.dataset.id;\n\t\t\tconst title = btn.dataset.title;\n\n\t\t\tSwal.fire({\n\t\t\t\ttitle: 'Hapus Undangan?',\n\t\t\t\thtml: 'Yakin hapus <strong style=\"color:#ef4444;\">' + title + '</strong>?<br>Data tidak dapat dikembalikan!',\n\t\t\t\ticon: 'warning',\n\t\t\t\tshowCancelButton: true,\n\t\t\t\tconfirmButtonColor: '#ef4444',\n\t\t\t\tcancelButtonColor: '#6b7280',\n\t\t\t\tconfirmButtonText: 'Ya, Hapus!',\n\t\t\t\tcancelButtonText: 'Batal',\n\t\t\t\tbackground: '#1e1e1e',\n\t\t\t\tcolor: '#ffffff'\n\t\t\t}).then((result) => {\n\t\t\t\tif (result.isConfirmed) {\n\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\ttitle: 'Menghapus...',\n\t\t\t\t\t\ttext: 'Mohon tunggu',\n\t\t\t\t\t\tallowOutsideClick: false,\n\t\t\t\t\t\tdidOpen: () => { Swal.showLoading(); },\n\t\t\t\t\t\tbackground: '#1e1e1e',\n\t\t\t\t\t\tcolor: '#ffffff'\n\t\t\t\t\t});\n\n\t\t\t\t\tfetch('/client/wedding/' + id, {\n\t\t\t\t\t\tmethod: 'DELETE',\n\t\t\t\t\t\theaders: {\n\t\t\t\t\t\t\t'X-Requested-With': 'XMLHttpRequest',\n\t\t\t\t\t\t\t'Accept': 'application/json'\n\t\t\t\t\t\t}\n\t\t\t\t\t})\n\t\t\t\t\t.then(r => r.json())\n\t\t\t\t\t.then(data => {\n\t\t\t\t\t\tif (data.success) {\n\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\ttitle: 'Berhasil!',\n\t\t\t\t\t\t\t\ttext: data.message,\n\t\t\t\t\t\t\t\ticon: 'success',\n\t\t\t\t\t\t\t\tconfirmButtonColor: '#10b981',\n\t\t\t\t\t\t\t\tbackground: '#1e1e1e',\n\t\t\t\t\t\t\t\tcolor: '#ffffff',\n\t\t\t\t\t\t\t\ttimer: 1500,\n\t\t\t\t\t\t\t\ttimerProgressBar: true,\n\t\t\t\t\t\t\t\tshowConfirmButton: false\n\t\t\t\t\t\t\t}).then(() => window.location.reload());\n\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\t\ttitle: 'Gagal!',\n\t\t\t\t\t\t\t\ttext: data.message || 'Terjadi kesalahan',\n\t\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\t\tconfirmButtonColor: '#10b981',\n\t\t\t\t\t\t\t\tbackground: '#1e1e1e',\n\t\t\t\t\t\t\t\tcolor: '#ffffff'\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t}\n\t\t\t\t\t})\n\t\t\t\t\t.catch(err => {\n\t\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\t\ttitle: 'Error!',\n\t\t\t\t\t\t\ttext: 'Terjadi kesalahan: ' + err.message,\n\t\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\t\tconfirmButtonColor: '#10b981',\n\t\t\t\t\t\t\tbackground: '#1e1e1e',\n\t\t\t\t\t\t\tcolor: '#ffffff'\n\t\t\t\t\t\t});\n\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t});\n\t\t}\n\n\t\t// ============================================\n\t\t// MODAL GANTI TEMA\n\t\t// ============================================\n\t\tvar _modalProjectId = 0;\n\t\tvar _modalSelectedTemplateId = 0;\n\n\t\tfunction openTemplateModal(btn) {\n\t\t\t_modalProjectId = parseInt(btn.dataset.id);\n\t\t\t_modalSelectedTemplateId = parseInt(btn.dataset.current || 0);\n\t\t\tvar title = btn.dataset.title || 'Undangan';\n\n\t\t\tdocument.getElementById('modalProjectTitle').textContent = title;\n\n\t\t\t// Reset semua card\n\t\t\tdocument.querySelectorAll('.template-modal-card').forEach(function(c) {\n\t\t\t\tc.classList.remove('selected');\n\t\t\t});\n\n\t\t\t// Auto-select current template\n\t\t\tif (_modalSelectedTemplateId > 0) {\n\t\t\t\tdocument.querySelectorAll('.template-modal-card').forEach(function(c) {\n\t\t\t\t\tif (parseInt(c.dataset.templateId) === _modalSelectedTemplateId) {\n\t\t\t\t\t\tc.classList.add('selected');\n\t\t\t\t\t}\n\t\t\t\t});\n\t\t\t}\n\n\t\t\tupdateSaveBtn();\n\t\t\tdocument.getElementById('templateModal').classList.add('active');\n\t\t\tdocument.body.style.overflow = 'hidden';\n\t\t}\n\n\t\tfunction closeTemplateModal() {\n\t\t\tdocument.getElementById('templateModal').classList.remove('active');\n\t\t\tdocument.body.style.overflow = '';\n\t\t\t_modalProjectId = 0;\n\t\t\t_modalSelectedTemplateId = 0;\n\t\t}\n\n\t\tfunction closeTemplateModalOnOverlay(event) {\n\t\t\tif (event.target.id === 'templateModal') {\n\t\t\t\tcloseTemplateModal();\n\t\t\t}\n\t\t}\n\n\t\tfunction selectTemplateCard(card) {\n\t\t\t// Deselect all\n\t\t\tdocument.querySelectorAll('.template-modal-card').forEach(function(c) {\n\t\t\t\tc.classList.remove('selected');\n\t\t\t});\n\t\t\t// Select clicked\n\t\t\tcard.classList.add('selected');\n\t\t\t_modalSelectedTemplateId = parseInt(card.dataset.templateId);\n\t\t\tupdateSaveBtn();\n\t\t}\n\n\t\tfunction updateSaveBtn() {\n\t\t\tvar btn = document.getElementById('templateModalSaveBtn');\n\t\t\tif (!btn) return;\n\t\t\tbtn.disabled = (_modalSelectedTemplateId === 0);\n\t\t}\n\n\t\tfunction submitChangeTemplate() {\n\t\t\tif (!_modalProjectId || !_modalSelectedTemplateId) return;\n\n\t\t\tvar btn = document.getElementById('templateModalSaveBtn');\n\t\t\tvar originalHtml = btn.innerHTML;\n\t\t\tbtn.disabled = true;\n\t\t\tbtn.innerHTML = '<i class=\"bi bi-hourglass-split me-1\"></i>Menyimpan...';\n\n\t\t\tfetch('/client/wedding/' + _modalProjectId + '/change-template', {\n\t\t\t\tmethod: 'POST',\n\t\t\t\theaders: {\n\t\t\t\t\t'Content-Type': 'application/json',\n\t\t\t\t\t'X-Requested-With': 'XMLHttpRequest',\n\t\t\t\t\t'Accept': 'application/json'\n\t\t\t\t},\n\t\t\t\tbody: JSON.stringify({ template_id: _modalSelectedTemplateId })\n\t\t\t})\n\t\t\t.then(function(r) { return r.json(); })\n\t\t\t.then(function(data) {\n\t\t\t\tif (data.success) {\n\t\t\t\t\tcloseTemplateModal();\n\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\ttitle: 'Berhasil!',\n\t\t\t\t\t\ttext: data.message,\n\t\t\t\t\t\ticon: 'success',\n\t\t\t\t\t\tconfirmButtonColor: '#8b5cf6',\n\t\t\t\t\t\tbackground: '#1e1e1e',\n\t\t\t\t\t\tcolor: '#ffffff',\n\t\t\t\t\t\ttimer: 1800,\n\t\t\t\t\t\ttimerProgressBar: true,\n\t\t\t\t\t\tshowConfirmButton: false\n\t\t\t\t\t}).then(function() {\n\t\t\t\t\t\twindow.location.reload();\n\t\t\t\t\t});\n\t\t\t\t} else {\n\t\t\t\t\tSwal.fire({\n\t\t\t\t\t\ttitle: 'Gagal!',\n\t\t\t\t\t\ttext: data.message || 'Terjadi kesalahan',\n\t\t\t\t\t\ticon: 'error',\n\t\t\t\t\t\tconfirmButtonColor: '#8b5cf6',\n\t\t\t\t\t\tbackground: '#1e1e1e',\n\t\t\t\t\t\tcolor: '#ffffff'\n\t\t\t\t\t});\n\t\t\t\t\tbtn.disabled = false;\n\t\t\t\t\tbtn.innerHTML = originalHtml;\n\t\t\t\t}\n\t\t\t})\n\t\t\t.catch(function(err) {\n\t\t\t\tSwal.fire({\n\t\t\t\t\ttitle: 'Error!',\n\t\t\t\t\ttext: 'Terjadi kesalahan: ' + err.message,\n\t\t\t\t\ticon: 'error',\n\t\t\t\t\tconfirmButtonColor: '#8b5cf6',\n\t\t\t\t\tbackground: '#1e1e1e',\n\t\t\t\t\tcolor: '#ffffff'\n\t\t\t\t});\n\t\t\t\tbtn.disabled = false;\n\t\t\t\tbtn.innerHTML = originalHtml;\n\t\t\t});\n\t\t}\n\n\t\t// ESC untuk tutup modal\n\t\tdocument.addEventListener('keydown', function(e) {\n\t\t\tif (e.key === 'Escape') {\n\t\t\t\tcloseTemplateModal();\n\t\t\t}\n\t\t});\n\t</script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

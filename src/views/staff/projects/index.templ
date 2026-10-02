@@ -2,6 +2,8 @@ package projects
 
 import (
 	"fmt"
+
+	templpkg "github.com/a-h/templ"
 	"wedding-invitation-go/internal/models"
 )
 
@@ -213,7 +215,7 @@ templ ProjectListPage(data ProjectListData) {
 				<tbody>
 					if len(data.Projects) > 0 {
 						for _, p := range data.Projects {
-							<tr>
+							<tr data-project-id={ fmt.Sprintf("%d", p.ID) } data-template-id={ fmt.Sprintf("%d", p.TemplateID) }>
 								<td style="color:#6b7280;">#{ fmt.Sprintf("%d", p.ID) }</td>
 								<td>
 									<div style="color:white; font-weight:600;">{ p.Title }</div>
@@ -264,6 +266,12 @@ templ ProjectListPage(data ProjectListData) {
 											<li>
 												<a class="dropdown-item" href={ templ.URL(fmt.Sprintf("/invitation/create/edit/%d", p.ID)) }>
 													<i class="bi bi-pencil me-2" style="color:#f59e0b;"></i> Edit
+												</a>
+											</li>
+
+											<li>
+												<a class="dropdown-item" href="javascript:void(0)" onclick={ templpkg.JSFuncCall("openStaffTemplateModal", fmt.Sprintf("%d", p.ID), p.Title, fmt.Sprintf("%d", p.TemplateID)) }>
+													<i class="bi bi-palette me-2" style="color:#8b5cf6;"></i> Ganti Tema
 												</a>
 											</li>
 											<li>
@@ -422,6 +430,60 @@ templ ProjectListPage(data ProjectListData) {
 			}
 		</div>
 	}
+
+	@staffTemplateChangeModal(data.Templates)
+	@staffTemplateChangeScript()
+}
+
+// ============================================
+// MODAL GANTI TEMA STAFF
+// ============================================
+templ staffTemplateChangeModal(templates []models.Template) {
+	<div class="modal fade" id="staffTemplateModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content" style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px;">
+				<div class="modal-header" style="border-bottom:1px solid #2a2a2a; padding:20px 24px;">
+					<div>
+						<h5 class="modal-title" style="color:#ffffff; font-weight:700; margin:0;">
+							<i class="bi bi-palette me-2" style="color:#8b5cf6;"></i>Ganti Tema Undangan
+						</h5>
+						<small id="staffTemplateSubtitle" style="color:#9ca3af; font-size:0.75rem;">-</small>
+					</div>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+				</div>
+				<div class="modal-body" style="padding:16px 24px;">
+					<div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:14px;">
+						for _, tmpl := range templates {
+							<div class="staff-template-card" data-template-id={ fmt.Sprintf("%d", tmpl.ID) } onclick="selectStaffTemplateCard(this)" style="background:#0f0f0f; border:2px solid #2a2a2a; border-radius:14px; padding:10px; cursor:pointer; transition:all 0.2s; position:relative;">
+								<div class="staff-template-check" style="display:none; position:absolute; top:6px; right:6px; width:24px; height:24px; background:#8b5cf6; border-radius:50%; color:white; font-size:0.75rem; align-items:center; justify-content:center; z-index:10; box-shadow:0 2px 8px rgba(139,92,246,0.5);">
+									<i class="bi bi-check"></i>
+								</div>
+								<div style="width:100%; height:100px; border-radius:10px; overflow:hidden; margin-bottom:8px; background:linear-gradient(135deg,#1a1a1a 0%,#262626 100%); display:flex; align-items:center; justify-content:center;">
+									if tmpl.Thumbnail != nil && *tmpl.Thumbnail != "" {
+										<img src={ *tmpl.Thumbnail } alt={ tmpl.Name } loading="lazy" style="width:100%; height:100%; object-fit:cover; object-position:top center;"/>
+									} else {
+										<i class="bi bi-brush" style="font-size:1.8rem; color:#8b5cf6;"></i>
+									}
+								</div>
+								<div style="color:white; font-weight:700; font-size:0.8rem; text-align:center; margin-bottom:3px;">{ tmpl.Name }</div>
+								if tmpl.Description != nil {
+									<div style="color:#9ca3af; font-size:0.65rem; text-align:center; line-height:1.3; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">{ *tmpl.Description }</div>
+								}
+							</div>
+						}
+					</div>
+				</div>
+				<div class="modal-footer" style="border-top:1px solid #2a2a2a; padding:16px 24px;">
+					<button type="button" class="btn" data-bs-dismiss="modal" style="background:#2a2a2a; color:#9ca3af; border:none; border-radius:10px; padding:10px 24px; font-weight:600; font-size:0.85rem;">
+						Batal
+					</button>
+					<button type="button" id="staffTemplateSaveBtn" onclick="submitStaffChangeTemplate()" disabled style="background:linear-gradient(135deg,#8b5cf6 0%,#a78bfa 100%); color:white; border:none; border-radius:10px; padding:10px 24px; font-weight:600; font-size:0.85rem; cursor:pointer;">
+						<i class="bi bi-check-lg me-1"></i>Simpan
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 }
 
 func paginationURL(base, search, status, templateID string, page int) string {
@@ -436,4 +498,112 @@ func paginationURL(base, search, status, templateID string, page int) string {
 		url += "&template_id=" + templateID
 	}
 	return url
+}
+
+// ============================================
+// SCRIPT — GANTI TEMA STAFF
+// ============================================
+templ staffTemplateChangeScript() {
+	<script>
+		var _staffProjectID = 0;
+		var _staffCurrentTemplateID = 0;
+		var _staffSelectedTemplateID = 0;
+
+		window.openStaffTemplateModal = function(projectId, projectTitle, currentTemplateID) {
+			_staffProjectID = parseInt(projectId);
+			_staffCurrentTemplateID = parseInt(currentTemplateID || 0);
+			_staffSelectedTemplateID = _staffCurrentTemplateID;
+
+			document.getElementById('staffTemplateSubtitle').textContent = projectTitle || '-';
+
+			// Reset semua card
+			document.querySelectorAll('.staff-template-card').forEach(function(c) {
+				c.classList.remove('selected');
+				c.style.borderColor = '#2a2a2a';
+				c.style.background = '#0f0f0f';
+				var chk = c.querySelector('.staff-template-check');
+				if (chk) chk.style.display = 'none';
+			});
+
+			// Auto-select current
+			if (_staffCurrentTemplateID > 0) {
+				document.querySelectorAll('.staff-template-card').forEach(function(c) {
+					if (parseInt(c.dataset.templateId) === _staffCurrentTemplateID) {
+						c.classList.add('selected');
+						c.style.borderColor = '#8b5cf6';
+						c.style.background = 'rgba(139,92,246,0.08)';
+						var chk = c.querySelector('.staff-template-check');
+						if (chk) chk.style.display = 'flex';
+					}
+				});
+			}
+
+			updateStaffTemplateSaveBtn();
+
+			var modalEl = document.getElementById('staffTemplateModal');
+			var modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+			modal.show();
+		};
+
+		window.selectStaffTemplateCard = function(card) {
+			document.querySelectorAll('.staff-template-card').forEach(function(c) {
+				c.classList.remove('selected');
+				c.style.borderColor = '#2a2a2a';
+				c.style.background = '#0f0f0f';
+				var chk = c.querySelector('.staff-template-check');
+				if (chk) chk.style.display = 'none';
+			});
+			card.classList.add('selected');
+			card.style.borderColor = '#8b5cf6';
+			card.style.background = 'rgba(139,92,246,0.08)';
+			var chk = card.querySelector('.staff-template-check');
+			if (chk) chk.style.display = 'flex';
+
+			_staffSelectedTemplateID = parseInt(card.dataset.templateId);
+			updateStaffTemplateSaveBtn();
+		};
+
+		function updateStaffTemplateSaveBtn() {
+			var btn = document.getElementById('staffTemplateSaveBtn');
+			if (!btn) return;
+			btn.disabled = (_staffSelectedTemplateID === 0);
+		}
+
+		window.submitStaffChangeTemplate = function() {
+			if (!_staffProjectID || !_staffSelectedTemplateID) return;
+
+			var btn = document.getElementById('staffTemplateSaveBtn');
+			var originalHtml = btn.innerHTML;
+			btn.disabled = true;
+			btn.innerHTML = '<i class="bi bi-hourglass-split me-1"></i>Menyimpan...';
+
+			fetch('/staff/projects/' + _staffProjectID + '/change-template', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-Requested-With': 'XMLHttpRequest',
+					'Accept': 'application/json'
+				},
+				body: JSON.stringify({ template_id: _staffSelectedTemplateID })
+			})
+			.then(function(r) { return r.json(); })
+			.then(function(data) {
+				if (data.success) {
+					var modalEl = document.getElementById('staffTemplateModal');
+					var modal = bootstrap.Modal.getInstance(modalEl);
+					if (modal) modal.hide();
+					setTimeout(function() { window.location.reload(); }, 400);
+				} else {
+					alert('Gagal: ' + (data.message || 'Terjadi kesalahan'));
+					btn.disabled = false;
+					btn.innerHTML = originalHtml;
+				}
+			})
+			.catch(function(err) {
+				alert('Error: ' + err.message);
+				btn.disabled = false;
+				btn.innerHTML = originalHtml;
+			});
+		};
+	</script>
 }

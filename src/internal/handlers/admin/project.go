@@ -126,6 +126,78 @@ func ProjectDelete(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/admin/projects")
 }
 
+
+// ============================================
+// ProjectChangeTemplate — POST /admin/projects/:id/change-template
+// Ganti template project (admin — tanpa cek ownership)
+// ============================================
+func ProjectChangeTemplate(c *gin.Context) {
+        user := c.MustGet("user").(*models.User)
+
+        idStr := c.Param("id")
+        var projectID uint
+        for _, ch := range idStr {
+                if ch < '0' || ch > '9' {
+                        break
+                }
+                projectID = projectID*10 + uint(ch-'0')
+        }
+
+        if projectID == 0 {
+                c.JSON(http.StatusOK, gin.H{"success": false, "message": "ID project tidak valid"})
+                return
+        }
+
+        var req struct {
+                TemplateID uint `json:"template_id"`
+        }
+        if err := c.ShouldBindJSON(&req); err != nil {
+                c.JSON(http.StatusOK, gin.H{"success": false, "message": "Data tidak valid"})
+                return
+        }
+
+        if req.TemplateID == 0 {
+                c.JSON(http.StatusOK, gin.H{"success": false, "message": "Template harus dipilih"})
+                return
+        }
+
+        db := database.GetDB()
+
+        var project models.Project
+        if err := db.First(&project, projectID).Error; err != nil {
+                c.JSON(http.StatusOK, gin.H{"success": false, "message": "Project tidak ditemukan"})
+                return
+        }
+
+        // Admin bisa pilih template apapun (termasuk yang non-aktif)
+        var tmpl models.Template
+        if err := db.First(&tmpl, req.TemplateID).Error; err != nil {
+                c.JSON(http.StatusOK, gin.H{"success": false, "message": "Template tidak ditemukan"})
+                return
+        }
+
+        if project.TemplateID == req.TemplateID {
+                c.JSON(http.StatusOK, gin.H{"success": true, "message": "Template tidak berubah", "no_change": true})
+                return
+        }
+
+        if err := db.Model(&project).Update("template_id", req.TemplateID).Error; err != nil {
+                services.LogError("ProjectChangeTemplate", err, map[string]interface{}{
+                        "project_id":  project.ID,
+                        "template_id": req.TemplateID,
+                        "admin_id":    user.ID,
+                })
+                c.JSON(http.StatusOK, gin.H{"success": false, "message": "Gagal mengganti template"})
+                return
+        }
+
+        services.LogSuccess("ProjectChangeTemplate", "Admin ganti template: "+project.Slug+" -> "+tmpl.Name)
+        c.JSON(http.StatusOK, gin.H{
+                "success": true,
+                "message": "Template berhasil diganti ke " + tmpl.Name,
+        })
+}
+
 // ============================================
 // HELPER — parse JSON string ke map[string]string
 // ============================================

@@ -365,6 +365,15 @@ templ IndexContent(
 							<i class="bi bi-chevron-right" style="color:#4b5563;"></i>
 						</a>
 
+						<button type="button" id="actionChangeTemplate" onclick="openTemplateChangeModal()" style="display:flex; align-items:center; gap:12px; padding:14px 16px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:12px; color:#d1d5db; text-decoration:none; transition:all 0.2s; cursor:pointer; width:100%; text-align:left;">
+							<i class="bi bi-palette" style="color:#8b5cf6; font-size:1.2rem;"></i>
+							<div style="flex:1;">
+								<div style="color:white; font-weight:600; font-size:0.9rem;">Ganti Tema</div>
+								<div style="color:#6b7280; font-size:0.7rem;">Ganti template undangan</div>
+							</div>
+							<i class="bi bi-chevron-right" style="color:#4b5563;"></i>
+						</button>
+
 						<a id="actionView" href="#" target="_blank" style="display:flex; align-items:center; gap:12px; padding:14px 16px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:12px; color:#d1d5db; text-decoration:none; transition:all 0.2s;">
 							<i class="bi bi-box-arrow-up-right" style="color:#8b5cf6; font-size:1.2rem;"></i>
 							<div style="flex:1;">
@@ -386,6 +395,53 @@ templ IndexContent(
 							</button>
 						</form>
 					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- MODAL GANTI TEMA -->
+	<div class="modal fade" id="templateChangeModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content" style="background:#1a1a1a; border:1px solid #2a2a2a; border-radius:20px;">
+				<div class="modal-header" style="border-bottom:1px solid #2a2a2a; padding:20px 24px;">
+					<div>
+						<h5 class="modal-title" style="color:#ffffff; font-weight:700; margin:0;">
+							<i class="bi bi-palette me-2" style="color:#8b5cf6;"></i>Ganti Tema Undangan
+						</h5>
+						<small id="templateChangeSubtitle" style="color:#9ca3af; font-size:0.75rem;">-</small>
+					</div>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+				</div>
+				<div class="modal-body" style="padding:16px 24px;">
+					<div id="templateChangeGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:14px;">
+						for _, tmpl := range templates {
+							<div class="template-change-card" data-template-id={ formatUint(tmpl.ID) } onclick="selectTemplateChangeCard(this)" style="background:#0f0f0f; border:2px solid #2a2a2a; border-radius:14px; padding:10px; cursor:pointer; transition:all 0.2s; position:relative;">
+								<div class="template-change-check" style="display:none; position:absolute; top:6px; right:6px; width:24px; height:24px; background:#8b5cf6; border-radius:50%; color:white; font-size:0.75rem; align-items:center; justify-content:center; z-index:10; box-shadow:0 2px 8px rgba(139,92,246,0.5);">
+									<i class="bi bi-check"></i>
+								</div>
+								<div style="width:100%; height:100px; border-radius:10px; overflow:hidden; margin-bottom:8px; background:linear-gradient(135deg,#1a1a1a 0%,#262626 100%); display:flex; align-items:center; justify-content:center;">
+									if tmpl.Thumbnail != nil && *tmpl.Thumbnail != "" {
+										<img src={ *tmpl.Thumbnail } alt={ tmpl.Name } loading="lazy" style="width:100%; height:100%; object-fit:cover; object-position:top center;"/>
+									} else {
+										<i class="bi bi-brush" style="font-size:1.8rem; color:#8b5cf6;"></i>
+									}
+								</div>
+								<div style="color:white; font-weight:700; font-size:0.8rem; text-align:center; margin-bottom:3px;">{ tmpl.Name }</div>
+								if tmpl.Description != nil {
+									<div style="color:#9ca3af; font-size:0.65rem; text-align:center; line-height:1.3; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">{ *tmpl.Description }</div>
+								}
+							</div>
+						}
+					</div>
+				</div>
+				<div class="modal-footer" style="border-top:1px solid #2a2a2a; padding:16px 24px;">
+					<button type="button" class="btn" data-bs-dismiss="modal" style="background:#2a2a2a; color:#9ca3af; border:none; border-radius:10px; padding:10px 24px; font-weight:600; font-size:0.85rem;">
+						Batal
+					</button>
+					<button type="button" id="templateChangeSaveBtn" onclick="submitAdminChangeTemplate()" disabled style="background:linear-gradient(135deg,#8b5cf6 0%,#a78bfa 100%); color:white; border:none; border-radius:10px; padding:10px 24px; font-weight:600; font-size:0.85rem; cursor:pointer;">
+						<i class="bi bi-check-lg me-1"></i>Simpan
+					</button>
 				</div>
 			</div>
 		</div>
@@ -456,6 +512,131 @@ templ projectIndexScript() {
 			var modalEl = document.getElementById('actionModal');
 			var modal = bootstrap.Modal.getOrCreateInstance(modalEl);
 			modal.show();
+		};
+
+		// ============================================
+		// GANTI TEMA MODAL
+		// ============================================
+		var _adminProjectID = 0;
+		var _adminCurrentTemplateID = 0;
+		var _adminSelectedTemplateID = 0;
+
+		window.openTemplateChangeModal = function() {
+			var projectTitle = document.getElementById('actionModalSubtitle').textContent || '-';
+
+			// Extract project ID dari actionDeleteForm.action
+			var deleteForm = document.getElementById('actionDeleteForm');
+			var actionUrl = deleteForm ? deleteForm.action : '';
+			var match = actionUrl.match(/\/admin\/projects\/(\d+)/);
+			_adminProjectID = match ? parseInt(match[1]) : 0;
+
+			// Cari current template ID dari row (kalau ada data attribute)
+			_adminCurrentTemplateID = 0;
+			var rows = document.querySelectorAll('tr[data-project-id]');
+			rows.forEach(function(r) {
+				if (parseInt(r.dataset.projectId) === _adminProjectID) {
+					_adminCurrentTemplateID = parseInt(r.dataset.templateId || 0);
+				}
+			});
+			_adminSelectedTemplateID = _adminCurrentTemplateID;
+
+			document.getElementById('templateChangeSubtitle').textContent = projectTitle;
+
+			// Reset
+			document.querySelectorAll('.template-change-card').forEach(function(c) {
+				c.classList.remove('selected');
+				c.style.borderColor = '#2a2a2a';
+				c.style.background = '#0f0f0f';
+				var chk = c.querySelector('.template-change-check');
+				if (chk) chk.style.display = 'none';
+			});
+
+			// Auto-select current
+			if (_adminCurrentTemplateID > 0) {
+				document.querySelectorAll('.template-change-card').forEach(function(c) {
+					if (parseInt(c.dataset.templateId) === _adminCurrentTemplateID) {
+						c.classList.add('selected');
+						c.style.borderColor = '#8b5cf6';
+						c.style.background = 'rgba(139,92,246,0.08)';
+						var chk = c.querySelector('.template-change-check');
+						if (chk) chk.style.display = 'flex';
+					}
+				});
+			}
+
+			updateAdminTemplateSaveBtn();
+
+			// Tutup actionModal, buka templateChangeModal
+			var actionModalEl = document.getElementById('actionModal');
+			var actionModalInstance = bootstrap.Modal.getInstance(actionModalEl);
+			if (actionModalInstance) actionModalInstance.hide();
+
+			setTimeout(function() {
+				var tplModalEl = document.getElementById('templateChangeModal');
+				var tplModal = bootstrap.Modal.getOrCreateInstance(tplModalEl);
+				tplModal.show();
+			}, 300);
+		};
+
+		window.selectTemplateChangeCard = function(card) {
+			document.querySelectorAll('.template-change-card').forEach(function(c) {
+				c.classList.remove('selected');
+				c.style.borderColor = '#2a2a2a';
+				c.style.background = '#0f0f0f';
+				var chk = c.querySelector('.template-change-check');
+				if (chk) chk.style.display = 'none';
+			});
+			card.classList.add('selected');
+			card.style.borderColor = '#8b5cf6';
+			card.style.background = 'rgba(139,92,246,0.08)';
+			var chk = card.querySelector('.template-change-check');
+			if (chk) chk.style.display = 'flex';
+
+			_adminSelectedTemplateID = parseInt(card.dataset.templateId);
+			updateAdminTemplateSaveBtn();
+		};
+
+		function updateAdminTemplateSaveBtn() {
+			var btn = document.getElementById('templateChangeSaveBtn');
+			if (!btn) return;
+			btn.disabled = (_adminSelectedTemplateID === 0);
+		}
+
+		window.submitAdminChangeTemplate = function() {
+			if (!_adminProjectID || !_adminSelectedTemplateID) return;
+
+			var btn = document.getElementById('templateChangeSaveBtn');
+			var originalHtml = btn.innerHTML;
+			btn.disabled = true;
+			btn.innerHTML = '<i class="bi bi-hourglass-split me-1"></i>Menyimpan...';
+
+			fetch('/admin/projects/' + _adminProjectID + '/change-template', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-Requested-With': 'XMLHttpRequest',
+					'Accept': 'application/json'
+				},
+				body: JSON.stringify({ template_id: _adminSelectedTemplateID })
+			})
+			.then(function(r) { return r.json(); })
+			.then(function(data) {
+				if (data.success) {
+					var tplModalEl = document.getElementById('templateChangeModal');
+					var tplModal = bootstrap.Modal.getInstance(tplModalEl);
+					if (tplModal) tplModal.hide();
+					setTimeout(function() { window.location.reload(); }, 400);
+				} else {
+					alert('Gagal: ' + (data.message || 'Terjadi kesalahan'));
+					btn.disabled = false;
+					btn.innerHTML = originalHtml;
+				}
+			})
+			.catch(function(err) {
+				alert('Error: ' + err.message);
+				btn.disabled = false;
+				btn.innerHTML = originalHtml;
+			});
 		};
 	</script>
 }
