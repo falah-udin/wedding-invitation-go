@@ -43,7 +43,7 @@ func TemplateContent(
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t/* ============================================\n\t\t   TEMPLATE CARD — Radio-based selection\n\t\t   ============================================ */\n\t\t.template-card-wrapper {\n\t\t\tposition: relative;\n\t\t\tdisplay: block;\n\t\t\theight: 100%;\n\t\t}\n\t\t.template-card-wrapper input[type=\"radio\"] {\n\t\t\tposition: absolute;\n\t\t\topacity: 0;\n\t\t\tpointer-events: none;\n\t\t}\n\n\t\t.template-thumbnail {\n\t\t\twidth: 100%;\n\t\t\theight: 120px;\n\t\t\tborder-radius: 10px;\n\t\t\toverflow: hidden;\n\t\t\tmargin-bottom: 12px;\n\t\t\tbackground: linear-gradient(135deg, #1a1a1a 0%, #262626 100%);\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\tposition: relative;\n\t\t}\n\n\t\t.template-thumbnail img {\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tobject-fit: cover;\n\t\t\tobject-position: top center;\n\t\t\ttransition: transform 0.4s ease;\n\t\t}\n\n\t\t.template-card-wrapper:hover .template-thumbnail img {\n\t\t\ttransform: scale(1.06);\n\t\t}\n\n\t\t.template-thumbnail i {\n\t\t\tfont-size: 2rem;\n\t\t\tcolor: #8b5cf6;\n\t\t}\n\n\t\t.template-card-template {\n\t\t\tbackground: #0f0f0f;\n\t\t\tborder: 2px solid #2a2a2a;\n\t\t\tborder-radius: 16px;\n\t\t\tpadding: 16px;\n\t\t\ttext-align: center;\n\t\t\ttransition: all 0.2s;\n\t\t\tposition: relative;\n\t\t\theight: 100%;\n\t\t\tcursor: pointer;\n\t\t\ttouch-action: manipulation;\n\t\t\t-webkit-tap-highlight-color: transparent;\n\t\t\tuser-select: none;\n\t\t\tdisplay: block;\n\t\t\tbox-sizing: border-box;\n\t\t}\n\n\t\t/* Hover state */\n\t\t.template-card-wrapper:hover .template-card-template {\n\t\t\tborder-color: #8b5cf6;\n\t\t\ttransform: translateY(-2px);\n\t\t\tbox-shadow: 0 8px 25px rgba(139,92,246,0.15);\n\t\t}\n\n\t\t/* Active (tap) state */\n\t\t.template-card-wrapper:active .template-card-template {\n\t\t\ttransform: scale(0.98);\n\t\t}\n\n\t\t/* SELECTED state — radio checked */\n\t\t.template-card-wrapper input[type=\"radio\"]:checked ~ .template-card-template {\n\t\t\tborder-color: #8b5cf6 !important;\n\t\t\tbackground: rgba(139,92,246,0.05) !important;\n\t\t\tbox-shadow: 0 0 0 1px #8b5cf6 !important;\n\t\t}\n\n\t\t/* Check badge — hanya muncul kalau selected */\n\t\t.template-check-badge {\n\t\t\tdisplay: none;\n\t\t\tposition: absolute;\n\t\t\ttop: 8px;\n\t\t\tright: 8px;\n\t\t\twidth: 24px;\n\t\t\theight: 24px;\n\t\t\tbackground: #8b5cf6;\n\t\t\tborder-radius: 50%;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\tcolor: white;\n\t\t\tfont-size: 0.8rem;\n\t\t}\n\t\t.template-card-wrapper input[type=\"radio\"]:checked ~ .template-card-template .template-check-badge {\n\t\t\tdisplay: flex;\n\t\t}\n\n\t\t/* ============================================\n\t\t   SUBMIT ACTIONS\n\t\t   ============================================ */\n\t\t.submit-actions {\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: column-reverse;\n\t\t\tgap: 12px;\n\t\t\tmargin-top: 24px;\n\t\t}\n\t\t.submit-actions .btn-action-secondary,\n\t\t.submit-actions .btn-action-primary {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\tborder: none;\n\t\t\tborder-radius: 12px;\n\t\t\tpadding: 14px 24px;\n\t\t\tfont-weight: 600;\n\t\t\tfont-size: 0.9rem;\n\t\t\ttext-decoration: none;\n\t\t\ttransition: all 0.2s;\n\t\t\twidth: 100%;\n\t\t\ttouch-action: manipulation;\n\t\t\t-webkit-tap-highlight-color: transparent;\n\t\t\tcursor: pointer;\n\t\t}\n\t\t.submit-actions .btn-action-secondary {\n\t\t\tbackground: #2a2a2a;\n\t\t\tcolor: white;\n\t\t}\n\t\t.submit-actions .btn-action-secondary:hover,\n\t\t.submit-actions .btn-action-secondary:active {\n\t\t\tbackground: #3a3a3a;\n\t\t\tcolor: white;\n\t\t}\n\t\t.submit-actions .btn-action-primary {\n\t\t\tbackground: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);\n\t\t\tcolor: white;\n\t\t}\n\t\t.submit-actions .btn-action-primary:hover,\n\t\t.submit-actions .btn-action-primary:active {\n\t\t\tbackground: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);\n\t\t\tcolor: white;\n\t\t\ttransform: translateY(-1px);\n\t\t}\n\t\t@media (min-width: 768px) {\n\t\t\t.submit-actions {\n\t\t\t\tflex-direction: row;\n\t\t\t}\n\t\t\t.submit-actions .btn-action-secondary {\n\t\t\t\twidth: auto;\n\t\t\t\tmin-width: 200px;\n\t\t\t}\n\t\t\t.submit-actions .btn-action-primary {\n\t\t\t\tflex: 1;\n\t\t\t}\n\t\t}\n\t</style><div class=\"d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3\"><div><h2 class=\"fw-bold mb-1\" style=\"color: #8b5cf6; font-size: 1.5rem;\"><i class=\"bi bi-layout-three-columns me-2\"></i>Step 3: Pilih Template</h2><p class=\"text-secondary m-0\" style=\"font-size: 0.9rem;\">Pilih template dan isi data tambahan yang dibutuhkan</p></div></div><!-- PROGRESS BAR --><div class=\"mb-4\"><div class=\"d-flex justify-content-between mb-2 flex-wrap gap-2\"><span style=\"color: #10b981; font-weight: 600; font-size: 0.85rem;\"><i class=\"bi bi-check-circle-fill me-1\"></i> Step 1: Pilih Client</span> <span style=\"color: #10b981; font-weight: 600; font-size: 0.85rem;\"><i class=\"bi bi-check-circle-fill me-1\"></i> Step 2: Data Umum</span> <span style=\"color: #8b5cf6; font-weight: 600; font-size: 0.85rem;\"><i class=\"bi bi-circle-fill me-1\" style=\"font-size: 0.5rem;\"></i> Step 3: Pilih Template</span> <span style=\"color: #9ca3af; font-size: 0.85rem;\"><i class=\"bi bi-arrow-right me-1\"></i> Step 4: Preview</span></div><div class=\"progress\" style=\"height: 6px; background: #2a2a2a; border-radius: 10px;\"><div class=\"progress-bar\" role=\"progressbar\" style=\"width: 75%; background: #8b5cf6; border-radius: 10px;\"></div></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<style>\n\t\t/* ============================================\n\t\t   TEMPLATE CARD — Radio-based selection\n\t\t   ============================================ */\n\t\t.template-card-wrapper {\n\t\t\tposition: relative;\n\t\t\tdisplay: block;\n\t\t\theight: 100%;\n\t\t}\n\t\t.template-card-wrapper input[type=\"radio\"] {\n\t\t\tposition: absolute;\n\t\t\topacity: 0;\n\t\t\tpointer-events: none;\n\t\t}\n\n\t\t.template-thumbnail {\n\t\t\twidth: 100%;\n\t\t\theight: 120px;\n\t\t\tborder-radius: 10px;\n\t\t\toverflow: hidden;\n\t\t\tmargin-bottom: 12px;\n\t\t\tbackground: linear-gradient(135deg, #1a1a1a 0%, #262626 100%);\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\tposition: relative;\n\t\t}\n\n\t\t.template-thumbnail img {\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tobject-fit: cover;\n\t\t\tobject-position: top center;\n\t\t\ttransition: transform 0.4s ease;\n\t\t}\n\n\t\t.template-card-wrapper:hover .template-thumbnail img {\n\t\t\ttransform: scale(1.06);\n\t\t}\n\n\t\t.template-thumbnail i {\n\t\t\tfont-size: 2rem;\n\t\t\tcolor: #8b5cf6;\n\t\t}\n\n\t\t.template-card-template {\n\t\t\tbackground: #0f0f0f;\n\t\t\tborder: 2px solid #2a2a2a;\n\t\t\tborder-radius: 16px;\n\t\t\tpadding: 16px;\n\t\t\ttext-align: center;\n\t\t\ttransition: all 0.2s;\n\t\t\tposition: relative;\n\t\t\theight: 100%;\n\t\t\tcursor: pointer;\n\t\t\ttouch-action: manipulation;\n\t\t\t-webkit-tap-highlight-color: transparent;\n\t\t\tuser-select: none;\n\t\t\tdisplay: block;\n\t\t\tbox-sizing: border-box;\n\t\t}\n\n\t\t/* Hover state */\n\t\t.template-card-wrapper:hover .template-card-template {\n\t\t\tborder-color: #8b5cf6;\n\t\t\ttransform: translateY(-2px);\n\t\t\tbox-shadow: 0 8px 25px rgba(139,92,246,0.15);\n\t\t}\n\n\t\t/* Active (tap) state */\n\t\t.template-card-wrapper:active .template-card-template {\n\t\t\ttransform: scale(0.98);\n\t\t}\n\n\t\t/* SELECTED state — radio checked */\n\t\t.template-card-wrapper input[type=\"radio\"]:checked ~ .template-card-template {\n\t\t\tborder-color: #8b5cf6 !important;\n\t\t\tbackground: rgba(139,92,246,0.05) !important;\n\t\t\tbox-shadow: 0 0 0 1px #8b5cf6 !important;\n\t\t}\n\n\t\t/* Check badge — hanya muncul kalau selected */\n\t\t.template-check-badge {\n\t\t\tdisplay: none;\n\t\t\tposition: absolute;\n\t\t\ttop: 8px;\n\t\t\tright: 8px;\n\t\t\twidth: 24px;\n\t\t\theight: 24px;\n\t\t\tbackground: #8b5cf6;\n\t\t\tborder-radius: 50%;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\tcolor: white;\n\t\t\tfont-size: 0.8rem;\n\t\t\tz-index: 10;\n\t\t\tbox-shadow: 0 2px 8px rgba(139, 92, 246, 0.5);\n\t\t}\n\t\t.template-card-wrapper input[type=\"radio\"]:checked ~ .template-card-template .template-check-badge {\n\t\t\tdisplay: flex;\n\t\t}\n\n\t\t/* ============================================\n\t\t   SUBMIT ACTIONS\n\t\t   ============================================ */\n\t\t.submit-actions {\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: column-reverse;\n\t\t\tgap: 12px;\n\t\t\tmargin-top: 24px;\n\t\t}\n\t\t.submit-actions .btn-action-secondary,\n\t\t.submit-actions .btn-action-primary {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\tborder: none;\n\t\t\tborder-radius: 12px;\n\t\t\tpadding: 14px 24px;\n\t\t\tfont-weight: 600;\n\t\t\tfont-size: 0.9rem;\n\t\t\ttext-decoration: none;\n\t\t\ttransition: all 0.2s;\n\t\t\twidth: 100%;\n\t\t\ttouch-action: manipulation;\n\t\t\t-webkit-tap-highlight-color: transparent;\n\t\t\tcursor: pointer;\n\t\t}\n\t\t.submit-actions .btn-action-secondary {\n\t\t\tbackground: #2a2a2a;\n\t\t\tcolor: white;\n\t\t}\n\t\t.submit-actions .btn-action-secondary:hover,\n\t\t.submit-actions .btn-action-secondary:active {\n\t\t\tbackground: #3a3a3a;\n\t\t\tcolor: white;\n\t\t}\n\t\t.submit-actions .btn-action-primary {\n\t\t\tbackground: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);\n\t\t\tcolor: white;\n\t\t}\n\t\t.submit-actions .btn-action-primary:hover,\n\t\t.submit-actions .btn-action-primary:active {\n\t\t\tbackground: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);\n\t\t\tcolor: white;\n\t\t\ttransform: translateY(-1px);\n\t\t}\n\t\t@media (min-width: 768px) {\n\t\t\t.submit-actions {\n\t\t\t\tflex-direction: row;\n\t\t\t}\n\t\t\t.submit-actions .btn-action-secondary {\n\t\t\t\twidth: auto;\n\t\t\t\tmin-width: 200px;\n\t\t\t}\n\t\t\t.submit-actions .btn-action-primary {\n\t\t\t\tflex: 1;\n\t\t\t}\n\t\t}\n\t</style><div class=\"d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3\"><div><h2 class=\"fw-bold mb-1\" style=\"color: #8b5cf6; font-size: 1.5rem;\"><i class=\"bi bi-layout-three-columns me-2\"></i>Step 3: Pilih Template</h2><p class=\"text-secondary m-0\" style=\"font-size: 0.9rem;\">Pilih template dan isi data tambahan yang dibutuhkan</p></div></div><!-- PROGRESS BAR --><div class=\"mb-4\"><div class=\"d-flex justify-content-between mb-2 flex-wrap gap-2\"><span style=\"color: #10b981; font-weight: 600; font-size: 0.85rem;\"><i class=\"bi bi-check-circle-fill me-1\"></i> Step 1: Pilih Client</span> <span style=\"color: #10b981; font-weight: 600; font-size: 0.85rem;\"><i class=\"bi bi-check-circle-fill me-1\"></i> Step 2: Data Umum</span> <span style=\"color: #8b5cf6; font-weight: 600; font-size: 0.85rem;\"><i class=\"bi bi-circle-fill me-1\" style=\"font-size: 0.5rem;\"></i> Step 3: Pilih Template</span> <span style=\"color: #9ca3af; font-size: 0.85rem;\"><i class=\"bi bi-arrow-right me-1\"></i> Step 4: Preview</span></div><div class=\"progress\" style=\"height: 6px; background: #2a2a2a; border-radius: 10px;\"><div class=\"progress-bar\" role=\"progressbar\" style=\"width: 75%; background: #8b5cf6; border-radius: 10px;\"></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -55,7 +55,7 @@ func TemplateContent(
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(errorMsg)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 211, Col: 60}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 213, Col: 60}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -74,7 +74,7 @@ func TemplateContent(
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(successMsg)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 216, Col: 54}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 218, Col: 54}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -98,7 +98,7 @@ func TemplateContent(
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatUintV2(tmpl.ID))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 240, Col: 76}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 242, Col: 76}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var4)
 				if templ_7745c5c3_Err != nil {
@@ -126,7 +126,7 @@ func TemplateContent(
 					var templ_7745c5c3_Var5 string
 					templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.ResolveAttributeValue(*tmpl.Thumbnail)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 247, Col: 37}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 249, Col: 37}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var5)
 					if templ_7745c5c3_Err != nil {
@@ -139,7 +139,7 @@ func TemplateContent(
 					var templ_7745c5c3_Var6 string
 					templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.ResolveAttributeValue(tmpl.Name)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 247, Col: 55}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 249, Col: 55}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var6)
 					if templ_7745c5c3_Err != nil {
@@ -162,7 +162,7 @@ func TemplateContent(
 				var templ_7745c5c3_Var7 string
 				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(tmpl.Name)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 252, Col: 100}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 254, Col: 100}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 				if templ_7745c5c3_Err != nil {
@@ -180,7 +180,7 @@ func TemplateContent(
 					var templ_7745c5c3_Var8 string
 					templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(truncateStr(*tmpl.Description, 60))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 255, Col: 47}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 257, Col: 47}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 					if templ_7745c5c3_Err != nil {
@@ -210,7 +210,7 @@ func TemplateContent(
 		var templ_7745c5c3_Var9 string
 		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(selectedTemplate.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 275, Col: 71}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 277, Col: 71}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 		if templ_7745c5c3_Err != nil {
@@ -228,7 +228,7 @@ func TemplateContent(
 			var templ_7745c5c3_Var10 string
 			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatUintV2(selectedTemplate.ID))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 282, Col: 84}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 284, Col: 84}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var10)
 			if templ_7745c5c3_Err != nil {
@@ -241,7 +241,7 @@ func TemplateContent(
 			var templ_7745c5c3_Var11 string
 			templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(selectedTemplate.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 290, Col: 120}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 292, Col: 120}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 			if templ_7745c5c3_Err != nil {
@@ -411,7 +411,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 		var templ_7745c5c3_Var14 string
 		templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(field.Label)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 395, Col: 16}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 397, Col: 16}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 		if templ_7745c5c3_Err != nil {
@@ -435,7 +435,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var15 string
 			templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.ResolveAttributeValue(field.Description)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 400, Col: 78}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 402, Col: 78}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var15)
 			if templ_7745c5c3_Err != nil {
@@ -458,7 +458,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var16 string
 			templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.ResolveAttributeValue("specific." + field.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 405, Col: 44}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 407, Col: 44}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var16)
 			if templ_7745c5c3_Err != nil {
@@ -471,7 +471,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var17 string
 			templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.ResolveAttributeValue(field.Rows)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 405, Col: 90}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 407, Col: 90}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var17)
 			if templ_7745c5c3_Err != nil {
@@ -484,7 +484,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var18 string
 			templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.ResolveAttributeValue(field.Placeholder)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 405, Col: 124}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 407, Col: 124}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var18)
 			if templ_7745c5c3_Err != nil {
@@ -497,7 +497,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var19 string
 			templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(value)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 405, Col: 171}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 407, Col: 171}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 			if templ_7745c5c3_Err != nil {
@@ -515,7 +515,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var20 string
 			templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.ResolveAttributeValue("specific." + field.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 407, Col: 42}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 409, Col: 42}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var20)
 			if templ_7745c5c3_Err != nil {
@@ -528,7 +528,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var21 string
 			templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs(field.Label)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 408, Col: 40}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 410, Col: 40}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
 			if templ_7745c5c3_Err != nil {
@@ -546,7 +546,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 				var templ_7745c5c3_Var22 string
 				templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.ResolveAttributeValue(optVal)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 410, Col: 27}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 412, Col: 27}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var22)
 				if templ_7745c5c3_Err != nil {
@@ -569,7 +569,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 				var templ_7745c5c3_Var23 string
 				templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs(optLabel)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 410, Col: 70}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 412, Col: 70}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
 				if templ_7745c5c3_Err != nil {
@@ -592,7 +592,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var24 string
 			templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.ResolveAttributeValue("specific." + field.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 414, Col: 52}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 416, Col: 52}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var24)
 			if templ_7745c5c3_Err != nil {
@@ -605,7 +605,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var25 string
 			templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.ResolveAttributeValue(value)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 414, Col: 68}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 416, Col: 68}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var25)
 			if templ_7745c5c3_Err != nil {
@@ -618,7 +618,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var26 string
 			templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.ResolveAttributeValue(field.Placeholder)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 414, Col: 128}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 416, Col: 128}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var26)
 			if templ_7745c5c3_Err != nil {
@@ -636,7 +636,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var27 string
 			templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.ResolveAttributeValue("specific." + field.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 416, Col: 55}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 418, Col: 55}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var27)
 			if templ_7745c5c3_Err != nil {
@@ -649,7 +649,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var28 string
 			templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.ResolveAttributeValue(value)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 416, Col: 71}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 418, Col: 71}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var28)
 			if templ_7745c5c3_Err != nil {
@@ -662,7 +662,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var29 string
 			templ_7745c5c3_Var29, templ_7745c5c3_Err = templ.ResolveAttributeValue(field.Placeholder)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 416, Col: 131}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 418, Col: 131}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var29)
 			if templ_7745c5c3_Err != nil {
@@ -680,7 +680,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var30 string
 			templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.ResolveAttributeValue("specific." + field.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 418, Col: 53}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 420, Col: 53}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var30)
 			if templ_7745c5c3_Err != nil {
@@ -693,7 +693,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var31 string
 			templ_7745c5c3_Var31, templ_7745c5c3_Err = templ.ResolveAttributeValue(value)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 418, Col: 69}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 420, Col: 69}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var31)
 			if templ_7745c5c3_Err != nil {
@@ -706,7 +706,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var32 string
 			templ_7745c5c3_Var32, templ_7745c5c3_Err = templ.ResolveAttributeValue(field.Placeholder)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 418, Col: 129}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 420, Col: 129}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var32)
 			if templ_7745c5c3_Err != nil {
@@ -725,7 +725,7 @@ func renderTextField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var33 string
 			templ_7745c5c3_Var33, templ_7745c5c3_Err = templ.JoinStringErrs(field.Description)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 422, Col: 102}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 424, Col: 102}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var33))
 			if templ_7745c5c3_Err != nil {
@@ -775,7 +775,7 @@ func renderFileField(field models.FieldSchema, value string) templ.Component {
 		var templ_7745c5c3_Var35 string
 		templ_7745c5c3_Var35, templ_7745c5c3_Err = templ.JoinStringErrs(field.Label)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 433, Col: 16}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 435, Col: 16}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var35))
 		if templ_7745c5c3_Err != nil {
@@ -803,7 +803,7 @@ func renderFileField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var36 string
 			templ_7745c5c3_Var36, templ_7745c5c3_Err = templ.ResolveAttributeValue(value)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 442, Col: 21}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 444, Col: 21}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var36)
 			if templ_7745c5c3_Err != nil {
@@ -816,7 +816,7 @@ func renderFileField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var37 string
 			templ_7745c5c3_Var37, templ_7745c5c3_Err = templ.ResolveAttributeValue(field.Label)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 442, Col: 41}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 444, Col: 41}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var37)
 			if templ_7745c5c3_Err != nil {
@@ -834,7 +834,7 @@ func renderFileField(field models.FieldSchema, value string) templ.Component {
 		var templ_7745c5c3_Var38 string
 		templ_7745c5c3_Var38, templ_7745c5c3_Err = templ.ResolveAttributeValue("specific." + field.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 446, Col: 54}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 448, Col: 54}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var38)
 		if templ_7745c5c3_Err != nil {
@@ -847,7 +847,7 @@ func renderFileField(field models.FieldSchema, value string) templ.Component {
 		var templ_7745c5c3_Var39 string
 		templ_7745c5c3_Var39, templ_7745c5c3_Err = templ.ResolveAttributeValue(field.Accept)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 446, Col: 104}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 448, Col: 104}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var39)
 		if templ_7745c5c3_Err != nil {
@@ -865,7 +865,7 @@ func renderFileField(field models.FieldSchema, value string) templ.Component {
 			var templ_7745c5c3_Var40 string
 			templ_7745c5c3_Var40, templ_7745c5c3_Err = templ.ResolveAttributeValue("specific." + field.Name + "_delete")
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 449, Col: 72}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 451, Col: 72}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var40)
 			if templ_7745c5c3_Err != nil {
@@ -915,7 +915,7 @@ func renderGalleryField(field models.FieldSchema, files []interface{}) templ.Com
 		var templ_7745c5c3_Var42 string
 		templ_7745c5c3_Var42, templ_7745c5c3_Err = templ.JoinStringErrs(field.Label)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 467, Col: 16}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 469, Col: 16}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var42))
 		if templ_7745c5c3_Err != nil {
@@ -950,7 +950,7 @@ func renderGalleryField(field models.FieldSchema, files []interface{}) templ.Com
 					var templ_7745c5c3_Var43 string
 					templ_7745c5c3_Var43, templ_7745c5c3_Err = templ.ResolveAttributeValue(fileStr)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 480, Col: 25}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 482, Col: 25}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var43)
 					if templ_7745c5c3_Err != nil {
@@ -991,7 +991,7 @@ func renderGalleryField(field models.FieldSchema, files []interface{}) templ.Com
 		var templ_7745c5c3_Var45 string
 		templ_7745c5c3_Var45, templ_7745c5c3_Err = templ.ResolveAttributeValue("specific." + field.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 490, Col: 52}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 492, Col: 52}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var45)
 		if templ_7745c5c3_Err != nil {
@@ -1004,7 +1004,7 @@ func renderGalleryField(field models.FieldSchema, files []interface{}) templ.Com
 		var templ_7745c5c3_Var46 string
 		templ_7745c5c3_Var46, templ_7745c5c3_Err = templ.ResolveAttributeValue(field.Accept)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 490, Col: 102}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 492, Col: 102}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var46)
 		if templ_7745c5c3_Err != nil {
@@ -1017,7 +1017,7 @@ func renderGalleryField(field models.FieldSchema, files []interface{}) templ.Com
 		var templ_7745c5c3_Var47 string
 		templ_7745c5c3_Var47, templ_7745c5c3_Err = templ.JoinStringErrs(field.Description)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 492, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 494, Col: 22}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var47))
 		if templ_7745c5c3_Err != nil {
@@ -1062,7 +1062,7 @@ func renderRepeaterField(field models.FieldSchema, items []map[string]string) te
 		var templ_7745c5c3_Var49 string
 		templ_7745c5c3_Var49, templ_7745c5c3_Err = templ.JoinStringErrs(field.Label)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 503, Col: 16}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 505, Col: 16}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var49))
 		if templ_7745c5c3_Err != nil {
@@ -1080,7 +1080,7 @@ func renderRepeaterField(field models.FieldSchema, items []map[string]string) te
 			var templ_7745c5c3_Var50 string
 			templ_7745c5c3_Var50, templ_7745c5c3_Err = templ.JoinStringErrs(field.Description)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 506, Col: 106}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 508, Col: 106}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var50))
 			if templ_7745c5c3_Err != nil {
@@ -1098,7 +1098,7 @@ func renderRepeaterField(field models.FieldSchema, items []map[string]string) te
 		var templ_7745c5c3_Var51 string
 		templ_7745c5c3_Var51, templ_7745c5c3_Err = templ.ResolveAttributeValue(field.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 509, Col: 55}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 511, Col: 55}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var51)
 		if templ_7745c5c3_Err != nil {
@@ -1111,7 +1111,7 @@ func renderRepeaterField(field models.FieldSchema, items []map[string]string) te
 		var templ_7745c5c3_Var52 string
 		templ_7745c5c3_Var52, templ_7745c5c3_Err = templ.ResolveAttributeValue("repeater-" + field.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 510, Col: 60}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 512, Col: 60}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var52)
 		if templ_7745c5c3_Err != nil {
@@ -1201,7 +1201,7 @@ func repeaterItem(fieldName string, index int, title string, desc string) templ.
 		var templ_7745c5c3_Var55 string
 		templ_7745c5c3_Var55, templ_7745c5c3_Err = templ.ResolveAttributeValue(formatIntV2(index))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 541, Col: 59}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 543, Col: 59}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var55)
 		if templ_7745c5c3_Err != nil {
@@ -1214,7 +1214,7 @@ func repeaterItem(fieldName string, index int, title string, desc string) templ.
 		var templ_7745c5c3_Var56 string
 		templ_7745c5c3_Var56, templ_7745c5c3_Err = templ.ResolveAttributeValue(repeaterFieldName(fieldName, index, "title"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 545, Col: 74}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 547, Col: 74}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var56)
 		if templ_7745c5c3_Err != nil {
@@ -1227,7 +1227,7 @@ func repeaterItem(fieldName string, index int, title string, desc string) templ.
 		var templ_7745c5c3_Var57 string
 		templ_7745c5c3_Var57, templ_7745c5c3_Err = templ.ResolveAttributeValue(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 545, Col: 90}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 547, Col: 90}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var57)
 		if templ_7745c5c3_Err != nil {
@@ -1240,7 +1240,7 @@ func repeaterItem(fieldName string, index int, title string, desc string) templ.
 		var templ_7745c5c3_Var58 string
 		templ_7745c5c3_Var58, templ_7745c5c3_Err = templ.ResolveAttributeValue(repeaterFieldName(fieldName, index, "desc"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 549, Col: 64}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 551, Col: 64}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var58)
 		if templ_7745c5c3_Err != nil {
@@ -1253,7 +1253,7 @@ func repeaterItem(fieldName string, index int, title string, desc string) templ.
 		var templ_7745c5c3_Var59 string
 		templ_7745c5c3_Var59, templ_7745c5c3_Err = templ.JoinStringErrs(desc)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 549, Col: 195}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/invitation/template.templ`, Line: 551, Col: 195}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var59))
 		if templ_7745c5c3_Err != nil {
